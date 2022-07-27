@@ -1,5 +1,6 @@
 package gcmClient;
 
+import gcmClasses.Member;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -13,7 +14,7 @@ public class ServiceFunctions {
 
 	
 	private static final String basisURI = "http://localhost:4712/vinothek";
-
+/*
 	public static ServiceFunctionsReturnData<MemberList> getMember() {
 		Client client = ClientBuilder.newClient();
 		//Basis URI festlegen
@@ -38,14 +39,14 @@ public class ServiceFunctions {
 		client.close();
 		return sfr;
 	}
-	
-	public static ServiceFunctionsReturn postWein(Member m) {
+*/
+	public static ServiceFunctionsReturn postMember(Member m) {
 		ServiceFunctionsReturn sfr = new ServiceFunctionsReturn();
 		Client client = ClientBuilder.newClient();
 		//Basis URI festlegen
 		WebTarget basetarget = client.target(basisURI);
 		// URI erweitern f�r die GET Anfrage
-		WebTarget resourcetarget = basetarget.path("wein");
+		WebTarget resourcetarget = basetarget.path("member");
 		// Daten werden als XML Datenstrom transportiert
 		Invocation.Builder request = resourcetarget.request(MediaType.APPLICATION_XML);
 		// Wein Objekt in die Anfrage einsetzen (wird automatisch auf XML serialisiert)
@@ -63,12 +64,12 @@ public class ServiceFunctions {
 		return sfr;
 	}
 	
-	public static ServiceFunctionsReturn putWein(Member m) {
+	public static ServiceFunctionsReturn putMember(Member m) {
 		ServiceFunctionsReturn sfr = new ServiceFunctionsReturn();
 		return sfr;
 	}
 	
-	public static ServiceFunctionsReturn deleteWein(int memberId) {
+	public static ServiceFunctionsReturn deleteMember(int memberId) {
 		ServiceFunctionsReturn sfr = new ServiceFunctionsReturn();
 		return sfr;
 	}

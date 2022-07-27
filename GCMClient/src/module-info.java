@@ -5,6 +5,7 @@ module FXMAVEN {
 	requires jersey.client;
 	requires GcmClasses;
 	requires javafx.fxml;
+	requires javafx.base;
 	
 	opens gcmClient to javafx.graphics, javafx.fxml;
 }

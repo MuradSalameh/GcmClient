@@ -1,15 +1,53 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+/*
+https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#typesize
+*/
 
 /* @charset "UTF-8";*/
 .vb-bgcolor {
 	/*-fx-background-color: #CCFF99;*/
 	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #092b79, #00768e);
 }
+.hb-bgcolor {
+	/*-fx-background-color: #CCFF99;*/
+	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #092b79, #00768e);
+}
 
 .logo-txt {
-	-fx-font: bold italic 20pt "Arial";
+	-fx-font: bold italic 24pt "Arial";
 	-fx-text-fill: #ffffff;
 }
+
+
+.mainmenue-button {
+	-fx-font: 100px Verdana;
+	/*-fx-border-color: linear-gradient(from 25% 25% to 100% 100%, #00fea3, #00bece);*/
+	-fx-border-width: 2px;
+	-fx-background-color:  #014d5e;
+	-fx-text-fill: #ffffff;
+	-fx-font-size: 1em;
+}
+
+.mainmenue-button:hover {
+    -fx-background-color: #00507b;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.mainmenue-button:pressed {
+    -fx-background-color: #007bbe;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.border-gradient {
+	-fx-border-color: linear-gradient(from 25% 25% to 100% 100%, #00fea3, #00bece);
+	-fx-border-width: 2px;
+}
+
+.gradient{
+	-fx-fill:linear-gradient(from 25% 25% to 100% 100%, #00fea3, #00bece);
+}
+
 
 .text-input {
 	-fx-text-fill: -fx-text-inner-color;

@@ -25,5 +25,4 @@ public class FXMain extends Application {
 		launch(args);
 	}
 
-
 }

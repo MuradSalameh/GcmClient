@@ -13,13 +13,13 @@
       <VBox layoutY="75.0" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #014d5e;">
          <children>
             <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#handleHomeBtn" prefHeight="45.0" prefWidth="200.0" styleClass="mainmenue-button" text="Home" />
-            <Button fx:id="membersBtn" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Members" />
-            <Button fx:id="gamesBtn" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Games" />
-            <Button fx:id="eventsBtn" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Events" />
-            <Button fx:id="teamsBtn" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Teams" />
-            <Button fx:id="tournamentsBtn" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Tournaments" />
-            <Button fx:id="partnerBtn" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Partner" />
-            <Button fx:id="financesBtn" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" text="Finances" />
+            <Button fx:id="membersBtn" mnemonicParsing="false" onAction="#handleMembersBtn" prefHeight="45.0" prefWidth="200.0" text="Members" />
+            <Button fx:id="gamesBtn" mnemonicParsing="false" onAction="#handleGamesBtn" prefHeight="45.0" prefWidth="200.0" text="Games" />
+            <Button fx:id="eventsBtn" mnemonicParsing="false" prefHeight="45.0" onAction="#handleEventsBtn" prefWidth="200.0" text="Events" />
+            <Button fx:id="teamsBtn" mnemonicParsing="false" prefHeight="45.0" onAction="#handleTeamsBtn" prefWidth="200.0" text="Teams" />
+            <Button fx:id="tournamentsBtn" mnemonicParsing="false" prefHeight="45.0" onAction="#handleTournamentsBtn" prefWidth="200.0" text="Tournaments" />
+            <Button fx:id="partnerBtn" mnemonicParsing="false" prefHeight="45.0" onAction="#handlePartnersBtn" prefWidth="200.0" text="Partner" />
+            <Button fx:id="financesBtn" mnemonicParsing="false" prefHeight="45.0" onAction="#handleFinancesBtn" prefWidth="200.0" text="Finances" />
          </children>
       </VBox>
       <HBox layoutY="571.0" prefHeight="30.0" prefWidth="900.0" style="-fx-background-color: #038aa8;" />

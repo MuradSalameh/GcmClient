@@ -7,10 +7,12 @@ import org.glassfish.jersey.client.Initializable;
 import gcmClasses.Member;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
@@ -21,18 +23,16 @@ public class MembersScreenController  extends Dialog implements Initializable {
 	@FXML
 	public Button editDetailsBtn;
 
+	@FXML
+	public Dialog dialog = new Dialog();
 
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
-		FxmlLoader screen = new FxmlLoader();		
-		Parent view = screen.getPage("MembersDetailDialog");
+		FxmlLoader loader = new FxmlLoader();
+		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("/MembersDetailDialog.fxml"));
 
-		Stage stage = new Stage();
-		stage.setTitle("My New Stage Title");
-		stage.setScene(new Scene(view));
-		stage.show();
-		// Hide this current window (if this is what you want)
-		//((Node)(event.getSource())).getScene().getWindow().hide();
+		dialog.setDialogPane(dialogPane);
+		dialog.showAndWait();
 
 		MemberFX memberFX = new MemberFX(new Member());
 
@@ -43,9 +43,6 @@ public class MembersScreenController  extends Dialog implements Initializable {
 			//leseMemberliste();
 			System.out.println("Aktuaisiere Member Liste");
 		}
-
-
-
 		 */		
 
 		System.out.println("MembersDetailsDialog Button klicked");

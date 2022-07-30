@@ -23,8 +23,9 @@ public class MembersScreenController  extends Dialog implements Initializable {
 	@FXML
 	public Button editDetailsBtn;
 
-	@FXML
+	//@FXML
 	public Dialog dialog = new Dialog();
+	
 
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {

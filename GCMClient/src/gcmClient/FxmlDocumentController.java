@@ -40,7 +40,7 @@ public class FxmlDocumentController implements Initializable {
 		System.out.println("Pane view: " + view);
 		
 		bpScreenView.setLeft(view);		
-		System.out.println("HoMembersme Button klicked");
+		System.out.println("Members Button klicked");
 		
 	}
 	@FXML

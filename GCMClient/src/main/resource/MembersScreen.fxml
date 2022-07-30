@@ -34,6 +34,6 @@
       <Button fx:id="detailsBtn" layoutX="460.0" layoutY="460.0" mnemonicParsing="false" text="Show Details" />
       <Button fx:id="addNewBtn" layoutX="384.0" layoutY="460.0" mnemonicParsing="false" text="Add New" />
       <Button fx:id="deleteBtn" layoutX="639.0" layoutY="460.0" mnemonicParsing="false" text="Delete" />
-      <Button fx:id="editDetailsBtn" layoutX="554.0" layoutY="460.0" mnemonicParsing="false" text="Edit Details" />
+      <Button fx:id="editDetailsBtn" layoutX="554.0" layoutY="460.0" mnemonicParsing="false" onAction="#handleEditDetailsBtn" text="Edit Details" />
    </children>
 </AnchorPane>

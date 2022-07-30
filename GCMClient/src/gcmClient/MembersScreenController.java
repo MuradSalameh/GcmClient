@@ -1,47 +1,57 @@
 package gcmClient;
 
 import java.io.IOException;
-import java.util.Optional;
-
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.Initializable;
 
-import client.ButtonType;
-import client.Wein;
-import client.WeinDetailDialog;
-import client.WeinFX;
+import gcmClasses.Member;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
-public class MembersScreenController implements Initializable{
+public class MembersScreenController  extends Dialog implements Initializable {
 	@FXML 
 	public TableView membersTableView;
-	
+
 	@FXML
 	public Button editDetailsBtn;
-	
-	
+
+
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
-		WeinFX weinFX = new WeinFX(new Wein());
+		FxmlLoader screen = new FxmlLoader();		
+		Parent view = screen.getPage("MembersDetailDialog");
+
+		Stage stage = new Stage();
+		stage.setTitle("My New Stage Title");
+		stage.setScene(new Scene(view));
+		stage.show();
+		// Hide this current window (if this is what you want)
+		//((Node)(event.getSource())).getScene().getWindow().hide();
+
+		MemberFX memberFX = new MemberFX(new Member());
+
+		/*
 		Optional<ButtonType> r = new WeinDetailDialog(weinFX).showAndWait();
 		if(r.isPresent() && r.get().getButtonData() == ButtonData.OK_DONE) {
 			// neuer Wein wurde gespeichert, daher neue Weinliste vom Server holen
-			leseWeinliste();
+			//leseMemberliste();
+			System.out.println("Aktuaisiere Member Liste");
 		}
-		
-		FxmlLoader screen = new FxmlLoader();
-		Pane view = screen.getPage("MembersDetailDialog");
-		System.out.println("Pane view: " + view);
-		
-		bpScreenView.setLeft(view);		
+
+
+
+		 */		
+
 		System.out.println("MembersDetailsDialog Button klicked");
-		
+
 	}
-	
+
 
 	@Override
 	public Initializable preInitialize() {
@@ -54,6 +64,6 @@ public class MembersScreenController implements Initializable{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
+
 }

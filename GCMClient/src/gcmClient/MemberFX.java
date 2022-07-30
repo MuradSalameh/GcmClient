@@ -1,9 +1,6 @@
 package gcmClient;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import gcmClasses.Game;
 import gcmClasses.Member;
 import gcmClasses.Role;
@@ -53,20 +50,20 @@ public class MemberFX {
 		email = new SimpleStringProperty(serverMember.getEmail());
 		phoneNumber = new SimpleStringProperty(serverMember.getPhoneNumber());
 		
-		//Prüfen ob Korekt
+		//Prüfen ob Korrekt
 		ObservableList<Role> rolesOl = FXCollections.observableArrayList(serverMember.getRoles());
-		roles = new SimpleListProperty<Role>(rolesOl);
+		this.roles = new SimpleListProperty<Role>(rolesOl);
 
 		ObservableList<Social> socialsOl = FXCollections.observableArrayList(serverMember.getSocials());
-		socials = new SimpleListProperty<Social>(socialsOl);
+		this.socials = new SimpleListProperty<Social>(socialsOl);
 		
 		ObservableList<Game> gamesOl = FXCollections.observableArrayList(serverMember.getGames());
-		games = new SimpleListProperty<Game>(gamesOl);
+		this.games = new SimpleListProperty<Game>(gamesOl);
 		
 		birthday = new SimpleObjectProperty<LocalDate>(serverMember.getBirthday());
 		
 		ObservableList<Team> teamsOl = FXCollections.observableArrayList(serverMember.getTeams());
-		teams = new SimpleListProperty<Team>(teamsOl);		
+		this.teams = new SimpleListProperty<Team>(teamsOl);		
 	}
 
 	public Member getServerMember() {
@@ -212,54 +209,75 @@ public class MemberFX {
 	
 	//------------------------
 	
-	public final SimpleListProperty rolesProperty() {
+	public final SimpleListProperty<Role> rolesProperty() {
 		return this.roles;
 	}
 
 	public final ObservableList<Role> getRoles() {
 		return this.rolesProperty().get();
 	}
-
-	public void setRoles(SimpleListProperty<Role> roles) {
-		this.roles = roles;
-	}
-
-	public SimpleListProperty<Social> getSocials() {
-		return socials;
-	}
-
-	public void setSocials(SimpleListProperty<Social> socials) {
-		this.socials = socials;
-	}
-
-	public SimpleListProperty<Game> getGames() {
-		return games;
-	}
-
-	public void setGames(SimpleListProperty<Game> games) {
-		this.games = games;
-	}
-
-	public ObjectProperty<LocalDate> getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(ObjectProperty<LocalDate> birthday) {
-		this.birthday = birthday;
-	}
-
-	public SimpleListProperty<Team> getTeams() {
-		return teams;
-	}
-
-	public void setTeams(SimpleListProperty<Team> teams) {
-		this.teams = teams;
-	}
 	
 	
+	public final void setRoles(final ObservableList<Role> roles) {
+		this.rolesProperty().set(roles);
+	}
 	
+	//-------------------------------
 	
+	public final SimpleListProperty<Social> socialsProperty() {
+		return this.socials;
+	}
+
+	public final ObservableList<Social> getSocials() {
+		return this.socialsProperty().get();
+	}
+
+	public void setSocials(final ObservableList<Social> socials) {
+		this.socialsProperty().set(socials);
+	}
+	
+	//----------------------------------
+
+	public final SimpleListProperty<Game> gamesProperty() {
+		return this.games;
+	}
+	
+	public final ObservableList<Game> getGames() {
+		return this.gamesProperty().get();
+	}
+
+	public final void setGames(final ObservableList<Game> games) {
+		this.gamesProperty().set(games);
+	}
+	
+	//----------------------------------
+	
+	public final ObjectProperty<LocalDate> birthdayProperty() {
+		return this.birthday;
+	}
+
+	public final LocalDate getBirthday() {
+		return this.birthdayProperty().get();
+	}
+
+	public final void setBirthday(final LocalDate birthday) {
+		this.birthdayProperty().set(birthday);
+	}
+	
+	//-----------------------------------
+	
+	public final SimpleListProperty<Team> teamsProperty() {
+		return this.teams;
+	}
 	
 
+	public final ObservableList<Team> getTeams() {
+		return teamsProperty().get();
+	}
 
+	public final void setTeams(final ObservableList<Team> teams) {
+		this.teamsProperty().set(teams);
+	}
+	
+	//-------------------------------------
 }

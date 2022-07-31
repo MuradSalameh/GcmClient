@@ -1,6 +1,8 @@
 package gcmClient;
 
 import java.time.LocalDate;
+
+import gcmClasses.Event;
 import gcmClasses.Game;
 import gcmClasses.Member;
 import gcmClasses.Role;
@@ -31,6 +33,7 @@ public class MemberFX {
 	private SimpleListProperty<Game> games;		
 	private ObjectProperty<LocalDate> birthday;	
 	private SimpleListProperty<Team> teams;
+	private SimpleListProperty<Event> events;
 	
 	public MemberFX() {
 		super();
@@ -50,7 +53,6 @@ public class MemberFX {
 		email = new SimpleStringProperty(serverMember.getEmail());
 		phoneNumber = new SimpleStringProperty(serverMember.getPhoneNumber());
 		
-		//Prüfen ob Korrekt
 		ObservableList<Role> rolesOl = FXCollections.observableArrayList(serverMember.getRoles());
 		this.roles = new SimpleListProperty<Role>(rolesOl);
 
@@ -64,6 +66,9 @@ public class MemberFX {
 		
 		ObservableList<Team> teamsOl = FXCollections.observableArrayList(serverMember.getTeams());
 		this.teams = new SimpleListProperty<Team>(teamsOl);		
+		
+		ObservableList<Event> eventsOl = FXCollections.observableArrayList(serverMember.getEvents());
+		this.events = new SimpleListProperty<Event>(eventsOl);		
 	}
 
 	public Member getServerMember() {
@@ -153,6 +158,7 @@ public class MemberFX {
 	}
 	
 	//---------------------------
+	
 	public final SimpleStringProperty addressCityProperty() {
 		return this.addressCity;
 	}
@@ -280,4 +286,19 @@ public class MemberFX {
 	}
 	
 	//-------------------------------------
+	
+	public final SimpleListProperty<Event> eventsProperty() {
+		return this.events;
+	}
+	
+
+	public final ObservableList<Event> getEvents() {
+		return eventsProperty().get();
+	}
+
+	public final void setEvents(final ObservableList<Event> events) {
+		this.eventsProperty().set(events);
+	}
+	
+	
 }

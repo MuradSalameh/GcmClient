@@ -23,7 +23,6 @@ public class MembersScreenController  extends Dialog implements Initializable {
 	@FXML
 	public Button editDetailsBtn;
 
-	//@FXML
 	public Dialog dialog = new Dialog();
 	
 

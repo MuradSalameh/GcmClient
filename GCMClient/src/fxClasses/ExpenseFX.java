@@ -1,4 +1,4 @@
-package gcmClient;
+package fxClasses;
 
 import java.time.LocalDate;
 

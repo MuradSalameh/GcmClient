@@ -1,4 +1,4 @@
-package gcmClient;
+package fxClasses;
 
 import java.time.LocalDate;
 import gcmClasses.Game;
@@ -23,7 +23,7 @@ public class GameFX {
 	private SimpleListProperty<Genre> genres;
 	private SimpleListProperty<Member> members;
 	private SimpleListProperty<Tournament> tournaments;
-	private SimpleStringProperty gameAddidionalNotes;
+	private SimpleStringProperty gameAdditionalNotes;
 	
 	
 	public GameFX() {
@@ -47,7 +47,7 @@ public class GameFX {
 		ObservableList<Tournament> tournamentsOl = FXCollections.observableArrayList(serverGame.getTournaments());
 		this.tournaments = new SimpleListProperty<Tournament>(tournamentsOl);		
 		
-		gameAddidionalNotes = new SimpleStringProperty(serverGame.getGameAddidionalNotes());
+		gameAdditionalNotes = new SimpleStringProperty(serverGame.getGameAdditionalNotes());
 	}
 
 
@@ -150,18 +150,18 @@ public class GameFX {
 	
 	//--------------------------------------
 
-	public final SimpleStringProperty gameAddidionalNotesProperty() {
-		return this.gameAddidionalNotes;
+	public final SimpleStringProperty gameAdditionalNotesProperty() {
+		return this.gameAdditionalNotes;
 	}
 
 
-	public final String getGameAddidionalNotes() {
-		return gameAddidionalNotesProperty().get(); //
+	public final String getGameAdditionalNotes() {
+		return gameAdditionalNotesProperty().get(); //
 	}
 
 
-	public final void setGameAddidionalNotes(final String gameAddidionalNotes) {
-		this.gameAddidionalNotesProperty().set(gameAddidionalNotes);
+	public final void setGameAdditionalNotes(final String gameAdditionalNotes) {
+		this.gameAdditionalNotesProperty().set(gameAdditionalNotes);
 	}
 	
 	//--------------------------------------

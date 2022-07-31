@@ -1,4 +1,4 @@
-package gcmClient;
+package fxClasses;
 
 import gcmClasses.Member;
 import gcmClasses.Team;

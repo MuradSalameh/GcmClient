@@ -1,4 +1,4 @@
-package gcmClient;
+package fxClasses;
 
 import gcmClasses.Social;
 import javafx.beans.property.SimpleIntegerProperty;

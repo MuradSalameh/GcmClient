@@ -1,4 +1,4 @@
-package gcmClient;
+package fxClasses;
 
 import gcmClasses.RevenueType;
 import javafx.beans.property.SimpleIntegerProperty;

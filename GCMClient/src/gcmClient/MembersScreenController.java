@@ -4,6 +4,7 @@ import java.io.IOException;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.Initializable;
 
+import fxClasses.MemberFX;
 import gcmClasses.Member;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,11 +38,11 @@ public class MembersScreenController  extends Dialog implements Initializable {
 		MemberFX memberFX = new MemberFX(new Member());
 
 		/*
-		Optional<ButtonType> r = new WeinDetailDialog(weinFX).showAndWait();
+		Optional<ButtonType> r = new WeinDetailDialog(MemberFX).showAndWait();
 		if(r.isPresent() && r.get().getButtonData() == ButtonData.OK_DONE) {
-			// neuer Wein wurde gespeichert, daher neue Weinliste vom Server holen
+			// neuer Member wurde gespeichert, daher neue Weinliste vom Server holen
 			//leseMemberliste();
-			System.out.println("Aktuaisiere Member Liste");
+			System.out.println("Aktualisiere Member Liste");
 		}
 		 */		
 

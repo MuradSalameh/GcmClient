@@ -31,16 +31,16 @@ public class MemberFX {
 	private SimpleListProperty<Role> roles;	
 	private SimpleListProperty<Social> socials;	
 	private SimpleListProperty<Game> games;		
-	private ObjectProperty<LocalDate> birthday;	
+	private ObjectProperty<LocalDate> birthday;		
 	private SimpleListProperty<Team> teams;
 	private SimpleListProperty<Event> events;
+
 	
 	public MemberFX() {
 		super();
 	}
-
+	
 	public MemberFX(Member serverMember) {
-		super();
 		this.serverMember = serverMember;
 		id = new SimpleIntegerProperty(serverMember.getId());
 		clanName = new SimpleStringProperty(serverMember.getClanName());
@@ -64,13 +64,13 @@ public class MemberFX {
 		
 		birthday = new SimpleObjectProperty<LocalDate>(serverMember.getBirthday());
 		
-		ObservableList<Team> teamsOl = FXCollections.observableArrayList(serverMember.getTeams());
-		this.teams = new SimpleListProperty<Team>(teamsOl);		
-		
 		ObservableList<Event> eventsOl = FXCollections.observableArrayList(serverMember.getEvents());
-		this.events = new SimpleListProperty<Event>(eventsOl);		
+		this.events = new SimpleListProperty<Event>(eventsOl);
+		
+		ObservableList<Team> teamsOl = FXCollections.observableArrayList(serverMember.getTeams());
+		this.teams = new SimpleListProperty<Team>(teamsOl);
 	}
-
+	
 	public Member getServerMember() {
 		return serverMember;
 	}
@@ -293,7 +293,7 @@ public class MemberFX {
 	
 
 	public final ObservableList<Event> getEvents() {
-		return eventsProperty().get();
+		return this.eventsProperty().get();
 	}
 
 	public final void setEvents(final ObservableList<Event> events) {

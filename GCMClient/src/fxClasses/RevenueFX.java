@@ -24,8 +24,7 @@ public class RevenueFX {
 	private SimpleStringProperty revenueDescription;
 	private SimpleDoubleProperty amount;
 	private ObjectProperty<LocalDate> date;
-	private ObjectProperty<Partner> partner;
-	private SimpleListProperty<RevenueType> revenueTypes;
+	
 	
 	public RevenueFX() {
 		super();
@@ -41,10 +40,7 @@ public class RevenueFX {
 		revenueDescription = new SimpleStringProperty(serverRevenue.getRevenueDescription());
 		amount = new SimpleDoubleProperty(serverRevenue.getAmount());
 		date = new SimpleObjectProperty<LocalDate>(serverRevenue.getDate());
-		partner = new SimpleObjectProperty<Partner>(serverRevenue.getPartner());
 		
-		ObservableList<RevenueType> revenueTypesOl = FXCollections.observableArrayList(serverRevenue.getRevenueTypes());
-		this.revenueTypes = new SimpleListProperty<RevenueType>(revenueTypesOl);
 	}
 
 	public Revenue getServerRevenue() {
@@ -127,32 +123,7 @@ public class RevenueFX {
 	}
 
 	//-----------------------
-	public final ObjectProperty<Partner> partnerProperty() {
-		return this.partner;
-	}
 
-	
-	public final Partner getPartner() {
-		return partnerProperty().get();
-	}
-
-	public void setPartner(final Partner partner) {
-		this.partnerProperty().set(partner);
-	}
-	
-	//-----------------------
-	
-	public final SimpleListProperty<RevenueType> revenueTypesProperty() {
-		return this.revenueTypes;
-	}
-
-	public final ObservableList<RevenueType> getRevenueTypes() {
-		return revenueTypesProperty().get();
-	}
-
-	public final void setRevenueTypes(final ObservableList<RevenueType> revenueTypes) {
-		this.revenueTypesProperty().set(revenueTypes);
-	}
 	
 	
 

@@ -1,17 +1,22 @@
 package fxClasses;
 
+import gcmClasses.Revenue;
 import gcmClasses.RevenueType;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class RevenueTypeFX {
-	
+
 	private RevenueType serverRevenueType;
 	private SimpleIntegerProperty id;
 	private SimpleStringProperty revenueTypeTitle;
 	private SimpleStringProperty revenueTypeDescription;
-	
-	
+	private SimpleListProperty<Revenue> revenues;
+
+
 	public RevenueTypeFX() {
 		super();
 	}
@@ -21,9 +26,12 @@ public class RevenueTypeFX {
 			SimpleStringProperty revenueTypeDescription) {
 		super();
 		this.serverRevenueType = serverRevenueType;
-		id = id;
-		revenueTypeTitle = revenueTypeTitle;
-		revenueTypeDescription = revenueTypeDescription;
+		id = new SimpleIntegerProperty(serverRevenueType.getId());
+		revenueTypeTitle = new SimpleStringProperty(serverRevenueType.getRevenueTypeTitle());
+		revenueTypeDescription = new SimpleStringProperty(serverRevenueType.getRevenueTypeDescription());
+
+		ObservableList<Revenue> revenuesOl = FXCollections.observableArrayList(serverRevenueType.getRevenues());
+		this.revenues = new SimpleListProperty<Revenue>(revenuesOl);
 	}
 
 
@@ -46,7 +54,7 @@ public class RevenueTypeFX {
 	public void setId(final int id) {
 		this.idProperty().set(id);
 	}
-	*/
+	 */
 
 	//-----------------------
 	public final SimpleStringProperty revenueTypeTitleProperty() {
@@ -77,7 +85,22 @@ public class RevenueTypeFX {
 		this.revenueTypeDescriptionProperty().set(revenueTypeDescription);
 	}
 
-	
-	
+	//-----------------------
+
+	public final SimpleListProperty<Revenue> revenuesProperty() {
+		return this.revenues;
+	}
+
+	public final ObservableList<Revenue> getRevenues() {
+		return this.revenuesProperty().get();
+	}
+
+	public void setRevenues(final ObservableList<Revenue> revenues) {
+		this.revenuesProperty().set(revenues);
+	}
+
+
+
+
 
 }

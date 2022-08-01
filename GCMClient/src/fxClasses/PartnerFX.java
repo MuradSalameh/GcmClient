@@ -2,6 +2,7 @@ package fxClasses;
 
 import gcmClasses.Event;
 import gcmClasses.Partner;
+import gcmClasses.Revenue;
 import gcmClasses.Social;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -27,6 +28,7 @@ public class PartnerFX {
 	private SimpleStringProperty email;	
 	private SimpleStringProperty phoneNumber;	
 	private SimpleListProperty<Social> socials;
+	private SimpleListProperty<Revenue> revenues;
 	
 	public PartnerFX() {
 		super();
@@ -52,6 +54,9 @@ public class PartnerFX {
 
 		ObservableList<Social> socialsOl = FXCollections.observableArrayList(serverPartner.getSocials());
 		this.socials = new SimpleListProperty<Social>(socialsOl);
+		
+		ObservableList<Revenue> revenuesOl = FXCollections.observableArrayList(serverPartner.getRevenues());
+		this.revenues = new SimpleListProperty<Revenue>(revenuesOl);
 		
 	}
 
@@ -272,6 +277,21 @@ public class PartnerFX {
 
 	public void setSocials(final ObservableList<Social> socials) {
 		this.socialsProperty().set(socials);
+	}
+	
+	
+	//-----------------------
+	
+	public final SimpleListProperty<Revenue> revenuesProperty() {
+		return this.revenues;
+	}
+	
+	public final ObservableList<Revenue> getRevenues() {
+		return this.revenuesProperty().get();
+	}
+	
+	public void setRevenues(final ObservableList<Revenue> revenues) {
+		this.revenuesProperty().set(revenues);
 	}
 	
 	

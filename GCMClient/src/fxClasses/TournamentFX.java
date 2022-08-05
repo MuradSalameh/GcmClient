@@ -35,7 +35,7 @@ public class TournamentFX {
 		super();
 		this.serverTournament = serverTournament;
 		id = new SimpleIntegerProperty(serverTournament.getId());
-		tournamentTitle = new SimpleStringProperty(serverTournament.getTournamentTitle());
+		tournamentTitle = new SimpleStringProperty(serverTournament.getTouramentTitle());
 		tournamentDescription = new SimpleStringProperty(serverTournament.getTournamentDescription());
 		tournamentDate = new SimpleObjectProperty<LocalDate>(serverTournament.getTournamentDate());
 		tournamentTimeBeginn = new SimpleObjectProperty<LocalTime>(serverTournament.getTournamentTimeBeginn());

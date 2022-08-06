@@ -16,5 +16,4 @@ public class ServiceFunctionsReturn {
 		this.meldung = meldung;
 	}
 	
-
 }

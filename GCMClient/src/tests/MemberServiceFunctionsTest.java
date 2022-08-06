@@ -1,4 +1,4 @@
-package gcmClient;
+package tests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,14 +7,14 @@ import java.util.List;
 
 import fxClasses.MemberFX;
 import gcmClasses.Member;
-
+import gcmClient.MemberServiceFunctions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
 
 
-public class TestClass {
+public class MemberServiceFunctionsTest {
 	 public static  ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
 
 	public static void main(String[] args) {	

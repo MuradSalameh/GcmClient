@@ -5,7 +5,7 @@ import java.util.List;
 import org.glassfish.jersey.client.ClientResponse;
 
 import gcmClasses.Member;
-import gcmClasses.MemberList;
+
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Invocation;

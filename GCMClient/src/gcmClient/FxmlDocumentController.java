@@ -6,7 +6,9 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -32,17 +34,24 @@ public class FxmlDocumentController implements Initializable {
 		System.out.println("Home Button klicked");
 		
 	}
+	
+	
 	@FXML
 	private void handleMembersBtn(ActionEvent event) throws IOException {
-		
+	
 		FxmlLoader screen = new FxmlLoader();
-		Pane view = screen.getPage("MembersScreen");
+		Pane view = screen.getPage("MembersScreen");		
 		System.out.println("Pane view: " + view);
-		
+		MembersScreenController membersScreenController = new MembersScreenController();
+
 		bpScreenView.setLeft(view);		
+		membersScreenController.initialize();
 		System.out.println("Members Button klicked");
 		
+		
 	}
+	
+	
 	@FXML
 	private void handleGamesBtn(ActionEvent event) throws IOException {
 		

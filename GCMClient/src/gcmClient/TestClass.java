@@ -5,7 +5,7 @@ import java.util.List;
 
 import fxClasses.MemberFX;
 import gcmClasses.Member;
-import gcmClasses.MemberList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -28,6 +28,8 @@ public class TestClass {
 			olMembers.add(new MemberFX(einM));
 			System.out.println("CLIENT------------" + "\n" + einM);
 		}
+		
+		
 		
 
 }

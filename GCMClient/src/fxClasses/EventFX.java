@@ -63,13 +63,17 @@ public class EventFX {
 	}
 
 
-	public SimpleIntegerProperty getId() {
-		return id;
+	public final SimpleIntegerProperty idProperty() {
+		return this.id;
 	}
 
+	public final int getId() {
+		return this.idProperty().get();
+	}
 
-	public void setId(SimpleIntegerProperty id) {
-		this.id = id;
+	
+	public void setId(final int id) {
+		this.idProperty().set(id);
 	}
 
 

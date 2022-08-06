@@ -40,8 +40,7 @@ public class RevenueTypeFX {
 	}
 
 	//-----------------------
-
-
+	
 	public final SimpleIntegerProperty idProperty() {
 		return this.id;
 	}
@@ -50,11 +49,10 @@ public class RevenueTypeFX {
 		return this.idProperty().get();
 	}
 
-	/* Don't allow to alter Id
+	
 	public void setId(final int id) {
 		this.idProperty().set(id);
 	}
-	 */
 
 	//-----------------------
 	public final SimpleStringProperty revenueTypeTitleProperty() {

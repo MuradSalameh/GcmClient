@@ -10,13 +10,17 @@ import javafx.stage.Stage;
 public class FXMain extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("/startScene.fxml")); 
+		
+		
+		
+		Parent root = FXMLLoader.load(getClass().getResource("startScene.fxml")); 
+		
 		System.out.println("root: "+ root);
 		primaryStage.setTitle("Gaming Clan Manager");
 		Scene scene = new Scene(root, 900, 600);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
-		//scene.getStylesheets().add("/mainstyle.css");
+		
 		primaryStage.show();
 
 	}

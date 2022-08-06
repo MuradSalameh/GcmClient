@@ -7,5 +7,9 @@ module FXMAVEN {
 	requires javafx.fxml;
 	requires javafx.base;
 	
-	opens gcmClient to javafx.graphics, javafx.fxml;
+	opens gcmClient to javafx.graphics, javafx.fxml, javafx.base;
+	opens fxClasses to javafx.graphics, javafx.fxml, javafx.base;
+	
+
+	
 }

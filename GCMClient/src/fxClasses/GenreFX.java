@@ -49,11 +49,10 @@ public class GenreFX {
 		return this.idProperty().get();
 	}
 
-	/* Don't allow to alter Id
+	
 	public void setId(final int id) {
 		this.idProperty().set(id);
 	}
-	*/
 	
 	//-----------------------
 

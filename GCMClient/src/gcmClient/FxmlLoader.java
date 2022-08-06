@@ -13,8 +13,9 @@ public class FxmlLoader {
 	public Pane getPage(String fileName) {
 		
 		try {
-		URL fileUrl = FXMain.class.getResource("/" + fileName + ".fxml");
+		URL fileUrl = FXMain.class.getResource(fileName + ".fxml");
 		//   /GCMClient/src/main/resource/HomeScreen.fxml
+		
 		if(fileUrl == null) {
 			throw new java.io.FileNotFoundException("FXML File can't be found");
 		}

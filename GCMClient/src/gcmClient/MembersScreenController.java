@@ -1,41 +1,34 @@
 package gcmClient;
 
+
+
 import java.io.IOException;
+
 import java.time.LocalDate;
-
-import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.client.Initializable;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-
 import fxClasses.MemberFX;
 import gcmClasses.Member;
-import gcmClasses.MemberList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
-public class MembersScreenController  extends Dialog implements Initializable {
-	
-	
+
+public class MembersScreenController {
+
+	@FXML
 	private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
 	@FXML private AnchorPane membersAnchor;
 	@FXML private TableView<MemberFX> membersTableView;
-	
-	
 	@FXML private TableColumn<MemberFX,Integer> idColumn;	
 	@FXML private TableColumn<MemberFX,String> clanIdColumn;
 	@FXML private TableColumn<MemberFX,String> clanNameColumn;
@@ -51,19 +44,14 @@ public class MembersScreenController  extends Dialog implements Initializable {
 	@FXML
 	public Button editDetailsBtn;
 
-	public Dialog dialog = new Dialog();
 	
-	
-
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 		FxmlLoader loader = new FxmlLoader();
-		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("/MembersDetailDialog.fxml"));
-
+		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("MembersDetailDialog.fxml"));
+		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
 		dialog.showAndWait();
-
-		MemberFX memberFX = new MemberFX(new Member());
 
 		/*
 		Optional<ButtonType> r = new WeinDetailDialog(MemberFX).showAndWait();
@@ -72,59 +60,57 @@ public class MembersScreenController  extends Dialog implements Initializable {
 			//leseMemberliste();
 			System.out.println("Aktualisiere Member Liste");
 		}
-		 */		
-
+		 */	
 		System.out.println("MembersDetailsDialog Button klicked");
-
 	}
 
 
-	@Override
-	public Initializable preInitialize() {
-		
-		// initialize columns
-		idColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, Integer>("id"));
-		clanNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanName"));
-		clanIdColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanId"));
-		realNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("realName"));
-		addressColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("address"));
-		addressPostcodeColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("addressPostCode"));
-		addressCityColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("addressCity"));
-		countryColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("country"));
-		emailColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("email"));
-		phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("phoneNumber"));
-		birthdayColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, LocalDate>("birthday"));
-		
-		
+
+	public void updateTable() {		
 		// load Data
-		membersTableView.setItems(olMembers);
-		
-		return null;
+		if(membersTableView != null) {
+				membersTableView.getItems().addAll(olMembers);
+		}
 	}
 
-	@Override
-	public ClientConfig getConfiguration() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	private void readMembersList() {
+
+
+	public void readMembersList() {
 		olMembers.clear();
-		ServiceFunctionsReturnData<MemberList> sfr = MemberServiceFunctions.getMembers();
-		if(sfr.isRc()) {
-			MemberList ml = sfr.getData();
-			if(ml.getMembers() != null) {
-				for(Member einM : ml.getMembers()) {
-					olMembers.add(new MemberFX(einM));
-				}
-			}
+
+		List<Member> xmlMembers = new ArrayList<Member>();
+		xmlMembers = MemberServiceFunctions.getMembers();			
+
+		for(Member einM : xmlMembers) {
+			olMembers.add(new MemberFX(einM));
+			System.out.println("CLIENT------------" + "\n" + einM);
 		}
-		else {
-			new Alert(AlertType.ERROR, sfr.getMeldung()).showAndWait();
-		}
+	}
 
 
+	public  void initializeColumns() {
+		
+		if(idColumn != null) {
+			idColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, Integer>("id"));
+			clanNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanName"));
+			clanIdColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanId"));
+			realNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("realName"));
+			addressColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("address"));
+			addressPostcodeColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("addressPostCode"));
+			addressCityColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("addressCity"));
+			countryColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("country"));
+			emailColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("email"));
+			phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("phoneNumber"));
+			birthdayColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, LocalDate>("birthday"));
+		}
+	}
+
+
+		
+	public void initialize() {
+		readMembersList();
+		initializeColumns();		
+		updateTable();
 	}
 
 

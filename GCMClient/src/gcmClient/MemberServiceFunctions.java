@@ -20,61 +20,38 @@ public class MemberServiceFunctions {
 
 
 	private static final String serverURI = "http://localhost:4712/member";
-	
-	
-	
+
+
+
 	public static List<Member> getMembers() {
-	
+
 		List<Member> members = ClientBuilder.newClient()
-    .target(serverURI)
-    .path("/memberlist")
-    .request(MediaType.APPLICATION_XML)
-    .get(new GenericType<List<Member>>(){});
-		
-	
-		
+				.target(serverURI)
+				.path("/memberlist")
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<List<Member>>(){});
+
 		return members;
 	}
-	
-	
-	
-	
+
+
+	public static Member getMember(int id) {
+
+		Member member = ClientBuilder.newClient()
+				.target(serverURI)
+				.path("/member/" + id)
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<Member>(){});
+
+		return member;
+	}
+
+
+
+
+
 
 	/*
-	public static ServiceFunctionsReturnData<MemberList> getMembers() {
-		
-		
-
-			Client client = ClientBuilder.newClient();
-			//Basis URI festlegen
-			WebTarget basetarget = client.target(serverURI);
-			// URI erweitern f�r die GET Anfrage
-			WebTarget resourcetarget = basetarget.path("/memberlist");
-			// Daten werden als XML Datenstrom transportiert
-			
-			Invocation.Builder request = resourcetarget.request(MediaType.APPLICATION_XML);
-			// Anfrage an den Server absenden und auf ANtwort warten
-			Response response = request.get();
-			int status = response.getStatus();
-			ServiceFunctionsReturnData<MemberList> sfr = new ServiceFunctionsReturnData<>();
-			if(status == Status.OK.getStatusCode()) {
-				// aus der Response die MemberList aus XML deserialisieren
-				sfr.setData(response.readEntity(MemberList.class));
-				sfr.setRc(true);
-			}
-			else {
-				// SQLException aus der response deserialisieren
-				sfr.setMeldung(response.readEntity(String.class));
-			}
-			client.close();
-			return sfr;
-	
-
-		//return response.readEntity(new GenericType<List<Member>>() {});
-	}
-	*/
-	
-/*
 	public static ServiceFunctionsReturn postMember(Member m) {
 		ServiceFunctionsReturn sfr = new ServiceFunctionsReturn();
 		Client client = ClientBuilder.newClient();
@@ -108,5 +85,5 @@ public class MemberServiceFunctions {
 		ServiceFunctionsReturn sfr = new ServiceFunctionsReturn();
 		return sfr;
 	}
-*/
+	 */
 }

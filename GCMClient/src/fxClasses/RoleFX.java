@@ -17,8 +17,7 @@ public class RoleFX {
 	}
 
 
-	public RoleFX(Role serverRole, SimpleIntegerProperty id, SimpleStringProperty roleName,
-			SimpleStringProperty roleDescription) {
+	public RoleFX(Role serverRole) {
 		super();
 		this.serverRole = serverRole;
 		id = new SimpleIntegerProperty(serverRole.getId());

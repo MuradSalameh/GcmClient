@@ -26,9 +26,7 @@ public class RevenueFX {
 		super();
 	}
 
-	public RevenueFX(Revenue serverRevenue, SimpleIntegerProperty id, SimpleStringProperty revenueTitle,
-			SimpleStringProperty revenueDescription, SimpleDoubleProperty amount, ObjectProperty<LocalDate> date,
-			ObjectProperty<Partner> partner, SimpleListProperty<RevenueType> revenueTypes) {
+	public RevenueFX(Revenue serverRevenue) {
 		super();
 		this.serverRevenue = serverRevenue;
 		id = new SimpleIntegerProperty(serverRevenue.getId());

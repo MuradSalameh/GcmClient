@@ -21,9 +21,8 @@ public class GenreFX {
 	}
 
 
-	public GenreFX(Genre serverGenre, SimpleIntegerProperty id, SimpleStringProperty genreTitle,
-			SimpleListProperty<Game> games) {
-		super();
+	public GenreFX(Genre serverGenre) {
+		
 		this.serverGenre = serverGenre;
 		id = new SimpleIntegerProperty(serverGenre.getId());
 		genreTitle = new SimpleStringProperty(serverGenre.getGenreTitle());
@@ -50,7 +49,7 @@ public class GenreFX {
 	}
 
 	
-	public void setId(final int id) {
+	public final void setId(final int id) {
 		this.idProperty().set(id);
 	}
 	

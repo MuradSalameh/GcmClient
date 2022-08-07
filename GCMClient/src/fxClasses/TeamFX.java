@@ -21,8 +21,7 @@ public class TeamFX {
 		super();
 	}
 
-	public TeamFX(Team serverTeam, SimpleIntegerProperty id, SimpleStringProperty teamName,
-			SimpleStringProperty teamDescription, SimpleListProperty<Member> members) {
+	public TeamFX(Team serverTeam) {
 		super();
 		this.serverTeam = serverTeam;
 		id = new SimpleIntegerProperty(serverTeam.getId());

@@ -18,7 +18,7 @@ public class GameServiceFunctionsTest {
 
 	public static void main(String[] args) {	
 
-		int id = 2;
+		int id = 1;
 		int id2 = 5;
 		int id3 = 5;
 
@@ -33,7 +33,7 @@ public class GameServiceFunctionsTest {
 
 		//--------- getGames() Test to get a List of all games in database-----------//
 
-	//	getGameList();
+//		getGameList();
 
 
 		

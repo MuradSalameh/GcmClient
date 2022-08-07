@@ -36,7 +36,7 @@ public class EventServiceFunctionsTest {
 
 		//--------- getEvents() Test to get a List of all events in database-----------//
 
-//				getEventList();
+				getEventList();
 
 
 		

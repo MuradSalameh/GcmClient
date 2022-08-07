@@ -66,7 +66,7 @@ public class GameFX {
 	}
 
 	
-	public void setId(final int id) {
+	public final void setId(final int id) {
 		this.idProperty().set(id);
 	}
 	

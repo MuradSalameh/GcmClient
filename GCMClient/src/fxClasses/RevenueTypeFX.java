@@ -22,8 +22,7 @@ public class RevenueTypeFX {
 	}
 
 
-	public RevenueTypeFX(RevenueType serverRevenueType, SimpleIntegerProperty id, SimpleStringProperty revenueTypeTitle,
-			SimpleStringProperty revenueTypeDescription) {
+	public RevenueTypeFX(RevenueType serverRevenueType) {
 		super();
 		this.serverRevenueType = serverRevenueType;
 		id = new SimpleIntegerProperty(serverRevenueType.getId());

@@ -17,7 +17,7 @@ public class GameServiceFunctions {
 	private static final String serverURI = "http://localhost:4712/game";
 
 
-	//GET - get game list
+	//GET - get expenseType list
 	public static List<Game> getGames() {
 
 		List<Game> games = ClientBuilder.newClient()

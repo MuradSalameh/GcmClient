@@ -26,16 +26,16 @@ public class ExpenseTypeServiceFunctionsTest {
 
 		//--------- addExpenseType() Test -----------//
 
-				addExpenseType();
-				addExpenseType();
-				addExpenseType();
-				addExpenseType();
+//				addExpenseType();
+//				addExpenseType();
+//				addExpenseType();
+//				addExpenseType();
 
 		
 
 		//--------- getExpenseTypes() Test to get a List of all expenseTypes in database-----------//
 
-//				getExpenseTypeList();
+				getExpenseTypeList();
 
 
 		

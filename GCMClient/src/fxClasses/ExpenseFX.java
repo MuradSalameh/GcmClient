@@ -39,8 +39,7 @@ public class ExpenseFX {
 		amount = new SimpleDoubleProperty(serverExpense.getAmount());
 		date = new SimpleObjectProperty<LocalDate>(serverExpense.getDate());
 		recipientName = new SimpleStringProperty(serverExpense.getRecipientName());
-		this.expenseTypes = expenseTypes;
-
+		
 		ObservableList<ExpenseType> expenseTypesOl = FXCollections.observableArrayList(serverExpense.getExpenseTypes());
 		this.expenseTypes = new SimpleListProperty<ExpenseType>(expenseTypesOl);		
 	

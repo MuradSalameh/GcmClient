@@ -21,7 +21,7 @@ public class EventServiceFunctionsTest {
 
 	public static void main(String[] args) {	
 
-		int id = 5;
+		int id = 2;
 		int id2 = 5;
 		int id3 = 5;
 
@@ -42,7 +42,7 @@ public class EventServiceFunctionsTest {
 		
 		//--------- deleteEvent() Test -----------//
 
-//		deleteEvent(id);
+//	deleteEvent(id);
 
 
 
@@ -82,7 +82,7 @@ public class EventServiceFunctionsTest {
 		// set new value for clan name
 		m.setEventTitle(s);
 
-		//Event m  in Datenbank updaten
+		//update Event m  in Datenbank updaten
 		EventServiceFunctions.updateEvent(id, m);
 
 		System.out.println(m);

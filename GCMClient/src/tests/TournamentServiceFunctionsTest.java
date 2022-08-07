@@ -54,8 +54,8 @@ public class TournamentServiceFunctionsTest {
 
 		//--------- updateTournament() Test -----------//
 
-				String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
-				updateTournamentTest(id,s);
+//				String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
+//				updateTournamentTest(id,s);
 
 
 		

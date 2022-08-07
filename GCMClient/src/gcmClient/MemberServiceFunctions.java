@@ -5,9 +5,10 @@ import java.util.List;
 import org.glassfish.jersey.client.ClientResponse;
 
 import gcmClasses.Member;
-
+import jakarta.ws.rs.Path;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
@@ -22,7 +23,7 @@ public class MemberServiceFunctions {
 	private static final String serverURI = "http://localhost:4712/member";
 
 
-
+	//GET - get member list
 	public static List<Member> getMembers() {
 
 		List<Member> members = ClientBuilder.newClient()
@@ -34,7 +35,7 @@ public class MemberServiceFunctions {
 		return members;
 	}
 
-
+	//GET - get one member
 	public static Member getMember(int id) {
 
 		Member member = ClientBuilder.newClient()
@@ -46,8 +47,46 @@ public class MemberServiceFunctions {
 		return member;
 	}
 
+	//Post - add new member 
+	public static Response addMember(Member m) {
+		
+		Client client = ClientBuilder.newClient();
+	    return client
+	      .target(serverURI)
+	      .path("/addMember")
+	      .request(MediaType.APPLICATION_XML)
+	      .post(Entity.entity(m, MediaType.APPLICATION_XML));
+	}
 
 
+	//PUT - update member 
+	//	@Path("/updateMember/{id}")
+	public static Response updateMember(int id, Member m) {
+		
+		Client client = ClientBuilder.newClient();
+	    return client
+	      .target(serverURI)
+	      .path("/updateMember/" + id)
+	      .request(MediaType.APPLICATION_XML)
+	      .put(Entity.entity(m, MediaType.APPLICATION_XML));	
+		
+	}
+
+
+	//Delete - delete member 
+//	@Path("/deleteMember/{id}")
+	public static Response deleteMember(int id) {
+		
+		Client client = ClientBuilder.newClient();
+	    return client
+	      .target(serverURI)
+	      .path("/deleteMember/" + id)
+	      .request(MediaType.APPLICATION_XML)
+	      .delete();	
+		
+	
+
+	}
 
 
 

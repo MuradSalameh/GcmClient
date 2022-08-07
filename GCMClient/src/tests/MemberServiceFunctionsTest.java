@@ -1,5 +1,6 @@
 package tests;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,64 +16,64 @@ import javafx.collections.ObservableList;
 
 
 public class MemberServiceFunctionsTest {
-	 public static  ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
+	public static  ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
 
 	public static void main(String[] args) {	
-		
-		int id = 3;
+
+		int id = 5;
 		int id2 = 5;
 		int id3 = 5;
 
 		//--------- addMember() Test -----------//
 
-		//addTestMember();
-		//addTestMember();
-		//addTestMember();
-		//addTestMember();
-		
-		
+		//		addMember();
+		//		addMember();
+		//		addMember();
+		//		addMember();
+
+
 		//--------- getMembers() Test to get a List of all members in database-----------//
 
-//		getMemberList();
+		//		getMemberList();
 
 
-		
+
 		//--------- deleteMember() Test -----------//
 
-		//deleteMemberTest(id);
+		deleteMember(id);
 
 
-		
+
 		//--------- getMember() Test to get one specific member by id -----------//
 
-		getMemberTest(id);
+		//		getMemberTest(id);
 
 
 
 		//--------- updateMember() Test -----------//
 
-		//String s = "BOBO";
-		//updateMemberTest(id,s);
+		//		String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
+		//		updateMemberTest(id,s);
 
 
 
-		
-		
-		
-		
 
-}	/*
-	public static void addTestMember() {
+
+
+
+
+	}	
+	public static void addMember() {
 		Member test = new Member(
-				"test", 					// clan name
-				"ttttt", 					// clan id
-				"tttttt 1", 				// real name
-				"44", 						// address
-				"1160", 					// adress post code
-				"Vienna", 					// city
-				"Austria", 					// country
-				"ulli@email.com", 			// mail
-				"+43 677 678 643 44", 		// phone number
+				"OOOOO", 					// clan name
+				"oooooo", 					// clan id
+				"ooooooOoO 1", 				// real name
+				"11", 						// address
+				"44444", 					// adress post code
+				"OOOOOO", 					// city
+				"OOOOOO", 					// country
+				"OOOOO@email.com", 			// mail
+				"+431111111111", 		// phone number
 				null, 						// role
 				null, 						// socials
 				null, 						// games
@@ -80,52 +81,52 @@ public class MemberServiceFunctionsTest {
 				LocalDate.of(1981, 4, 11), 	// birthday
 				null);						// teams
 
-		MemberServiceFunctions.		
+		MemberServiceFunctions.addMember(test);
 	}
-*/
-/*
-	public static void updateMemberTest(int id, String s) {
-		Session session = SessionUtil.getSession();
 
-		//Vorhandenen Member anhand id aus DB holen
-		Member m = session.get(Member.class, id);
 
-		// Member m ClanName wert neu setzen
+	public static void updateMemberTest(int id, String s) {	
+		//get member from database
+		Member m = MemberServiceFunctions.getMember(id);
+
+		// set new value for clan name
 		m.setClanName(s);
 
 		//Member m  in Datenbank updaten
-		MemberDAO.updateMember(id, m);
+		MemberServiceFunctions.updateMember(id, m);
 
 		System.out.println(m);
 	}
-*/
-	/*
-	public static void deleteMemberTest(int id) {
-		MemberDAO.deleteMember(id);
 
-		Member member = MemberDAO.getMember(id);
+
+
+	public static void deleteMember(int id) {
+		MemberServiceFunctions.deleteMember(id);
+
+		Member member = MemberServiceFunctions.getMember(id);
 		System.out.println(member);
 
 	}
-*/
-	
+
+
 	public static void getMemberTest(int id) {
-		System.out.println("CLIENT------------" + "\n" +MemberServiceFunctions.getMember(id)); 
+		System.out.println("CLIENT------------" 
+				+ "\n" 
+				+ MemberServiceFunctions.getMember(id)); 
 	}
 
-	
+
 	public static void getMemberList() {
-		 List<Member> xmlMembers = new ArrayList<Member>();
-			xmlMembers = MemberServiceFunctions.getMembers();
-			
-			
-			for(Member einM : xmlMembers) {
-				olMembers.add(new MemberFX(einM));
-				System.out.println("CLIENT------------" + "\n" + einM);
-			}
-		
+		List<Member> xmlMembers = new ArrayList<Member>();
+		xmlMembers = MemberServiceFunctions.getMembers();
+
+		for(Member einM : xmlMembers) {
+			olMembers.add(new MemberFX(einM));
+			System.out.println("CLIENT------------" + "\n" + einM);
+		}		
 	}
-	
-	
+
+
+
 }
 

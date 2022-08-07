@@ -21,6 +21,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import serviceFunctions.MemberServiceFunctions;
 
 
 public class MembersScreenController {

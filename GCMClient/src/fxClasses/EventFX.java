@@ -5,8 +5,6 @@ import java.time.LocalTime;
 
 import gcmClasses.Event;
 import gcmClasses.Member;
-import gcmClasses.Role;
-import gcmClasses.Social;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;

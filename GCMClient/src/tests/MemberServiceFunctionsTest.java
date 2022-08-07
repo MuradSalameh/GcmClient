@@ -8,9 +8,9 @@ import java.util.List;
 
 import fxClasses.MemberFX;
 import gcmClasses.Member;
-import gcmClient.MemberServiceFunctions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import serviceFunctions.MemberServiceFunctions;
 
 
 
@@ -26,42 +26,38 @@ public class MemberServiceFunctionsTest {
 
 		//--------- addMember() Test -----------//
 
-		//		addMember();
-		//		addMember();
-		//		addMember();
-		//		addMember();
+//				addMember();
+//				addMember();
+//				addMember();
+//				addMember();
 
+		
 
 		//--------- getMembers() Test to get a List of all members in database-----------//
 
-		//		getMemberList();
+				getMemberList();
 
 
-
+		
 		//--------- deleteMember() Test -----------//
 
-		deleteMember(id);
+//		deleteMember(id);
 
 
 
 		//--------- getMember() Test to get one specific member by id -----------//
 
-		//		getMemberTest(id);
+//				getMemberTest(id);
 
 
 
 		//--------- updateMember() Test -----------//
 
-		//		String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
-		//		updateMemberTest(id,s);
+//				String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
+//				updateMemberTest(id,s);
 
 
-
-
-
-
-
-
+		
 	}	
 	public static void addMember() {
 		Member test = new Member(
@@ -118,7 +114,7 @@ public class MemberServiceFunctionsTest {
 
 	public static void getMemberList() {
 		List<Member> xmlMembers = new ArrayList<Member>();
-		xmlMembers = MemberServiceFunctions.getMembers();
+		xmlMembers = (List<Member>) MemberServiceFunctions.getMembers();
 
 		for(Member einM : xmlMembers) {
 			olMembers.add(new MemberFX(einM));

@@ -1,6 +1,5 @@
 package fxClasses;
 
-import gcmClasses.Event;
 import gcmClasses.Partner;
 import gcmClasses.Revenue;
 import gcmClasses.Social;

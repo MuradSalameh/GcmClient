@@ -6,11 +6,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../main/resource/mainstyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.FxmlDocumentController">
+<AnchorPane fx:id="ap" minHeight="-Infinity" minWidth="900.0" stylesheets="@../main/resource/mainstyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.FxmlDocumentController">
    <children>
-      <BorderPane fx:id="bpScreenView" layoutX="200.0" layoutY="74.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" />
-      <HBox prefHeight="75.0" prefWidth="900.0" style="-fx-background-color: #038aa8;" />
-      <VBox layoutY="75.0" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #014d5e;">
+      <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" style="-fx-background-color: #038aa8;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <VBox layoutY="75.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: #038aa8 #038aa8;">
          <children>
             <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#handleHomeBtn" prefHeight="45.0" prefWidth="200.0" styleClass="mainmenue-button" text="Home" />
             <Button fx:id="membersBtn" mnemonicParsing="false" onAction="#handleMembersBtn" prefHeight="45.0" prefWidth="200.0" text="Members" />
@@ -22,6 +21,7 @@
             <Button fx:id="financesBtn" mnemonicParsing="false" onAction="#handleFinancesBtn" prefHeight="45.0" prefWidth="200.0" text="Finances" />
          </children>
       </VBox>
-      <HBox layoutY="571.0" prefHeight="30.0" prefWidth="900.0" style="-fx-background-color: #038aa8;" />
+      <HBox layoutY="571.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" style="-fx-background-color: #038aa8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <BorderPane fx:id="bpScreenView" layoutX="200.0" layoutY="75.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="396.0" prefWidth="701.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0" />
    </children>
 </AnchorPane>

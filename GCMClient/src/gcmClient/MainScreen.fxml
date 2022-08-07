@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane minHeight="600.0" minWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+	<left>
+		<VBox prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #d3d3d3;" BorderPane.alignment="CENTER">
+			<children>
+				<Button fx:id="homeBtn" mnemonicParsing="false" onAction="#handleHomeBtn" prefHeight="45.0" prefWidth="200.0" styleClass="mainmenue-button" text="Home" />
+				<Button fx:id="membersBtn" mnemonicParsing="false" onAction="#handleMembersBtn" prefHeight="45.0" prefWidth="200.0" text="Members" />
+				<Button fx:id="gamesBtn" mnemonicParsing="false" onAction="#handleGamesBtn" prefHeight="45.0" prefWidth="200.0" text="Games" />
+				<Button fx:id="eventsBtn" mnemonicParsing="false" onAction="#handleEventsBtn" prefHeight="45.0" prefWidth="200.0" text="Events" />
+				<Button fx:id="teamsBtn" mnemonicParsing="false" onAction="#handleTeamsBtn" prefHeight="45.0" prefWidth="200.0" text="Teams" />
+				<Button fx:id="tournamentsBtn" mnemonicParsing="false" onAction="#handleTournamentsBtn" prefHeight="45.0" prefWidth="200.0" text="Tournaments" />
+				<Button fx:id="partnerBtn" mnemonicParsing="false" onAction="#handlePartnersBtn" prefHeight="45.0" prefWidth="200.0" text="Partner" />
+				<Button fx:id="financesBtn" mnemonicParsing="false" onAction="#handleFinancesBtn" prefHeight="45.0" prefWidth="200.0" text="Finances" />
+			</children>
+		</VBox>
+	</left>
+	<top>
+		<HBox prefHeight="75.0" prefWidth="200.0" style="-fx-background-color: #038aa8 #038aa8;" BorderPane.alignment="CENTER" />
+	</top>
+	<bottom>
+		<HBox prefHeight="30.0" style="-fx-background-color: #038aa8 #038aa8;" BorderPane.alignment="CENTER" />
+	</bottom>
+</BorderPane>

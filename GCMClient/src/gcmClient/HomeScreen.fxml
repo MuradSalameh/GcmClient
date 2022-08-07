@@ -3,8 +3,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="apHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="700.0" style="-fx-background-color: #66ffff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="apHome" maxWidth="2000.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="700.0" style="-fx-background-color: #66ffff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label id="homeScreen" layoutX="311.0" layoutY="239.0" text="Home Screeen" />
+      <Label id="homeScreen" layoutX="310.0" layoutY="226.0" text="Home Screeen" />
    </children>
 </AnchorPane>

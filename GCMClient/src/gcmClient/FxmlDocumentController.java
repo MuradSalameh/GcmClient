@@ -39,12 +39,12 @@ public class FxmlDocumentController implements Initializable {
 	
 		FxmlLoader screen = new FxmlLoader();
 		Pane view = screen.getPage("MembersScreen");		
-		System.out.println("Pane view: " + view);
+		//System.out.println("Pane view: " + view);
 		MembersScreenController membersScreenController = new MembersScreenController();
 
 		bpScreenView.setLeft(view);		
 		membersScreenController.initialize();
-		System.out.println("Members Button klicked");
+		//System.out.println("Members Button klicked");
 		
 		
 	}

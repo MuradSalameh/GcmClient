@@ -13,7 +13,7 @@ public class FXMain extends Application {
 		
 		
 		
-		Parent root = FXMLLoader.load(getClass().getResource("startScene.fxml")); 
+		Parent root = FXMLLoader.load(getClass().getResource("MainScreen.fxml")); 
 		
 		System.out.println("root: "+ root);
 		primaryStage.setTitle("Gaming Clan Manager");

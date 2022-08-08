@@ -7,33 +7,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="eventsAnchor" fx:id="eventsAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.EventsScreenController">
    <children>
       <Label layoutX="10.0" layoutY="10.0" text="Events List:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView editable="true" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="404.0" prefWidth="700.0" tableMenuButtonVisible="true">
+      <TableView id="eventsTableView" fx:id="eventsTableView" editable="true" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="404.0" prefWidth="700.0" tableMenuButtonVisible="true">
          <columns>
-            <TableColumn fx:id="IdCol" prefWidth="43.0" text="ID" />
-            <TableColumn prefWidth="85.5" text="Event Name" />
-            <TableColumn prefWidth="77.0" text="Clan ID" />
-            <TableColumn prefWidth="82.0" text="Real Name" />
-            <TableColumn prefWidth="70.0" text="Address" />
-            <TableColumn prefWidth="70.0" text="Post Code" />
-            <TableColumn prefWidth="67.5" text="City" />
-            <TableColumn prefWidth="69.0" text="Country" />
-            <TableColumn prefWidth="62.5" text="Email" />
-            <TableColumn prefWidth="115.5" text="Phone Number" />
+            <TableColumn fx:id="idColumn" prefWidth="43.0" text="ID" />
+            <TableColumn fx:id="eventTitleColumn" prefWidth="85.5" text="Event Title" />
+            <TableColumn fx:id="eventDescriptionColumn" prefWidth="77.0" text="Event Description" />
+            <TableColumn fx:id="dateColumn" prefWidth="82.0" text="Date" />
+            <TableColumn fx:id="eventStartTimeColumn" prefWidth="70.0" text="Start Time" />
+            <TableColumn fx:id="eventEndTimeColumn" prefWidth="70.0" text=" End Time" />
+            <TableColumn fx:id="additionalNotesColumn" prefWidth="67.5" text="Additional Notes" />
+            <TableColumn fx:id="reoccuringColumn" prefWidth="69.0" text="Reoccuring" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button layoutX="460.0" layoutY="460.0" mnemonicParsing="false" text="Show Details" />
-      <Button layoutX="384.0" layoutY="460.0" mnemonicParsing="false" text="Add New" />
-      <Button layoutX="639.0" layoutY="460.0" mnemonicParsing="false" text="Delete" />
-      <Button layoutX="554.0" layoutY="460.0" mnemonicParsing="false" text="Edit Details" />
+      <Button id="detailsBtn" fx:id="detailsBtn" layoutX="460.0" layoutY="460.0" mnemonicParsing="false" text="Show Details" />
+      <Button id="addNewBtn" fx:id="addNewBtn" layoutX="384.0" layoutY="460.0" mnemonicParsing="false" text="Add New" />
+      <Button id="deleteBtn" fx:id="deleteBtn" layoutX="639.0" layoutY="460.0" mnemonicParsing="false" text="Delete" />
+      <Button id="editDetailsBtn" fx:id="editDetailsBtn" layoutX="554.0" layoutY="460.0" mnemonicParsing="false" text="Edit Details" />
    </children>
 </AnchorPane>

@@ -28,7 +28,7 @@ public class FxmlDocumentController implements Initializable {
 		Pane view = screen.getPage("HomeScreen");
 		System.out.println("Pane view: " + view);
 		
-		bpScreenView.setLeft(view);		
+		bpScreenView.setCenter(view);		
 		System.out.println("Home Button klicked");
 		
 	}
@@ -40,10 +40,12 @@ public class FxmlDocumentController implements Initializable {
 		FxmlLoader screen = new FxmlLoader();
 		Pane view = screen.getPage("MembersScreen");		
 		//System.out.println("Pane view: " + view);
-		MembersScreenController membersScreenController = new MembersScreenController();
-
-		bpScreenView.setLeft(view);		
-		membersScreenController.initialize();
+		
+		bpScreenView.setCenter(view);
+		
+		//initialize table and data after loading screen
+		MembersScreenController msc = new MembersScreenController();
+		msc.initialize();
 		//System.out.println("Members Button klicked");
 		
 		
@@ -55,10 +57,12 @@ public class FxmlDocumentController implements Initializable {
 		
 		FxmlLoader screen = new FxmlLoader();
 		Pane view = screen.getPage("GamesScreen");
-		System.out.println("Pane view: " + view);
+		//System.out.println("Pane view: " + view);
+		bpScreenView.setCenter(view);	
 		
-		bpScreenView.setLeft(view);		
-		System.out.println("Games Button klicked");
+		GamesScreenController gsc = new GamesScreenController();
+		gsc.initialize();
+		//System.out.println("Games Button klicked");
 		
 	}
 	@FXML
@@ -66,10 +70,12 @@ public class FxmlDocumentController implements Initializable {
 		
 		FxmlLoader screen = new FxmlLoader();
 		Pane view = screen.getPage("EventsScreen");
-		System.out.println("Pane view: " + view);
+		//System.out.println("Pane view: " + view);
 		
-		bpScreenView.setLeft(view);		
-		System.out.println("Events Button klicked");
+		bpScreenView.setCenter(view);	
+		EventsScreenController esc = new EventsScreenController();
+		esc.initialize();
+		//System.out.println("Events Button klicked");
 		
 	}
 	@FXML
@@ -79,7 +85,9 @@ public class FxmlDocumentController implements Initializable {
 		Pane view = screen.getPage("TeamsScreen");
 		System.out.println("Pane view: " + view);
 		
-		bpScreenView.setLeft(view);		
+		bpScreenView.setCenter(view);
+		TeamsScreenController tsc = new TeamsScreenController();
+		tsc.initialize();
 		System.out.println("Teams Button klicked");
 		
 	}
@@ -90,7 +98,7 @@ public class FxmlDocumentController implements Initializable {
 		Pane view = screen.getPage("TournamentsScreen");
 		System.out.println("Pane view: " + view);
 		
-		bpScreenView.setLeft(view);		
+		bpScreenView.setCenter(view);		
 		System.out.println("Tournaments Button klicked");
 		
 	}
@@ -101,7 +109,7 @@ public class FxmlDocumentController implements Initializable {
 		Pane view = screen.getPage("PartnersScreen");
 		System.out.println("Pane view: " + view);
 		
-		bpScreenView.setLeft(view);		
+		bpScreenView.setCenter(view);		
 		System.out.println("Partners Button klicked");
 		
 	}
@@ -112,7 +120,7 @@ public class FxmlDocumentController implements Initializable {
 		Pane view = screen.getPage("FinancesScreen");
 		System.out.println("Pane view: " + view);
 		
-		bpScreenView.setLeft(view);		
+		bpScreenView.setCenter(view);		
 		System.out.println("Finances Button klicked");
 		
 	}

@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import javafx.scene.control.cell.PropertyValueFactory;
 import fxClasses.MemberFX;
 import gcmClasses.Member;
@@ -15,7 +17,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
@@ -45,7 +50,7 @@ public class MembersScreenController {
 	@FXML
 	public Button editDetailsBtn;
 
-	
+
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 		FxmlLoader loader = new FxmlLoader();
@@ -66,11 +71,52 @@ public class MembersScreenController {
 	}
 
 
+	@FXML 
+	private void handleDeleteBtn()  {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("WARNING - DELETING MEMBER");
+		alert.setHeaderText("THIS CAN NOT BE UNDONE");
+		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
+		
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			
+			// get ID from item in table view
+			MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
+			int id = member.getId(); 
+			// delete from database
+			MemberServiceFunctions.deleteMember(id);
+			
+			//remove from Tableview
+			membersTableView.getItems().removeAll(
+					membersTableView.getSelectionModel().getSelectedItem()
+	        );
+			
+			membersTableView.refresh();			
+		}	
+	}
+
+
+	@FXML
+	public void handle(ActionEvent t){
+
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation Dialog");
+		alert.setHeaderText("Look, a Confirmation Dialog");
+		alert.setContentText("Are you ok with this?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+
+		}
+	}
+
+
 
 	public void updateTable() {		
 		// load Data
 		if(membersTableView != null) {
-				membersTableView.getItems().addAll(olMembers);
+			membersTableView.getItems().addAll(olMembers);
 		}
 	}
 
@@ -90,7 +136,7 @@ public class MembersScreenController {
 
 
 	public  void initializeColumns() {
-		
+
 		if(idColumn != null) {
 			idColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, Integer>("id"));
 			clanNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanName"));
@@ -107,7 +153,7 @@ public class MembersScreenController {
 	}
 
 
-		
+
 	public void initialize() {
 		readMembersList();
 		initializeColumns();		

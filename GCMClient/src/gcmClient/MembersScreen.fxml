@@ -45,7 +45,7 @@
             </TableView>
             <HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="deleteBtn" mnemonicParsing="false" text="Delete">
+                  <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#handleDeleteBtn" text="Delete">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

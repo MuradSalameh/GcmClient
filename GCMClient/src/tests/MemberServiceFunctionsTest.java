@@ -26,16 +26,16 @@ public class MemberServiceFunctionsTest {
 
 		//--------- addMember() Test -----------//
 
-//				addMember();
-//				addMember();
-//				addMember();
-//				addMember();
+				addMember();
+				addMember();
+				addMember();
+				addMember();
 
 		
 
 		//--------- getMembers() Test to get a List of all members in database-----------//
 
-				getMemberList();
+			//	getMemberList();
 
 
 		

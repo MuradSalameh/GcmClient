@@ -98,7 +98,9 @@ public class FxmlDocumentController implements Initializable {
 		Pane view = screen.getPage("TournamentsScreen");
 		System.out.println("Pane view: " + view);
 		
-		bpScreenView.setCenter(view);		
+		bpScreenView.setCenter(view);
+		TournamentsScreenController trsc = new TournamentsScreenController();
+		trsc.initialize();
 		System.out.println("Tournaments Button klicked");
 		
 	}
@@ -109,7 +111,9 @@ public class FxmlDocumentController implements Initializable {
 		Pane view = screen.getPage("PartnersScreen");
 		System.out.println("Pane view: " + view);
 		
-		bpScreenView.setCenter(view);		
+		bpScreenView.setCenter(view);	
+		PartnerScreenController psc = new PartnerScreenController();
+		psc.initialize();
 		System.out.println("Partners Button klicked");
 		
 	}
@@ -120,7 +124,9 @@ public class FxmlDocumentController implements Initializable {
 		Pane view = screen.getPage("FinancesScreen");
 		System.out.println("Pane view: " + view);
 		
-		bpScreenView.setCenter(view);		
+		bpScreenView.setCenter(view);	
+		FinancesScreenController fsc = new FinancesScreenController();
+		fsc.initialize();
 		System.out.println("Finances Button klicked");
 		
 	}

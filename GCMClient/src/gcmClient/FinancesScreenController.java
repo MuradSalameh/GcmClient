@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,8 +26,14 @@ import serviceFunctions.ExpenseServiceFunctions;
 import serviceFunctions.RevenueServiceFunctions;
 
 public class FinancesScreenController {
+	private double expTotal = 0;
+	private double revTotal = 0;
+	private double total = 0;
 
 	@FXML private AnchorPane financesAnchor;
+	@FXML private Label revTotalLabel;
+	@FXML private Label expTotalLabel;
+	@FXML private Label totalLabel;
 
 	// -------- Revenues Table ---------------
 
@@ -96,16 +103,16 @@ public class FinancesScreenController {
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
 		dialog.showAndWait();
-		
-//		Optional<ButtonType> r = new WeinDetailDialog(RevenueFX).showAndWait();
-//		if(r.isPresent() && r.get().getButtonData() == ButtonData.OK_DONE) {
-//			// neuer Revenue wurde gespeichert, daher neue Weinliste vom Server holen
-//			//leseRevenueliste();
-//			System.out.println("Aktualisiere Revenue Liste");
-//		}
+
+		//		Optional<ButtonType> r = new WeinDetailDialog(RevenueFX).showAndWait();
+		//		if(r.isPresent() && r.get().getButtonData() == ButtonData.OK_DONE) {
+		//			// neuer Revenue wurde gespeichert, daher neue Weinliste vom Server holen
+		//			//leseRevenueliste();
+		//			System.out.println("Aktualisiere Revenue Liste");
+		//		}
 	}
 
-	
+
 	// -------- Expenses Buttons ---------------
 
 
@@ -117,6 +124,7 @@ public class FinancesScreenController {
 		// load Data
 		if(revenuesTableView != null) {
 			revenuesTableView.getItems().addAll(olRevenues);
+			revTotalLabel.setText("Total: " + revTotal + " €");
 		}
 	}
 
@@ -126,6 +134,8 @@ public class FinancesScreenController {
 		// load Data
 		if(expensesTableView != null) {
 			expensesTableView.getItems().addAll(olExpenses);
+			expTotalLabel.setText("Total: " + expTotal + " €");
+			
 		}
 	}
 
@@ -138,31 +148,39 @@ public class FinancesScreenController {
 		List<Revenue> xmlRevenues = new ArrayList<Revenue>();
 		xmlRevenues = RevenueServiceFunctions.getRevenues();			
 
-		for(Revenue einM : xmlRevenues) {
-			olRevenues.add(new RevenueFX(einM));
-			System.out.println("CLIENT------------" + "\n" + einM);
+		for(Revenue r : xmlRevenues) {
+			olRevenues.add(new RevenueFX(r));
+			revTotal += r.getAmount();
+
+			System.out.println("CLIENT------------" + "\n" + r);
 		}
 	}
 
 	// -------- Read Expenses List  ---------------
-	
-	
+
+
 	public void readExpensesList() {
 		olExpenses.clear();
-		
+
+
 		List<Expense> xmlExpenses = new ArrayList<Expense>();
 		xmlExpenses = ExpenseServiceFunctions.getExpenses();			
-		
-		for(Expense einM : xmlExpenses) {
-			olExpenses.add(new ExpenseFX(einM));
-			System.out.println("CLIENT------------" + "\n" + einM);
-		}
+
+		for(Expense e : xmlExpenses) {
+			olExpenses.add(new ExpenseFX(e));
+			expTotal += e.getAmount();
+			System.out.println("CLIENT------------" + "\n" + e);
+		}		
 	}
-	
 
 
 
 
+	public void calculateTotal() {
+		total = revTotal - expTotal;
+		totalLabel.setText(total + " €");
+
+	}
 
 	public void initialize() {
 		readRevenuesList();
@@ -171,6 +189,10 @@ public class FinancesScreenController {
 		expInitializeColumns();
 		revUpdateTable();
 		expUpdateTable();
+		if(this.totalLabel != null) {
+			calculateTotal();
+		}
+		
 	}
 
 

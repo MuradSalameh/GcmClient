@@ -17,7 +17,7 @@ public class FXMain extends Application {
 		
 		System.out.println("root: "+ root);
 		primaryStage.setTitle("Gaming Clan Manager");
-		Scene scene = new Scene(root);
+		Scene scene = new Scene(root, 1200,600);
 		primaryStage.setScene(scene);
 		//primaryStage.setResizable(false);
 		

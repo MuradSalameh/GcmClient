@@ -27,10 +27,10 @@ public class ExpenseServiceFunctionsTest {
 
 		//--------- addExpense() Test -----------//
 
-//				addExpense();
-//				addExpense();
-//				addExpense();
-//				addExpense();
+				addExpense();
+				addExpense();
+				addExpense();
+				addExpense();
 
 		
 
@@ -57,8 +57,8 @@ public class ExpenseServiceFunctionsTest {
 
 		//--------- updateExpense() Test -----------//
 
-				String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
-				updateExpenseTest(id1,s);
+//				String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
+//				updateExpenseTest(id1,s);
 
 
 		

@@ -13,22 +13,34 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="financesAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="financesAnchor" prefHeight="495.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.FinancesScreenController">
    <children>
-      <VBox prefHeight="495.0" prefWidth="700.0">
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Finances List:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" top="10.0" />
-               </VBox.margin>
-            </Label>
-            <GridPane prefHeight="453.0" prefWidth="700.0">
+            <HBox prefHeight="75.0" prefWidth="700.0">
+               <children>
+                  <Label text="Finances List:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="totalLabel" text="0.00 €">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <GridPane>
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="351.0" minWidth="10.0" prefWidth="351.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.0" minWidth="10.0" prefWidth="349.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" percentWidth="50.0" prefWidth="350.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" percentWidth="50.0" prefWidth="349.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -47,42 +59,55 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                  <HBox nodeOrientation="RIGHT_TO_LEFT" GridPane.rowIndex="3">
                      <children>
-                        <Button fx:id="detailsBtn" mnemonicParsing="false" text="Show Details" />
-                        <Button fx:id="addNewBtn" mnemonicParsing="false" text="Add New" />
                         <Button fx:id="deleteBtn" mnemonicParsing="false" text="Delete" />
                         <Button fx:id="editDetailsBtn" mnemonicParsing="false" text="Edit Details" />
+                        <Button fx:id="detailsBtn" mnemonicParsing="false" text="Show Details" />
+                        <Button fx:id="addNewBtn" mnemonicParsing="false" text="Add New" />
                      </children>
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </HBox>
-                  <HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <HBox nodeOrientation="RIGHT_TO_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <Button fx:id="detailsBtn1" mnemonicParsing="false" text="Show Details" />
-                        <Button fx:id="addNewBtn1" mnemonicParsing="false" text="Add New" />
                         <Button fx:id="deleteBtn1" mnemonicParsing="false" text="Delete" />
                         <Button fx:id="editDetailsBtn1" mnemonicParsing="false" text="Edit Details" />
+                        <Button fx:id="detailsBtn1" mnemonicParsing="false" text="Show Details" />
+                        <Button fx:id="addNewBtn1" mnemonicParsing="false" text="Add New" />
                      </children>
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </HBox>
-                  <TableView fx:id="reveuesTableView" prefHeight="46.0" prefWidth="350.0" GridPane.rowIndex="1">
+                  <TableView fx:id="revenuesTableView" editable="true" prefHeight="46.0" prefWidth="350.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn fx:id="revIdColumn" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="revenueTitleColumn" prefWidth="75.0" text="Title" />
+                        <TableColumn fx:id="revenueDescriptionColumn" prefWidth="75.0" text="Description" />
+                        <TableColumn fx:id="revAmountColumn" prefWidth="75.0" text="Amount" />
+                        <TableColumn fx:id="revDateColumn" prefWidth="75.0" text="Date" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="expensesTableView" prefHeight="406.0" prefWidth="341.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TableView fx:id="expensesTableView" editable="true" prefHeight="406.0" prefWidth="341.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn fx:id="expIdColumn" prefWidth="41.0" text="ID" />
+                      <TableColumn fx:id="expenseTitleColumn" prefWidth="84.0" text="Title" />
+                        <TableColumn fx:id="expenseDescriptionColumn" prefWidth="100.0" text="Description" />
+                        <TableColumn fx:id="expAmountColumn" prefWidth="78.0" text="Amount" />
+                        <TableColumn fx:id="expDateColumn" prefWidth="72.0" text="Date" />
+                        <TableColumn fx:id="recipientNameColumn" prefWidth="75.0" text="Recipient Name" />
                     </columns>
                   </TableView>
-                  <Label text="Label" GridPane.rowIndex="2" />
-                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="revTotalLabel" text="Total Revenues" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin></Label>
+                  <Label fx:id="expTotalLabel" text="Total Expenses" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin></Label>
                </children>
             </GridPane>
          </children>

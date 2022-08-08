@@ -127,6 +127,7 @@ public class FxmlDocumentController implements Initializable {
 		bpScreenView.setCenter(view);	
 		FinancesScreenController fsc = new FinancesScreenController();
 		fsc.initialize();
+		
 		System.out.println("Finances Button klicked");
 		
 	}

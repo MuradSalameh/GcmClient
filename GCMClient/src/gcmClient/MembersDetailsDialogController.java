@@ -42,12 +42,14 @@ import serviceFunctions.TeamServiceFunctions;
 
 public class MembersDetailsDialogController {
 	private int ccId = ControllerCommunicator.getId();
-	
-	
+	Member member = MemberServiceFunctions.getMember(ccId);
+
 	@FXML
 	private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
-	@FXML private DialogPane memberDetailsDialog;
+	@FXML private DialogPane memberDetailsDialog;	
 	@FXML private Label idLabel;
+
+	// Text TextFields	
 	@FXML private TextField clanNameTf;
 	@FXML private TextField clanIdTf;
 	@FXML private TextField realNameTf;
@@ -58,35 +60,47 @@ public class MembersDetailsDialogController {
 	@FXML private TextField emailTf;
 	@FXML private TextField phoneNumberTf;
 	@FXML private DatePicker dateDp;
-	
-	
-	// TextFields
+
+
+	// initialize TextFields
 	public void initializeTextFields() {
-		idLabel.setText(String.valueOf(ccId));
+		if(idLabel != null) {
+			idLabel.setText(String.valueOf(ccId));
+			clanNameTf.setText(member.getClanName());
+			clanIdTf.setText(member.getClanId());
+			realNameTf.setText(member.getRealName());
+			addressTf.setText(member.getAddress());
+			postCodeTf.setText(member.getAddressPostCode());
+			cityTf.setText(member.getAddressCity());
+			countryTf.setText(member.getCountry());
+			emailTf.setText(member.getEmail());
+			phoneNumberTf.setText(member.getPhoneNumber());
+			dateDp.setValue(member.getBirthday());						
+		}		
 	}
-	
-	
+
+
 	// Teams Table
-	
+
 	@FXML private ObservableList<TeamFX> olTeams = FXCollections.observableArrayList();
 	@FXML private TableView<TeamFX> teamsTableView;	
 	@FXML private TableColumn<TeamFX,Integer> teamsIdColumn;	
 	@FXML private TableColumn<TeamFX,String> teamNameColumn;
 	@FXML private TableColumn<TeamFX,String> teamDescriptionColumn;
-	
+
 	public  void initializeTeamsColumns() {
-		
+
 		if(teamsIdColumn != null) {
 			teamsIdColumn.setCellValueFactory(new PropertyValueFactory<TeamFX, Integer>("id"));
 			teamNameColumn.setCellValueFactory(new PropertyValueFactory<TeamFX, String>("teamName"));
 			teamDescriptionColumn.setCellValueFactory(new PropertyValueFactory<TeamFX, String>("teamDescription"));
 		}
 	}
-	
+
 	public void updateTeamsTable() {		
 		// load Data
 		if(teamsTableView != null) {
-				teamsTableView.getItems().addAll(olTeams);
+			teamsTableView.getItems().addAll(olTeams);
 		}
 	}
 
@@ -102,18 +116,18 @@ public class MembersDetailsDialogController {
 		}
 	}
 
-/*	
+	/*	
 	// Roles Table
 	@FXML private TableView<RoleFX> rolesTableView;
-	
-	
+
+
 	// Games Table
 	@FXML private TableView<GameFX> gamesTableView;
 	@FXML private TableColumn<GameFX,Integer> gamesIdColumn;	
 	@FXML private TableColumn<GameFX,String> gameTitleColumn;
 	@FXML private TableColumn<GameFX,LocalDate> releaseDateColumn;
 	@FXML private TableColumn<GameFX,String> gamesAdditionalNotesColumn;
-	
+
 	// Events Table
 	@FXML private TableView<EventFX> eventsTableView;
 	@FXML private TableColumn<EventFX,Integer> eventsIdColumn;	
@@ -124,10 +138,10 @@ public class MembersDetailsDialogController {
 	@FXML private TableColumn<EventFX,LocalTime> eventEndTimeColumn;
 	@FXML private TableColumn<EventFX,String> eventAdditionalNotesColumn;
 	@FXML private TableColumn<EventFX,Boolean> reoccuringColumn;
-	
+
 	// Socials Table
 	@FXML private TableView<SocialFX> socialsTableView;
-	
+
 
 
 	@FXML
@@ -142,7 +156,7 @@ public class MembersDetailsDialogController {
 		dialog.setDialogPane(dialogPane);
 		dialog.showAndWait();
 
-	
+
 		System.out.println("MembersDetailsDialog Button klicked");
 	}
 
@@ -153,21 +167,21 @@ public class MembersDetailsDialogController {
 		alert.setTitle("WARNING - DELETING MEMBER");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
 		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
-		
+
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
-			
+
 			// get ID from item in table view
 			MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
 			int id = member.getId(); 
 			// delete from database
 			MemberServiceFunctions.deleteMember(id);
-			
+
 			//remove from Tableview
 			membersTableView.getItems().removeAll(
 					membersTableView.getSelectionModel().getSelectedItem()
 	        );
-			
+
 			membersTableView.refresh();			
 		}	
 	}
@@ -175,10 +189,10 @@ public class MembersDetailsDialogController {
 
 	@FXML
 	public void handleAddNewBtn(ActionEvent t){
-		
-		
 
-		
+
+
+
 	}
 
 
@@ -208,7 +222,7 @@ public class MembersDetailsDialogController {
 	public  void initializeColumns() {
 
 		if(idColumn != null) {
-		
+
 			idColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, Integer>("id"));
 			clanNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanName"));
 			clanIdColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanId"));
@@ -223,13 +237,13 @@ public class MembersDetailsDialogController {
 		}
 	}
 
-*/
+	 */
 
 	public void initialize() {
-	//	readMembersList();
-	//	initializeColumns();
+		//	readMembersList();
+		//	initializeColumns();
 		initializeTextFields();
-	//	updateTable();
+		//	updateTable();
 	}
 
 

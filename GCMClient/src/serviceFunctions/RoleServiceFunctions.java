@@ -28,6 +28,18 @@ public class RoleServiceFunctions {
 
 		return roles;
 	}
+	
+	//GET - get role list
+	public static List<Role> getRolesByMemberId(int id) {
+
+		List<Role> roles = ClientBuilder.newClient()
+				.target(serverURI)
+				.path("/rolelistmember" +id)
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<List<Role>>(){});
+
+		return roles;
+	}
 
 
 	//GET - get one role
@@ -41,7 +53,8 @@ public class RoleServiceFunctions {
 
 		return role;
 	}
-
+	
+	
 
 	//Post - add new role 
 	public static Response addRole(Role m) {

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import fxClasses.ExpenseFX;
 import fxClasses.RevenueFX;
@@ -14,7 +15,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
@@ -91,6 +95,35 @@ public class FinancesScreenController {
 
 	// -------- Revenues Buttons ---------------
 
+	@FXML 
+	private void handleDeleteRevBtn()  {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("WARNING - DELETING REVENUE");
+		alert.setHeaderText("THIS CAN NOT BE UNDONE");
+		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS REVENUE?");
+		
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			
+			// get ID from item in table view
+			RevenueFX revenue = revenuesTableView.getSelectionModel().getSelectedItem();
+			int id = revenue.getId(); 
+			// delete from database
+			RevenueServiceFunctions.deleteRevenue(id);
+			
+			//remove from Tableview
+			revenuesTableView.getItems().removeAll(
+					revenuesTableView.getSelectionModel().getSelectedItem()
+	        );
+			
+			readRevenuesList();
+			revenuesTableView.refresh();
+			calculateTotals();
+
+		}	
+	}
+	
+	
 
 	@FXML
 	public Button editDetailsBtn;
@@ -115,7 +148,33 @@ public class FinancesScreenController {
 
 	// -------- Expenses Buttons ---------------
 
+	@FXML 
+	private void handleDeleteExpBtn()  {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("WARNING - DELETING EXPENSE");
+		alert.setHeaderText("THIS CAN NOT BE UNDONE");
+		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS EXPENSE?");
+		
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			
+			// get ID from item in table view
+			ExpenseFX expense = expensesTableView.getSelectionModel().getSelectedItem();
+			int id = expense.getId(); 
+			// delete from database
+			ExpenseServiceFunctions.deleteExpense(id);
+			
+			//remove from Tableview
+			expensesTableView.getItems().removeAll(
+					expensesTableView.getSelectionModel().getSelectedItem()
+	        );
+			readExpensesList();
+			expensesTableView.refresh();
+			
+			calculateTotals();
 
+		}	
+	}
 
 
 	// -------- Revenues Table Update ---------------
@@ -124,7 +183,6 @@ public class FinancesScreenController {
 		// load Data
 		if(revenuesTableView != null) {
 			revenuesTableView.getItems().addAll(olRevenues);
-			revTotalLabel.setText("Total: " + revTotal + " €");
 		}
 	}
 
@@ -134,7 +192,6 @@ public class FinancesScreenController {
 		// load Data
 		if(expensesTableView != null) {
 			expensesTableView.getItems().addAll(olExpenses);
-			expTotalLabel.setText("Total: " + expTotal + " €");
 			
 		}
 	}
@@ -144,11 +201,12 @@ public class FinancesScreenController {
 
 	public void readRevenuesList() {
 		olRevenues.clear();
-
+		revTotal = 0;
 		List<Revenue> xmlRevenues = new ArrayList<Revenue>();
 		xmlRevenues = RevenueServiceFunctions.getRevenues();			
 
 		for(Revenue r : xmlRevenues) {
+			
 			olRevenues.add(new RevenueFX(r));
 			revTotal += r.getAmount();
 
@@ -161,12 +219,13 @@ public class FinancesScreenController {
 
 	public void readExpensesList() {
 		olExpenses.clear();
-
+		expTotal = 0;
 
 		List<Expense> xmlExpenses = new ArrayList<Expense>();
 		xmlExpenses = ExpenseServiceFunctions.getExpenses();			
 
 		for(Expense e : xmlExpenses) {
+			
 			olExpenses.add(new ExpenseFX(e));
 			expTotal += e.getAmount();
 			System.out.println("CLIENT------------" + "\n" + e);
@@ -176,7 +235,10 @@ public class FinancesScreenController {
 
 
 
-	public void calculateTotal() {
+	public void calculateTotals() {
+		expTotalLabel.setText("Total: " + expTotal + " €");
+		revTotalLabel.setText("Total: " + revTotal + " €");
+
 		total = revTotal - expTotal;
 		totalLabel.setText(total + " €");
 
@@ -190,7 +252,7 @@ public class FinancesScreenController {
 		revUpdateTable();
 		expUpdateTable();
 		if(this.totalLabel != null) {
-			calculateTotal();
+			calculateTotals();
 		}
 		
 	}

@@ -5,22 +5,28 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import fxClasses.EventFX;
+import fxClasses.MemberFX;
 import gcmClasses.Event;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import serviceFunctions.EventServiceFunctions;
+import serviceFunctions.MemberServiceFunctions;
 
 public class EventsScreenController {
 
@@ -58,6 +64,31 @@ public class EventsScreenController {
 		}
 		 */	
 		System.out.println("EventsDetailsDialog Button klicked");
+	}
+	
+	@FXML 
+	private void handleDeleteBtn()  {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("WARNING - DELETING EVENT");
+		alert.setHeaderText("THIS CAN NOT BE UNDONE");
+		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS EVENT?");
+		
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			
+			// get ID from item in table view
+			EventFX event = eventsTableView.getSelectionModel().getSelectedItem();
+			int id = event.getId(); 
+			// delete from database
+			EventServiceFunctions.deleteEvent(id);
+			
+			//remove from Tableview
+			eventsTableView.getItems().removeAll(
+					eventsTableView.getSelectionModel().getSelectedItem()
+	        );
+			
+			eventsTableView.refresh();			
+		}	
 	}
 
 

@@ -29,7 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import serviceFunctions.MemberServiceFunctions;
 
 
-public class MembersScreenController {
+public class MembersDetailsDialogController {
 
 	@FXML
 	private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();

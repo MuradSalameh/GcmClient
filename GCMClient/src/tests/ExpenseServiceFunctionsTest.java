@@ -67,7 +67,7 @@ public class ExpenseServiceFunctionsTest {
 		Expense test = new Expense(
 				"test", 					// title
 				"ttttt", 					// desc
-				299.00, 					// amount
+				500.00, 					// amount
 				LocalDate.of(1981, 4, 11),	// date
 				"heinrich", 					//recipient
 				null);						// teams

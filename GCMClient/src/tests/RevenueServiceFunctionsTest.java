@@ -26,10 +26,10 @@ public class RevenueServiceFunctionsTest {
 
 		//--------- addRevenue() Test -----------//
 
-//				addRevenue();
-//				addRevenue();
-//				addRevenue();
-//				addRevenue();
+				addRevenue();
+				addRevenue();
+				addRevenue();
+				addRevenue();
 
 		
 
@@ -63,7 +63,7 @@ public class RevenueServiceFunctionsTest {
 		Revenue test = new Revenue(
 				"Revenue", 					// title
 				"earnings", 					// desc
-				399999.99, 					// amount
+				10000.00, 					// amount
 				LocalDate.of(1981, 4, 11));	// date
 
 		RevenueServiceFunctions.addRevenue(test);

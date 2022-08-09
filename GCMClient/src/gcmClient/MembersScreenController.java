@@ -53,11 +53,19 @@ public class MembersScreenController {
 
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+		// get ID from item in table view
+		MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
+		int id = member.getId(); 
+		
+		ControllerCommunicator cc = new ControllerCommunicator(id);
 		FxmlLoader loader = new FxmlLoader();
 		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("MembersDetailDialog.fxml"));
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
+		
 		dialog.showAndWait();
+		MembersDetailsDialogController mddc = new MembersDetailsDialogController();
+		mddc.initialize();
 
 		/*
 		Optional<ButtonType> r = new WeinDetailDialog(MemberFX).showAndWait();
@@ -77,21 +85,21 @@ public class MembersScreenController {
 		alert.setTitle("WARNING - DELETING MEMBER");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
 		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
-		
+
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
-			
+
 			// get ID from item in table view
 			MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
 			int id = member.getId(); 
 			// delete from database
 			MemberServiceFunctions.deleteMember(id);
-			
+
 			//remove from Tableview
 			membersTableView.getItems().removeAll(
 					membersTableView.getSelectionModel().getSelectedItem()
-	        );
-			
+					);
+
 			membersTableView.refresh();			
 		}	
 	}
@@ -99,10 +107,10 @@ public class MembersScreenController {
 
 	@FXML
 	public void handleAddNewBtn(ActionEvent t){
-		
-		
 
-		
+
+
+
 	}
 
 

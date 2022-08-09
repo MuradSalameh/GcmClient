@@ -45,68 +45,27 @@
                         <Label text="ID" />
                         <Label text="Clan Name" GridPane.rowIndex="1" />
                         <Label text="Clan Id" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="clanNameTf" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="clanIdTf" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Real Name" GridPane.rowIndex="3" />
-                        <Label text="Adress" GridPane.rowIndex="4" />
+                        <Label text="Address" GridPane.rowIndex="4" />
                         <Label text="Post Code" GridPane.rowIndex="5" />
                         <Label text="City" GridPane.rowIndex="6" />
                         <Label text="Country" GridPane.rowIndex="7" />
                         <Label text="Email" GridPane.rowIndex="8" />
                         <Label text="Phone Number" GridPane.rowIndex="9" />
                         <Label text="Birthday" GridPane.rowIndex="10" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="ID" GridPane.columnIndex="1" />
-                        <DatePicker prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <TextField fx:id="phoneNumberTf" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <TextField fx:id="emailTf" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="countryTf" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="cityTf" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="postCodeTf" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="addressTf" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="realNameTf" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="idLabel" text="ID" GridPane.columnIndex="1" />
+                        <DatePicker fx:id="dateDp" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                      </children>
                   </GridPane>
-                  <VBox>
-                     <children>
-                        <Label text="Teams">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <TableView minWidth="340.0" prefHeight="137.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
-                           <VBox.margin>
-                              <Insets top="2.0" />
-                           </VBox.margin>
-                        </TableView>
-                        <Label text="Games">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <TableView minWidth="340.0" prefHeight="137.0">
-                           <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
-                           </columns>
-                           <VBox.margin>
-                              <Insets top="2.0" />
-                           </VBox.margin>
-                        </TableView>
-                     </children>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </VBox>
                   <VBox>
                      <children>
                         <Label text="Socials">
@@ -114,10 +73,13 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TableView prefHeight="137.0" prefWidth="464.0">
+                        <TableView fx:id="socialsTableView" editable="true" prefHeight="137.0" prefWidth="464.0" tableMenuButtonVisible="true">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn prefWidth="75.0" text="ID" />
+                              <TableColumn prefWidth="75.0" text="Platform" />
+                              <TableColumn prefWidth="75.0" text="Username" />
+                              <TableColumn prefWidth="75.0" text="Link" />
+                              <TableColumn prefWidth="75.0" text="Notes" />
                            </columns>
                            <VBox.margin>
                               <Insets top="2.0" />
@@ -131,10 +93,60 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TableView prefHeight="137.0">
+                        <TableView fx:id="eventsTableView" editable="true" prefHeight="137.0" tableMenuButtonVisible="true">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn prefWidth="75.0" text="ID" />
+                              <TableColumn prefWidth="75.0" text="Title" />
+                              <TableColumn prefWidth="75.0" text="Description" />
+                              <TableColumn prefWidth="75.0" text="Date" />
+                              <TableColumn prefWidth="75.0" text="Start Time" />
+                              <TableColumn prefWidth="75.0" text="End Time" />
+                              <TableColumn prefWidth="75.0" text="Notes" />
+                              <TableColumn prefWidth="75.0" text="Reoccuring" />
+                           </columns>
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin>
+                        </TableView>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="Teams">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="teamsTableView" editable="true" minWidth="340.0" prefHeight="137.0" tableMenuButtonVisible="true">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="ID" />
+                            <TableColumn prefWidth="75.0" text="Team Name" />
+                              <TableColumn prefWidth="75.0" text="Description" />
+                          </columns>
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin>
+                        </TableView>
+                        <Label text="Games">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TableView fx:id="gamesTableView" editable="true" minWidth="340.0" prefHeight="137.0" tableMenuButtonVisible="true">
+                           <columns>
+                              <TableColumn prefWidth="75.0" text="ID" />
+                              <TableColumn prefWidth="75.0" text="Game Title" />
+                              <TableColumn prefWidth="75.0" text="Release Date" />
+                              <TableColumn prefWidth="75.0" text="Notes" />
                            </columns>
                            <VBox.margin>
                               <Insets top="2.0" />
@@ -159,10 +171,11 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TableView minWidth="350.0" prefWidth="350.0">
+                        <TableView fx:id="rolesTableView" editable="true" minWidth="350.0" prefWidth="350.0" tableMenuButtonVisible="true">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn prefWidth="75.0" text="ID" />
+                              <TableColumn prefWidth="75.0" text="Role Name" />
+                              <TableColumn prefWidth="75.0" text="Description" />
                            </columns>
                            <VBox.margin>
                               <Insets top="2.0" />

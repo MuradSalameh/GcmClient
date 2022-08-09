@@ -148,6 +148,8 @@ public class FinancesScreenController {
 
 	// -------- Expenses Buttons ---------------
 
+	
+	
 	@FXML 
 	private void handleDeleteExpBtn()  {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -175,6 +177,9 @@ public class FinancesScreenController {
 
 		}	
 	}
+	
+	
+	
 
 
 	// -------- Revenues Table Update ---------------

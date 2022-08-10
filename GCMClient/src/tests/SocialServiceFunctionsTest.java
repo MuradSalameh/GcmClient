@@ -1,6 +1,5 @@
 package tests;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +16,7 @@ import serviceFunctions.SocialServiceFunctions;
 
 public class SocialServiceFunctionsTest {
 	public static  ObservableList<SocialFX> olSocials = FXCollections.observableArrayList();
+	public static  ObservableList<SocialFX> olsbi = FXCollections.observableArrayList();
 
 	public static void main(String[] args) {	
 
@@ -35,7 +35,7 @@ public class SocialServiceFunctionsTest {
 
 		//--------- getSocials() Test to get a List of all socials in database-----------//
 
-//				getSocialList();
+//			getSocialList();
 
 
 		
@@ -47,7 +47,7 @@ public class SocialServiceFunctionsTest {
 
 		//--------- getSocial() Test to get one specific social by id -----------//
 
-//				getSocialTest(id);
+//			getSocialTest(id);
 
 
 
@@ -56,7 +56,11 @@ public class SocialServiceFunctionsTest {
 //				String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
 //				updateSocialTest(id,s);
 
+		//--------- getSocialListByMemberId() Test -----------//
 
+		getSocialListByMemberId(1);
+		
+		
 		
 	}	
 	public static void addSocial() {
@@ -111,6 +115,16 @@ public class SocialServiceFunctionsTest {
 		}		
 	}
 
+	public static void getSocialListByMemberId(int id) {
+		List<Social> xmlSocials = new ArrayList<Social>();
+		xmlSocials = (List<Social>) SocialServiceFunctions.getSocialsByMemberId(id);
+		
+		for(Social einM : xmlSocials) {
+			olsbi.add(new SocialFX(einM));
+			System.out.println("CLIENT------------" + "\n" + einM);
+		}		
+	}
+	
 
 
 }

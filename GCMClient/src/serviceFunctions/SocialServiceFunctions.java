@@ -29,6 +29,18 @@ public class SocialServiceFunctions {
 		return socials;
 	}
 
+	//GET - get social list by memberId
+	public static List<Social> getSocialsByMemberId(int id) {
+
+		List<Social> socials = ClientBuilder.newClient()
+				.target(serverURI)
+				.path("/socialsByMember/" +id)
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<List<Social>>(){});
+
+		return socials;
+	}
+
 
 	//GET - get one social
 	public static Social getSocial(int id) {

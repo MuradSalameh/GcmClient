@@ -125,9 +125,9 @@
                         </Label>
                         <TableView fx:id="teamsTableView" editable="true" minWidth="340.0" prefHeight="137.0" tableMenuButtonVisible="true">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="ID" />
-                            <TableColumn prefWidth="75.0" text="Team Name" />
-                              <TableColumn prefWidth="75.0" text="Description" />
+                            <TableColumn fx:id="teamsIdColumn" prefWidth="75.0" text="ID" />
+                            <TableColumn fx:id="teamNameColumn" prefWidth="75.0" text="Team Name" />
+                              <TableColumn fx:id="teamDescriptionColumn" prefWidth="75.0" text="Description" />
                           </columns>
                            <VBox.margin>
                               <Insets top="2.0" />

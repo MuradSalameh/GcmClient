@@ -2,6 +2,7 @@ package serviceFunctions;
 
 import java.util.List;
 
+import gcmClasses.Member;
 import gcmClasses.Team;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -27,6 +28,29 @@ public class TeamServiceFunctions {
 				.get(new GenericType<List<Team>>(){});
 
 		return teams;
+	}
+	
+	
+	public static List<Team> getTeamsByMemberId(int id) {
+
+		List<Team> teams = ClientBuilder.newClient()
+				.target(serverURI)
+				.path("/teamsByMember/" +id)
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<List<Team>>(){});
+
+		return teams;
+	}
+	
+	public static List<Member> getMembersByTeamId(int id) {
+		
+		List<Member> members = ClientBuilder.newClient()
+				.target(serverURI)
+				.path("/membersByTeam/" +id)
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<List<Member>>(){});
+		
+		return members;
 	}
 
 

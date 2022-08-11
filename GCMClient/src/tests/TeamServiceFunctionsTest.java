@@ -3,12 +3,15 @@ package tests;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
+import fxClasses.MemberFX;
+import fxClasses.RoleFX;
 import fxClasses.TeamFX;
+import gcmClasses.Member;
+import gcmClasses.Role;
 import gcmClasses.Team;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import serviceFunctions.RoleServiceFunctions;
 import serviceFunctions.TeamServiceFunctions;
 
 
@@ -16,6 +19,8 @@ import serviceFunctions.TeamServiceFunctions;
 
 public class TeamServiceFunctionsTest {
 	public static  ObservableList<TeamFX> olTeams = FXCollections.observableArrayList();
+	public static  ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
+
 
 	public static void main(String[] args) {	
 
@@ -54,6 +59,17 @@ public class TeamServiceFunctionsTest {
 
 //				String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
 //				updateTeamTest(id,s);
+		
+		
+		
+		//--------- getTeamsByMemberIdTest() Test -----------//
+		
+//		getTeamsByMemberIdTest(2);
+		
+		
+		//--------- getTeamsByMemberIdTest() Test -----------//
+		
+//		getMembersByTeamIdTest(1);
 
 
 		
@@ -108,6 +124,27 @@ public class TeamServiceFunctionsTest {
 			System.out.println("CLIENT------------" + "\n" + einM);
 		}		
 	}
+	
+	public static void getTeamsByMemberIdTest(int id) {
+		List<Team> xmlTeams = new ArrayList<Team>();
+		xmlTeams = (List<Team>) TeamServiceFunctions.getTeamsByMemberId(id);
+		
+		for(Team einT : xmlTeams) {
+			olTeams.add(new TeamFX(einT));
+			System.out.println("CLIENT------------" + "\n" + einT);
+		}		
+	}
+
+	public static void getMembersByTeamIdTest(int id) {
+		List<Member> xmlMembers = new ArrayList<Member>();
+		xmlMembers = (List<Member>) TeamServiceFunctions.getMembersByTeamId(id);
+		
+		for(Member einM : xmlMembers) {
+			olMembers.add(new MemberFX(einM));
+			System.out.println("CLIENT------------" + "\n" + einM);
+		}		
+	}
+	
 
 
 

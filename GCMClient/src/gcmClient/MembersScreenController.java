@@ -67,14 +67,6 @@ public class MembersScreenController {
 		MembersDetailsDialogController mddc = new MembersDetailsDialogController();
 		mddc.initialize();
 
-		/*
-		Optional<ButtonType> r = new WeinDetailDialog(MemberFX).showAndWait();
-		if(r.isPresent() && r.get().getButtonData() == ButtonData.OK_DONE) {
-			// neuer Member wurde gespeichert, daher neue Weinliste vom Server holen
-			//leseMemberliste();
-			System.out.println("Aktualisiere Member Liste");
-		}
-		 */	
 		System.out.println("MembersDetailsDialog Button klicked");
 	}
 

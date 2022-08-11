@@ -7,16 +7,20 @@ import java.util.List;
 
 
 import fxClasses.RoleFX;
+import fxClasses.SocialFX;
 import gcmClasses.Role;
+import gcmClasses.Social;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import serviceFunctions.RoleServiceFunctions;
+import serviceFunctions.SocialServiceFunctions;
 
 
 
 
 public class RoleServiceFunctionsTest {
 	public static  ObservableList<RoleFX> olRoles = FXCollections.observableArrayList();
+	public static  ObservableList<RoleFX> olsbi = FXCollections.observableArrayList();
 
 	public static void main(String[] args) {	
 
@@ -56,7 +60,10 @@ public class RoleServiceFunctionsTest {
 //				String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
 //				updateRoleTest(id,s);
 
+		
+		//--------- getRoleListByMemberId() Test -----------//
 
+		getRoleListByMemberId(1);
 		
 	}	
 	public static void addRole() {
@@ -110,6 +117,15 @@ public class RoleServiceFunctionsTest {
 		}		
 	}
 
+	public static void getRoleListByMemberId(int id) {
+		List<Role> xmlRoles = new ArrayList<Role>();
+		xmlRoles = (List<Role>) RoleServiceFunctions.getRolesByMemberId(id);
+		
+		for(Role einM : xmlRoles) {
+			olsbi.add(new RoleFX(einM));
+			System.out.println("CLIENT------------" + "\n" + einM);
+		}		
+	}
 
 
 }

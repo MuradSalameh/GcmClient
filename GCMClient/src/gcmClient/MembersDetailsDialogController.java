@@ -2,40 +2,22 @@ package gcmClient;
 
 
 
-import java.io.IOException;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import javafx.scene.control.cell.PropertyValueFactory;
-import fxClasses.EventFX;
-import fxClasses.GameFX;
 import fxClasses.MemberFX;
-import fxClasses.RoleFX;
-import fxClasses.SocialFX;
 import fxClasses.TeamFX;
 import gcmClasses.Member;
 import gcmClasses.Team;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import serviceFunctions.MemberServiceFunctions;
 import serviceFunctions.TeamServiceFunctions;
 
@@ -108,11 +90,12 @@ public class MembersDetailsDialogController {
 		olTeams.clear();
 
 		List<Team> xmlTeams = new ArrayList<Team>();
-		xmlTeams = TeamServiceFunctions.getTeams();			
+		xmlTeams = TeamServiceFunctions.getTeamsByMemberId(ccId);			
 
-		for(Team einM : xmlTeams) {
-			olTeams.add(new TeamFX(einM));
-			System.out.println("CLIENT------------" + "\n" + einM);
+		for(Team einT : xmlTeams) {
+			olTeams.add(new TeamFX(einT));
+			System.out.println("CLIENT TeamsTable------------" + "\n" + einT);
+			
 		}
 	}
 
@@ -240,9 +223,14 @@ public class MembersDetailsDialogController {
 	 */
 
 	public void initialize() {
+		initializeTextFields();
+		readTeamsList();
+		initializeTeamsColumns();
+		updateTeamsTable();
+		
 		//	readMembersList();
 		//	initializeColumns();
-		initializeTextFields();
+		
 		//	updateTable();
 	}
 

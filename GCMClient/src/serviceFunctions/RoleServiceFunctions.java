@@ -34,7 +34,7 @@ public class RoleServiceFunctions {
 
 		List<Role> roles = ClientBuilder.newClient()
 				.target(serverURI)
-				.path("/rolelistmember" +id)
+				.path("/rolesByMember/" +id)
 				.request(MediaType.APPLICATION_XML)
 				.get(new GenericType<List<Role>>(){});
 

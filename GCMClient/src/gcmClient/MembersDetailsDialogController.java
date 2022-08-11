@@ -4,11 +4,17 @@ package gcmClient;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.control.cell.PropertyValueFactory;
+
 import fxClasses.MemberFX;
+import fxClasses.RoleFX;
+import fxClasses.SocialFX;
 import fxClasses.TeamFX;
+
 import gcmClasses.Member;
+import gcmClasses.Role;
+import gcmClasses.Social;
 import gcmClasses.Team;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,7 +24,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 import serviceFunctions.MemberServiceFunctions;
+import serviceFunctions.RoleServiceFunctions;
+import serviceFunctions.SocialServiceFunctions;
 import serviceFunctions.TeamServiceFunctions;
 
 
@@ -95,16 +105,95 @@ public class MembersDetailsDialogController {
 		for(Team einT : xmlTeams) {
 			olTeams.add(new TeamFX(einT));
 			System.out.println("CLIENT TeamsTable------------" + "\n" + einT);
-			
+
 		}
 	}
 
-	/*	
-	// Roles Table
-	@FXML private TableView<RoleFX> rolesTableView;
+	// Socials Table
+	private ObservableList<SocialFX> olSocials = FXCollections.observableArrayList();
+	@FXML private TableView<SocialFX> socialsTableView;
+	@FXML private TableColumn<SocialFX,Integer> socialIdColumn;
+	@FXML private TableColumn<SocialFX,String> socialPlattformColumn;
+	@FXML private TableColumn<SocialFX,String> socialUsernameColumn;
+	@FXML private TableColumn<SocialFX,String> socialLinkColumn;
+	@FXML private TableColumn<SocialFX,String> socialNotesColumn;
 
+	public  void initializeSocialsColumns() {
+
+		if(socialIdColumn != null) {
+			socialIdColumn.setCellValueFactory(new PropertyValueFactory<SocialFX, Integer>("id"));
+			socialPlattformColumn.setCellValueFactory(new PropertyValueFactory<SocialFX, String>("socialPlatform"));
+			socialUsernameColumn.setCellValueFactory(new PropertyValueFactory<SocialFX, String>("socialUsername"));
+			socialLinkColumn.setCellValueFactory(new PropertyValueFactory<SocialFX, String>("socialLink"));
+			socialNotesColumn.setCellValueFactory(new PropertyValueFactory<SocialFX, String>("socialNotes"));
+		}
+	}
+
+	public void updateSocialsTable() {		
+		// load Data
+		if(socialsTableView != null) {
+			socialsTableView.getItems().addAll(olSocials);
+		}
+	}
+
+	public void readSocialsList() {
+		olSocials.clear();
+
+		List<Social> xmlSocials = new ArrayList<Social>();
+		xmlSocials = SocialServiceFunctions.getSocialsByMemberId(ccId);			
+
+		for(Social einT : xmlSocials) {
+			olSocials.add(new SocialFX(einT));
+			System.out.println("CLIENT SocialsTable------------" + "\n" + einT);
+
+		}
+	}
+
+
+
+	// Roles Table
+	private ObservableList<RoleFX> olRoles = FXCollections.observableArrayList();
+	@FXML private TableView<RoleFX> rolesTableView;
+	@FXML private TableColumn<RoleFX,Integer> roleIdColumn;
+	@FXML private TableColumn<RoleFX,String> roleNameColumn;
+	@FXML private TableColumn<RoleFX,String> sroleDescriptionColumn;
+
+
+	public  void initializeRolesColumns() {
+
+		if(socialIdColumn != null) {
+			roleIdColumn.setCellValueFactory(new PropertyValueFactory<RoleFX, Integer>("id"));
+			roleNameColumn.setCellValueFactory(new PropertyValueFactory<RoleFX, String>("roleName"));
+			sroleDescriptionColumn.setCellValueFactory(new PropertyValueFactory<RoleFX, String>("roleDescription"));
+		}
+	}
+	
+	public void updateRolesTable() {		
+		// load Data
+		if(rolesTableView != null) {
+			rolesTableView.getItems().addAll(olRoles);
+		}
+	}
+
+	public void readRolesList() {
+		olRoles.clear();
+
+		List<Role> xmlRoles = new ArrayList<Role>();
+		xmlRoles = RoleServiceFunctions.getRolesByMemberId(ccId);			
+
+		for(Role einT : xmlRoles) {
+			olRoles.add(new RoleFX(einT));
+			System.out.println("CLIENT RolesTable------------" + "\n" + einT);
+
+		}
+	}
+
+	
+	/*
 
 	// Games Table
+	private ObservableList<GameFX> games = FXCollections.observableArrayList();
+
 	@FXML private TableView<GameFX> gamesTableView;
 	@FXML private TableColumn<GameFX,Integer> gamesIdColumn;	
 	@FXML private TableColumn<GameFX,String> gameTitleColumn;
@@ -112,6 +201,8 @@ public class MembersDetailsDialogController {
 	@FXML private TableColumn<GameFX,String> gamesAdditionalNotesColumn;
 
 	// Events Table
+	private ObservableList<EventFX> events = FXCollections.observableArrayList();
+
 	@FXML private TableView<EventFX> eventsTableView;
 	@FXML private TableColumn<EventFX,Integer> eventsIdColumn;	
 	@FXML private TableColumn<EventFX,String> eventTitleColumn;
@@ -122,8 +213,11 @@ public class MembersDetailsDialogController {
 	@FXML private TableColumn<EventFX,String> eventAdditionalNotesColumn;
 	@FXML private TableColumn<EventFX,Boolean> reoccuringColumn;
 
-	// Socials Table
-	@FXML private TableView<SocialFX> socialsTableView;
+
+
+
+
+
 
 
 
@@ -163,7 +257,7 @@ public class MembersDetailsDialogController {
 			//remove from Tableview
 			membersTableView.getItems().removeAll(
 					membersTableView.getSelectionModel().getSelectedItem()
-	        );
+					);
 
 			membersTableView.refresh();			
 		}	
@@ -223,15 +317,25 @@ public class MembersDetailsDialogController {
 	 */
 
 	public void initialize() {
+		// TextFields
 		initializeTextFields();
+		
+		// Teams Table
 		readTeamsList();
 		initializeTeamsColumns();
 		updateTeamsTable();
 		
-		//	readMembersList();
-		//	initializeColumns();
+		// Socials Table
+		readSocialsList();
+		initializeSocialsColumns();
+		updateSocialsTable();
 		
-		//	updateTable();
+		// Roles Table
+		readRolesList();
+		initializeRolesColumns();
+		updateRolesTable();
+		
+		
 	}
 
 

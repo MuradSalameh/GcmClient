@@ -62,6 +62,7 @@ public class MembersScreenController {
 		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("MembersDetailDialog.fxml"));
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
+		dialog.setResizable(true);
 		
 		dialog.showAndWait();
 		MembersDetailsDialogController mddc = new MembersDetailsDialogController();
@@ -99,9 +100,6 @@ public class MembersScreenController {
 
 	@FXML
 	public void handleAddNewBtn(ActionEvent t){
-
-
-
 
 	}
 
@@ -153,6 +151,4 @@ public class MembersScreenController {
 		initializeColumns();		
 		updateTable();
 	}
-
-
 }

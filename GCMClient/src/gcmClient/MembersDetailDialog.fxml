@@ -143,10 +143,10 @@
                         </Label>
                         <TableView fx:id="gamesTableView" editable="true" minWidth="340.0" prefHeight="137.0" tableMenuButtonVisible="true">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="ID" />
-                              <TableColumn prefWidth="75.0" text="Game Title" />
-                              <TableColumn prefWidth="75.0" text="Release Date" />
-                              <TableColumn prefWidth="75.0" text="Notes" />
+                              <TableColumn fx:id="gamesIdColumn" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="gameTitleColumn" prefWidth="75.0" text="Game Title" />
+                              <TableColumn fx:id="releaseDateColumn" prefWidth="75.0" text="Release Date" />
+                              <TableColumn fx:id="gamesAdditionalNotesColumn" prefWidth="75.0" text="Notes" />
                            </columns>
                            <VBox.margin>
                               <Insets top="2.0" />

@@ -3,6 +3,7 @@ package serviceFunctions;
 import java.util.List;
 
 import gcmClasses.Game;
+import gcmClasses.Social;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -28,6 +29,19 @@ public class GameServiceFunctions {
 
 		return games;
 	}
+	
+	//GET - get game list by memberId
+	public static List<Game> getGamesByMemberId(int id) {
+
+		List<Game> games = ClientBuilder.newClient()
+				.target(serverURI)
+				.path("/gamesByMember/" +id)
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<List<Game>>(){});
+
+		return games;
+	}
+
 
 
 	//GET - get one game

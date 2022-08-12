@@ -369,6 +369,11 @@ public class MembersDetailsDialogController {
 		initializeRolesColumns();
 		updateRolesTable();
 		
+		// Games Table
+		readGamesList();
+		initializeGamesColumns();
+		updateGamesTable();
+		
 		
 	}
 

@@ -2,14 +2,16 @@ package gcmClient;
 
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import fxClasses.GameFX;
 import fxClasses.MemberFX;
 import fxClasses.RoleFX;
 import fxClasses.SocialFX;
 import fxClasses.TeamFX;
-
+import gcmClasses.Game;
 import gcmClasses.Member;
 import gcmClasses.Role;
 import gcmClasses.Social;
@@ -25,7 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import serviceFunctions.GameServiceFunctions;
 import serviceFunctions.MemberServiceFunctions;
 import serviceFunctions.RoleServiceFunctions;
 import serviceFunctions.SocialServiceFunctions;
@@ -189,17 +191,49 @@ public class MembersDetailsDialogController {
 	}
 
 	
-	/*
-
 	// Games Table
-	private ObservableList<GameFX> games = FXCollections.observableArrayList();
+	private ObservableList<GameFX> olGames = FXCollections.observableArrayList();
 
 	@FXML private TableView<GameFX> gamesTableView;
 	@FXML private TableColumn<GameFX,Integer> gamesIdColumn;	
 	@FXML private TableColumn<GameFX,String> gameTitleColumn;
 	@FXML private TableColumn<GameFX,LocalDate> releaseDateColumn;
 	@FXML private TableColumn<GameFX,String> gamesAdditionalNotesColumn;
+	
+	public  void initializeGamesColumns() {
 
+		if(socialIdColumn != null) {
+			gamesIdColumn.setCellValueFactory(new PropertyValueFactory<GameFX, Integer>("id"));
+			gameTitleColumn.setCellValueFactory(new PropertyValueFactory<GameFX, String>("gameTitle"));
+			releaseDateColumn.setCellValueFactory(new PropertyValueFactory<GameFX, LocalDate>("releaseDate"));
+			gamesAdditionalNotesColumn.setCellValueFactory(new PropertyValueFactory<GameFX, String>("gameAdditionalNotes"));		
+		}
+	}
+	
+	public void updateGamesTable() {		
+		// load Data
+		if(gamesTableView != null) {
+			gamesTableView.getItems().addAll(olGames);
+		}
+	}
+
+	public void readGamesList() {
+		olGames.clear();
+
+		List<Game> xmlGames = new ArrayList<Game>();
+		xmlGames = GameServiceFunctions.getGamesByMemberId(ccId);			
+
+		for(Game einT : xmlGames) {
+			olGames.add(new GameFX(einT));
+			System.out.println("CLIENT GamesTable------------" + "\n" + einT);
+
+		}
+	}
+
+	
+	
+	
+	/*
 	// Events Table
 	private ObservableList<EventFX> events = FXCollections.observableArrayList();
 

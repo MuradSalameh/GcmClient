@@ -3,14 +3,17 @@ package gcmClient;
 
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import fxClasses.EventFX;
 import fxClasses.GameFX;
 import fxClasses.MemberFX;
 import fxClasses.RoleFX;
 import fxClasses.SocialFX;
 import fxClasses.TeamFX;
+import gcmClasses.Event;
 import gcmClasses.Game;
 import gcmClasses.Member;
 import gcmClasses.Role;
@@ -27,6 +30,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import serviceFunctions.EventServiceFunctions;
 import serviceFunctions.GameServiceFunctions;
 import serviceFunctions.MemberServiceFunctions;
 import serviceFunctions.RoleServiceFunctions;
@@ -163,7 +167,7 @@ public class MembersDetailsDialogController {
 
 	public  void initializeRolesColumns() {
 
-		if(socialIdColumn != null) {
+		if(roleIdColumn != null) {
 			roleIdColumn.setCellValueFactory(new PropertyValueFactory<RoleFX, Integer>("id"));
 			roleNameColumn.setCellValueFactory(new PropertyValueFactory<RoleFX, String>("roleName"));
 			sroleDescriptionColumn.setCellValueFactory(new PropertyValueFactory<RoleFX, String>("roleDescription"));
@@ -202,7 +206,7 @@ public class MembersDetailsDialogController {
 	
 	public  void initializeGamesColumns() {
 
-		if(socialIdColumn != null) {
+		if(gamesIdColumn != null) {
 			gamesIdColumn.setCellValueFactory(new PropertyValueFactory<GameFX, Integer>("id"));
 			gameTitleColumn.setCellValueFactory(new PropertyValueFactory<GameFX, String>("gameTitle"));
 			releaseDateColumn.setCellValueFactory(new PropertyValueFactory<GameFX, LocalDate>("releaseDate"));
@@ -230,15 +234,13 @@ public class MembersDetailsDialogController {
 		}
 	}
 
+		
 	
-	
-	
-	/*
 	// Events Table
-	private ObservableList<EventFX> events = FXCollections.observableArrayList();
+	private ObservableList<EventFX> olEvents = FXCollections.observableArrayList();
 
 	@FXML private TableView<EventFX> eventsTableView;
-	@FXML private TableColumn<EventFX,Integer> eventsIdColumn;	
+	@FXML private TableColumn<EventFX,Integer> eventIdColumn;	
 	@FXML private TableColumn<EventFX,String> eventTitleColumn;
 	@FXML private TableColumn<EventFX,String> eventDescriptionColumn;
 	@FXML private TableColumn<EventFX,LocalDate> eventDateColumn;
@@ -247,11 +249,43 @@ public class MembersDetailsDialogController {
 	@FXML private TableColumn<EventFX,String> eventAdditionalNotesColumn;
 	@FXML private TableColumn<EventFX,Boolean> reoccuringColumn;
 
+	public  void initializeEventsColumns() {
+
+		if(eventIdColumn != null) {
+			eventIdColumn.setCellValueFactory(new PropertyValueFactory<EventFX, Integer>("id"));
+			eventTitleColumn.setCellValueFactory(new PropertyValueFactory<EventFX, String>("eventTitle"));
+			eventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<EventFX, String>("eventDescription"));
+			eventDateColumn.setCellValueFactory(new PropertyValueFactory<EventFX, LocalDate>("date"));
+			eventStartTimeColumn.setCellValueFactory(new PropertyValueFactory<EventFX, LocalTime>("eventStartTime"));
+			eventEndTimeColumn.setCellValueFactory(new PropertyValueFactory<EventFX, LocalTime>("eventEndTime"));
+			eventAdditionalNotesColumn.setCellValueFactory(new PropertyValueFactory<EventFX, String>("eventAddidtionalNotes"));		
+			reoccuringColumn.setCellValueFactory(new PropertyValueFactory<EventFX, Boolean>("reoccuring"));		
+		}
+	}
+	
+	public void updateEventsTable() {		
+		// load Data
+		if(eventsTableView != null) {
+			eventsTableView.getItems().addAll(olEvents);
+		}
+	}
+
+	public void readEventsList() {
+		olEvents.clear();
+
+		List<Event> xmlEvents = new ArrayList<Event>();
+		xmlEvents = EventServiceFunctions.getEventsByMemberId(ccId);			
+
+		for(Event einT : xmlEvents) {
+			olEvents.add(new EventFX(einT));
+			System.out.println("CLIENT EventsTable------------" + "\n" + einT);
+
+		}
+	}
 
 
 
-
-
+/*
 
 
 
@@ -373,6 +407,11 @@ public class MembersDetailsDialogController {
 		readGamesList();
 		initializeGamesColumns();
 		updateGamesTable();
+		
+		// Events Table
+		readEventsList();
+		initializeEventsColumns();
+		updateEventsTable();
 		
 		
 	}

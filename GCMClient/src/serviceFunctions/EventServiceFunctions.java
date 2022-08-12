@@ -3,6 +3,7 @@ package serviceFunctions;
 import java.util.List;
 
 import gcmClasses.Event;
+import gcmClasses.Game;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -41,6 +42,20 @@ public class EventServiceFunctions {
 
 		return event;
 	}
+	
+	//GET - get event list by memberId
+		public static List<Event> getEventsByMemberId(int id) {
+
+			List<Event> events = ClientBuilder.newClient()
+					.target(serverURI)
+					.path("/eventsByMember/" +id)
+					.request(MediaType.APPLICATION_XML)
+					.get(new GenericType<List<Event>>(){});
+
+			return events;
+		}
+
+
 
 
 	//Post - add new event 

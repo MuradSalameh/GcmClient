@@ -95,14 +95,14 @@
                         </Label>
                         <TableView fx:id="eventsTableView" editable="true" prefHeight="137.0" tableMenuButtonVisible="true">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="ID" />
-                              <TableColumn prefWidth="75.0" text="Title" />
-                              <TableColumn prefWidth="75.0" text="Description" />
-                              <TableColumn prefWidth="75.0" text="Date" />
-                              <TableColumn prefWidth="75.0" text="Start Time" />
-                              <TableColumn prefWidth="75.0" text="End Time" />
-                              <TableColumn prefWidth="75.0" text="Notes" />
-                              <TableColumn prefWidth="75.0" text="Reoccuring" />
+                              <TableColumn fx:id="eventIdColumn" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="eventTitleColumn" prefWidth="75.0" text="Title" />
+                              <TableColumn fx:id="eventDescriptionColumn" prefWidth="75.0" text="Description" />
+                              <TableColumn fx:id="eventDateColumn" prefWidth="75.0" text="Date" />
+                              <TableColumn fx:id="eventStartTimeColumn" prefWidth="75.0" text="Start Time" />
+                              <TableColumn fx:id="eventEndTimeColumn" prefWidth="75.0" text="End Time" />
+                              <TableColumn fx:id="eventAdditionalNotesColumn" prefWidth="75.0" text="Notes" />
+                              <TableColumn fx:id="reoccuringColumn" prefWidth="75.0" text="Reoccuring" />
                            </columns>
                            <VBox.margin>
                               <Insets top="2.0" />

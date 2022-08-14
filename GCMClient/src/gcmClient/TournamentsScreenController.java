@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import fxClasses.GameFX;
 import fxClasses.TournamentFX;
 import gcmClasses.Game;
 import gcmClasses.Tournament;
@@ -52,14 +52,6 @@ public class TournamentsScreenController {
 		dialog.setDialogPane(dialogPane);
 		dialog.showAndWait();
 
-		/*
-		Optional<ButtonType> r = new WeinDetailDialog(TournamentFX).showAndWait();
-		if(r.isPresent() && r.get().getButtonData() == ButtonData.OK_DONE) {
-			// neuer Tournament wurde gespeichert, daher neue Weinliste vom Server holen
-			//leseTournamentliste();
-			System.out.println("Aktualisiere Tournament Liste");
-		}
-		 */	
 		System.out.println("TournamentsDetailsDialog Button klicked");
 	}
 

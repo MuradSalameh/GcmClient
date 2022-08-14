@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -50,20 +51,24 @@ public class MembersScreenController {
 	@FXML
 	public Button editDetailsBtn;
 
+	@FXML
+	public Button addNewBtn;
+
+
 
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 		// get ID from item in table view
 		MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
 		int id = member.getId(); 
-		
+
 		ControllerCommunicator cc = new ControllerCommunicator(id);
 		FxmlLoader loader = new FxmlLoader();
 		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("MembersDetailDialog.fxml"));
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
 		dialog.setResizable(true);
-		
+
 		dialog.showAndWait();
 		MembersDetailsDialogController mddc = new MembersDetailsDialogController();
 		mddc.initialize();
@@ -99,7 +104,37 @@ public class MembersScreenController {
 
 
 	@FXML
-	public void handleAddNewBtn(ActionEvent t){
+	public void handleAddNewBtn(ActionEvent t) throws IOException{
+		FxmlLoader loader = new FxmlLoader();
+		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("MembersDetailAddDialog.fxml"));
+		Dialog dialogAn = new Dialog();
+		ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);
+		dialogAn.setDialogPane(dialogPane);
+		dialogAn.setResizable(true);
+		dialogAn.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialogAn.getDialogPane().getButtonTypes().set(1, cancelBtn);			
+		//		dialogAn.showAndWait();	
+		
+		
+		Optional<ButtonType> result = dialogAn.showAndWait();	
+		MembersDetailsAddController mdac = new MembersDetailsAddController();
+		mdac.setNewMember();
+		
+		
+
+		if(!result.isPresent()) {
+			// alert is exited, no button has been pressed.
+		}else if(result.get() == saveBtn) {
+			mdac.ready();
+			
+			System.out.println("Save Button Pressed: ");
+
+		}else if(result.get() == cancelBtn) {
+			System.out.println("Cancel Button Pressed");
+
+		}
+
 
 	}
 
@@ -151,4 +186,6 @@ public class MembersScreenController {
 		initializeColumns();		
 		updateTable();
 	}
+
+
 }

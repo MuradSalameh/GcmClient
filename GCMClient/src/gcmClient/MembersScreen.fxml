@@ -60,7 +60,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="addNewBtn" mnemonicParsing="false" text="Add New">
+                  <Button fx:id="addNewBtn" mnemonicParsing="false" onAction="#handleAddNewBtn" text="Add New">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

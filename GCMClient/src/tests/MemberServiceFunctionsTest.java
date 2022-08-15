@@ -26,37 +26,56 @@ public class MemberServiceFunctionsTest {
 
 		//--------- addMember() Test -----------//
 
-				addMember();
-				addMember();
-				addMember();
-				addMember();
+		//				addMember();
+		//				addMember();
+		//				addMember();
+		//				addMember();
 
-		
+
 
 		//--------- getMembers() Test to get a List of all members in database-----------//
 
-			//	getMemberList();
+		//	getMemberList();
 
 
-		
+
 		//--------- deleteMember() Test -----------//
 
-//		deleteMember(id);
+		//		deleteMember(id);
 
 
 
 		//--------- getMember() Test to get one specific member by id -----------//
 
-//				getMemberTest(id);
+		//				getMemberTest(id);
 
 
 
 		//--------- updateMember() Test -----------//
 
-//				String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
-//				updateMemberTest(id,s);
+		//				String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
+		//				updateMemberTest(id,s);
 
 
+		//---------getMemberWithHighestId() Test -----------//
+		
+//		getMemberWithHighestIdTest();
+		
+		
+		
+		//---------deleteMemberFromEventsTest() Test -----------//
+		
+		deleteMemberFromEventsTest(1);
+		
+		
+		
+		//---------deleteMemberFromEventsTest() Test -----------//
+		
+		deleteMemberFromTeamsTest(1);
+		
+		
+		
+		
 		
 	}	
 	public static void addMember() {
@@ -104,6 +123,30 @@ public class MemberServiceFunctionsTest {
 
 	}
 
+	public static void deleteMemberFromEventsTest(int id) {
+		MemberServiceFunctions.deleteMemberFromEvents(id);
+		
+		Member member = MemberServiceFunctions.getMember(id);
+		System.out.println(member);
+		
+	}
+	
+	public static void deleteMemberFromTeamsTest(int id) {
+		MemberServiceFunctions.deleteMemberFromTeams(id);
+		
+		Member member = MemberServiceFunctions.getMember(id);
+		System.out.println(member);
+		
+	}
+	
+	public static void deleteMemberFromGamesTest(int id) {
+		MemberServiceFunctions.deleteMemberFromGames(id);
+		
+		Member member = MemberServiceFunctions.getMember(id);
+		System.out.println(member);
+		
+	}
+	
 
 	public static void getMemberTest(int id) {
 		System.out.println("CLIENT------------" 
@@ -121,6 +164,14 @@ public class MemberServiceFunctionsTest {
 			System.out.println("CLIENT------------" + "\n" + einM);
 		}		
 	}
+
+
+	public static void getMemberWithHighestIdTest() {
+		System.out.println("CLIENT------------" 
+				+ "\n" 
+				+ MemberServiceFunctions.getMemberWithHighestId()); 
+	}
+
 
 
 

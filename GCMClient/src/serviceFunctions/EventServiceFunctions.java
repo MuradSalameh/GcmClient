@@ -94,5 +94,16 @@ public class EventServiceFunctions {
 				.delete();	
 
 	}
+	//Delete - delete event 
+	public static Response deleteEventFromMember(int id) {
+		
+		Client client = ClientBuilder.newClient();
+		return client
+				.target(serverURI)
+				.path("/deleteEventFromMember/" + id)
+				.request(MediaType.APPLICATION_XML)
+				.delete();	
+		
+	}
 
 }

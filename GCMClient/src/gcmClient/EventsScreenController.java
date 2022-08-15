@@ -79,7 +79,8 @@ public class EventsScreenController {
 			// get ID from item in table view
 			EventFX event = eventsTableView.getSelectionModel().getSelectedItem();
 			int id = event.getId(); 
-			// delete from database
+			// delete from database			
+			EventServiceFunctions.deleteEventFromMember(id);
 			EventServiceFunctions.deleteEvent(id);
 			
 			//remove from Tableview
@@ -129,8 +130,7 @@ public class EventsScreenController {
 		}
 	}
 
-
-		
+	
 	public void initialize() {
 		readEventsList();
 		initializeColumns();		

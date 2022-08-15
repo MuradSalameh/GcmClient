@@ -42,6 +42,18 @@ public class MemberServiceFunctions {
 		return member;
 	}
 
+	//GET - get memberWithHighestId
+	public static Member getMemberWithHighestId() {
+
+		Member member = ClientBuilder.newClient()
+				.target(serverURI)
+				.path("/memberWithHighestId/")
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<Member>(){});
+
+		return member;
+	}
+
 
 	//Post - add new member 
 	public static Response addMember(Member m) {
@@ -49,7 +61,7 @@ public class MemberServiceFunctions {
 		Client client = ClientBuilder.newClient();
 		return client
 				.target(serverURI)
-				.path("/addMember")
+				.path("/addMember/")
 				.request(MediaType.APPLICATION_XML)
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
@@ -78,6 +90,41 @@ public class MemberServiceFunctions {
 				.request(MediaType.APPLICATION_XML)
 				.delete();	
 
+	}
+	
+	//Delete - delete member from events
+	public static Response deleteMemberFromEvents(int id) {
+		
+		Client client = ClientBuilder.newClient();
+		return client
+				.target(serverURI)
+				.path("/deleteMemberFromEvents/" + id)
+				.request(MediaType.APPLICATION_XML)
+				.delete();	
+		
+	}
+	
+	//Delete - delete member from Teams
+	public static Response deleteMemberFromTeams(int id) {
+		
+		Client client = ClientBuilder.newClient();
+		return client
+				.target(serverURI)
+				.path("/deleteMemberFromTeams/" + id)
+				.request(MediaType.APPLICATION_XML)
+				.delete();	
+		
+	}
+	//Delete - delete member from Teams
+	public static Response deleteMemberFromGames(int id) {
+		
+		Client client = ClientBuilder.newClient();
+		return client
+				.target(serverURI)
+				.path("/deleteMemberFromGames/" + id)
+				.request(MediaType.APPLICATION_XML)
+				.delete();	
+		
 	}
 
 }

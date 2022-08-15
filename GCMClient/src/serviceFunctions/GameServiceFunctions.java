@@ -29,7 +29,7 @@ public class GameServiceFunctions {
 
 		return games;
 	}
-	
+
 	//GET - get game list by memberId
 	public static List<Game> getGamesByMemberId(int id) {
 
@@ -89,6 +89,41 @@ public class GameServiceFunctions {
 		return client
 				.target(serverURI)
 				.path("/deleteGame/" + id)
+				.request(MediaType.APPLICATION_XML)
+				.delete();	
+
+	}
+
+	//Delete - delete game from Member
+	public static Response deleteGameFromMember(int id) {
+
+		Client client = ClientBuilder.newClient();
+		return client
+				.target(serverURI)
+				.path("/deleteGameFromMember/" + id)
+				.request(MediaType.APPLICATION_XML)
+				.delete();	
+
+	}
+	//Delete - delete game from Member
+	public static Response deleteGameFromTournament(int id) {
+
+		Client client = ClientBuilder.newClient();
+		return client
+				.target(serverURI)
+				.path("/deleteGameFromTournament/" + id)
+				.request(MediaType.APPLICATION_XML)
+				.delete();	
+
+	}
+
+	//Delete - delete game from Member
+	public static Response deleteGameFromGenre(int id) {
+
+		Client client = ClientBuilder.newClient();
+		return client
+				.target(serverURI)
+				.path("/deleteGameFromGenre/" + id)
 				.request(MediaType.APPLICATION_XML)
 				.delete();	
 

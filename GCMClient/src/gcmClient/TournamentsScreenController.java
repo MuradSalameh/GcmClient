@@ -5,8 +5,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import fxClasses.GameFX;
+import fxClasses.TeamFX;
 import fxClasses.TournamentFX;
 import gcmClasses.Game;
 import gcmClasses.Tournament;
@@ -15,13 +17,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import serviceFunctions.TeamServiceFunctions;
 import serviceFunctions.TournamentServiceFunctions;
 
 public class TournamentsScreenController {
@@ -55,6 +61,32 @@ public class TournamentsScreenController {
 		System.out.println("TournamentsDetailsDialog Button klicked");
 	}
 
+	@FXML 
+	private void handleDeleteBtn()  {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("WARNING - DELETING MEMBER");
+		alert.setHeaderText("THIS CAN NOT BE UNDONE");
+		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+
+			// get ID from item in table view
+			TournamentFX tournament = tournamentsTableView.getSelectionModel().getSelectedItem();
+			int id = tournament.getId(); 
+			// delete from database		
+		
+			TournamentServiceFunctions.deleteTournamentsFromTeams(id);
+			TournamentServiceFunctions.deleteTournament(id);
+
+			//remove from Tableview
+			tournamentsTableView.getItems().removeAll(
+					tournamentsTableView.getSelectionModel().getSelectedItem()
+			);
+
+			tournamentsTableView.refresh();			
+		}	
+	}
 
 
 	public void updateTable() {		

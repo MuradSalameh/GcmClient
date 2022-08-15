@@ -72,7 +72,7 @@ public class MembersScreenController {
 		dialog.showAndWait();
 		MembersDetailsDialogController mddc = new MembersDetailsDialogController();
 		mddc.initialize();
-
+		
 		System.out.println("MembersDetailsDialog Button klicked");
 	}
 
@@ -91,6 +91,10 @@ public class MembersScreenController {
 			MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
 			int id = member.getId(); 
 			// delete from database
+			
+			MemberServiceFunctions.deleteMemberFromGames(id);
+			MemberServiceFunctions.deleteMemberFromEvents(id);
+			MemberServiceFunctions.deleteMemberFromTeams(id);		
 			MemberServiceFunctions.deleteMember(id);
 
 			//remove from Tableview
@@ -119,18 +123,26 @@ public class MembersScreenController {
 		
 		Optional<ButtonType> result = dialogAn.showAndWait();	
 		MembersDetailsAddController mdac = new MembersDetailsAddController();
-		mdac.setNewMember();
+		mdac.initialize();
 		
-		
-
 		if(!result.isPresent()) {
-			// alert is exited, no button has been pressed.
+		
+		// alert is exited, no button has been pressed.
+		int mId = mdac.getNewMemberId().getId();
+		MemberServiceFunctions.deleteMember(mId);
+		System.out.println("Cancel Button Pressed");
+
+			
 		}else if(result.get() == saveBtn) {
-			mdac.ready();
+		
 			
 			System.out.println("Save Button Pressed: ");
 
 		}else if(result.get() == cancelBtn) {
+			mdac.getNewMemberId();
+			int mId = mdac.getNewMemberId().getId();
+			MemberServiceFunctions.deleteMember(mId);
+		
 			System.out.println("Cancel Button Pressed");
 
 		}

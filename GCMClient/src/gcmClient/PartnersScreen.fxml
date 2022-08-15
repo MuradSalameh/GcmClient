@@ -48,8 +48,8 @@
             </TableView>
             <HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="deleteBtn" mnemonicParsing="false" text="Delete" />
-                  <Button fx:id="editDetailsBtn" mnemonicParsing="false" text="Edit Details" />
+                  <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#handleDeleteBtn" text="Delete" />
+                  <Button fx:id="editDetailsBtn" mnemonicParsing="false" onAction="#handleEditDetailsBtn" text="Edit Details" />
                   <Button fx:id="detailsBtn" mnemonicParsing="false" text="Show Details" />
                   <Button fx:id="addNewBtn" mnemonicParsing="false" text="Add New" />
                </children>

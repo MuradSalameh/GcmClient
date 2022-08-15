@@ -103,5 +103,30 @@ public class TeamServiceFunctions {
 				.delete();	
 
 	}
+	//Delete - delete team from member
+	public static Response deleteTeamFromMember(int id) {
+		
+		Client client = ClientBuilder.newClient();
+		return client
+				.target(serverURI)
+				.path("/deleteTeamFromMember/" + id)
+				.request(MediaType.APPLICATION_XML)
+				.delete();	
+		
+	}
+	//Delete - delete team from member
+	public static Response deleteTeamFromTournaments(int id) {
+		
+		Client client = ClientBuilder.newClient();
+		return client
+				.target(serverURI)
+				.path("/deleteTeamFromTournaments/" + id)
+				.request(MediaType.APPLICATION_XML)
+				.delete();	
+		
+	}
+	
+	
+	
 
 }

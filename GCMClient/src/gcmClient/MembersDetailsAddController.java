@@ -16,10 +16,11 @@ import serviceFunctions.MemberServiceFunctions;
 
 
 public class MembersDetailsAddController{	
-	
+	private Member member;
+	ControllerCommunicator cnm;
 	@FXML
 	private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
-	
+
 	@FXML private DialogPane memberDetailsAddDialog;	
 	@FXML private Label idLabel;		
 	@FXML private TextField clanNameTf;
@@ -33,73 +34,107 @@ public class MembersDetailsAddController{
 	@FXML private TextField phoneNumberTf;
 	@FXML private DatePicker dateDp;
 
-	@FXML
-	public TextField getClanNameTf() {
-		//this.clanNameTf.setText("");
-		
-		System.out.println("Return Clanname = " + this.clanNameTf);
-
-		return this.clanNameTf;
-
-	}
 
 
 
-
-
-	// initialize TextFields
-	@FXML
-	public void initializeTextFields() {
-
-	
-		if(clanNameTf == null) {
-			//	idLabel.setText(String.valueOf(ccId));
-			this.clanNameTf.setText("Klausiii");
-			this.clanIdTf.setText("");
-			this.realNameTf.setText("");
-			this.addressTf.setText("");
-			this.postCodeTf.setText("");
-			this.cityTf.setText("");
-			this.countryTf.setText("");
-			this.emailTf.setText("");
-			this.phoneNumberTf.setText("");
-			this.dateDp.setValue(LocalDate.of(1980, 1, 1));						
-		}
-
-	}
-	
-	
-	
-	@FXML
-	public Member setNewMember() {			
-		//	String clanName = "";
-		clanNameTf.textProperty().addListener((observable, oldValue, newValue) -> {
-		    System.out.println("textfield changed from " + oldValue + " to " + newValue);
-		});
-
+	@FXML 
+	public Member newMember() {
 		Member neu = new Member(
-				"", 					// clan name
-				"",  					// clan id
-				"ooooooOoO 1", 				// real name
-				"11", 						// address
-				"44444", 					// adress post code
-				"OOOOOO", 					// city
-				"OOOOOO", 					// country
-				"OOOOO@email.com", 			// mail
-				"+431111111111", 		// phone number
+				"Clan Name", 					// clan name
+				"Clan ID",  					// clan id
+				"Real Name", 				// real name
+				"Address + Nr", 						// address
+				"PostvCode", 					// adress post code
+				"City", 					// city
+				"Country", 					// country
+				"Email", 			// mail
+				"Phone Number", 		// phone number
 				null, 						// role
 				null, 						// socials
 				null, 						// games
 				null,						// events
 				LocalDate.of(1981, 4, 11), 	// birthday
 				null);	
-
+		//MemberServiceFunctions.addMember(neu);
 		return neu;
 	}
 
+
+
+	// initialize TextFields
+	@FXML
+	public void initializeTextFields() {
+		
+
+	//	member = MemberServiceFunctions.getMemberWithHighestId();
+
+		if(clanNameTf != null) {
+		//	idLabel.setText(String.valueOf(member.getId()));
+		//		idLabel.setText("-");
+			this.clanNameTf.setText(member.getClanName());
+			this.clanIdTf.setText(member.getClanId());
+			this.realNameTf.setText(member.getRealName());
+			this.addressTf.setText(member.getAddress());
+			this.postCodeTf.setText(member.getAddressPostCode());
+			this.cityTf.setText(member.getAddressCity());
+			this.countryTf.setText(member.getCountry());
+			this.emailTf.setText(member.getEmail());
+			this.phoneNumberTf.setText(member.getPhoneNumber());
+			this.dateDp.setValue(member.getBirthday());	
+
+			setNewMember();
+			
+		}
+
+	}
+
+
+
+	@FXML
+	public Member setNewMember() {	
+		 member = newMember();
+
+		TextField clanNameTf2 = new TextField("");
+
+
+		if(clanNameTf != null) {
+			clanNameTf.textProperty().addListener((observable, oldValue, newValue) -> {
+
+				clanNameTf2.setText(newValue);
+				member.setClanName(newValue);
+
+				System.out.println("ClanName changed to " + clanNameTf2.getText());
+			});
+		}
+
+		
 	
-	public void ready() {
-		Member m = setNewMember();
-		MemberServiceFunctions.addMember(m);		
+		System.out.println("String Test " + member);
+	
+		return member;
+	}
+
+
+
+
+
+	public ControllerCommunicator getNewMemberId() {
+		ControllerCommunicator cnm = new ControllerCommunicator(member.getId());
+		return cnm;	
+	}
+
+	public void initialize() {
+		//newMember();
+		initializeTextFields();
+	}
+
+
+	//	public void ready() {
+	Member m = setNewMember();
+	//MemberServiceFunctions.addMember(m);		
+	//	}
+	//	
+	public void cancel() {
+
 	}
 }

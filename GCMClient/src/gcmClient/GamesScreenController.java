@@ -7,21 +7,28 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import javafx.scene.control.cell.PropertyValueFactory;
 import fxClasses.GameFX;
+import fxClasses.MemberFX;
 import gcmClasses.Game;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import serviceFunctions.GameServiceFunctions;
+import serviceFunctions.MemberServiceFunctions;
 
 
 public class GamesScreenController {
@@ -47,16 +54,39 @@ public class GamesScreenController {
 		dialog.setDialogPane(dialogPane);
 		dialog.showAndWait();
 
-		/*
-		Optional<ButtonType> r = new WeinDetailDialog(GameFX).showAndWait();
-		if(r.isPresent() && r.get().getButtonData() == ButtonData.OK_DONE) {
-			// neuer Game wurde gespeichert, daher neue Weinliste vom Server holen
-			//leseGameliste();
-			System.out.println("Aktualisiere Game Liste");
-		}
-		 */	
+	
 		System.out.println("GamesDetailsDialog Button klicked");
 	}
+	
+	@FXML 
+	private void handleDeleteBtn()  {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("WARNING - DELETING MEMBER");
+		alert.setHeaderText("THIS CAN NOT BE UNDONE");
+		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+
+			// get ID from item in table view
+			GameFX game = gamesTableView.getSelectionModel().getSelectedItem();
+			int id = game.getId(); 
+			// delete from database
+			GameServiceFunctions.deleteGameFromGenre(id);
+			GameServiceFunctions.deleteGameFromMember(id);
+			GameServiceFunctions.deleteGameFromTournament(id);
+		
+			GameServiceFunctions.deleteGame(id);
+
+			//remove from Tableview
+			gamesTableView.getItems().removeAll(
+					gamesTableView.getSelectionModel().getSelectedItem()
+					);
+
+			gamesTableView.refresh();			
+		}	
+	}
+
 
 
 

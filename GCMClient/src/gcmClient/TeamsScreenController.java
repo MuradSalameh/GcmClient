@@ -3,7 +3,9 @@ package gcmClient;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import fxClasses.GameFX;
 import fxClasses.TeamFX;
 import gcmClasses.Team;
 import javafx.collections.FXCollections;
@@ -11,13 +13,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import serviceFunctions.GameServiceFunctions;
 import serviceFunctions.TeamServiceFunctions;
 
 public class TeamsScreenController {
@@ -43,15 +49,35 @@ public class TeamsScreenController {
 		dialog.setDialogPane(dialogPane);
 		dialog.showAndWait();
 
-		/*
-		Optional<ButtonType> r = new WeinDetailDialog(TeamFX).showAndWait();
-		if(r.isPresent() && r.get().getButtonData() == ButtonData.OK_DONE) {
-			// neuer Team wurde gespeichert, daher neue Weinliste vom Server holen
-			//leseTeamliste();
-			System.out.println("Aktualisiere Team Liste");
-		}
-		 */	
+	
 		System.out.println("TeamsDetailsDialog Button klicked");
+	}
+
+	@FXML 
+	private void handleDeleteBtn()  {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("WARNING - DELETING MEMBER");
+		alert.setHeaderText("THIS CAN NOT BE UNDONE");
+		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+
+			// get ID from item in table view
+			TeamFX team = teamsTableView.getSelectionModel().getSelectedItem();
+			int id = team.getId(); 
+			// delete from database		
+			TeamServiceFunctions.deleteTeamFromMember(id);
+			TeamServiceFunctions.deleteTeamFromTournaments(id);
+			TeamServiceFunctions.deleteTeam(id);
+
+			//remove from Tableview
+			teamsTableView.getItems().removeAll(
+					teamsTableView.getSelectionModel().getSelectedItem()
+			);
+
+			teamsTableView.refresh();			
+		}	
 	}
 
 

@@ -24,38 +24,51 @@ public class GameServiceFunctionsTest {
 
 		//--------- addGame() Test -----------//
 
-//				addGame();
-//				addGame();
-//				addGame();
-//				addGame();
+		//				addGame();
+		//				addGame();
+		//				addGame();
+		//				addGame();
 
-		
+
 
 		//--------- getGames() Test to get a List of all games in database-----------//
 
-//		getGameList();
+		//		getGameList();
 
 
-		
+
 		//--------- deleteGame() Test -----------//
 
-//		deleteGame(id);
+		//		deleteGame(id);
 
 
 
 		//--------- getGame() Test to get one specific game by id -----------//
 
-			getGame(id);
+		//		getGame(id);
 
 
 
 		//--------- updateGame() Test -----------//
 
-//				String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
-//				updateGameTest(id,s);
+		//		String s = "CLLIIIEEEENNNT UUPPDDAATTEE";
+		//		updateGameTest(id,s);
+
+		//--------- deleteGameFromMember() Test -----------//
+		//		deleteGameFromMemberTest(id);
 
 
+		//--------- deleteGameFromTournament() Test -----------//
+
+		//		deleteGameFromTournamentTest(1);
+
+
+		//--------- deleteGameFromGenre() Test -----------//
 		
+		//		deleteGameFromGenreTest(1);
+		
+		
+
 	}	
 	public static void addGame() {
 		Game test = new Game(
@@ -91,6 +104,29 @@ public class GameServiceFunctionsTest {
 		Game game = GameServiceFunctions.getGame(id);
 		System.out.println(game);
 
+	}
+
+	public static void deleteGameFromMemberTest(int id) {
+		GameServiceFunctions.deleteGameFromMember(id);
+
+		Game game = GameServiceFunctions.getGame(id);
+		System.out.println(game);
+
+	}
+	public static void deleteGameFromTournamentTest(int id) {
+		GameServiceFunctions.deleteGameFromTournament(id);
+
+		Game game = GameServiceFunctions.getGame(id);
+		System.out.println(game);
+
+	}
+	
+	public static void deleteGameFromGenreTest(int id) {
+		GameServiceFunctions.deleteGameFromGenre(id);
+		
+		Game game = GameServiceFunctions.getGame(id);
+		System.out.println(game);
+		
 	}
 
 

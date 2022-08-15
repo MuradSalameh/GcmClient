@@ -16,6 +16,7 @@ import gcmClasses.Member;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -66,40 +67,49 @@ public class MembersScreenController  implements Initializable {
 
 	@FXML
 	private void handleEditDetailsBtn2(ActionEvent event) throws IOException {
-		
+
 		MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
 		int id = member.getId(); 
 		ControllerCommunicator cc = new ControllerCommunicator(id);
-		
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailEdit.fxml"));
 		BorderPane bp = loader.load();
-		
-		
+
 		MembersDetailsEditController mdec = loader.getController();
 		Parent root = loader.getRoot();
-        Stage stage = new Stage();
-     //   stage.setTitle(title);
-        stage.setScene(new Scene(root));
-     //   stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-	
-	
+		Stage stage = new Stage();
+
+		// perform actions before closing
+		stage.setOnHiding(E -> {    	
+
+			membersTableView.getItems().clear();
+			membersTableView.refresh();
+			readMembersList();
+			initializeColumns();		
+			updateTable();    
+			System.out.println("Stage closed");
+		});
+
+		stage.setTitle("EDIT MEMDER DETAILS");
+		stage.setScene(new Scene(root));
+
+		stage.showAndWait();  	
 	}
-	
-	
-	
-	
+
+
+
+
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
-		
+
 		MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
 		int id = member.getId(); 
 		ControllerCommunicator cc = new ControllerCommunicator(id);
-		
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailDialog.fxml"));
 		DialogPane dialogPane = loader.load();
-		
-		
+
+
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
 		dialog.setResizable(true);
@@ -196,7 +206,7 @@ public class MembersScreenController  implements Initializable {
 
 		}else if(result.get() == saveBtn) {
 
-			
+
 			System.out.println("Save Button Pressed: ");
 
 		}else if(result.get() == cancelBtn) {
@@ -252,11 +262,12 @@ public class MembersScreenController  implements Initializable {
 
 
 
-	//	public void initialize() {
-	//		readMembersList();
-	//		initializeColumns();		
-	//		updateTable();
-	//	}
+	//		public void initializer() {
+	//			readMembersList();
+	//			initializeColumns();		
+	//			updateTable();
+	//			membersTableView.refresh();		
+	//		}
 
 
 	@Override

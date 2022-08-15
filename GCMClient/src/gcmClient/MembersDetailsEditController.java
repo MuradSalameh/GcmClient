@@ -2,6 +2,8 @@ package gcmClient;
 
 
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,6 +27,7 @@ import gcmClasses.Team;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
@@ -35,9 +38,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import serviceFunctions.EventServiceFunctions;
 import serviceFunctions.GameServiceFunctions;
 import serviceFunctions.MemberServiceFunctions;
@@ -46,35 +51,33 @@ import serviceFunctions.SocialServiceFunctions;
 import serviceFunctions.TeamServiceFunctions;
 
 
-public class MembersDetailsDialogController extends Dialog<ButtonType>  implements Initializable {
+public class MembersDetailsEditController implements Initializable {
 	private int ccId = ControllerCommunicator.getId();
 	//	Member member = MemberServiceFunctions.getMember(ccId);
 
+	
 	@FXML
 	private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
-	@FXML  final DialogPane dialogPane = getDialogPane();
-	@FXML private Dialog dialog;
-	@FXML
-	ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
-	@FXML
-	ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);
 	
+	@FXML	
+	BorderPane memberEditBp;
 	
-	
+	@FXML	
+	Button okBtn;	
 
 	@FXML private Label idLabel;
 
 	// Text TextFields	
 	@FXML private TextField clanNameTf;
-	@FXML private TextField clanIdTf;
-	@FXML private TextField realNameTf;
-	@FXML private TextField addressTf;
-	@FXML private TextField postCodeTf;
-	@FXML private TextField cityTf;
-	@FXML private TextField countryTf;
-	@FXML private TextField emailTf;
-	@FXML private TextField phoneNumberTf;
-	@FXML private DatePicker dateDp;
+//	@FXML private TextField clanIdTf;
+//	@FXML private TextField realNameTf;
+//	@FXML private TextField addressTf;
+//	@FXML private TextField postCodeTf;
+//	@FXML private TextField cityTf;
+//	@FXML private TextField countryTf;
+//	@FXML private TextField emailTf;
+//	@FXML private TextField phoneNumberTf;
+//	@FXML private DatePicker dateDp;
 
 
 
@@ -91,27 +94,21 @@ public class MembersDetailsDialogController extends Dialog<ButtonType>  implemen
 		public void initializeTextFields() {
 			Member member = loadMember();
 
-			idLabel.setText(String.valueOf(ccId));
+		//	idLabel.setText(String.valueOf(ccId));
 
 			clanNameTf.setText(member.getClanName());
+		
 
-			if(clanNameTf != null) {
-				clanNameTf.textProperty().addListener((observable, oldValue, newValue) -> {
-					clanNameTf.setText(newValue);
-					member.setClanName(newValue);
-				});
-			}
-
-
-			clanIdTf.setText(member.getClanId());
-			realNameTf.setText(member.getRealName());
-			addressTf.setText(member.getAddress());
-			postCodeTf.setText(member.getAddressPostCode());
-			cityTf.setText(member.getAddressCity());
-			countryTf.setText(member.getCountry());
-			emailTf.setText(member.getEmail());
-			phoneNumberTf.setText(member.getPhoneNumber());
-			dateDp.setValue(member.getBirthday());						
+//
+//			clanIdTf.setText(member.getClanId());
+//			realNameTf.setText(member.getRealName());
+//			addressTf.setText(member.getAddress());
+//			postCodeTf.setText(member.getAddressPostCode());
+//			cityTf.setText(member.getAddressCity());
+//			countryTf.setText(member.getCountry());
+//			emailTf.setText(member.getEmail());
+//			phoneNumberTf.setText(member.getPhoneNumber());
+//			dateDp.setValue(member.getBirthday());						
 		}	
 
 
@@ -120,9 +117,31 @@ public class MembersDetailsDialogController extends Dialog<ButtonType>  implemen
 
 
 		public void updateMember() {
+			Member member = loadMember();
+			 
+				var clanNameWrapper = new Object(){ String clanName = ""; };
+				
+				
+				if(clanNameTf != null) {
+					clanNameTf.textProperty().addListener((observable, oldValue, newValue) -> {
 
+				
+				clanNameTf.setText(newValue);
+				
+			
+						System.out.println("ClanName changed to " + clanNameTf.getText());
+						System.out.println("Wrapper changed to " + clanNameWrapper.clanName);
+					});
+				}
+					
+				String s = clanNameTf.getText();	
+				System.out.println("New Value " +  s);	
+				member.setClanName(s);
+//				System.out.println("New Value getText " +  clanNameTf.getText());	
+			
 
-			System.out.println("Updated Member = " + loadMember());
+			System.out.println("Updated Member = " + member);
+
 
 		}
 
@@ -440,43 +459,51 @@ public class MembersDetailsDialogController extends Dialog<ButtonType>  implemen
 		
 		
 	
-		public void initialize() {
-			// TextFields
+//		public void initialize() {
+//			// TextFields
+//		
+//			initializeTextFields();
+//
+//			// Teams Table
+//			readTeamsList();
+//			initializeTeamsColumns();
+//			updateTeamsTable();
+//
+//			// Socials Table
+//			readSocialsList();
+//			initializeSocialsColumns();
+//			updateSocialsTable();
+//
+//			// Roles Table
+//			readRolesList();
+//			initializeRolesColumns();
+//			updateRolesTable();
+//
+//			// Games Table
+//			readGamesList();
+//			initializeGamesColumns();
+//			updateGamesTable();
+//
+//			// Events Table
+//			readEventsList();
+//			initializeEventsColumns();
+//			updateEventsTable();
+//		}
 		
-			initializeTextFields();
+		 @FXML
+		 public void okButtonClicked(ActionEvent actionEvent) throws IOException {
 
-			// Teams Table
-			readTeamsList();
-			initializeTeamsColumns();
-			updateTeamsTable();
-
-			// Socials Table
-			readSocialsList();
-			initializeSocialsColumns();
-			updateSocialsTable();
-
-			// Roles Table
-			readRolesList();
-			initializeRolesColumns();
-			updateRolesTable();
-
-			// Games Table
-			readGamesList();
-			initializeGamesColumns();
-			updateGamesTable();
-
-			// Events Table
-			readEventsList();
-			initializeEventsColumns();
-			updateEventsTable();
-
-
-		}
+				updateMember();
+			Stage stage = (Stage) okBtn.getScene().getWindow();
+		     stage.close();
+		        // return answer;
+		    }
 
 
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
 			initializeTextFields();
+		
 
 			// Teams Table
 			readTeamsList();

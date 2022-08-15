@@ -49,7 +49,7 @@ public class EventsScreenController {
 	
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
-		FxmlLoader loader = new FxmlLoader();
+		FXMLLoader loader = new FXMLLoader();
 		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("EventsDetailDialog.fxml"));
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);

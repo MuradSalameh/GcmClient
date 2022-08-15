@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import fxClasses.GameFX;
-import fxClasses.TeamFX;
 import fxClasses.TournamentFX;
 import gcmClasses.Game;
 import gcmClasses.Tournament;
@@ -27,7 +25,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import serviceFunctions.TeamServiceFunctions;
 import serviceFunctions.TournamentServiceFunctions;
 
 public class TournamentsScreenController {
@@ -52,7 +49,7 @@ public class TournamentsScreenController {
 	
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
-		FxmlLoader loader = new FxmlLoader();
+		FXMLLoader loader = new FXMLLoader();
 		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("TournamentsDetailDialog.fxml"));
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
@@ -64,9 +61,9 @@ public class TournamentsScreenController {
 	@FXML 
 	private void handleDeleteBtn()  {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("WARNING - DELETING MEMBER");
+		alert.setTitle("WARNING - DELETING TOURNAMENT");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
-		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
+		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS TOURNAMENT?");
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){

@@ -56,7 +56,7 @@ public class PartnerScreenController {
 	
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
-		FxmlLoader loader = new FxmlLoader();
+		FXMLLoader loader = new FXMLLoader();
 		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("PartnersDetailDialog.fxml"));
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
@@ -67,9 +67,9 @@ public class PartnerScreenController {
 	@FXML 
 	private void handleDeleteBtn()  {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("WARNING - DELETING MEMBER");
+		alert.setTitle("WARNING - DELETING PARTNER");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
-		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
+		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS PARTNER?");
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){

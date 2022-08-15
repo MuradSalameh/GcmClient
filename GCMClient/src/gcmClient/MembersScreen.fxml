@@ -65,6 +65,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
+                  <Button fx:id="editDetailsBtn2" mnemonicParsing="false" onAction="#handleEditDetailsBtn2" text="TestButtonEditDetails2" />
                </children>
                <VBox.margin>
                   <Insets right="5.0" top="5.0" />

@@ -2,22 +2,30 @@ package gcmClient;
 
 
 
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
+
 import fxClasses.MemberFX;
 import gcmClasses.Member;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import serviceFunctions.MemberServiceFunctions;
 
 
-public class MembersDetailsAddController{	
+
+public class MembersDetailsAddController extends Dialog<ButtonType> implements Initializable {	
+	
 	private Member member;
 	ControllerCommunicator cnm;
+	
 	@FXML
 	private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
 
@@ -33,7 +41,6 @@ public class MembersDetailsAddController{
 	@FXML private TextField emailTf;
 	@FXML private TextField phoneNumberTf;
 	@FXML private DatePicker dateDp;
-
 
 
 
@@ -64,14 +71,14 @@ public class MembersDetailsAddController{
 	// initialize TextFields
 	@FXML
 	public void initializeTextFields() {
-		
-
+	
 	//	member = MemberServiceFunctions.getMemberWithHighestId();
 
 		if(clanNameTf != null) {
 		//	idLabel.setText(String.valueOf(member.getId()));
 		//		idLabel.setText("-");
 			this.clanNameTf.setText(member.getClanName());
+			this.clanNameTf.setEditable(true);
 			this.clanIdTf.setText(member.getClanId());
 			this.realNameTf.setText(member.getRealName());
 			this.addressTf.setText(member.getAddress());
@@ -93,30 +100,27 @@ public class MembersDetailsAddController{
 	@FXML
 	public Member setNewMember() {	
 		 member = newMember();
-
-
-		if(clanNameTf == null) {
+		 
+		var clanNameWrapper = new Object(){ String clanName = ""; };
+		
+		
+		if(clanNameTf != null) {
 			clanNameTf.textProperty().addListener((observable, oldValue, newValue) -> {
 
-				clanNameTf.setText(newValue);
-				
-
+		clanNameWrapper.clanName =  newValue;
+		clanNameTf.setText(newValue);
+	
 				System.out.println("ClanName changed to " + clanNameTf.getText());
+				System.out.println("Wrapper changed to " + clanNameWrapper.clanName);
 			});
 		}
-		
-		if(clanNameTf != null) {
-				member.setClanName(clanNameTf.getText());
-		}
-	
-
-		
-		if(clanNameTf != null) {
-			System.out.println("String Test " + clanNameTf.getText());
-		}
-		
+			
+		String s = clanNameWrapper.clanName;	
+		System.out.println("New Value " +  s);	
+//		System.out.println("New Value getText " +  clanNameTf.getText());	
 	
 		return member;
+		
 	}
 
 
@@ -127,11 +131,12 @@ public class MembersDetailsAddController{
 		ControllerCommunicator cnm = new ControllerCommunicator(member.getId());
 		return cnm;	
 	}
-
-	public void initialize() {
-		//newMember();
-		initializeTextFields();
-	}
+	
+//
+//	public void initialize() {
+//		//newMember();
+//		
+//	}
 
 
 	//	public void ready() {
@@ -141,5 +146,13 @@ public class MembersDetailsAddController{
 	//	
 	public void cancel() {
 
+	}
+
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		initializeTextFields();
+		
 	}
 }

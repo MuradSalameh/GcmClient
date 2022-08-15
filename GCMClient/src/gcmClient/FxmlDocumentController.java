@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -24,8 +25,10 @@ public class FxmlDocumentController implements Initializable {
 	@FXML
 	private void handleHomeBtn(ActionEvent event) throws IOException {
 		
-		FxmlLoader screen = new FxmlLoader();
-		Pane view = screen.getPage("HomeScreen");
+//		FXMLLoader screen = new FXMLLoader();
+//		Pane view = screen.getPage("HomeScreen");
+		Pane view = FXMLLoader.load(getClass().getResource("HomeScreen.fxml"));
+
 		System.out.println("Pane view: " + view);
 		
 		bpScreenView.setCenter(view);		
@@ -37,26 +40,34 @@ public class FxmlDocumentController implements Initializable {
 	@FXML
 	private void handleMembersBtn(ActionEvent event) throws IOException {
 	
-		FxmlLoader screen = new FxmlLoader();
-		Pane view = screen.getPage("MembersScreen");		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersScreen.fxml"));
+//		Pane view = screen.getPage("MembersScreen");
+		//FXMLLoader screen = new FXMLLoader();
+		Pane view = loader.load();
+			
 		//System.out.println("Pane view: " + view);
 		
 		bpScreenView.setCenter(view);
 		
 		//initialize table and data after loading screen
-		MembersScreenController msc = new MembersScreenController();
-		msc.initialize();
-		//System.out.println("Members Button klicked");
+	//	MembersScreenController msc = loader.getController();
+	//	msc.initialize();
+		
+		//mddc.initialize();
 		
 		
+		//System.out.println("Members Button klicked");		
 	}
 	
 	
 	@FXML
 	private void handleGamesBtn(ActionEvent event) throws IOException {
 		
-		FxmlLoader screen = new FxmlLoader();
-		Pane view = screen.getPage("GamesScreen");
+//		FXMLLoader screen = new FXMLLoader();
+//		Pane view = screen.getPage("GamesScreen.fxml");
+//	
+		Pane view = FXMLLoader.load(getClass().getResource("GamesScreen.fxml"));
+
 		//System.out.println("Pane view: " + view);
 		bpScreenView.setCenter(view);	
 		
@@ -68,8 +79,11 @@ public class FxmlDocumentController implements Initializable {
 	@FXML
 	private void handleEventsBtn(ActionEvent event) throws IOException {
 		
-		FxmlLoader screen = new FxmlLoader();
-		Pane view = screen.getPage("EventsScreen");
+//		FXMLLoader screen = new FXMLLoader();
+//		Pane view = screen.getPage("EventsScreen");
+		Pane view = FXMLLoader.load(getClass().getResource("EventsScreen.fxml"));
+
+		
 		//System.out.println("Pane view: " + view);
 		
 		bpScreenView.setCenter(view);	
@@ -81,10 +95,11 @@ public class FxmlDocumentController implements Initializable {
 	@FXML
 	private void handleTeamsBtn(ActionEvent event) throws IOException {
 		
-		FxmlLoader screen = new FxmlLoader();
-		Pane view = screen.getPage("TeamsScreen");
-		System.out.println("Pane view: " + view);
+//		FXMLLoader screen = new FXMLLoader();
+//		Pane view = screen.getPage("TeamsScreen");
+//		System.out.println("Pane view: " + view);
 		
+		Pane view = FXMLLoader.load(getClass().getResource("TeamsScreen.fxml"));	
 		bpScreenView.setCenter(view);
 		TeamsScreenController tsc = new TeamsScreenController();
 		tsc.initialize();
@@ -94,8 +109,12 @@ public class FxmlDocumentController implements Initializable {
 	@FXML
 	private void handleTournamentsBtn(ActionEvent event) throws IOException {
 		
-		FxmlLoader screen = new FxmlLoader();
-		Pane view = screen.getPage("TournamentsScreen");
+//		FXMLLoader screen = new FXMLLoader();
+//		Pane view = screen.getPage("TournamentsScreen");
+		
+		Pane view = FXMLLoader.load(getClass().getResource("TournamentsScreen.fxml"));
+
+		
 		System.out.println("Pane view: " + view);
 		
 		bpScreenView.setCenter(view);
@@ -107,8 +126,12 @@ public class FxmlDocumentController implements Initializable {
 	@FXML
 	private void handlePartnersBtn(ActionEvent event) throws IOException {
 		
-		FxmlLoader screen = new FxmlLoader();
-		Pane view = screen.getPage("PartnersScreen");
+//		FXMLLoader screen = new FXMLLoader();
+//		Pane view = screen.getPage("PartnersScreen");
+		Pane view = FXMLLoader.load(getClass().getResource("PartnersScreen.fxml"));
+
+		
+		
 		System.out.println("Pane view: " + view);
 		
 		bpScreenView.setCenter(view);	
@@ -120,8 +143,11 @@ public class FxmlDocumentController implements Initializable {
 	@FXML
 	private void handleFinancesBtn(ActionEvent event) throws IOException {
 		
-		FxmlLoader screen = new FxmlLoader();
-		Pane view = screen.getPage("FinancesScreen");
+//		FXMLLoader screen = new FXMLLoader();
+//		Pane view = screen.getPage("FinancesScreen");
+		Pane view = FXMLLoader.load(getClass().getResource("FinancesScreen.fxml"));
+
+		
 		System.out.println("Pane view: " + view);
 		
 		bpScreenView.setCenter(view);	

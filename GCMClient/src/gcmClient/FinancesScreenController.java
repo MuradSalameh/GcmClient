@@ -131,7 +131,7 @@ public class FinancesScreenController {
 
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
-		FxmlLoader loader = new FxmlLoader();
+		FXMLLoader loader = new FXMLLoader();
 		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("RevenuesDetailDialog.fxml"));
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);

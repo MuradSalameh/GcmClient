@@ -3,11 +3,12 @@ package gcmClient;
 
 
 import java.io.IOException;
-
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import fxClasses.MemberFX;
@@ -17,6 +18,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -27,10 +31,12 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import serviceFunctions.MemberServiceFunctions;
 
 
-public class MembersScreenController {
+public class MembersScreenController  implements Initializable {
 
 	@FXML
 	private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
@@ -50,6 +56,8 @@ public class MembersScreenController {
 
 	@FXML
 	public Button editDetailsBtn;
+	@FXML
+	public Button editDetailsBtn2;
 
 	@FXML
 	public Button addNewBtn;
@@ -57,22 +65,77 @@ public class MembersScreenController {
 
 
 	@FXML
-	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
-		// get ID from item in table view
+	private void handleEditDetailsBtn2(ActionEvent event) throws IOException {
+		
 		MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
 		int id = member.getId(); 
-
 		ControllerCommunicator cc = new ControllerCommunicator(id);
-		FxmlLoader loader = new FxmlLoader();
-		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("MembersDetailDialog.fxml"));
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailEdit.fxml"));
+		BorderPane bp = loader.load();
+		
+		
+		MembersDetailsEditController mdec = loader.getController();
+		Parent root = loader.getRoot();
+        Stage stage = new Stage();
+     //   stage.setTitle(title);
+        stage.setScene(new Scene(root));
+     //   stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+	
+	
+	}
+	
+	
+	
+	
+	@FXML
+	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+		
+		MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
+		int id = member.getId(); 
+		ControllerCommunicator cc = new ControllerCommunicator(id);
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailDialog.fxml"));
+		DialogPane dialogPane = loader.load();
+		
+		
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
 		dialog.setResizable(true);
 
-		dialog.showAndWait();
-		MembersDetailsDialogController mddc = new MembersDetailsDialogController();
-		mddc.initialize();
-		
+		MembersDetailsDialogController mddc = loader.getController();
+
+		ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);	
+
+		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);		
+
+
+
+		Optional<ButtonType> result = dialog.showAndWait();			
+
+
+		if(!result.isPresent()) {
+
+			// alert is exited, no button has been pressed.
+
+			System.out.println("No Button Pressed");
+
+
+		}else if(result.get() == saveBtn) {
+
+
+
+			System.out.println("Save Button Pressed: ");
+
+		}else if(result.get() == cancelBtn) {
+
+
+			System.out.println("Cancel Button Pressed");
+
+		}
 		System.out.println("MembersDetailsDialog Button klicked");
 	}
 
@@ -91,7 +154,7 @@ public class MembersScreenController {
 			MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
 			int id = member.getId(); 
 			// delete from database
-			
+
 			MemberServiceFunctions.deleteMemberFromGames(id);
 			MemberServiceFunctions.deleteMemberFromEvents(id);
 			MemberServiceFunctions.deleteMemberFromTeams(id);		
@@ -109,40 +172,36 @@ public class MembersScreenController {
 
 	@FXML
 	public void handleAddNewBtn(ActionEvent t) throws IOException{
-		FxmlLoader loader = new FxmlLoader();
-		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("MembersDetailAddDialog.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailAddDialog.fxml"));
+
+		DialogPane dialogPane = loader.load();
+		MembersDetailsAddController mdac = loader.getController();
+
 		Dialog dialogAn = new Dialog();
 		ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
 		ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);
 		dialogAn.setDialogPane(dialogPane);
 		dialogAn.setResizable(true);
 		dialogAn.getDialogPane().getButtonTypes().set(0, saveBtn);
-		dialogAn.getDialogPane().getButtonTypes().set(1, cancelBtn);			
-		//		dialogAn.showAndWait();	
-		
-		
-		Optional<ButtonType> result = dialogAn.showAndWait();	
-		MembersDetailsAddController mdac = new MembersDetailsAddController();
-		mdac.initialize();
-		
-		if(!result.isPresent()) {
-		
-		// alert is exited, no button has been pressed.
-		int mId = mdac.getNewMemberId().getId();
-		MemberServiceFunctions.deleteMember(mId);
-		System.out.println("Cancel Button Pressed");
+		dialogAn.getDialogPane().getButtonTypes().set(1, cancelBtn);				
 
-			
+		Optional<ButtonType> result = dialogAn.showAndWait();	
+
+
+		if(!result.isPresent()) {		
+			// alert is exited, no button has been pressed.
+			dialogAn.close();
+			System.out.println("Cancel Button Pressed");
+
+
 		}else if(result.get() == saveBtn) {
-		
+
 			
 			System.out.println("Save Button Pressed: ");
 
 		}else if(result.get() == cancelBtn) {
-			mdac.getNewMemberId();
-			int mId = mdac.getNewMemberId().getId();
-			MemberServiceFunctions.deleteMember(mId);
-		
+			dialogAn.close();
+
 			System.out.println("Cancel Button Pressed");
 
 		}
@@ -193,11 +252,19 @@ public class MembersScreenController {
 
 
 
-	public void initialize() {
+	//	public void initialize() {
+	//		readMembersList();
+	//		initializeColumns();		
+	//		updateTable();
+	//	}
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 		readMembersList();
 		initializeColumns();		
 		updateTable();
-	}
 
+	}
 
 }

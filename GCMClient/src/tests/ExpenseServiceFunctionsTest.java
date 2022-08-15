@@ -69,8 +69,8 @@ public class ExpenseServiceFunctionsTest {
 				"ttttt", 					// desc
 				500.00, 					// amount
 				LocalDate.of(1981, 4, 11),	// date
-				"heinrich", 					//recipient
-				null);						// teams
+				"heinrich"					//recipient
+				);						
 
 		ExpenseServiceFunctions.addExpense(test);
 	}

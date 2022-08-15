@@ -25,9 +25,7 @@ public class PartnerFX {
 	private SimpleStringProperty adressCity;
 	private SimpleStringProperty country;	
 	private SimpleStringProperty email;	
-	private SimpleStringProperty phoneNumber;	
-	private SimpleListProperty<Social> socials;
-	private SimpleListProperty<Revenue> revenues;
+	private SimpleStringProperty phoneNumber;
 	
 	public PartnerFX() {
 		super();
@@ -51,11 +49,7 @@ public class PartnerFX {
 		email = new SimpleStringProperty(serverPartner.getEmail());
 		phoneNumber = new SimpleStringProperty(serverPartner.getPhoneNumber());		
 
-		ObservableList<Social> socialsOl = FXCollections.observableArrayList(serverPartner.getSocials());
-		this.socials = new SimpleListProperty<Social>(socialsOl);
-		
-		ObservableList<Revenue> revenuesOl = FXCollections.observableArrayList(serverPartner.getRevenues());
-		this.revenues = new SimpleListProperty<Revenue>(revenuesOl);
+	
 		
 	}
 
@@ -263,37 +257,7 @@ public class PartnerFX {
 		this.phoneNumberProperty().set(phoneNumber);
 	}
 
-	//-----------------------
-	
-	public final SimpleListProperty<Social> socialsProperty() {
-		return this.socials;
-	}
 
-	public final ObservableList<Social> getSocials() {
-		return this.socialsProperty().get();
-	}
-
-	public void setSocials(final ObservableList<Social> socials) {
-		this.socialsProperty().set(socials);
-	}
-	
-	
-	//-----------------------
-	
-	public final SimpleListProperty<Revenue> revenuesProperty() {
-		return this.revenues;
-	}
-	
-	public final ObservableList<Revenue> getRevenues() {
-		return this.revenuesProperty().get();
-	}
-	
-	public void setRevenues(final ObservableList<Revenue> revenues) {
-		this.revenuesProperty().set(revenues);
-	}
-	
-	
-	
 	
 	
 	

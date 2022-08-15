@@ -94,22 +94,27 @@ public class MembersDetailsAddController{
 	public Member setNewMember() {	
 		 member = newMember();
 
-		TextField clanNameTf2 = new TextField("");
 
-
-		if(clanNameTf != null) {
+		if(clanNameTf == null) {
 			clanNameTf.textProperty().addListener((observable, oldValue, newValue) -> {
 
-				clanNameTf2.setText(newValue);
-				member.setClanName(newValue);
+				clanNameTf.setText(newValue);
+				
 
-				System.out.println("ClanName changed to " + clanNameTf2.getText());
+				System.out.println("ClanName changed to " + clanNameTf.getText());
 			});
 		}
+		
+		if(clanNameTf != null) {
+				member.setClanName(clanNameTf.getText());
+		}
+	
 
 		
-	
-		System.out.println("String Test " + member);
+		if(clanNameTf != null) {
+			System.out.println("String Test " + clanNameTf.getText());
+		}
+		
 	
 		return member;
 	}

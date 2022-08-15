@@ -72,9 +72,7 @@ public class PartnerServiceFunctionsTest {
 				"Dublin", 					// city
 				"Ireland", 					// country
 				"company@company.com", 		// email
-				"+43 677 678 643 44", 		// phone
-				null, 						// socials
-				null);						// reveues
+				"+43 677 678 643 44");		// phone
 
 		PartnerServiceFunctions.addPartner(test);
 	}

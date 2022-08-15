@@ -2,13 +2,10 @@ package fxClasses;
 
 import java.time.LocalDate;
 
-import gcmClasses.Partner;
 import gcmClasses.Revenue;
-import gcmClasses.RevenueType;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 

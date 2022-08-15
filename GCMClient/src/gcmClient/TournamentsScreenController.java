@@ -76,6 +76,7 @@ public class TournamentsScreenController {
 			int id = tournament.getId(); 
 			// delete from database		
 		
+			TournamentServiceFunctions.deleteTournamentFromGame(id);
 			TournamentServiceFunctions.deleteTournamentsFromTeams(id);
 			TournamentServiceFunctions.deleteTournament(id);
 

@@ -3,15 +3,11 @@ package fxClasses;
 import java.time.LocalDate;
 
 import gcmClasses.Expense;
-import gcmClasses.ExpenseType;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class ExpenseFX {
 	private Expense serverExpense;
@@ -22,7 +18,7 @@ public class ExpenseFX {
 	private SimpleDoubleProperty amount;
 	private ObjectProperty<LocalDate> date;	
 	private SimpleStringProperty recipientName;
-	private SimpleListProperty<ExpenseType> expenseTypes;
+	
 	
 	
 	public ExpenseFX() {
@@ -39,9 +35,7 @@ public class ExpenseFX {
 		amount = new SimpleDoubleProperty(serverExpense.getAmount());
 		date = new SimpleObjectProperty<LocalDate>(serverExpense.getDate());
 		recipientName = new SimpleStringProperty(serverExpense.getRecipientName());
-		
-		ObservableList<ExpenseType> expenseTypesOl = FXCollections.observableArrayList(serverExpense.getExpenseTypes());
-		this.expenseTypes = new SimpleListProperty<ExpenseType>(expenseTypesOl);		
+			
 	
 	}
 
@@ -146,19 +140,6 @@ public class ExpenseFX {
 	
 	// --------------------------------
 
-	public final SimpleListProperty<ExpenseType> expenseTypesProperty() {
-		return this.expenseTypes;
-	}
-
-	public final ObservableList<ExpenseType> getExpenseTypes() {
-		return expenseTypesProperty().get();
-	}
-
-
-	public final void setExpenseTypes(final ObservableList<ExpenseType> expenseTypes) {
-		this.expenseTypesProperty().set(expenseTypes);
-	}
-	
 	
 
 }

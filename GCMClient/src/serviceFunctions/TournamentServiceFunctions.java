@@ -80,13 +80,24 @@ public class TournamentServiceFunctions {
 
 	}
 	
-	//Delete - delete team from member
+	
 		public static Response deleteTournamentsFromTeams(int id) {
 			
 			Client client = ClientBuilder.newClient();
 			return client
 					.target(serverURI)
 					.path("/deleteTournamentFromTeams/" + id)
+					.request(MediaType.APPLICATION_XML)
+					.delete();	
+			
+		}
+	
+		public static Response deleteTournamentFromGame(int id) {
+			
+			Client client = ClientBuilder.newClient();
+			return client
+					.target(serverURI)
+					.path("/deleteTournamentFromGame/" + id)
 					.request(MediaType.APPLICATION_XML)
 					.delete();	
 			

@@ -222,26 +222,7 @@
                         </VBox>
                         <VBox>
                            <children>
-                              <Label text="Teams">
-                                 <VBox.margin>
-                                    <Insets bottom="2.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <TableView fx:id="teamsTableView" editable="true" minWidth="350.0" tableMenuButtonVisible="true">
-                                 <columns>
-                                    <TableColumn fx:id="teamsIdColumn" maxWidth="-1.0" minWidth="25.0" prefWidth="-1.0" text="ID" />
-                                    <TableColumn fx:id="teamNameColumn" prefWidth="75.0" text="Team Name" />
-                                    <TableColumn fx:id="teamDescriptionColumn" prefWidth="75.0" text="Description" />
-                                 </columns>
-                              </TableView>
                               <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="2.0">
-                                 <children>
-                                    <Button fx:id="tDelBtn" mnemonicParsing="false" prefWidth="70.0" text="Delete" />
-                                    <Button fx:id="tDtlsBtn" mnemonicParsing="false" prefWidth="70.0" text="Details" />
-                                 </children>
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>

@@ -8,22 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
 import fxClasses.GameFX;
+import fxClasses.MemberFX;
 import fxClasses.RoleFX;
 import fxClasses.SocialFX;
 import fxClasses.TeamFX;
-
 import gcmClasses.Game;
 import gcmClasses.Member;
 import gcmClasses.Role;
 import gcmClasses.Social;
 import gcmClasses.Team;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -31,18 +38,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import serviceFunctions.GameServiceFunctions;
 import serviceFunctions.MemberServiceFunctions;
@@ -51,7 +50,8 @@ import serviceFunctions.SocialServiceFunctions;
 import serviceFunctions.TeamServiceFunctions;
 
 
-public class MembersDetailsEditController extends Dialog<ButtonType> implements Initializable {
+
+public class MembersAddNewDialogController extends Dialog<ButtonType> implements Initializable {	
 
 	private int ccId = ControllerCommunicator.getId();
 
@@ -59,40 +59,55 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 
 	@FXML final DialogPane dialogPane = getDialogPane();
 	@FXML private Dialog dialog;
-	@FXML private BorderPane memberEditBp;
+	@FXML
+	ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
+	@FXML
+	ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);
 
-	@FXML ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
-	@FXML ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);
+
+	@FXML private BorderPane memberEditBp;
 
 	// Socials Buttons -----
 
 	@FXML private Button sAnBtn;	
+
 	@FXML private Button sEBtn;	
+
 	@FXML private Button sDelBtn;
+
 	@FXML private Button sSaveBtn;	
 
 	// Roles Buttons -----
 
 	@FXML private Button rAnBtn;	
+
 	@FXML private Button rEBtn;	
+
 	@FXML private Button rDelBtn;
+
 	@FXML private Button rSaveBtn;	
+
 	@FXML private ComboBox<Role> rcb;
 
 	// Teams Buttons -----
 
 	@FXML private Button tDtlsBtn;	
+
 	@FXML private Button tDelBtn;	
 
 	// Games Buttons -----
 
 	@FXML private Button gDAnBtn;
+
 	@FXML private Button gDelBtn;
+
 
 	// ID Labels -----
 
 	@FXML private Label idLabel;
+
 	@FXML private Label rIdLabel;
+
 	@FXML private Label sIdLabel;
 
 	// Member TextFields -----
@@ -121,8 +136,6 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 	@FXML private TextField descriptionTf;
 
 
-
-
 	// get Member from DB -----
 	public Member loadMember() {
 
@@ -132,7 +145,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 
 
 	// initialize TextFields -----
-
+	
 	public void initializeTextFields() {
 		Member member = loadMember();
 
@@ -155,11 +168,12 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		usernameTf.setText("");
 		linkTf.setText("");
 		NotesTa.setText("");
+
+
+
 	}	
 
-
 	// update Member TextFields -----
-
 	public Member updateMemberDetails() {
 		Member member = loadMember();
 
@@ -173,7 +187,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		member.setEmail(emailTf.getText());
 		member.setPhoneNumber(phoneNumberTf.getText());	
 		member.setBirthday(dateDp.getValue());
-
+		
 		return member;
 	}
 
@@ -196,14 +210,12 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
-
 	public void updateTeamsTable() {		
 		// load Data
 		if(teamsTableView != null) {
 			teamsTableView.getItems().addAll(olTeams);
 		}
 	}
-
 
 	public void readTeamsList() {
 		olTeams.clear();
@@ -213,11 +225,10 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 
 		for(Team einT : xmlTeams) {
 			olTeams.add(new TeamFX(einT));
+			//		System.out.println("CLIENT TeamsTable------------" + "\n" + einT);
+
 		}
 	}
-
-
-
 
 	// Socials Table -----
 
@@ -249,7 +260,6 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
-
 	public void readSocialsList() {
 		olSocials.clear();
 
@@ -258,9 +268,9 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 
 		for(Social einT : xmlSocials) {
 			olSocials.add(new SocialFX(einT));
+
 		}
 	}
-
 
 	public Social getSelectedSocial() {
 
@@ -279,6 +289,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 			return newSocial;
 		}	
 	}
+
 
 
 	public Social updateSocial() {
@@ -310,8 +321,10 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 			linkTf.setText(social.getSocialLink());
 			NotesTa.setText(social.getSocialNotes());			
 		}
+
 		//updateSocial();
 	}
+
 
 
 	@FXML
@@ -333,9 +346,9 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		readSocialsList();
 		initializeSocialsColumns();		
 		updateSocialsTable(); 
+
 	}
 
-	
 	@FXML
 	public void handleSocialEditNewBtn(ActionEvent e)  {
 		Social social = updateSocial();
@@ -345,10 +358,13 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 			// Set Social ID Label
 			sIdLabel.setText(String.valueOf(id));
 
-			socialPlatformTf.setPromptText("Enter Social Platform");
-			usernameTf.setPromptText("Enter Username");
-			linkTf.setPromptText("Enter Link");
-			NotesTa.setPromptText("Enter Additional Notes");
+			// Social TextFields
+			socialPlatformTf.setText(social.getSocialPlatform());
+			usernameTf.setText(social.getSocialUsername());
+			linkTf.setText(social.getSocialLink());
+			NotesTa.setText(social.getSocialNotes());	
+
+			updateSocial();
 		}
 	}
 
@@ -356,9 +372,9 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 	@FXML 
 	public void handleSocialDeleteBtn()  {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("WARNING - DELETING SOCIAL");
+		alert.setTitle("WARNING - DELETING MEMBER");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
-		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS SOCIAL?");
+		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
@@ -391,7 +407,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 
 
 	public  void initializeRolesColumns() {
-		
+
 		if(roleIdColumn != null) {
 			roleIdColumn.setCellValueFactory(new PropertyValueFactory<RoleFX, Integer>("id"));
 			roleNameColumn.setCellValueFactory(new PropertyValueFactory<RoleFX, String>("roleName"));
@@ -399,7 +415,6 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
-	
 	public void updateRolesTable() {		
 		// load Data
 		if(rolesTableView != null) {
@@ -407,7 +422,6 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
-	
 	public void readRolesList() {
 		olRoles.clear();
 
@@ -424,8 +438,6 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
-	
-	
 	// Handle Roles Buttons ------------------------------------------------
 
 	@FXML
@@ -441,13 +453,15 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		readRolesList();
 		initializeRolesColumns();		
 		updateRolesTable(); 
-	}
 
+	}
 
 	@FXML
 	public void loadComboBox() {
+
 		List<Role> xmlRoles = new ArrayList<Role>();
 		xmlRoles = RoleServiceFunctions.getRoles();	
+
 		Callback<ListView<Role>, ListCell<Role>> cellFactory = lv -> new ListCell<Role>() {
 
 			@Override
@@ -455,38 +469,14 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 				super.updateItem(item, empty);
 				setText(empty ? "" : item.getRoleName());
 			}
+
 		};
 
 		rcb.setButtonCell(cellFactory.call(null));
 		rcb.setCellFactory(cellFactory);
+
 		rcb.getItems().addAll(xmlRoles);
-	}
 
-
-	@FXML 
-	public void handleRoleDeleteBtn()  {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("WARNING - DELETING ROLE");
-		alert.setHeaderText("THIS CAN NOT BE UNDONE");
-		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS ROLE?");
-
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
-
-			// get ID from item in table view
-			RoleFX Role = rolesTableView.getSelectionModel().getSelectedItem();
-			int id = Role.getId(); 
-			// delete from database
-
-			RoleServiceFunctions.deleteRoleFromMember(id, ccId);
-		
-			//remove from Tableview
-			rolesTableView.getItems().removeAll(
-					rolesTableView.getSelectionModel().getSelectedItem()
-					);
-
-			rolesTableView.refresh();			
-		}	
 	}
 
 

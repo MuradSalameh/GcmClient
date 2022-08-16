@@ -119,5 +119,17 @@ public class RoleServiceFunctions {
 				.delete();	
 
 	}
+	
+	//Delete - delete role 
+	public static Response deleteRoleFromMember(int roleid, int memberid) {
+		
+		Client client = ClientBuilder.newClient();
+		return client
+				.target(serverURI)
+				.path("/deleteRoleFromMember/" + roleid + "/" + memberid)
+				.request(MediaType.APPLICATION_XML)
+				.delete();	
+		
+	}
 
 }

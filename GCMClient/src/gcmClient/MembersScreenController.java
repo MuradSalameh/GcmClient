@@ -61,8 +61,8 @@ public class MembersScreenController  implements Initializable {
 	@FXML public Button editDetailsBtn2;
 	@FXML public Button addNewBtn;
 
-
-
+	
+	
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 

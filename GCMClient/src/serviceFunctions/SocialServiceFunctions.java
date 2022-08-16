@@ -2,6 +2,7 @@ package serviceFunctions;
 
 import java.util.List;
 
+import gcmClasses.Member;
 import gcmClasses.Social;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -53,6 +54,18 @@ public class SocialServiceFunctions {
 
 		return social;
 	}
+	
+	//GET - get socialWithHighestId
+	public static Social getSocialWithHighestId() {
+
+		Social social = ClientBuilder.newClient()
+				.target(serverURI)
+				.path("/socialWithHighestId/")
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<Social>(){});
+
+		return social;
+	}
 
 
 	//Post - add new social 
@@ -77,6 +90,19 @@ public class SocialServiceFunctions {
 				.request(MediaType.APPLICATION_XML)
 				.put(Entity.entity(m, MediaType.APPLICATION_XML));	
 
+	}
+	
+	
+	//PUT - add social to member
+	public static Response addSocialToMember(int memberID, int socialID) {
+		
+		Client client = ClientBuilder.newClient();
+		return client
+				.target(serverURI)
+				.path("/addSocialToMember/" + memberID + "/" + socialID)
+				.request(MediaType.APPLICATION_XML)
+				.put(null);	
+		
 	}
 
 

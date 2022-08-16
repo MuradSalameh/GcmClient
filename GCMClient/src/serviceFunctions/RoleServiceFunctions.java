@@ -2,6 +2,7 @@ package serviceFunctions;
 
 import java.util.List;
 
+import gcmClasses.Member;
 import gcmClasses.Role;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -54,6 +55,18 @@ public class RoleServiceFunctions {
 		return role;
 	}
 	
+	//GET - get roleWithHighestId
+	public static Role getRoleWithHighestId() {
+
+		Role role = ClientBuilder.newClient()
+				.target(serverURI)
+				.path("/roleWithHighestId/")
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<Role>(){});
+
+		return role;
+	}
+	
 	
 
 	//Post - add new role 
@@ -79,6 +92,19 @@ public class RoleServiceFunctions {
 				.put(Entity.entity(m, MediaType.APPLICATION_XML));	
 
 	}
+	
+	
+	//PUT - add role to member
+		public static Response addRoleToMember(int memberID, int roleID) {
+			
+			Client client = ClientBuilder.newClient();
+			return client
+					.target(serverURI)
+					.path("/addRoleToMember/" + memberID + "/" + roleID)
+					.request(MediaType.APPLICATION_XML)
+					.put(null);	
+			
+		}
 
 
 	//Delete - delete role 

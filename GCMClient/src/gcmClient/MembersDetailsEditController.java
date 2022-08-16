@@ -82,12 +82,6 @@ public class MembersDetailsEditController implements Initializable {
 
 	@FXML private Button rDelBtn;	
 
-	// Events Buttons -----
-
-	@FXML private Button eDtlsBtn;	
-
-	@FXML private Button eDelBtn;	
-
 	// Teams Buttons -----
 
 	@FXML private Button tDtlsBtn;	
@@ -101,11 +95,15 @@ public class MembersDetailsEditController implements Initializable {
 	@FXML private Button gDelBtn;
 
 
-	// ID Label -----
+	// ID Labels -----
 
 	@FXML private Label idLabel;
 
-	// TextFields -----
+	@FXML private Label rIdLabel;
+
+	@FXML private Label sIdLabel;
+
+	// Member TextFields -----
 
 	@FXML private TextField clanNameTf;
 	@FXML private TextField clanIdTf;
@@ -117,6 +115,18 @@ public class MembersDetailsEditController implements Initializable {
 	@FXML private TextField emailTf;
 	@FXML private TextField phoneNumberTf;
 	@FXML private DatePicker dateDp;
+
+	// Social TextFields -----
+
+	@FXML private TextField socialPlatformTf;
+	@FXML private TextField usernameTf;
+	@FXML private TextField linkTf;
+	@FXML private TextField NotesTf;
+
+	// Role TextFields -----
+
+	@FXML private TextField roleNameTf;
+	@FXML private TextField descriptionTf;
 
 
 	// get Member from DB -----
@@ -134,6 +144,7 @@ public class MembersDetailsEditController implements Initializable {
 
 		idLabel.setText(String.valueOf(ccId));
 
+		// Member TextFields
 		clanNameTf.setText(member.getClanName());
 		clanIdTf.setText(member.getClanId());
 		realNameTf.setText(member.getRealName());
@@ -143,7 +154,18 @@ public class MembersDetailsEditController implements Initializable {
 		countryTf.setText(member.getCountry());
 		emailTf.setText(member.getEmail());
 		phoneNumberTf.setText(member.getPhoneNumber());
-		dateDp.setValue(member.getBirthday());						
+		dateDp.setValue(member.getBirthday());	
+
+		// Social TextFields
+		socialPlatformTf.setText("");
+		usernameTf.setText("");
+		linkTf.setText("");
+		NotesTf.setText("");
+
+		// Role TextFields
+		roleNameTf.setText("");
+		descriptionTf.setText("");
+
 	}	
 
 	// update Member TextFields -----
@@ -306,10 +328,6 @@ public class MembersDetailsEditController implements Initializable {
 		}
 	}
 
-	public void updateMemberSocials() {
-
-
-	}
 
 	public void updateSocialsTable() {		
 		// load Data
@@ -326,7 +344,6 @@ public class MembersDetailsEditController implements Initializable {
 
 		for(Social einT : xmlSocials) {
 			olSocials.add(new SocialFX(einT));
-			//		System.out.println("CLIENT SocialsTable------------" + "\n" + einT);
 
 		}
 	}
@@ -405,72 +422,142 @@ public class MembersDetailsEditController implements Initializable {
 
 		for(Game einT : xmlGames) {
 			olGames.add(new GameFX(einT));
-			//		System.out.println("CLIENT GamesTable------------" + "\n" + einT);
 
 		}
 	}
 
 
-	
-	
-//	@FXML
-//	public void handleComboBoxAction(ActionEvent e)  {
-//		System.out.println(gCB.getValue() + " selected");         	           	
-//	}
-	
 
-	// Set on action
-//	gCB.setOnAction(event);
+	// Handle Buttons ------------------------------------------------
 
+	// Handle Social Buttons
+	public Social getSelectedSocial() {
 
+		SocialFX getSocial = socialsTableView.getSelectionModel().getSelectedItem();
+		int id = getSocial.getId();
 
+		Social social = SocialServiceFunctions.getSocial(id);
 
-	// Events Table
-	private ObservableList<EventFX> olEvents = FXCollections.observableArrayList();
-
-	@FXML private TableView<EventFX> eventsTableView;
-	@FXML private TableColumn<EventFX,Integer> eventIdColumn;	
-	@FXML private TableColumn<EventFX,String> eventTitleColumn;
-	@FXML private TableColumn<EventFX,String> eventDescriptionColumn;
-	@FXML private TableColumn<EventFX,LocalDate> eventDateColumn;
-	@FXML private TableColumn<EventFX,LocalTime> eventStartTimeColumn;
-	@FXML private TableColumn<EventFX,LocalTime> eventEndTimeColumn;
-	@FXML private TableColumn<EventFX,String> eventAdditionalNotesColumn;
-	@FXML private TableColumn<EventFX,Boolean> reoccuringColumn;
-
-	public  void initializeEventsColumns() {
-
-		if(eventIdColumn != null) {
-			eventIdColumn.setCellValueFactory(new PropertyValueFactory<EventFX, Integer>("id"));
-			eventTitleColumn.setCellValueFactory(new PropertyValueFactory<EventFX, String>("eventTitle"));
-			eventDescriptionColumn.setCellValueFactory(new PropertyValueFactory<EventFX, String>("eventDescription"));
-			eventDateColumn.setCellValueFactory(new PropertyValueFactory<EventFX, LocalDate>("date"));
-			eventStartTimeColumn.setCellValueFactory(new PropertyValueFactory<EventFX, LocalTime>("eventStartTime"));
-			eventEndTimeColumn.setCellValueFactory(new PropertyValueFactory<EventFX, LocalTime>("eventEndTime"));
-			eventAdditionalNotesColumn.setCellValueFactory(new PropertyValueFactory<EventFX, String>("eventAddidtionalNotes"));		
-			reoccuringColumn.setCellValueFactory(new PropertyValueFactory<EventFX, Boolean>("reoccuring"));		
-		}
+		return social;
 	}
 
-	public void updateEventsTable() {		
-		// load Data
-		if(eventsTableView != null) {
-			eventsTableView.getItems().addAll(olEvents);
+	@FXML
+	public void handleSocialEditBtn(ActionEvent e)  {
+		Social social = getSelectedSocial();
+		int id = getSelectedSocial().getId();
+
+		if(id != 0) {
+			// Set Social ID Label
+			sIdLabel.setText(String.valueOf(id));
+
+			// Social TextFields
+			socialPlatformTf.setText(social.getSocialPlatform());
+			usernameTf.setText(social.getSocialUsername());
+			linkTf.setText(social.getSocialLink());
+			NotesTf.setText(social.getSocialNotes());			
 		}
+
+		updateSocial();
 	}
 
-	public void readEventsList() {
-		olEvents.clear();
 
-		List<Event> xmlEvents = new ArrayList<Event>();
-		xmlEvents = EventServiceFunctions.getEventsByMemberId(ccId);			
+	public Social updateSocial() {
+		Social social;
 
-		for(Event einT : xmlEvents) {
-			olEvents.add(new EventFX(einT));
-			//		System.out.println("CLIENT EventsTable------------" + "\n" + einT);
-
+		if(getSelectedSocial().getId() == 0) {
+			social = new Social(
+					"Platform", 					// platform
+					"Username", 					// username
+					"Link", 				// link
+					null);						//members						
+		} else {
+			social = getSelectedSocial();
 		}
+
+		//----------------------
+
+		socialPlatformTf.textProperty().addListener((observable, oldValue, newValue) -> {
+			socialPlatformTf.setText(newValue);
+		});
+
+		//		System.out.println("New Value " +  clanNameTf.getText());	
+		social.setSocialPlatform(socialPlatformTf.getText());
+
+		//----------------------
+
+		usernameTf.textProperty().addListener((observable, oldValue, newValue) -> {
+			usernameTf.setText(newValue);
+		});
+
+		//		System.out.println("New Value " +  clanNameTf.getText());	
+		social.setSocialUsername(usernameTf.getText());
+
+		//----------------------
+		linkTf.textProperty().addListener((observable, oldValue, newValue) -> {
+			linkTf.setText(newValue);
+		});
+
+		//		System.out.println("New Value " +  clanNameTf.getText());	
+		social.setSocialLink(linkTf.getText());
+
+		//----------------------
+		NotesTf.textProperty().addListener((observable, oldValue, newValue) -> {
+			NotesTf.setText(newValue);
+		});
+
+		//		System.out.println("New Value " +  clanNameTf.getText());	
+		social.setSocialNotes(NotesTf.getText());
+
+
+		return social;
 	}
+
+	@FXML
+	public void handleSocialEditSaveBtn(ActionEvent e)  {
+		int id = getSelectedSocial().getId();
+
+		if(id != 0) {
+			Social updatedSocial = updateSocial();
+			SocialServiceFunctions.updateSocial(id,updatedSocial);
+		} else {
+			Social updatedSocial = updateSocial();
+			SocialServiceFunctions.addSocial(updatedSocial);	
+			int newSocialId = SocialServiceFunctions.getSocialWithHighestId().getId();	
+			SocialServiceFunctions.addSocialToMember(ccId,newSocialId);	
+		}
+
+		socialsTableView.getItems().clear();
+		socialsTableView.refresh();
+		readSocialsList();
+		initializeSocialsColumns();		
+		updateSocialsTable(); 
+
+	}
+
+	@FXML
+	public void handleSocialEditNewBtn(ActionEvent e)  {
+		Social social = updateSocial();
+		int id = 0;
+
+		if(id == 0)  {
+			// Set Social ID Label
+			sIdLabel.setText(String.valueOf(id));
+
+			// Social TextFields
+			socialPlatformTf.setText(social.getSocialPlatform());
+			usernameTf.setText(social.getSocialUsername());
+			linkTf.setText(social.getSocialLink());
+			NotesTf.setText(social.getSocialNotes());	
+
+			updateSocial();
+					
+		}
+		
+		
+	}
+
+
+
 
 
 
@@ -529,82 +616,10 @@ public class MembersDetailsEditController implements Initializable {
 
 	}
 
-
-
-	public void updateTable() {		
-		// load Data
-		if(membersTableView != null) {
-			membersTableView.getItems().addAll(olMembers);
-		}
-	}
-
-
-
-	public void readMembersList() {
-		olMembers.clear();
-
-		List<Member> xmlMembers = new ArrayList<Member>();
-		xmlMembers = MemberServiceFunctions.getMembers();			
-
-		for(Member einM : xmlMembers) {
-			olMembers.add(new MemberFX(einM));
-			System.out.println("CLIENT------------" + "\n" + einM);
-		}
-	}
-
-
-	public  void initializeColumns() {
-
-		if(idColumn != null) {
-
-			idColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, Integer>("id"));
-			clanNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanName"));
-			clanIdColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanId"));
-			realNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("realName"));
-			addressColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("address"));
-			addressPostcodeColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("addressPostCode"));
-			addressCityColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("addressCity"));
-			countryColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("country"));
-			emailColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("email"));
-			phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("phoneNumber"));
-			birthdayColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, LocalDate>("birthday"));
-		}
-	}
-
 	 */
 
 
 
-	//		public void initialize() {
-	//			// TextFields
-	//		
-	//			initializeTextFields();
-	//
-	//			// Teams Table
-	//			readTeamsList();
-	//			initializeTeamsColumns();
-	//			updateTeamsTable();
-	//
-	//			// Socials Table
-	//			readSocialsList();
-	//			initializeSocialsColumns();
-	//			updateSocialsTable();
-	//
-	//			// Roles Table
-	//			readRolesList();
-	//			initializeRolesColumns();
-	//			updateRolesTable();
-	//
-	//			// Games Table
-	//			readGamesList();
-	//			initializeGamesColumns();
-	//			updateGamesTable();
-	//
-	//			// Events Table
-	//			readEventsList();
-	//			initializeEventsColumns();
-	//			updateEventsTable();
-	//		}
 
 
 	public void setStage(Stage stage) {
@@ -618,15 +633,14 @@ public class MembersDetailsEditController implements Initializable {
 		MemberServiceFunctions.updateMember(ccId,updatedMember);
 
 		Stage stage = (Stage) okBtn.getScene().getWindow();
-		stage.close();
 
+		stage.close();
 	}
 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initializeTextFields();
-	
 
 		// Teams Table
 		readTeamsList();
@@ -638,21 +652,14 @@ public class MembersDetailsEditController implements Initializable {
 		initializeSocialsColumns();
 		updateSocialsTable();
 
-		// Roles Table
+		//Roles Table
 		readRolesList();
 		initializeRolesColumns();
 		updateRolesTable();
 
-		// Games Table
+		//Games Table
 		readGamesList();
 		initializeGamesColumns();
 		updateGamesTable();
-
-		// Events Table
-		readEventsList();
-		initializeEventsColumns();
-		updateEventsTable();
-
 	}
-
 }

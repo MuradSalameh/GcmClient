@@ -100,8 +100,6 @@ public class MembersDetailsEditController implements Initializable {
 
 	@FXML private Button gDelBtn;
 
-	@FXML ComboBox<Game> gCB;
-
 
 	// ID Label -----
 
@@ -413,42 +411,7 @@ public class MembersDetailsEditController implements Initializable {
 	}
 
 
-	@SuppressWarnings("unchecked")
-	public void setComboBox() {
-		ObservableList<GameFX> cbGamesList = FXCollections.observableArrayList();
-		List<Game> xmlGames = new ArrayList<Game>();
-		xmlGames = GameServiceFunctions.getGames();			
-
-		for(Game einG : xmlGames) {
-			cbGamesList.add(new GameFX(einG));
-			System.out.println("ComboBox Liste" + einG.getGameTitle());
-		}
-
-		// Create a combo box
 	
-		//gCB.setItems(cbGamesList);
-
-		
-		
-
-		/*
-		ObservableList<Game> cbGamesList = FXCollections.observableArrayList();
-		List<Game> xmlGames = new ArrayList<Game>();
-		xmlGames = GameServiceFunctions.getGames();			
-
-		for(Game einG : xmlGames) {
-			cbGamesList.add(einG);
-			//		System.out.println("CLIENT GamesTable------------" + "\n" + einT);
-		}
-
-		gCB.setItems(cbGamesList);      
- */	
-		// Print the name of the Bank that is selected
-		gCB.getSelectionModel().selectedItemProperty().addListener((o, ol, nw) -> {
-			System.out.println(gCB.getValue().getGameTitle());
-		});
-			
-	}
 	
 //	@FXML
 //	public void handleComboBoxAction(ActionEvent e)  {
@@ -663,7 +626,7 @@ public class MembersDetailsEditController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initializeTextFields();
-		setComboBox();
+	
 
 		// Teams Table
 		readTeamsList();

@@ -33,13 +33,14 @@ public class RoleServiceFunctions {
 	//GET - get role list
 	public static List<Role> getRolesByMemberId(int id) {
 
-		List<Role> roles = ClientBuilder.newClient()
-				.target(serverURI)
-				.path("/rolesByMember/" +id)
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<List<Role>>(){});
-
-		return roles;
+		try {
+			List<Role> roles = ClientBuilder.newClient().target(serverURI).path("/rolesByMember/" + id)
+					.request(MediaType.APPLICATION_XML).get(new GenericType<List<Role>>() {
+					});
+			return roles;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 

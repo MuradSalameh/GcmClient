@@ -32,6 +32,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -41,6 +43,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import serviceFunctions.EventServiceFunctions;
 import serviceFunctions.GameServiceFunctions;
@@ -72,7 +75,9 @@ public class MembersDetailsEditController implements Initializable {
 
 	@FXML private Button sEBtn;	
 
-	@FXML private Button sDelBtn;	
+	@FXML private Button sDelBtn;
+
+	@FXML private Button sSaveBtn;	
 
 	// Roles Buttons -----
 
@@ -80,7 +85,11 @@ public class MembersDetailsEditController implements Initializable {
 
 	@FXML private Button rEBtn;	
 
-	@FXML private Button rDelBtn;	
+	@FXML private Button rDelBtn;
+
+	@FXML private Button rSaveBtn;	
+	
+	@FXML private ComboBox<Role> rcb;
 
 	// Teams Buttons -----
 
@@ -347,6 +356,133 @@ public class MembersDetailsEditController implements Initializable {
 
 		}
 	}
+	
+	public Social getSelectedSocial() {
+
+		SocialFX getSocial = socialsTableView.getSelectionModel().getSelectedItem();
+		if(socialsTableView.getSelectionModel().getSelectedItem() != null) {
+			int id = getSocial.getId();
+			Social social = SocialServiceFunctions.getSocial(id);
+			return social;
+		} 
+		else {
+			Social newSocial = new Social(
+					"Platform", 					// platform
+					"Username", 					// username
+					"Link", 				// link
+					null);		
+			return newSocial;
+		}	
+	}
+	
+	
+
+	public Social updateSocial() {
+		Social social = getSelectedSocial();
+
+		//----------------------
+
+		socialPlatformTf.textProperty().addListener((observable, oldValue, newValue) -> {
+			socialPlatformTf.setText(newValue);
+		});
+
+		//		System.out.println("New Value " +  clanNameTf.getText());	
+		social.setSocialPlatform(socialPlatformTf.getText());
+
+		//----------------------
+
+		usernameTf.textProperty().addListener((observable, oldValue, newValue) -> {
+			usernameTf.setText(newValue);
+		});
+
+		//		System.out.println("New Value " +  clanNameTf.getText());	
+		social.setSocialUsername(usernameTf.getText());
+
+		//----------------------
+		linkTf.textProperty().addListener((observable, oldValue, newValue) -> {
+			linkTf.setText(newValue);
+		});
+
+		//		System.out.println("New Value " +  clanNameTf.getText());	
+		social.setSocialLink(linkTf.getText());
+
+		//----------------------
+		NotesTf.textProperty().addListener((observable, oldValue, newValue) -> {
+			NotesTf.setText(newValue);
+		});
+
+		//		System.out.println("New Value " +  clanNameTf.getText());	
+		social.setSocialNotes(NotesTf.getText());
+
+
+		return social;
+	}
+	
+	
+	// Handle Social Buttons ------------------------------------------------
+	
+
+	@FXML
+	public void handleSocialEditBtn(ActionEvent e)  {
+		Social social = getSelectedSocial();
+		int id = getSelectedSocial().getId();
+
+		if(id != 0) {
+			// Set Social ID Label
+			sIdLabel.setText(String.valueOf(id));
+
+			// Social TextFields
+			socialPlatformTf.setText(social.getSocialPlatform());
+			usernameTf.setText(social.getSocialUsername());
+			linkTf.setText(social.getSocialLink());
+			NotesTf.setText(social.getSocialNotes());			
+		}
+
+		updateSocial();
+	}
+
+
+
+	@FXML
+	public void handleSocialEditSaveBtn(ActionEvent e)  {
+		int id = getSelectedSocial().getId();
+
+		if(id != 0) {
+			Social updatedSocial = updateSocial();
+			SocialServiceFunctions.updateSocial(id,updatedSocial);
+		} else {
+			Social updatedSocial = updateSocial();
+			SocialServiceFunctions.addSocial(updatedSocial);	
+			int newSocialId = SocialServiceFunctions.getSocialWithHighestId().getId();	
+			SocialServiceFunctions.addSocialToMember(ccId,newSocialId);	
+		}
+
+		socialsTableView.getItems().clear();
+		socialsTableView.refresh();
+		readSocialsList();
+		initializeSocialsColumns();		
+		updateSocialsTable(); 
+
+	}
+
+	@FXML
+	public void handleSocialEditNewBtn(ActionEvent e)  {
+		Social social = updateSocial();
+		Integer id = null;
+
+		if(id == null)  {
+			// Set Social ID Label
+			sIdLabel.setText(String.valueOf(id));
+
+			// Social TextFields
+			socialPlatformTf.setText(social.getSocialPlatform());
+			usernameTf.setText(social.getSocialUsername());
+			linkTf.setText(social.getSocialLink());
+			NotesTf.setText(social.getSocialNotes());	
+
+			updateSocial();
+		}
+	}
 
 
 
@@ -377,16 +513,60 @@ public class MembersDetailsEditController implements Initializable {
 	public void readRolesList() {
 		olRoles.clear();
 
-		List<Role> xmlRoles = new ArrayList<Role>();
-		xmlRoles = RoleServiceFunctions.getRolesByMemberId(ccId);			
+		try {
+			List<Role> xmlRoles = new ArrayList<Role>();
+			xmlRoles = RoleServiceFunctions.getRolesByMemberId(ccId);
+			for (Role einT : xmlRoles) {
+				olRoles.add(new RoleFX(einT));
+				//		System.out.println("CLIENT RolesTable------------" + "\n" + einT);
 
-		for(Role einT : xmlRoles) {
-			olRoles.add(new RoleFX(einT));
-			//		System.out.println("CLIENT RolesTable------------" + "\n" + einT);
-
+			} 
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
+	
+	// Handle Roles Buttons ------------------------------------------------
 
+	@FXML
+	private void handleRoleAddBtn() {
+		// GetRole from ComboBox
+		Role rcbValue = rcb.getValue();
+		int roleId = rcbValue.getId();
+		
+		RoleServiceFunctions.addRoleToMember(ccId,roleId);
+		
+		rolesTableView.getItems().clear();
+		rolesTableView.refresh();
+		readRolesList();
+		initializeRolesColumns();		
+		updateRolesTable(); 
+	
+	}
+
+	
+	private void loadComboBox() {
+		
+		List<Role> xmlRoles = new ArrayList<Role>();
+		xmlRoles = RoleServiceFunctions.getRoles();	
+		
+		Callback<ListView<Role>, ListCell<Role>> cellFactory = lv -> new ListCell<Role>() {
+			
+			@Override
+			protected void updateItem(Role item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? "" : item.getRoleName());
+			}
+			
+		};
+		
+		rcb.setButtonCell(cellFactory.call(null));
+		rcb.setCellFactory(cellFactory);
+		
+		rcb.getItems().addAll(xmlRoles);
+		
+	}
+	
 
 	// Games Table
 	private ObservableList<GameFX> olGames = FXCollections.observableArrayList();
@@ -427,134 +607,6 @@ public class MembersDetailsEditController implements Initializable {
 	}
 
 
-
-	// Handle Buttons ------------------------------------------------
-
-	// Handle Social Buttons
-	public Social getSelectedSocial() {
-
-		SocialFX getSocial = socialsTableView.getSelectionModel().getSelectedItem();
-		int id = getSocial.getId();
-
-		Social social = SocialServiceFunctions.getSocial(id);
-
-		return social;
-	}
-
-	@FXML
-	public void handleSocialEditBtn(ActionEvent e)  {
-		Social social = getSelectedSocial();
-		int id = getSelectedSocial().getId();
-
-		if(id != 0) {
-			// Set Social ID Label
-			sIdLabel.setText(String.valueOf(id));
-
-			// Social TextFields
-			socialPlatformTf.setText(social.getSocialPlatform());
-			usernameTf.setText(social.getSocialUsername());
-			linkTf.setText(social.getSocialLink());
-			NotesTf.setText(social.getSocialNotes());			
-		}
-
-		updateSocial();
-	}
-
-
-	public Social updateSocial() {
-		Social social;
-
-		if(getSelectedSocial().getId() == 0) {
-			social = new Social(
-					"Platform", 					// platform
-					"Username", 					// username
-					"Link", 				// link
-					null);						//members						
-		} else {
-			social = getSelectedSocial();
-		}
-
-		//----------------------
-
-		socialPlatformTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			socialPlatformTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  clanNameTf.getText());	
-		social.setSocialPlatform(socialPlatformTf.getText());
-
-		//----------------------
-
-		usernameTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			usernameTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  clanNameTf.getText());	
-		social.setSocialUsername(usernameTf.getText());
-
-		//----------------------
-		linkTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			linkTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  clanNameTf.getText());	
-		social.setSocialLink(linkTf.getText());
-
-		//----------------------
-		NotesTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			NotesTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  clanNameTf.getText());	
-		social.setSocialNotes(NotesTf.getText());
-
-
-		return social;
-	}
-
-	@FXML
-	public void handleSocialEditSaveBtn(ActionEvent e)  {
-		int id = getSelectedSocial().getId();
-
-		if(id != 0) {
-			Social updatedSocial = updateSocial();
-			SocialServiceFunctions.updateSocial(id,updatedSocial);
-		} else {
-			Social updatedSocial = updateSocial();
-			SocialServiceFunctions.addSocial(updatedSocial);	
-			int newSocialId = SocialServiceFunctions.getSocialWithHighestId().getId();	
-			SocialServiceFunctions.addSocialToMember(ccId,newSocialId);	
-		}
-
-		socialsTableView.getItems().clear();
-		socialsTableView.refresh();
-		readSocialsList();
-		initializeSocialsColumns();		
-		updateSocialsTable(); 
-
-	}
-
-	@FXML
-	public void handleSocialEditNewBtn(ActionEvent e)  {
-		Social social = updateSocial();
-		int id = 0;
-
-		if(id == 0)  {
-			// Set Social ID Label
-			sIdLabel.setText(String.valueOf(id));
-
-			// Social TextFields
-			socialPlatformTf.setText(social.getSocialPlatform());
-			usernameTf.setText(social.getSocialUsername());
-			linkTf.setText(social.getSocialLink());
-			NotesTf.setText(social.getSocialNotes());	
-
-			updateSocial();
-					
-		}
-		
-		
-	}
 
 
 
@@ -641,6 +693,7 @@ public class MembersDetailsEditController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initializeTextFields();
+		
 
 		// Teams Table
 		readTeamsList();
@@ -656,6 +709,7 @@ public class MembersDetailsEditController implements Initializable {
 		readRolesList();
 		initializeRolesColumns();
 		updateRolesTable();
+		loadComboBox();
 
 		//Games Table
 		readGamesList();

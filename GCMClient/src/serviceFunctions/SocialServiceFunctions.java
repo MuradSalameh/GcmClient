@@ -95,13 +95,13 @@ public class SocialServiceFunctions {
 	
 	//PUT - add social to member
 	public static Response addSocialToMember(int memberID, int socialID) {
-		
+		Member m = new Member();
 		Client client = ClientBuilder.newClient();
 		return client
 				.target(serverURI)
 				.path("/addSocialToMember/" + memberID + "/" + socialID)
 				.request(MediaType.APPLICATION_XML)
-				.put(null);	
+				.put(Entity.entity(m, MediaType.APPLICATION_XML));	
 		
 	}
 

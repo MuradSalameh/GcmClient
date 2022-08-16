@@ -2,23 +2,17 @@ package gcmClient;
 
 
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-
-import fxClasses.EventFX;
 import fxClasses.GameFX;
-import fxClasses.MemberFX;
 import fxClasses.RoleFX;
 import fxClasses.SocialFX;
 import fxClasses.TeamFX;
 
-import gcmClasses.Event;
 import gcmClasses.Game;
 import gcmClasses.Member;
 import gcmClasses.Role;
@@ -28,7 +22,6 @@ import gcmClasses.Team;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -36,16 +29,21 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
-import serviceFunctions.EventServiceFunctions;
 import serviceFunctions.GameServiceFunctions;
 import serviceFunctions.MemberServiceFunctions;
 import serviceFunctions.RoleServiceFunctions;
@@ -53,21 +51,21 @@ import serviceFunctions.SocialServiceFunctions;
 import serviceFunctions.TeamServiceFunctions;
 
 
-public class MembersDetailsEditController implements Initializable {
+public class MembersDetailsEditController extends Dialog<ButtonType> implements Initializable {
 
 	private int ccId = ControllerCommunicator.getId();
 
 	//	Member member = MemberServiceFunctions.getMember(ccId);
 
-	private Stage stage;
+	@FXML final DialogPane dialogPane = getDialogPane();
+	@FXML private Dialog dialog;
+	@FXML
+	ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
+	@FXML
+	ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);
+
 
 	@FXML private BorderPane memberEditBp;
-
-	// Window Buttons -----
-
-	@FXML private Button okBtn;	
-
-	@FXML private Button closeBtn;	
 
 	// Socials Buttons -----
 
@@ -88,7 +86,7 @@ public class MembersDetailsEditController implements Initializable {
 	@FXML private Button rDelBtn;
 
 	@FXML private Button rSaveBtn;	
-	
+
 	@FXML private ComboBox<Role> rcb;
 
 	// Teams Buttons -----
@@ -130,7 +128,7 @@ public class MembersDetailsEditController implements Initializable {
 	@FXML private TextField socialPlatformTf;
 	@FXML private TextField usernameTf;
 	@FXML private TextField linkTf;
-	@FXML private TextField NotesTf;
+	@FXML private TextArea NotesTa;
 
 	// Role TextFields -----
 
@@ -147,7 +145,7 @@ public class MembersDetailsEditController implements Initializable {
 
 
 	// initialize TextFields -----
-	@FXML
+	
 	public void initializeTextFields() {
 		Member member = loadMember();
 
@@ -169,11 +167,9 @@ public class MembersDetailsEditController implements Initializable {
 		socialPlatformTf.setText("");
 		usernameTf.setText("");
 		linkTf.setText("");
-		NotesTf.setText("");
+		NotesTa.setText("");
 
-		// Role TextFields
-		roleNameTf.setText("");
-		descriptionTf.setText("");
+
 
 	}	
 
@@ -181,98 +177,17 @@ public class MembersDetailsEditController implements Initializable {
 	public Member updateMemberDetails() {
 		Member member = loadMember();
 
-		//----------------------
-		clanNameTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			clanNameTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  clanNameTf.getText());	
 		member.setClanName(clanNameTf.getText());
-
-		//----------------------
-
-		clanIdTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			clanIdTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  clanIdTf.getText());	
 		member.setClanId(clanIdTf.getText());		
-
-		//----------------------
-
-		realNameTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			realNameTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  realNameTf.getText());	
 		member.setRealName(realNameTf.getText());		
-
-		//----------------------
-
-		addressTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			addressTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  addressTf.getText());	
 		member.setAddress(addressTf.getText());
-
-		//----------------------
-
-		postCodeTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			postCodeTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  postCodeTf.getText());	
 		member.setAddressPostCode(postCodeTf.getText());
-
-		//----------------------
-
-		cityTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			cityTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  cityTf.getText());	
 		member.setAddressCity(cityTf.getText());	
-
-		//----------------------
-
-		countryTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			countryTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  countryTf.getText());	
 		member.setCountry(countryTf.getText());	
-
-		//----------------------
-
-		emailTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			emailTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  emailTf.getText());	
 		member.setEmail(emailTf.getText());
-
-		//----------------------
-
-		phoneNumberTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			phoneNumberTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  phoneNumberTf.getText());	
 		member.setPhoneNumber(phoneNumberTf.getText());	
-
-		//----------------------
-
-		dateDp.valueProperty().addListener((observable, oldValue, newValue) -> {
-			dateDp.setValue(newValue);
-		});
-
-		//		System.out.println("New Value " +  dateDp.getValue());	
 		member.setBirthday(dateDp.getValue());
-
-		//----------------------
-
-		//		System.out.println("Updated Member = " + member);		
+		
 		return member;
 	}
 
@@ -356,7 +271,7 @@ public class MembersDetailsEditController implements Initializable {
 
 		}
 	}
-	
+
 	public Social getSelectedSocial() {
 
 		SocialFX getSocial = socialsTableView.getSelectionModel().getSelectedItem();
@@ -374,53 +289,22 @@ public class MembersDetailsEditController implements Initializable {
 			return newSocial;
 		}	
 	}
-	
-	
+
+
 
 	public Social updateSocial() {
 		Social social = getSelectedSocial();
 
-		//----------------------
-
-		socialPlatformTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			socialPlatformTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  clanNameTf.getText());	
-		social.setSocialPlatform(socialPlatformTf.getText());
-
-		//----------------------
-
-		usernameTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			usernameTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  clanNameTf.getText());	
+		social.setSocialPlatform(socialPlatformTf.getText());	
 		social.setSocialUsername(usernameTf.getText());
-
-		//----------------------
-		linkTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			linkTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  clanNameTf.getText());	
 		social.setSocialLink(linkTf.getText());
-
-		//----------------------
-		NotesTf.textProperty().addListener((observable, oldValue, newValue) -> {
-			NotesTf.setText(newValue);
-		});
-
-		//		System.out.println("New Value " +  clanNameTf.getText());	
-		social.setSocialNotes(NotesTf.getText());
-
-
+		social.setSocialNotes(NotesTa.getText());
 		return social;
 	}
-	
-	
+
+
 	// Handle Social Buttons ------------------------------------------------
-	
+
 
 	@FXML
 	public void handleSocialEditBtn(ActionEvent e)  {
@@ -435,10 +319,10 @@ public class MembersDetailsEditController implements Initializable {
 			socialPlatformTf.setText(social.getSocialPlatform());
 			usernameTf.setText(social.getSocialUsername());
 			linkTf.setText(social.getSocialLink());
-			NotesTf.setText(social.getSocialNotes());			
+			NotesTa.setText(social.getSocialNotes());			
 		}
 
-		updateSocial();
+		//updateSocial();
 	}
 
 
@@ -478,10 +362,38 @@ public class MembersDetailsEditController implements Initializable {
 			socialPlatformTf.setText(social.getSocialPlatform());
 			usernameTf.setText(social.getSocialUsername());
 			linkTf.setText(social.getSocialLink());
-			NotesTf.setText(social.getSocialNotes());	
+			NotesTa.setText(social.getSocialNotes());	
 
 			updateSocial();
 		}
+	}
+
+
+	@FXML 
+	public void handleSocialDeleteBtn()  {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("WARNING - DELETING MEMBER");
+		alert.setHeaderText("THIS CAN NOT BE UNDONE");
+		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+
+			// get ID from item in table view
+			SocialFX social = socialsTableView.getSelectionModel().getSelectedItem();
+			int id = social.getId(); 
+			// delete from database
+
+			//SocialServiceFunctions.deleteSocialFromMember(id);
+			SocialServiceFunctions.deleteSocial(id);
+
+			//remove from Tableview
+			socialsTableView.getItems().removeAll(
+					socialsTableView.getSelectionModel().getSelectedItem()
+					);
+
+			socialsTableView.refresh();			
+		}	
 	}
 
 
@@ -525,48 +437,48 @@ public class MembersDetailsEditController implements Initializable {
 			// TODO: handle exception
 		}
 	}
-	
+
 	// Handle Roles Buttons ------------------------------------------------
 
 	@FXML
-	private void handleRoleAddBtn() {
+	public void handleRoleAddBtn() {
 		// GetRole from ComboBox
 		Role rcbValue = rcb.getValue();
 		int roleId = rcbValue.getId();
-		
+
 		RoleServiceFunctions.addRoleToMember(ccId,roleId);
-		
+
 		rolesTableView.getItems().clear();
 		rolesTableView.refresh();
 		readRolesList();
 		initializeRolesColumns();		
 		updateRolesTable(); 
-	
+
 	}
 
-	
-	private void loadComboBox() {
-		
+	@FXML
+	public void loadComboBox() {
+
 		List<Role> xmlRoles = new ArrayList<Role>();
 		xmlRoles = RoleServiceFunctions.getRoles();	
-		
+
 		Callback<ListView<Role>, ListCell<Role>> cellFactory = lv -> new ListCell<Role>() {
-			
+
 			@Override
 			protected void updateItem(Role item, boolean empty) {
 				super.updateItem(item, empty);
 				setText(empty ? "" : item.getRoleName());
 			}
-			
+
 		};
-		
+
 		rcb.setButtonCell(cellFactory.call(null));
 		rcb.setCellFactory(cellFactory);
-		
+
 		rcb.getItems().addAll(xmlRoles);
-		
+
 	}
-	
+
 
 	// Games Table
 	private ObservableList<GameFX> olGames = FXCollections.observableArrayList();
@@ -635,7 +547,7 @@ public class MembersDetailsEditController implements Initializable {
 
 
 	@FXML 
-	private void handleDeleteBtn()  {
+	private void handleSocialDeleteBtn()  {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("WARNING - DELETING MEMBER");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
@@ -673,10 +585,11 @@ public class MembersDetailsEditController implements Initializable {
 
 
 
-
+	/*
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
+
 
 	@FXML
 	public void okButtonClicked(ActionEvent actionEvent) throws IOException {
@@ -688,12 +601,12 @@ public class MembersDetailsEditController implements Initializable {
 
 		stage.close();
 	}
+	 */
 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initializeTextFields();
-		
 
 		// Teams Table
 		readTeamsList();

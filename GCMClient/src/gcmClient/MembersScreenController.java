@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.scene.control.cell.PropertyValueFactory;
 import fxClasses.MemberFX;
 import gcmClasses.Member;
+import gcmClasses.Social;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,6 +36,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import serviceFunctions.MemberServiceFunctions;
+import serviceFunctions.SocialServiceFunctions;
 
 
 public class MembersScreenController  implements Initializable {
@@ -55,47 +57,9 @@ public class MembersScreenController  implements Initializable {
 	@FXML private TableColumn<MemberFX,String> phoneNumberColumn;
 	@FXML private TableColumn<MemberFX,LocalDate> birthdayColumn;
 
-	@FXML
-	public Button editDetailsBtn;
-	@FXML
-	public Button editDetailsBtn2;
-
-	@FXML
-	public Button addNewBtn;
-
-
-
-	@FXML
-	private void handleEditDetailsBtn2(ActionEvent event) throws IOException {
-
-		MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
-		int id = member.getId(); 
-		ControllerCommunicator cc = new ControllerCommunicator(id);
-
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailEdit.fxml"));
-		BorderPane bp = loader.load();
-
-		MembersDetailsEditController mdec = loader.getController();
-		Parent root = loader.getRoot();
-		Stage stage = new Stage();
-
-		// perform actions before closing
-		stage.setOnHiding(E -> {    	
-
-			membersTableView.getItems().clear();
-			membersTableView.refresh();
-			readMembersList();
-			initializeColumns();		
-			updateTable();    
-			System.out.println("Stage closed");
-		});
-
-		stage.setTitle("EDIT MEMDER DETAILS");
-		stage.setScene(new Scene(root));
-
-		stage.showAndWait();  	
-	}
-
+	@FXML public Button editDetailsBtn;
+	@FXML public Button editDetailsBtn2;
+	@FXML public Button addNewBtn;
 
 
 
@@ -103,55 +67,64 @@ public class MembersScreenController  implements Initializable {
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 
 		MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
+
+		if( member == null) {
+			return;
+		}
+
 		int id = member.getId(); 
 		ControllerCommunicator cc = new ControllerCommunicator(id);
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailDialog.fxml"));
 		DialogPane dialogPane = loader.load();
 
-
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
 		dialog.setResizable(true);
 
-		MembersDetailsDialogController mddc = loader.getController();
+		MembersDetailsEditController mddc = loader.getController();
 
-		ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
-		ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);	
+		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);	
 
 		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
 		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);		
 
-
-
 		Optional<ButtonType> result = dialog.showAndWait();			
-
 
 		if(!result.isPresent()) {
 
-			// alert is exited, no button has been pressed.
+			// alert is exited, no button has been pressed.	
 
-			System.out.println("No Button Pressed");
+		} 
+		else if(result.get() == saveBtn) {
 
+			Member m = mddc.updateMemberDetails();
+			int idMember = m.getId();
+			MemberServiceFunctions.updateMember(idMember, m);
 
-		}else if(result.get() == saveBtn) {
+			membersTableView.getItems().clear();
+			membersTableView.refresh();
+			readMembersList();
+			initializeColumns();		
+			updateTable();    
 
+			Social soc = mddc.updateSocial();
+			int idSocial = soc.getId();
+			SocialServiceFunctions.updateSocial(idSocial,soc);
 
-
-			System.out.println("Save Button Pressed: ");
-
-		}else if(result.get() == cancelBtn) {
-
+		}
+		else if(result.get() == cancelBtn) {
 
 			System.out.println("Cancel Button Pressed");
 
-		}
-		System.out.println("MembersDetailsDialog Button klicked");
+		}		
 	}
 
 
 	@FXML 
 	private void handleDeleteBtn()  {
+
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("WARNING - DELETING MEMBER");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
@@ -163,8 +136,8 @@ public class MembersScreenController  implements Initializable {
 			// get ID from item in table view
 			MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
 			int id = member.getId(); 
-			// delete from database
 
+			// first delete connections to other objects, then delete from database
 			MemberServiceFunctions.deleteMemberFromGames(id);
 			MemberServiceFunctions.deleteMemberFromEvents(id);
 			MemberServiceFunctions.deleteMemberFromTeams(id);		
@@ -182,41 +155,51 @@ public class MembersScreenController  implements Initializable {
 
 	@FXML
 	public void handleAddNewBtn(ActionEvent t) throws IOException{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailAddDialog.fxml"));
 
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailDialog.fxml"));
 		DialogPane dialogPane = loader.load();
-		MembersDetailsAddController mdac = loader.getController();
 
-		Dialog dialogAn = new Dialog();
-		ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
-		ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);
-		dialogAn.setDialogPane(dialogPane);
-		dialogAn.setResizable(true);
-		dialogAn.getDialogPane().getButtonTypes().set(0, saveBtn);
-		dialogAn.getDialogPane().getButtonTypes().set(1, cancelBtn);				
+		Dialog dialog = new Dialog();
+		dialog.setDialogPane(dialogPane);
+		dialog.setResizable(true);
 
-		Optional<ButtonType> result = dialogAn.showAndWait();	
+		MembersDetailsEditController mddc = loader.getController();
 
+		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);	
 
-		if(!result.isPresent()) {		
-			// alert is exited, no button has been pressed.
-			dialogAn.close();
-			System.out.println("Cancel Button Pressed");
+		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);		
 
+		Optional<ButtonType> result = dialog.showAndWait();			
 
-		}else if(result.get() == saveBtn) {
+		if(!result.isPresent()) {
 
+			// alert is exited, no button has been pressed.	
 
-			System.out.println("Save Button Pressed: ");
+		} 
+		else if(result.get() == saveBtn) {
 
-		}else if(result.get() == cancelBtn) {
-			dialogAn.close();
+			Member m = mddc.updateMemberDetails();
+			int idMember = m.getId();
+			MemberServiceFunctions.addMember(m);
 
-			System.out.println("Cancel Button Pressed");
+			membersTableView.getItems().clear();
+			membersTableView.refresh();
+			readMembersList();
+			initializeColumns();		
+			updateTable();    
+
+			Social soc = mddc.updateSocial();
+			int idSocial = soc.getId();
+			SocialServiceFunctions.updateSocial(idSocial,soc);
 
 		}
+		else if(result.get() == cancelBtn) {
 
+			System.out.println("Cancel Button Pressed");
 
+		}		
 	}
 
 

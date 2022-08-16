@@ -97,13 +97,13 @@ public class RoleServiceFunctions {
 	
 	//PUT - add role to member
 		public static Response addRoleToMember(int memberID, int roleID) {
-			
+			Member m = new Member();
 			Client client = ClientBuilder.newClient();
 			return client
 					.target(serverURI)
 					.path("/addRoleToMember/" + memberID + "/" + roleID)
 					.request(MediaType.APPLICATION_XML)
-					.put(null);	
+					.put(Entity.entity(m, MediaType.APPLICATION_XML));	
 			
 		}
 

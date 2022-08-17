@@ -62,12 +62,6 @@ public class EventsScreenController {
 		dialog.setDialogPane(dialogPane);
 		dialog.showAndWait();
 
-		/*
-		 * Optional<ButtonType> r = new WeinDetailDialog(EventFX).showAndWait();
-		 * if(r.isPresent() && r.get().getButtonData() == ButtonData.OK_DONE) { // neuer
-		 * Event wurde gespeichert, daher neue Weinliste vom Server holen
-		 * //leseEventliste(); System.out.println("Aktualisiere Event Liste"); }
-		 */
 		System.out.println("EventsDetailsDialog Button klicked");
 	}
 

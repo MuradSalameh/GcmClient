@@ -203,7 +203,11 @@ public class MembersAddGameDialogController extends Dialog<ButtonType> implement
 		// remove from Tableview
 		gamesTableView.getItems().removeAll(gamesTableView.getSelectionModel().getSelectedItem());
 
+		gamesTableView.getItems().clear();
 		gamesTableView.refresh();
+		readGamesList();
+		initializeGamesColumns();
+		updateGamesTable();
 	}
 
 	@Override

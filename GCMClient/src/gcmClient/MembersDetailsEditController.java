@@ -590,20 +590,11 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 
 		} else if (result.get() == saveBtn) {
 
-			// Member m = mddc.updateMemberDetails();
-			// int idMember = m.getId();
-			// MemberServiceFunctions.updateMember(idMember, m);
-			//
-			// membersTableView.getItems().clear();
-			// membersTableView.refresh();
-			// readMembersList();
-			// initializeColumns();
-			// updateTable();
-			//
-			// Social soc = mddc.updateSocial();
-			// int idSocial = soc.getId();
-			// SocialServiceFunctions.updateSocial(idSocial,soc);
-
+			gamesTableView.getItems().clear();
+			gamesTableView.refresh();
+			readGamesList();
+			initializeGamesColumns();
+			updateGamesTable();
 		} else if (result.get() == cancelBtn) {
 
 			System.out.println("Cancel Button Pressed");

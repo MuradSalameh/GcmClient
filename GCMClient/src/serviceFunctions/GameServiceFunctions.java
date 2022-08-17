@@ -17,37 +17,30 @@ public class GameServiceFunctions {
 
 	// GET - get expenseType list
 	public static List<Game> getGames() {
-
 		List<Game> games = ClientBuilder.newClient().target(serverURI).path("/gamelist")
 				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Game>>() {
 				});
-
 		return games;
 	}
 
 	// GET - get game list by memberId
 	public static List<Game> getGamesByMemberId(int id) {
-
 		List<Game> games = ClientBuilder.newClient().target(serverURI).path("/gamesByMember/" + id)
 				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Game>>() {
 				});
-
 		return games;
 	}
 
 	// GET - get one game
 	public static Game getGame(int id) {
-
 		Game game = ClientBuilder.newClient().target(serverURI).path("/game/" + id).request(MediaType.APPLICATION_XML)
 				.get(new GenericType<Game>() {
 				});
-
 		return game;
 	}
 
 	// Post - add new game
 	public static Response addGame(Game m) {
-
 		Client client = ClientBuilder.newClient();
 		return client.target(serverURI).path("/addGame").request(MediaType.APPLICATION_XML)
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
@@ -77,7 +70,6 @@ public class GameServiceFunctions {
 		Client client = ClientBuilder.newClient();
 		return client.target(serverURI).path("/deleteGameFromAllMembers/" + id).request(MediaType.APPLICATION_XML)
 				.delete();
-
 	}
 
 	// Delete - delete game
@@ -86,7 +78,6 @@ public class GameServiceFunctions {
 		Client client = ClientBuilder.newClient();
 		return client.target(serverURI).path("/deleteGameFromAllTournaments/" + id).request(MediaType.APPLICATION_XML)
 				.delete();
-
 	}
 
 	public static Response deleteGame(int id) {

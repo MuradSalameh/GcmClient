@@ -47,6 +47,9 @@ public class GamesScreenController {
 	public Button editDetailsBtn;
 
 	@FXML
+	public Button deleteBtn;
+
+	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 
 		GameFX game = gamesTableView.getSelectionModel().getSelectedItem();
@@ -149,10 +152,10 @@ public class GamesScreenController {
 			// get ID from item in table view
 			GameFX game = gamesTableView.getSelectionModel().getSelectedItem();
 			int id = game.getId();
-			// delete from database
-			GameServiceFunctions.deleteGameFromAllMembers(id);
-			GameServiceFunctions.deleteGameFromAllTournaments(id);
 
+			// delete from database
+			GameServiceFunctions.deleteGameFromAllTournaments(id);
+			GameServiceFunctions.deleteGameFromAllMembers(id);
 			GameServiceFunctions.deleteGame(id);
 
 			// remove from Tableview

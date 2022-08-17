@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane fx:id="memberDetailsDialog" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.MembersDetailsEditController">
+<DialogPane fx:id="addNewMemberDetailsDialog" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.MembersDetailsEditController">
    
     <buttonTypes>
         <ButtonType fx:id="saveBtn" buttonData="OK_DONE" text="Save" />

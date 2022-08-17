@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane fx:id="memberDetailsDialog" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.MembersDetailsEditController">
+<DialogPane fx:id="addGameDetailsDialog" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.MembersAddGameDialogController">
    
     <buttonTypes>
         <ButtonType fx:id="saveBtn" buttonData="OK_DONE" text="Save" />
@@ -35,37 +35,6 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="gamesTableView" editable="true" tableMenuButtonVisible="true">
-                                 <columns>
-                                    <TableColumn fx:id="gamesIdColumn" maxWidth="-1.0" minWidth="25.0" prefWidth="-1.0" text="ID" />
-                                    <TableColumn fx:id="gameTitleColumn" prefWidth="75.0" text="Game Title" />
-                                    <TableColumn fx:id="releaseDateColumn" prefWidth="101.0" text="Release Date" />
-                                    <TableColumn fx:id="gamesAdditionalNotesColumn" prefWidth="115.0" text="Notes" />
-                                 </columns>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </TableView>
-                              <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="2.0">
-                                 <children>
-                                    <Button fx:id="gAddBtn" mnemonicParsing="false" prefWidth="70.0" text="Add" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <VBox>
-                           <children>
-                              <Label text="Teams">
-                                 <VBox.margin>
-                                    <Insets bottom="2.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
                               <TableView fx:id="gamesTableView1" editable="true" tableMenuButtonVisible="true">
                                  <columns>
                                     <TableColumn fx:id="gamesIdColumn1" maxWidth="-1.0" minWidth="25.0" prefWidth="-1.0" text="ID" />
@@ -76,11 +45,39 @@
                               </TableView>
                               <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="2.0">
                                  <children>
-                                    <Button fx:id="gRemoveBtn" mnemonicParsing="false" prefWidth="70.0" text="Remove" />
+                                    <Button fx:id="gAddBtn" mnemonicParsing="false" onAction="#handleGameAddBtn" prefWidth="70.0" text="Add" />
                                  </children>
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label text="Members Games">
+                                 <VBox.margin>
+                                    <Insets bottom="2.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="gamesTableView" editable="true" tableMenuButtonVisible="true">
+                                 <columns>
+                                    <TableColumn fx:id="gamesIdColumn" maxWidth="-1.0" minWidth="25.0" prefWidth="-1.0" text="ID" />
+                                    <TableColumn fx:id="gameTitleColumn" prefWidth="75.0" text="Game Title" />
+                                    <TableColumn fx:id="releaseDateColumn" prefWidth="101.0" text="Release Date" />
+                                    <TableColumn fx:id="gamesAdditionalNotesColumn" prefWidth="115.0" text="Notes" />
+                                 </columns>
+                              </TableView>
+                              <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="2.0">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <Button fx:id="gRemoveBtn" mnemonicParsing="false" prefWidth="70.0" text="Remove" />
+                                 </children>
                               </HBox>
                            </children>
                            <HBox.margin>

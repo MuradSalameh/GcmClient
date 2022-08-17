@@ -2,6 +2,7 @@ package gcmClient;
 
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -335,7 +337,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		updateSocialsTable(); 
 	}
 
-	
+
 	@FXML
 	public void handleSocialEditNewBtn(ActionEvent e)  {
 		Social social = updateSocial();
@@ -391,7 +393,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 
 
 	public  void initializeRolesColumns() {
-		
+
 		if(roleIdColumn != null) {
 			roleIdColumn.setCellValueFactory(new PropertyValueFactory<RoleFX, Integer>("id"));
 			roleNameColumn.setCellValueFactory(new PropertyValueFactory<RoleFX, String>("roleName"));
@@ -399,7 +401,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
-	
+
 	public void updateRolesTable() {		
 		// load Data
 		if(rolesTableView != null) {
@@ -407,7 +409,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
-	
+
 	public void readRolesList() {
 		olRoles.clear();
 
@@ -424,8 +426,8 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
-	
-	
+
+
 	// Handle Roles Buttons ------------------------------------------------
 
 	@FXML
@@ -479,7 +481,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 			// delete from database
 
 			RoleServiceFunctions.deleteRoleFromMember(id, ccId);
-		
+
 			//remove from Tableview
 			rolesTableView.getItems().removeAll(
 					rolesTableView.getSelectionModel().getSelectedItem()
@@ -528,7 +530,56 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
+	public void handleAddGamesBtn() throws IOException {
 
+		FXMLLoader addGameloader = new FXMLLoader(getClass().getResource("MembersAddGamesDetailDialog.fxml"));
+
+		DialogPane dialogPaneAddGame = addGameloader.load();
+
+
+		Dialog dialog = new Dialog();
+		dialog.setDialogPane(dialogPaneAddGame);
+		dialog.setResizable(true);
+
+		MembersAddGameDialogController magdc = addGameloader.getController();
+
+		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);	
+
+		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);		
+
+		Optional<ButtonType> result = dialog.showAndWait();			
+
+		if(!result.isPresent()) {
+
+			// alert is exited, no button has been pressed.	
+
+		} 
+		else if(result.get() == saveBtn) {
+
+			//		Member m = mddc.updateMemberDetails();
+			//		int idMember = m.getId();
+			//		MemberServiceFunctions.updateMember(idMember, m);
+			//
+			//		membersTableView.getItems().clear();
+			//		membersTableView.refresh();
+			//		readMembersList();
+			//		initializeColumns();		
+			//		updateTable();    
+			//
+			//		Social soc = mddc.updateSocial();
+			//		int idSocial = soc.getId();
+			//		SocialServiceFunctions.updateSocial(idSocial,soc);
+
+		}
+		else if(result.get() == cancelBtn) {
+
+			System.out.println("Cancel Button Pressed");
+
+		}
+
+	}
 
 
 

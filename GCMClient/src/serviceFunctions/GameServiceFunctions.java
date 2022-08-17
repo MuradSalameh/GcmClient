@@ -3,7 +3,7 @@ package serviceFunctions;
 import java.util.List;
 
 import gcmClasses.Game;
-import gcmClasses.Social;
+import gcmClasses.Member;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -11,121 +11,96 @@ import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-
 public class GameServiceFunctions {
-
 
 	private static final String serverURI = "http://localhost:4712/game";
 
-
-	//GET - get expenseType list
+	// GET - get expenseType list
 	public static List<Game> getGames() {
 
-		List<Game> games = ClientBuilder.newClient()
-				.target(serverURI)
-				.path("/gamelist")
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<List<Game>>(){});
+		List<Game> games = ClientBuilder.newClient().target(serverURI).path("/gamelist")
+				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Game>>() {
+				});
 
 		return games;
 	}
 
-	//GET - get game list by memberId
+	// GET - get game list by memberId
 	public static List<Game> getGamesByMemberId(int id) {
 
-		List<Game> games = ClientBuilder.newClient()
-				.target(serverURI)
-				.path("/gamesByMember/" +id)
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<List<Game>>(){});
+		List<Game> games = ClientBuilder.newClient().target(serverURI).path("/gamesByMember/" + id)
+				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Game>>() {
+				});
 
 		return games;
 	}
 
-
-
-	//GET - get one game
+	// GET - get one game
 	public static Game getGame(int id) {
 
-		Game game = ClientBuilder.newClient()
-				.target(serverURI)
-				.path("/game/" + id)
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<Game>(){});
+		Game game = ClientBuilder.newClient().target(serverURI).path("/game/" + id).request(MediaType.APPLICATION_XML)
+				.get(new GenericType<Game>() {
+				});
 
 		return game;
 	}
 
-
-	//Post - add new game 
+	// Post - add new game
 	public static Response addGame(Game m) {
 
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/addGame")
-				.request(MediaType.APPLICATION_XML)
+		return client.target(serverURI).path("/addGame").request(MediaType.APPLICATION_XML)
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
+	// PUT - add game to member
+	public static Response addGameToMember(int memberID, int gameID) {
+		Member m = new Member();
+		Client client = ClientBuilder.newClient();
+		return client.target(serverURI).path("/addGameToMember/" + memberID + "/" + gameID)
+				.request(MediaType.APPLICATION_XML).put(Entity.entity(m, MediaType.APPLICATION_XML));
 
-	//PUT - update game 
+	}
+
+	// PUT - update game
 	public static Response updateGame(int id, Game m) {
 
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/updateGame/" + id)
-				.request(MediaType.APPLICATION_XML)
-				.put(Entity.entity(m, MediaType.APPLICATION_XML));	
+		return client.target(serverURI).path("/updateGame/" + id).request(MediaType.APPLICATION_XML)
+				.put(Entity.entity(m, MediaType.APPLICATION_XML));
 
 	}
 
-
-	//Delete - delete game 
+	// Delete - delete game
 	public static Response deleteGame(int id) {
 
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/deleteGame/" + id)
-				.request(MediaType.APPLICATION_XML)
-				.delete();	
+		return client.target(serverURI).path("/deleteGame/" + id).request(MediaType.APPLICATION_XML).delete();
 
 	}
 
-	//Delete - delete game from Member
+	// Delete - delete game from Member
 	public static Response deleteGameFromMember(int id) {
 
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/deleteGameFromMember/" + id)
-				.request(MediaType.APPLICATION_XML)
-				.delete();	
+		return client.target(serverURI).path("/deleteGameFromMember/" + id).request(MediaType.APPLICATION_XML).delete();
 
 	}
-	//Delete - delete game from Member
+
+	// Delete - delete game from Member
 	public static Response deleteGameFromTournament(int id) {
 
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/deleteGameFromTournament/" + id)
-				.request(MediaType.APPLICATION_XML)
-				.delete();	
+		return client.target(serverURI).path("/deleteGameFromTournament/" + id).request(MediaType.APPLICATION_XML)
+				.delete();
 
 	}
 
-	//Delete - delete game from Member
+	// Delete - delete game from Member
 	public static Response deleteGameFromGenre(int id) {
 
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/deleteGameFromGenre/" + id)
-				.request(MediaType.APPLICATION_XML)
-				.delete();	
+		return client.target(serverURI).path("/deleteGameFromGenre/" + id).request(MediaType.APPLICATION_XML).delete();
 
 	}
 

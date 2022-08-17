@@ -212,7 +212,7 @@
                               <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="2.0">
                                  <children>
                                     <Button fx:id="gDelBtn" mnemonicParsing="false" prefWidth="70.0" text="Delete" />
-                                    <Button fx:id="gAnBtn" mnemonicParsing="false" prefWidth="70.0" text="Add" />
+                                    <Button fx:id="gAnBtn" mnemonicParsing="false" onAction="#handleAddGamesBtn" prefWidth="70.0" text="Add" />
                                  </children>
                                  <VBox.margin>
                                     <Insets top="5.0" />

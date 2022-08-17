@@ -191,6 +191,21 @@ public class MembersAddGameDialogController extends Dialog<ButtonType> implement
 		return false;
 	}
 
+	@FXML
+	public void handleGameDeleteBtn() {
+
+		GameFX Game = gamesTableView.getSelectionModel().getSelectedItem();
+		int id = Game.getId();
+		// delete from database
+
+		GameServiceFunctions.deleteGameFromMember(id, ccId);
+
+		// remove from Tableview
+		gamesTableView.getItems().removeAll(gamesTableView.getSelectionModel().getSelectedItem());
+
+		gamesTableView.refresh();
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 

@@ -50,12 +50,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="editDetailsBtn" mnemonicParsing="false" onAction="#handleEditDetailsBtn" text="Edit Details">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="detailsBtn" mnemonicParsing="false" text="Show Details">
+                  <Button fx:id="editDetailsBtn" mnemonicParsing="false" onAction="#handleEditDetailsBtn" text="Show/Edit Details">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

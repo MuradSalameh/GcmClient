@@ -76,7 +76,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                                  <children>
-                                    <Button fx:id="gRemoveBtn" mnemonicParsing="false" prefWidth="70.0" text="Remove" />
+                                    <Button fx:id="gRemoveBtn" mnemonicParsing="false" onAction="#handleGameDeleteBtn" prefWidth="70.0" text="Remove" />
                                  </children>
                               </HBox>
                            </children>

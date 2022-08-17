@@ -171,7 +171,7 @@
                               </TableView>
                               <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="2.0">
                                  <children>
-                                    <Button fx:id="rDelBtn" mnemonicParsing="false" onAction="#handleRoleDeleteBtn" prefWidth="70.0" text="Delete" />
+                                    <Button fx:id="rDelBtn" mnemonicParsing="false" onAction="#handleRoleDeleteBtn" prefWidth="70.0" text="Remove" />
                                     <Button fx:id="rEBtn" mnemonicParsing="false" onAction="#handleRoleAddBtn" prefWidth="70.0" text="Add" />
                                     <ComboBox fx:id="rcb" minWidth="257.0" />
                                  </children>
@@ -211,8 +211,7 @@
                               </TableView>
                               <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="2.0">
                                  <children>
-                                    <Button fx:id="gDelBtn" mnemonicParsing="false" prefWidth="70.0" text="Delete" />
-                                    <Button fx:id="gAnBtn" mnemonicParsing="false" onAction="#handleAddGamesBtn" prefWidth="70.0" text="Add" />
+                                    <Button fx:id="gAnBtn" mnemonicParsing="false" onAction="#handleAddGamesBtn" prefWidth="120.0" text="Add / Remove" />
                                  </children>
                                  <VBox.margin>
                                     <Insets top="5.0" />
@@ -239,8 +238,7 @@
                               </TableView>
                               <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="2.0">
                                  <children>
-                                    <Button fx:id="tDelBtn" mnemonicParsing="false" prefWidth="70.0" text="Delete" />
-                                    <Button fx:id="tDtlsBtn" mnemonicParsing="false" prefWidth="70.0" text="Details" />
+                                    <Button fx:id="tDelBtn" mnemonicParsing="false" prefWidth="70.0" text="Remove" />
                                  </children>
                                  <VBox.margin>
                                     <Insets top="5.0" />

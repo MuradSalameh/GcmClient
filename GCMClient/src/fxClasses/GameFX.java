@@ -3,7 +3,6 @@ package fxClasses;
 import java.time.LocalDate;
 
 import gcmClasses.Game;
-import gcmClasses.Genre;
 import gcmClasses.Member;
 import gcmClasses.Tournament;
 import javafx.beans.property.ObjectProperty;
@@ -20,7 +19,6 @@ public class GameFX {
 	private SimpleIntegerProperty id;
 	private SimpleStringProperty gameTitle;
 	private ObjectProperty<LocalDate> releaseDate;
-	private SimpleListProperty<Genre> genres;
 	private SimpleListProperty<Member> members;
 	private SimpleListProperty<Tournament> tournaments;
 	private SimpleStringProperty gameAdditionalNotes;
@@ -35,9 +33,6 @@ public class GameFX {
 		id = new SimpleIntegerProperty(serverGame.getId());
 		gameTitle = new SimpleStringProperty(serverGame.getGameTitle());
 		releaseDate = new SimpleObjectProperty<LocalDate>(serverGame.getReleaseDate());
-
-		ObservableList<Genre> genresOl = FXCollections.observableArrayList(serverGame.getGenres());
-		this.genres = new SimpleListProperty<Genre>(genresOl);
 
 		ObservableList<Member> membersOl = FXCollections.observableArrayList(serverGame.getMembers());
 		this.members = new SimpleListProperty<Member>(membersOl);
@@ -91,20 +86,6 @@ public class GameFX {
 
 	public final void setReleaseDate(final LocalDate releaseDate) {
 		this.releaseDateProperty().set(releaseDate);
-	}
-
-	// --------------------------------------
-
-	public final SimpleListProperty<Genre> genresProperty() {
-		return this.genres;
-	}
-
-	public final ObservableList<Genre> getGenres() {
-		return genresProperty().get();
-	}
-
-	public final void setGenres(final ObservableList<Genre> genres) {
-		this.genresProperty().set(genres);
 	}
 
 	// --------------------------------------

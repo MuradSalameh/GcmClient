@@ -68,10 +68,9 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 
 		Game newGame = new Game("Game Title", // title
 				LocalDate.of(1981, 4, 11), // release date
-				null, // genres
-				null, // members
 				null, // tournaments
-				"Notes"); // notes
+				null, "Notes"); // notes
+
 		System.out.println("new Created Empty Game: " + newGame);
 		return newGame;
 	}
@@ -82,7 +81,7 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 		Game game = loadGame();
 		System.out.println("Game import in Initializer: : " + game);
 
-		sIdLabel.setText(String.valueOf(ccId));
+		sIdLabel.setText(String.valueOf(loadGame().getId()));
 
 		// Game TextFields
 		gameTitleTf.setText(game.getGameTitle());

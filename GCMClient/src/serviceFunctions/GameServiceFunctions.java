@@ -72,6 +72,23 @@ public class GameServiceFunctions {
 	}
 
 	// Delete - delete game
+	public static Response deleteGameFromAllMembers(int id) {
+
+		Client client = ClientBuilder.newClient();
+		return client.target(serverURI).path("/deleteGameFromAllMembers/" + id).request(MediaType.APPLICATION_XML)
+				.delete();
+
+	}
+
+	// Delete - delete game
+	public static Response deleteGameFromAllTournaments(int id) {
+
+		Client client = ClientBuilder.newClient();
+		return client.target(serverURI).path("/deleteGameFromAllTournaments/" + id).request(MediaType.APPLICATION_XML)
+				.delete();
+
+	}
+
 	public static Response deleteGame(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -79,28 +96,27 @@ public class GameServiceFunctions {
 
 	}
 
-	// Delete - delete game from Member
-	public static Response deleteGameFromMember(int id) {
+	public static Response deleteGameFromMember(int gameid, int memberid) {
 
 		Client client = ClientBuilder.newClient();
-		return client.target(serverURI).path("/deleteGameFromMember/" + id).request(MediaType.APPLICATION_XML).delete();
+		return client.target(serverURI).path("/deleteGameFromMember/" + gameid + "/" + memberid)
+				.request(MediaType.APPLICATION_XML).delete();
 
 	}
 
-	// Delete - delete game from Member
-	public static Response deleteGameFromTournament(int id) {
+	public static Response deleteGameFromTournament(int gameid, int tournamentid) {
 
 		Client client = ClientBuilder.newClient();
-		return client.target(serverURI).path("/deleteGameFromTournament/" + id).request(MediaType.APPLICATION_XML)
-				.delete();
+		return client.target(serverURI).path("/deleteGameFromTournament/" + gameid + "/" + tournamentid)
+				.request(MediaType.APPLICATION_XML).delete();
 
 	}
 
-	// Delete - delete game from Member
-	public static Response deleteGameFromGenre(int id) {
+	public static Response deleteGameFromGenre(int gameid, int genreid) {
 
 		Client client = ClientBuilder.newClient();
-		return client.target(serverURI).path("/deleteGameFromGenre/" + id).request(MediaType.APPLICATION_XML).delete();
+		return client.target(serverURI).path("/deleteGameFromGenre/" + gameid + "/" + genreid)
+				.request(MediaType.APPLICATION_XML).delete();
 
 	}
 

@@ -150,9 +150,8 @@ public class GamesScreenController {
 			GameFX game = gamesTableView.getSelectionModel().getSelectedItem();
 			int id = game.getId();
 			// delete from database
-			GameServiceFunctions.deleteGameFromGenre(id);
-			GameServiceFunctions.deleteGameFromMember(id);
-			GameServiceFunctions.deleteGameFromTournament(id);
+			GameServiceFunctions.deleteGameFromAllMembers(id);
+			GameServiceFunctions.deleteGameFromAllTournaments(id);
 
 			GameServiceFunctions.deleteGame(id);
 

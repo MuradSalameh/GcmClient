@@ -94,7 +94,6 @@ public class GamesDetailsDialogController extends Dialog<ButtonType> implements 
 		} else {
 			Game newGame = new Game("Game Title", // title
 					LocalDate.of(1981, 4, 11), // release date
-					null, // genres
 					null, // members
 					null, // tournaments
 					"Notes"); // notes

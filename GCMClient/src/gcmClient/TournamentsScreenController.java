@@ -205,7 +205,6 @@ public class TournamentsScreenController {
 					.setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalTime>("tournamentTimeBeginn"));
 			tournamentTimeEndColumn
 					.setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalTime>("tournamentTimeEnd"));
-
 			tournamentResultColumn
 					.setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentResult"));
 		}

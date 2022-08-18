@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+
+<DialogPane minWidth="350.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+   <content>
+      <BorderPane>
+         <top>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                     <children>
+                        <VBox>
+                           <children>
+                              <GridPane maxWidth="250.0" prefWidth="250.0" vgap="5.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="ID" />
+                                    <Label text="Title" GridPane.rowIndex="1" />
+                                    <Label text="Description" GridPane.rowIndex="2" />
+                                    <TextField fx:id="clanNameTf" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="clanIdTf" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label text="Amount" GridPane.rowIndex="3" />
+                                    <Label text="Date" GridPane.rowIndex="4" />
+                                    <Label text="Recipient" GridPane.rowIndex="5" />
+                                    <TextField fx:id="postCodeTf" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="realNameTf" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="idLabel" text="ID" GridPane.columnIndex="1" />
+                                    <DatePicker fx:id="dateDp" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+      </BorderPane>
+   </content>
+</DialogPane>

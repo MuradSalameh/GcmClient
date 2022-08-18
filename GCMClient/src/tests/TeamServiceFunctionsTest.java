@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fxClasses.MemberFX;
-import fxClasses.RoleFX;
 import fxClasses.TeamFX;
 import gcmClasses.Member;
-import gcmClasses.Role;
 import gcmClasses.Team;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import serviceFunctions.RoleServiceFunctions;
 import serviceFunctions.TeamServiceFunctions;
 
 

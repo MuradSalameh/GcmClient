@@ -3,7 +3,6 @@ package serviceFunctions;
 import java.util.List;
 
 import gcmClasses.Event;
-import gcmClasses.Game;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;

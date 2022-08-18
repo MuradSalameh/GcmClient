@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import fxClasses.GameFX;
 import fxClasses.PartnerFX;
 import gcmClasses.Partner;
 import javafx.collections.FXCollections;
@@ -23,7 +22,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import serviceFunctions.GameServiceFunctions;
 import serviceFunctions.PartnerServiceFunctions;
 
 public class PartnerScreenController {

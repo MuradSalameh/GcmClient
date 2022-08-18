@@ -1,19 +1,15 @@
 package tests;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 
 
 import fxClasses.RoleFX;
-import fxClasses.SocialFX;
 import gcmClasses.Role;
-import gcmClasses.Social;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import serviceFunctions.RoleServiceFunctions;
-import serviceFunctions.SocialServiceFunctions;
 
 
 

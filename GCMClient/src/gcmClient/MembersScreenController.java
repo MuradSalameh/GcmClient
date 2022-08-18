@@ -247,7 +247,5 @@ public class MembersScreenController implements Initializable {
 		readMembersList();
 		initializeColumns();
 		updateTable();
-
 	}
-
 }

@@ -34,9 +34,9 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 	private BorderPane memberEditBp;
 
 	@FXML
-	ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
+	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 	@FXML
-	ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);
+	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
 	// Games Buttons -----
 
@@ -63,7 +63,6 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 	@FXML
 	private TextArea NotesTa;
 
-	// get Member from DB -----
 	public Game loadGame() {
 
 		Game newGame = new Game("Game Title", // title
@@ -71,7 +70,7 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 				null, // tournaments
 				null, "Notes"); // notes
 
-		System.out.println("new Created Empty Game: " + newGame);
+		// System.out.println("new Created Empty Game: " + newGame);
 		return newGame;
 	}
 
@@ -79,7 +78,7 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 
 	public void initializeTextFields() {
 		Game game = loadGame();
-		System.out.println("Game import in Initializer: : " + game);
+		// System.out.println("Game import in Initializer: : " + game);
 
 		sIdLabel.setText(String.valueOf(loadGame().getId()));
 
@@ -89,19 +88,7 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 		NotesTa.setText(game.getGameAdditionalNotes());
 	}
 
-	// update Member TextFields -----
-
-//	public Member updateMemberDetails() {
-//		Game game = loadMember();
-//
-//		game.setGameTitle();
-//		member.setClanId(clanIdTf.getText());		
-//		member.setBirthday(dateDp.getValue());
-//
-//		return member;
-//	}
-
-	// Handle Social Buttons ------------------------------------------------
+	// Handle Game Buttons ------------------------------------------------
 
 	public Game updateGame() {
 		Game game = loadGame();
@@ -122,8 +109,7 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 		} else {
 			Game updatedGame = updateGame();
 			GameServiceFunctions.addGame(updatedGame);
-//			int newGameId = GameServiceFunctions.getGameWithHighestId().getId();	
-//			GameServiceFunctions.addGameToMember(ccId,newGameId);	
+
 		}
 	}
 

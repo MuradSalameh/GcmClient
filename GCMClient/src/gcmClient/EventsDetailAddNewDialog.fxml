@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.DialogPane?>
@@ -13,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<DialogPane fx:id="addNewEventDetailsDialog" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.EventsDetailAddNewDialog">
    <content>
-      <BorderPane>
+      <BorderPane fx:id="eventEditBp">
          <center>
             <VBox BorderPane.alignment="CENTER">
                <children>
@@ -32,13 +33,14 @@
                         <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
                         <Label text="ID" />
                         <Label text="Event Title" GridPane.rowIndex="1" />
                         <Label text="Description" GridPane.rowIndex="2" />
-                        <TextField fx:id="clanNameTf" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="clanIdTf" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="eventTitleTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="eventDescriptionTF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Date" GridPane.rowIndex="3" />
                         <Label text="Start Time" GridPane.rowIndex="4" />
                         <Label text="End Time" GridPane.rowIndex="5" />
@@ -47,27 +49,29 @@
                         <DatePicker fx:id="dateDp" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <children>
-                              <TextField maxWidth="50.0" />
+                              <TextField fx:id="startHourTF" maxWidth="50.0" />
                               <Label text=":">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField maxWidth="50.0" />
+                              <TextField fx:id="startMinuteTF" maxWidth="50.0" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <children>
-                              <TextField maxWidth="50.0" />
+                              <TextField fx:id="endHourTF" maxWidth="50.0" />
                               <Label text=":">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField maxWidth="50.0" />
+                              <TextField fx:id="endMinuteTF" maxWidth="50.0" />
                            </children>
                         </HBox>
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <CheckBox fx:id="reoccuringCB" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label text="Additional Notes" GridPane.rowIndex="7" />
+                        <TextField fx:id="additionalNotesTF" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                      </children>
                   </GridPane>
                </children>
@@ -75,4 +79,8 @@
          </center>
       </BorderPane>
    </content>
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+      <ButtonType fx:constant="CLOSE" />
+   </buttonTypes>
 </DialogPane>

@@ -83,8 +83,6 @@ public class GamesDetailsDialogController extends Dialog<ButtonType> implements 
 		NotesTa.setText(game.getGameAdditionalNotes());
 	}
 
-	// Handle Social Buttons ------------------------------------------------
-
 	public Game getSelectedGame() {
 
 		if (loadGame() != null) {

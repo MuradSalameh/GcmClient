@@ -43,8 +43,8 @@
             <HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Button id="deleteBtn" fx:id="deleteBtn" mnemonicParsing="false" onAction="#handleDeleteBtn" text="Delete" />
-                  <Button id="editDetailsBtn" fx:id="editDetailsBtn" mnemonicParsing="false" text="Show / Edit Details" />
-                  <Button id="addNewBtn" fx:id="addNewBtn" mnemonicParsing="false" text="Add New" />
+                  <Button id="editDetailsBtn" fx:id="editDetailsBtn" mnemonicParsing="false" onAction="#handleEditDetailsBtn" text="Show / Edit Details" />
+                  <Button id="addNewBtn" fx:id="addNewBtn" mnemonicParsing="false" onAction="#handleAddNewBtn" text="Add New" />
                </children>
                <VBox.margin>
                   <Insets right="5.0" top="5.0" />

@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -53,16 +54,97 @@ public class EventsScreenController {
 
 	@FXML
 	public Button editDetailsBtn;
+	@FXML
+	public Button addNewBtn;
+
+	@FXML
+	private void handleAddNewBtn(ActionEvent event) throws IOException {
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("EventsDetailAddNewDialog.fxml"));
+		DialogPane dialogPane = loader.load();
+
+		Dialog dialog = new Dialog();
+		dialog.setDialogPane(dialogPane);
+		dialog.setResizable(true);
+
+		EventsDetailAddNewDialog edand = loader.getController();
+
+		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+
+		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+
+		Optional<ButtonType> result = dialog.showAndWait();
+
+		if (!result.isPresent()) {
+
+			// alert is exited, no button has been pressed.
+
+		} else if (result.get() == saveBtn) {
+
+			Event m = edand.updateEvent();
+			int idEvent = m.getId();
+			EventServiceFunctions.addEvent(m);
+
+			eventsTableView.getItems().clear();
+			eventsTableView.refresh();
+			readEventsList();
+			initializeColumns();
+			updateTable();
+
+		} else if (result.get() == cancelBtn) {
+			System.out.println("Cancel Button Pressed");
+		}
+	}
 
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("EventsDetailDialog.fxml"));
+
+		EventFX getEvent = eventsTableView.getSelectionModel().getSelectedItem();
+
+		if (event == null) {
+			return;
+		}
+
+		int id = getEvent.getId();
+		ControllerCommunicator cc = new ControllerCommunicator(id);
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("EventsDetailDialog.fxml"));
+		DialogPane dialogPane = loader.load();
+
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
-		dialog.showAndWait();
+		dialog.setResizable(true);
 
-		System.out.println("EventsDetailsDialog Button klicked");
+		EventsDetailDialogController eddc = loader.getController();
+
+		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+
+		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+
+		Optional<ButtonType> result = dialog.showAndWait();
+
+		if (!result.isPresent()) {
+
+			// alert is exited, no button has been pressed.
+
+		} else if (result.get() == saveBtn) {
+
+			Event m = eddc.updateEvent();
+			int idEvent = m.getId();
+			EventServiceFunctions.updateEvent(idEvent, m);
+
+			eventsTableView.getItems().clear();
+			eventsTableView.refresh();
+			readEventsList();
+			initializeColumns();
+			updateTable();
+		} else if (result.get() == cancelBtn) {
+			System.out.println("Cancel Button Pressed");
+		}
 	}
 
 	@FXML

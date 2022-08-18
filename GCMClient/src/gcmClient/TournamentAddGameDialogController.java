@@ -160,12 +160,14 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 	}
 
 	public void handleGameAddBtn(ActionEvent e) {
-		int id = getSelectedGameFromAvailableGames().getId();
+
 		GameFX selectedGame = gamesTableView1.getSelectionModel().getSelectedItem();
 
 		if (selectedGame == null) {
 			return;
 		}
+
+		int id = getSelectedGameFromAvailableGames().getId();
 
 		System.out.println("Selected Game " + selectedGame);
 

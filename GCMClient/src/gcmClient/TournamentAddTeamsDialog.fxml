@@ -35,7 +35,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="gamesTableView1" editable="true" minWidth="250.0" tableMenuButtonVisible="true">
+                              <TableView fx:id="teamsTableView1" editable="true" minWidth="250.0" tableMenuButtonVisible="true">
                                  <columns>
                                     <TableColumn fx:id="teamIdColumn1" maxWidth="-1.0" minWidth="50.0" prefWidth="-1.0" text="ID" />
                                     <TableColumn fx:id="teamNameColumn1" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" text="Team Name" />
@@ -62,7 +62,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="gamesTableView" editable="true" minWidth="250.0" tableMenuButtonVisible="true">
+                              <TableView fx:id="teamsTableView" editable="true" minWidth="250.0" tableMenuButtonVisible="true">
                                  <columns>
                                     <TableColumn fx:id="teamIdColumn" maxWidth="-1.0" minWidth="50.0" prefWidth="-1.0" text="ID" />
                                     <TableColumn fx:id="teamNameColumn" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" text="Team Name" />

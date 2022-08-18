@@ -152,12 +152,14 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 	}
 
 	public void handleTeamAddBtn(ActionEvent e) {
-		int id = getSelectedTeamFromAvailableTeams().getId();
+
 		TeamFX selectedTeam = teamsTableView1.getSelectionModel().getSelectedItem();
 
 		if (selectedTeam == null) {
 			return;
 		}
+
+		int id = selectedTeam.getId();
 
 		System.out.println("Selected Team " + selectedTeam);
 

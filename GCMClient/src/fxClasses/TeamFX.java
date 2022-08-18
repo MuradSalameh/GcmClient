@@ -9,14 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class TeamFX {
-	
+
 	private Team serverTeam;
 	private SimpleIntegerProperty id;
 	private SimpleStringProperty teamName;
-	private SimpleStringProperty teamDescription;	
+	private SimpleStringProperty teamDescription;
 	private SimpleListProperty<Member> members;
-	
-	
+
 	public TeamFX() {
 		super();
 	}
@@ -27,17 +26,17 @@ public class TeamFX {
 		id = new SimpleIntegerProperty(serverTeam.getId());
 		teamName = new SimpleStringProperty(serverTeam.getTeamName());
 		teamDescription = new SimpleStringProperty(serverTeam.getTeamDescription());
-		
+
 		ObservableList<Member> membersOl = FXCollections.observableArrayList(serverTeam.getMembers());
 		this.members = new SimpleListProperty<Member>(membersOl);
-		
+
 	}
 
 	public Team getServerTeam() {
 		return serverTeam;
 	}
 
-	//-----------------------
+	// -----------------------
 
 	public final SimpleIntegerProperty idProperty() {
 		return this.id;
@@ -47,12 +46,11 @@ public class TeamFX {
 		return this.idProperty().get();
 	}
 
-	
 	public void setId(final int id) {
 		this.idProperty().set(id);
 	}
 
-	//----------------------
+	// ----------------------
 
 	public final SimpleStringProperty teamNameProperty() {
 		return this.teamName;
@@ -66,7 +64,7 @@ public class TeamFX {
 		this.teamNameProperty().set(teamName);
 	}
 
-	//-----------------------
+	// -----------------------
 	public final SimpleStringProperty teamDescriptionProperty() {
 		return this.teamDescription;
 	}
@@ -79,7 +77,7 @@ public class TeamFX {
 		this.teamDescriptionProperty().set(teamDescription);
 	}
 
-	//-----------------------
+	// -----------------------
 	public final SimpleListProperty<Member> membersProperty() {
 		return this.members;
 	}
@@ -91,16 +89,5 @@ public class TeamFX {
 	public final void setMembers(final ObservableList<Member> members) {
 		this.membersProperty().set(members);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

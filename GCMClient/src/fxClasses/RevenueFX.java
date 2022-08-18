@@ -10,15 +10,14 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class RevenueFX {
-	
+
 	private Revenue serverRevenue;
 	private SimpleIntegerProperty id;
 	private SimpleStringProperty revenueTitle;
 	private SimpleStringProperty revenueDescription;
 	private SimpleDoubleProperty amount;
 	private ObjectProperty<LocalDate> date;
-	
-	
+
 	public RevenueFX() {
 		super();
 	}
@@ -31,17 +30,14 @@ public class RevenueFX {
 		revenueDescription = new SimpleStringProperty(serverRevenue.getRevenueDescription());
 		amount = new SimpleDoubleProperty(serverRevenue.getAmount());
 		date = new SimpleObjectProperty<LocalDate>(serverRevenue.getDate());
-		
+
 	}
 
 	public Revenue getServerRevenue() {
 		return serverRevenue;
 	}
 
-	
-	
-	//-----------------------
-	
+	// -----------------------
 
 	public final SimpleIntegerProperty idProperty() {
 		return this.id;
@@ -51,16 +47,14 @@ public class RevenueFX {
 		return this.idProperty().get();
 	}
 
-	
 	public void setId(final int id) {
 		this.idProperty().set(id);
 	}
-	
-	//-----------------------
+
+	// -----------------------
 	public final SimpleStringProperty revenueTitleProperty() {
 		return this.revenueTitle;
 	}
-
 
 	public final String getRevenueTitle() {
 		return revenueTitleProperty().get();
@@ -69,23 +63,22 @@ public class RevenueFX {
 	public final void setRevenueTitle(final String revenueTitle) {
 		this.revenueTitleProperty().set(revenueTitle);
 	}
-	
-	//-----------------------
-	
+
+	// -----------------------
+
 	public final SimpleStringProperty revenueDescriptionProperty() {
 		return this.revenueDescription;
 	}
 
-
-	public final String  getRevenueDescription() {
+	public final String getRevenueDescription() {
 		return revenueDescriptionProperty().get();
 	}
 
 	public final void setRevenueDescription(final String revenueDescription) {
 		this.revenueDescriptionProperty().set(revenueDescription);
 	}
-	
-	//-----------------------
+
+	// -----------------------
 	public final SimpleDoubleProperty amountProperty() {
 		return this.amount;
 	}
@@ -97,8 +90,8 @@ public class RevenueFX {
 	public void setAmount(final double amount) {
 		this.amountProperty().set(amount);
 	}
-	
-	//-----------------------
+
+	// -----------------------
 
 	public final ObjectProperty<LocalDate> dateProperty() {
 		return this.date;
@@ -112,10 +105,6 @@ public class RevenueFX {
 		this.dateProperty().set(date);
 	}
 
-	//-----------------------
+	// -----------------------
 
-	
-	
-
-	
 }

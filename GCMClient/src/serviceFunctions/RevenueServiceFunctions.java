@@ -10,73 +10,52 @@ import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-
 public class RevenueServiceFunctions {
-
 
 	private static final String serverURI = "http://localhost:4712/revenue";
 
-
-	//GET - get revenue list
+	// GET - get revenue list
 	public static List<Revenue> getRevenues() {
 
-		List<Revenue> revenues = ClientBuilder.newClient()
-				.target(serverURI)
-				.path("/revenuelist")
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<List<Revenue>>(){});
+		List<Revenue> revenues = ClientBuilder.newClient().target(serverURI).path("/revenuelist")
+				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Revenue>>() {
+				});
 
 		return revenues;
 	}
 
-
-	//GET - get one revenue
+	// GET - get one revenue
 	public static Revenue getRevenue(int id) {
 
-		Revenue revenue = ClientBuilder.newClient()
-				.target(serverURI)
-				.path("/revenue/" + id)
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<Revenue>(){});
+		Revenue revenue = ClientBuilder.newClient().target(serverURI).path("/revenue/" + id)
+				.request(MediaType.APPLICATION_XML).get(new GenericType<Revenue>() {
+				});
 
 		return revenue;
 	}
 
-
-	//Post - add new revenue 
+	// Post - add new revenue
 	public static Response addRevenue(Revenue m) {
 
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/addRevenue")
-				.request(MediaType.APPLICATION_XML)
+		return client.target(serverURI).path("/addRevenue").request(MediaType.APPLICATION_XML)
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-
-	//PUT - update revenue 
+	// PUT - update revenue
 	public static Response updateRevenue(int id, Revenue m) {
 
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/updateRevenue/" + id)
-				.request(MediaType.APPLICATION_XML)
-				.put(Entity.entity(m, MediaType.APPLICATION_XML));	
+		return client.target(serverURI).path("/updateRevenue/" + id).request(MediaType.APPLICATION_XML)
+				.put(Entity.entity(m, MediaType.APPLICATION_XML));
 
 	}
 
-
-	//Delete - delete revenue 
+	// Delete - delete revenue
 	public static Response deleteRevenue(int id) {
 
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/deleteRevenue/" + id)
-				.request(MediaType.APPLICATION_XML)
-				.delete();	
+		return client.target(serverURI).path("/deleteRevenue/" + id).request(MediaType.APPLICATION_XML).delete();
 
 	}
 

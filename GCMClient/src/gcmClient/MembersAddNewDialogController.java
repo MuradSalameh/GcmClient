@@ -123,6 +123,5 @@ public class MembersAddNewDialogController extends Dialog<ButtonType> implements
 	public void initialize(URL location, ResourceBundle resources) {
 		loadMember();
 		initializeTextFields();
-
 	}
 }

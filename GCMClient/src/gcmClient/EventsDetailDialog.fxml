@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
+ 
 <DialogPane fx:id="addNewEventDetailsDialog" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.EventsDetailDialogController">
    <content>
       <BorderPane fx:id="eventEditBp">

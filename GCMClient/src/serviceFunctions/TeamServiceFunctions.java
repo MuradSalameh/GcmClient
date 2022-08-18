@@ -73,6 +73,7 @@ public class TeamServiceFunctions {
 
 	// PUT - add geam to member
 	public static Response addTeamToTournament(int geamId, int tournamentId) {
+
 		Tournament m = new Tournament();
 		Client client = ClientBuilder.newClient();
 		return client.target(serverURI).path("/addTeamToTournament/" + geamId + "/" + tournamentId)

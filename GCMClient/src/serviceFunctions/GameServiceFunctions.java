@@ -18,6 +18,7 @@ public class GameServiceFunctions {
 
 	// GET - get expenseType list
 	public static List<Game> getGames() {
+
 		List<Game> games = ClientBuilder.newClient().target(serverURI).path("/gamelist")
 				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Game>>() {
 				});
@@ -26,6 +27,7 @@ public class GameServiceFunctions {
 
 	// GET - get game list by memberId
 	public static List<Game> getGamesByMemberId(int id) {
+
 		List<Game> games = ClientBuilder.newClient().target(serverURI).path("/gamesByMember/" + id)
 				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Game>>() {
 				});
@@ -34,6 +36,7 @@ public class GameServiceFunctions {
 
 	// GET - get game list by tournamentId
 	public static List<Game> getGamesByTournamentId(int id) {
+
 		List<Game> games = ClientBuilder.newClient().target(serverURI).path("/getGamesByTournamentId/" + id)
 				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Game>>() {
 				});
@@ -42,6 +45,7 @@ public class GameServiceFunctions {
 
 	// GET - get one game
 	public static Game getGame(int id) {
+
 		Game game = ClientBuilder.newClient().target(serverURI).path("/game/" + id).request(MediaType.APPLICATION_XML)
 				.get(new GenericType<Game>() {
 				});
@@ -50,6 +54,7 @@ public class GameServiceFunctions {
 
 	// Post - add new game
 	public static Response addGame(Game m) {
+
 		Client client = ClientBuilder.newClient();
 		return client.target(serverURI).path("/addGame").request(MediaType.APPLICATION_XML)
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
@@ -57,6 +62,7 @@ public class GameServiceFunctions {
 
 	// PUT - add game to member
 	public static Response addGameToMember(int memberID, int gameID) {
+
 		Member m = new Member();
 		Client client = ClientBuilder.newClient();
 		return client.target(serverURI).path("/addGameToMember/" + memberID + "/" + gameID)
@@ -66,6 +72,7 @@ public class GameServiceFunctions {
 
 	// PUT - add game to member
 	public static Response addGameToTournament(int gameId, int tournamentId) {
+
 		Tournament m = new Tournament();
 		Client client = ClientBuilder.newClient();
 		return client.target(serverURI).path("/addGameToTournament/" + gameId + "/" + tournamentId)

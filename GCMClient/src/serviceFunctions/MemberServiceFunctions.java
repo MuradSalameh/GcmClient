@@ -64,6 +64,7 @@ public class MemberServiceFunctions {
 
 	// PUT - add game to member
 	public static Response addMemberToTeam(int memberID, int teamID) {
+
 		Member t = new Member();
 		Client client = ClientBuilder.newClient();
 		return client.target(serverURI).path("/addMemberToTeam/" + memberID + "/" + teamID)

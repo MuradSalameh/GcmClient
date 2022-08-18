@@ -26,7 +26,6 @@ public class EventFX {
 	private SimpleBooleanProperty reoccuring;
 	private SimpleListProperty<Member> members;
 
-
 	public EventFX() {
 		super();
 	}
@@ -40,7 +39,7 @@ public class EventFX {
 		date = new SimpleObjectProperty<LocalDate>(serverEvent.getDate());
 		eventStartTime = new SimpleObjectProperty<LocalTime>(serverEvent.getEventStartTime());
 		eventEndTime = new SimpleObjectProperty<LocalTime>(serverEvent.getEventEndTime());
-		eventAddidtionalNotes = new SimpleStringProperty(serverEvent.getEventAddidtionalNotes());;
+		eventAddidtionalNotes = new SimpleStringProperty(serverEvent.getEventAddidtionalNotes());
 		reoccuring = new SimpleBooleanProperty(serverEvent.isReoccuring());
 
 		ObservableList<Member> membersOl = FXCollections.observableArrayList(serverEvent.getMembers());
@@ -52,8 +51,8 @@ public class EventFX {
 		return serverEvent;
 	}
 
-	//-----------------------
-	
+	// -----------------------
+
 	public final SimpleIntegerProperty idProperty() {
 		return this.id;
 	}
@@ -66,8 +65,8 @@ public class EventFX {
 		this.idProperty().set(id);
 	}
 
-	//-----------------------
-	
+	// -----------------------
+
 	public final SimpleStringProperty eventTitleProperty() {
 		return this.eventTitle;
 	}
@@ -80,8 +79,8 @@ public class EventFX {
 		this.eventTitleProperty().set(eventTitle);
 	}
 
-	//-----------------------
-	
+	// -----------------------
+
 	public final SimpleStringProperty eventDescriptionProperty() {
 		return this.eventDescription;
 	}
@@ -94,7 +93,7 @@ public class EventFX {
 		this.eventDescriptionProperty().set(eventDescription);
 	}
 
-	//-----------------------
+	// -----------------------
 
 	public final ObjectProperty<LocalDate> dateProperty() {
 		return this.date;
@@ -108,8 +107,8 @@ public class EventFX {
 		this.dateProperty().set(date);
 	}
 
-	//-----------------------
-	
+	// -----------------------
+
 	public final ObjectProperty<LocalTime> eventStartTimeProperty() {
 		return this.eventStartTime;
 	}
@@ -122,8 +121,8 @@ public class EventFX {
 		this.eventStartTimeProperty().set(eventStartTime);
 	}
 
-	//-----------------------
-	
+	// -----------------------
+
 	public final ObjectProperty<LocalTime> eventEndTimeProperty() {
 		return this.eventEndTime;
 	}
@@ -136,8 +135,8 @@ public class EventFX {
 		this.eventEndTimeProperty().set(eventEndTime);
 	}
 
-	//-----------------------
-	
+	// -----------------------
+
 	public final SimpleStringProperty eventAddidtionalNotesProperty() {
 		return this.eventAddidtionalNotes;
 	}
@@ -150,11 +149,12 @@ public class EventFX {
 		this.eventAddidtionalNotesProperty().set(eventAddidtionalNotes);
 	}
 
-	//-----------------------
-	
+	// -----------------------
+
 	public final SimpleBooleanProperty reoccuringProperty() {
 		return this.reoccuring;
 	}
+
 	public final Boolean getReoccuring() {
 		return reoccuringProperty().get();
 	}
@@ -163,8 +163,8 @@ public class EventFX {
 		this.reoccuringProperty().set(reoccuring);
 	}
 
-	//-----------------------
-	
+	// -----------------------
+
 	public final SimpleListProperty<Member> membersProperty() {
 		return this.members;
 	}

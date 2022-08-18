@@ -11,110 +11,82 @@ import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-
 public class SocialServiceFunctions {
-
 
 	private static final String serverURI = "http://localhost:4712/social";
 
-
-	//GET - get social list
+	// GET - get social list
 	public static List<Social> getSocials() {
 
-		List<Social> socials = ClientBuilder.newClient()
-				.target(serverURI)
-				.path("/sociallist")
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<List<Social>>(){});
+		List<Social> socials = ClientBuilder.newClient().target(serverURI).path("/sociallist")
+				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Social>>() {
+				});
 
 		return socials;
 	}
 
-	//GET - get social list by memberId
+	// GET - get social list by memberId
 	public static List<Social> getSocialsByMemberId(int id) {
 
-		List<Social> socials = ClientBuilder.newClient()
-				.target(serverURI)
-				.path("/socialsByMember/" +id)
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<List<Social>>(){});
+		List<Social> socials = ClientBuilder.newClient().target(serverURI).path("/socialsByMember/" + id)
+				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Social>>() {
+				});
 
 		return socials;
 	}
 
-
-	//GET - get one social
+	// GET - get one social
 	public static Social getSocial(int id) {
 
-		Social social = ClientBuilder.newClient()
-				.target(serverURI)
-				.path("/social/" + id)
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<Social>(){});
+		Social social = ClientBuilder.newClient().target(serverURI).path("/social/" + id)
+				.request(MediaType.APPLICATION_XML).get(new GenericType<Social>() {
+				});
 
 		return social;
 	}
-	
-	//GET - get socialWithHighestId
+
+	// GET - get socialWithHighestId
 	public static Social getSocialWithHighestId() {
 
-		Social social = ClientBuilder.newClient()
-				.target(serverURI)
-				.path("/socialWithHighestId/")
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<Social>(){});
+		Social social = ClientBuilder.newClient().target(serverURI).path("/socialWithHighestId/")
+				.request(MediaType.APPLICATION_XML).get(new GenericType<Social>() {
+				});
 
 		return social;
 	}
 
-
-	//Post - add new social 
+	// Post - add new social
 	public static Response addSocial(Social m) {
 
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/addSocial")
-				.request(MediaType.APPLICATION_XML)
+		return client.target(serverURI).path("/addSocial").request(MediaType.APPLICATION_XML)
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-
-	//PUT - update social 
+	// PUT - update social
 	public static Response updateSocial(int id, Social m) {
 
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/updateSocial/" + id)
-				.request(MediaType.APPLICATION_XML)
-				.put(Entity.entity(m, MediaType.APPLICATION_XML));	
+		return client.target(serverURI).path("/updateSocial/" + id).request(MediaType.APPLICATION_XML)
+				.put(Entity.entity(m, MediaType.APPLICATION_XML));
 
 	}
-	
-	
-	//PUT - add social to member
+
+	// PUT - add social to member
 	public static Response addSocialToMember(int memberID, int socialID) {
+
 		Member m = new Member();
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/addSocialToMember/" + memberID + "/" + socialID)
-				.request(MediaType.APPLICATION_XML)
-				.put(Entity.entity(m, MediaType.APPLICATION_XML));	
-		
+		return client.target(serverURI).path("/addSocialToMember/" + memberID + "/" + socialID)
+				.request(MediaType.APPLICATION_XML).put(Entity.entity(m, MediaType.APPLICATION_XML));
+
 	}
 
-
-	//Delete - delete social 
+	// Delete - delete social
 	public static Response deleteSocial(int id) {
 
 		Client client = ClientBuilder.newClient();
-		return client
-				.target(serverURI)
-				.path("/deleteSocial/" + id)
-				.request(MediaType.APPLICATION_XML)
-				.delete();	
+		return client.target(serverURI).path("/deleteSocial/" + id).request(MediaType.APPLICATION_XML).delete();
 
 	}
 

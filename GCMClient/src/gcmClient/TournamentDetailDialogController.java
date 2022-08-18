@@ -19,7 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import serviceFunctions.EventServiceFunctions;
 
-public class EventsDetailDialogController extends Dialog<ButtonType> implements Initializable {
+public class TournamentDetailDialogController extends Dialog<ButtonType> implements Initializable {
 
 	private int ccId = ControllerCommunicator.getId();
 

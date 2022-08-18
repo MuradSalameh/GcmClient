@@ -24,6 +24,16 @@ public class MemberServiceFunctions {
 		return members;
 	}
 
+	// GET - get member list
+	public static List<Member> getMembersByTeamId(int id) {
+
+		List<Member> members = ClientBuilder.newClient().target(serverURI).path("/getMembersByTeamId/" + id)
+				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Member>>() {
+				});
+
+		return members;
+	}
+
 	// GET - get one member
 	public static Member getMember(int id) {
 
@@ -50,6 +60,22 @@ public class MemberServiceFunctions {
 		Client client = ClientBuilder.newClient();
 		return client.target(serverURI).path("/addMember/").request(MediaType.APPLICATION_XML)
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
+	}
+
+	// PUT - add game to member
+	public static Response addMemberToTeam(int memberID, int teamID) {
+		Member t = new Member();
+		Client client = ClientBuilder.newClient();
+		return client.target(serverURI).path("/addMemberToTeam/" + memberID + "/" + teamID)
+				.request(MediaType.APPLICATION_XML).put(Entity.entity(t, MediaType.APPLICATION_XML));
+	}
+
+	public static Response deleteMemberFromTeam(int memberid, int teamid) {
+
+		Client client = ClientBuilder.newClient();
+		return client.target(serverURI).path("/deleteMemberFromTeam/" + memberid + "/" + teamid)
+				.request(MediaType.APPLICATION_XML).delete();
+
 	}
 
 	// PUT - update member

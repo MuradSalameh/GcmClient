@@ -65,7 +65,6 @@ public class GamesDetailsDialogController extends Dialog<ButtonType> implements 
 
 	// get Member from DB -----
 	public Game loadGame() {
-
 		Game game = GameServiceFunctions.getGame(ccId);
 		return game;
 	}
@@ -86,7 +85,6 @@ public class GamesDetailsDialogController extends Dialog<ButtonType> implements 
 	public Game getSelectedGame() {
 
 		if (loadGame() != null) {
-
 			Game game = loadGame();
 			return game;
 		} else {
@@ -95,6 +93,7 @@ public class GamesDetailsDialogController extends Dialog<ButtonType> implements 
 					null, // members
 					null, // tournaments
 					"Notes"); // notes
+
 			return newGame;
 		}
 	}
@@ -105,6 +104,7 @@ public class GamesDetailsDialogController extends Dialog<ButtonType> implements 
 		game.setGameTitle(gameTitleTf.getText());
 		game.setReleaseDate(relaseDateDP.getValue());
 		game.setGameAdditionalNotes(NotesTa.getText());
+
 		return game;
 	}
 
@@ -122,38 +122,26 @@ public class GamesDetailsDialogController extends Dialog<ButtonType> implements 
 			relaseDateDP.setValue(game.getReleaseDate());
 			NotesTa.setText(game.getGameAdditionalNotes());
 		}
-		// updateGame();
 	}
 
-	@FXML
-	public void handleGameEditSaveBtn(ActionEvent e) {
-		int id = getSelectedGame().getId();
-
-		if (id != 0) {
-			Game updatedGame = updateGame();
-			GameServiceFunctions.updateGame(id, updatedGame);
-		} else {
-			Game updatedGame = updateGame();
-			GameServiceFunctions.addGame(updatedGame);
-//			int newGameId = GameServiceFunctions.getGameWithHighestId().getId();	
-//			GameServiceFunctions.addGameToMember(ccId,newGameId);	
-		}
-	}
-
-	@FXML
-	public void handleGameEditNewBtn(ActionEvent e) {
-		Game game = updateGame();
-		Integer id = null;
-
-		if (id == null) {
-			// Set Game ID Label
-			sIdLabel.setText(String.valueOf(id));
-
-			gameTitleTf.setPromptText("Enter Game Title");
-			NotesTa.setPromptText("Enter Additional Notes");
-		}
-	}
-
+	/*
+	 * @FXML public void handleGameEditSaveBtn(ActionEvent e) { int id =
+	 * getSelectedGame().getId();
+	 * 
+	 * if (id != 0) { Game updatedGame = updateGame();
+	 * GameServiceFunctions.updateGame(id, updatedGame); } else { Game updatedGame =
+	 * updateGame(); GameServiceFunctions.addGame(updatedGame); // int newGameId =
+	 * GameServiceFunctions.getGameWithHighestId().getId(); //
+	 * GameServiceFunctions.addGameToMember(ccId,newGameId); } }
+	 * 
+	 * @FXML public void handleGameEditNewBtn(ActionEvent e) { Game game =
+	 * updateGame(); Integer id = null;
+	 * 
+	 * if (id == null) { // Set Game ID Label sIdLabel.setText(String.valueOf(id));
+	 * 
+	 * gameTitleTf.setPromptText("Enter Game Title");
+	 * NotesTa.setPromptText("Enter Additional Notes"); } }
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initializeTextFields();

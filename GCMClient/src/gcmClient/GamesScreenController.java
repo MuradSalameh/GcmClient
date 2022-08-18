@@ -42,10 +42,8 @@ public class GamesScreenController {
 	private TableColumn<GameFX, LocalDate> releaseDateColumn;
 	@FXML
 	private TableColumn<GameFX, String> additionalNotesColumn;
-
 	@FXML
 	public Button editDetailsBtn;
-
 	@FXML
 	public Button deleteBtn;
 

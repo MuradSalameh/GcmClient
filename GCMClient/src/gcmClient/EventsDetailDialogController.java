@@ -75,8 +75,8 @@ public class EventsDetailDialogController extends Dialog<ButtonType> implements 
 			Event newEvent = new Event("", // event title
 					"", // eventdescription
 					LocalDate.of(2022, 01, 31), // tournament date
-					LocalTime.of(01, 11), // start time
-					LocalTime.of(02, 22), // end time
+					LocalTime.of(00, 00), // start time
+					LocalTime.of(00, 00), // end time
 					"", // additional notes
 					false, // reoccuring
 					null); // members

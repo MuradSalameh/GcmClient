@@ -6,10 +6,8 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 import gcmClasses.Tournament;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
@@ -19,9 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import serviceFunctions.TournamentServiceFunctions;
 
-public class TournamentDetailDialogController extends Dialog<ButtonType> implements Initializable {
+public class TournamentAddNewDialogController extends Dialog<ButtonType> implements Initializable {
 
 	private int ccId = ControllerCommunicator.getId();
 
@@ -48,11 +45,8 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	@FXML
 	private TextField endMinuteTF;
 	@FXML
+
 	private TextArea tournamentResultTa;
-	@FXML
-	private Button tAddRemoveBtn;
-	@FXML
-	private Button gAddRemoveBtn;
 	@FXML
 	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 	@FXML
@@ -66,27 +60,16 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 
 	public Tournament loadTournament() {
 
-		Tournament tournament = TournamentServiceFunctions.getTournament(ccId);
+		Tournament tournament = new Tournament("", // title
+				"", // description
+				LocalDate.of(2022, 1, 31), // tournament date
+				LocalTime.of(00, 00), // start time
+				LocalTime.of(00, 00), // end time
+				null, // teams list
+				null, // games list
+				null); // result string
+
 		return tournament;
-	}
-
-	public Tournament getSelectedTournament() {
-
-		if (loadTournament() != null) {
-			Tournament tournament = loadTournament();
-			return tournament;
-		} else {
-			Tournament tournament = new Tournament("", // title
-					"", // description
-					LocalDate.of(2022, 1, 31), // tournament date
-					LocalTime.of(00, 00), // start time
-					LocalTime.of(00, 00), // end time
-					null, // teams list
-					null, // games list
-					null); // result string
-
-			return tournament;
-		}
 	}
 
 	public void initializeTextFields() {
@@ -154,16 +137,6 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 
 		// ---------------------------------
 		return tournament;
-	}
-
-	@FXML
-	public void handleAddGamesBtn(ActionEvent e) {
-
-	}
-
-	@FXML
-	public void handleAddTeamsBtn(ActionEvent e) {
-
 	}
 
 	@Override

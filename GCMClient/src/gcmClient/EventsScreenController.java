@@ -103,7 +103,7 @@ public class EventsScreenController {
 
 		EventFX getEvent = eventsTableView.getSelectionModel().getSelectedItem();
 
-		if (event == null) {
+		if (getEvent == null) {
 			return;
 		}
 

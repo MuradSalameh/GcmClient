@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane fx:id="addGameDetailsDialog" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.TeamAddMembersDialogController">
+<DialogPane fx:id="addGameDetailsDialog" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.TournamentAddTeamsDialogController">
    
     <buttonTypes>
         <ButtonType fx:id="saveBtn" buttonData="OK_DONE" text="Save" />
@@ -30,21 +30,21 @@
                               <Insets />
                            </HBox.margin>
                            <children>
-                              <Label text="Available Members">
+                              <Label text="Available Teams">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="membersTableView1" editable="true" minWidth="350.0" tableMenuButtonVisible="true">
+                              <TableView fx:id="gamesTableView1" editable="true" minWidth="250.0" tableMenuButtonVisible="true">
                                  <columns>
-                                    <TableColumn fx:id="membersIdColumn1" maxWidth="-1.0" minWidth="50.0" prefWidth="-1.0" text="ID" />
-                                    <TableColumn fx:id="memberClanNameColumn1" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="Member Clan Name" />
-                                    <TableColumn fx:id="memberClanIdColumn1" minWidth="150.0" prefWidth="101.0" text="Clan Id" />
+                                    <TableColumn fx:id="teamIdColumn1" maxWidth="-1.0" minWidth="50.0" prefWidth="-1.0" text="ID" />
+                                    <TableColumn fx:id="teamNameColumn1" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" text="Team Name" />
+                                    <TableColumn fx:id="teamDescriptionColumn1" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" text="Description" />
                                  </columns>
                               </TableView>
                               <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="2.0">
                                  <children>
-                                    <Button fx:id="gAddBtn" mnemonicParsing="false" onAction="#handleMemberAddBtn" prefWidth="70.0" text="Add" />
+                                    <Button fx:id="gAddBtn" mnemonicParsing="false" onAction="#handleTeamAddBtn" prefWidth="70.0" text="Add" />
                                  </children>
                                  <VBox.margin>
                                     <Insets top="5.0" />
@@ -54,7 +54,7 @@
                         </VBox>
                         <VBox>
                            <children>
-                              <Label text="Team Members">
+                              <Label text="Tournament Teams">
                                  <VBox.margin>
                                     <Insets bottom="2.0" />
                                  </VBox.margin>
@@ -62,11 +62,11 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="membersTableView" editable="true" tableMenuButtonVisible="true">
+                              <TableView fx:id="gamesTableView" editable="true" minWidth="250.0" tableMenuButtonVisible="true">
                                  <columns>
-                                    <TableColumn fx:id="membersIdColumn" maxWidth="-1.0" minWidth="50.0" prefWidth="-1.0" text="ID" />
-                                    <TableColumn fx:id="memberClanNameColumn" minWidth="150.0" prefWidth="75.0" text="Member Clan Name" />
-                                    <TableColumn fx:id="memberClanIdColumn" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="Clan Id" />
+                                    <TableColumn fx:id="teamIdColumn" maxWidth="-1.0" minWidth="50.0" prefWidth="-1.0" text="ID" />
+                                    <TableColumn fx:id="teamNameColumn" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" text="Team Name" />
+                                    <TableColumn fx:id="teamDescriptionColumn" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" text="Description" />
                                  </columns>
                               </TableView>
                               <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="2.0">
@@ -74,7 +74,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                                  <children>
-                                    <Button fx:id="gRemoveBtn" mnemonicParsing="false" onAction="#handleMemberDeleteBtn" prefWidth="70.0" text="Remove" />
+                                    <Button fx:id="gRemoveBtn" mnemonicParsing="false" onAction="#handleTeamDeleteBtn" prefWidth="70.0" text="Remove" />
                                  </children>
                               </HBox>
                            </children>

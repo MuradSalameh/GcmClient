@@ -237,9 +237,6 @@
                                  </columns>
                               </TableView>
                               <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="2.0">
-                                 <children>
-                                    <Button fx:id="tDelBtn" mnemonicParsing="false" prefWidth="70.0" text="Remove" />
-                                 </children>
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>

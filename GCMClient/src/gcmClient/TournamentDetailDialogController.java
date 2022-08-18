@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import fxClasses.GameFX;
 import fxClasses.TeamFX;
 import gcmClasses.Game;
+import gcmClasses.Team;
 import gcmClasses.Tournament;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import serviceFunctions.GameServiceFunctions;
+import serviceFunctions.TeamServiceFunctions;
 import serviceFunctions.TournamentServiceFunctions;
 
 public class TournamentDetailDialogController extends Dialog<ButtonType> implements Initializable {
@@ -272,20 +274,53 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	}
 
 	public void readTeamsList() {
-//		olTeams.clear();
-//
-//		List<Team> xmlTeams = new ArrayList<Team>();
-//		xmlTeams = TeamServiceFunctions.getTeamsByTournamentId(ccId);
-//
-//		for (Team einT : xmlTeams) {
-//			olTeams.add(new TeamFX(einT));
-//		}
-//
+		olTeams.clear();
+
+		List<Team> xmlTeams = new ArrayList<Team>();
+		xmlTeams = TeamServiceFunctions.getTeamsByTournamentId(ccId);
+
+		for (Team einT : xmlTeams) {
+			olTeams.add(new TeamFX(einT));
+		}
+
 	}
 
 	@FXML
-	public void handleAddTeamsBtn(ActionEvent e) {
+	public void handleAddTeamsBtn(ActionEvent e) throws IOException {
+		FXMLLoader addTeamloader = new FXMLLoader(getClass().getResource("TournamentAddTeamsDialog.fxml"));
 
+		DialogPane dialogPaneAddTeam = addTeamloader.load();
+
+		Dialog dialog = new Dialog();
+		dialog.setDialogPane(dialogPaneAddTeam);
+		dialog.setResizable(true);
+
+		TournamentAddTeamsDialogController magdc = addTeamloader.getController();
+
+		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+
+		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+
+		Optional<ButtonType> result = dialog.showAndWait();
+
+		if (!result.isPresent()) {
+
+			// alert is exited, no button has been pressed.
+
+		} else if (result.get() == saveBtn) {
+
+			teamsTableView.getItems().clear();
+			teamsTableView.refresh();
+			readTeamsList();
+			initializeTeamsColumns();
+			updateTeamsTable();
+		} else if (result.get() == cancelBtn) {
+
+			System.out.println("Cancel Button Pressed");
+
+		}
 	}
 
 	@Override

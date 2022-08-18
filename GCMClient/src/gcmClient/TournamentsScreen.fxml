@@ -30,7 +30,6 @@
                   <TableColumn fx:id="tournamentDateColumn" prefWidth="82.0" text="Date" />
                   <TableColumn fx:id="tournamentTimeBeginnColumn" prefWidth="70.0" text="Time Beginn" />
                   <TableColumn fx:id="tournamentTimeEndColumn" prefWidth="75.0" text="Time End" />
-                  <TableColumn fx:id="gameColumn" prefWidth="75.0" text="Game" />
                   <TableColumn fx:id="tournamentResultColumn" prefWidth="75.0" text="Result" />
                </columns>
                <columnResizePolicy>

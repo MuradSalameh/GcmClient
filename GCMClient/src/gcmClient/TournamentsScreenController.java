@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 import fxClasses.TournamentFX;
-import gcmClasses.Game;
 import gcmClasses.Tournament;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,8 +47,7 @@ public class TournamentsScreenController {
 	private TableColumn<TournamentFX, LocalTime> tournamentTimeBeginnColumn;
 	@FXML
 	private TableColumn<TournamentFX, LocalTime> tournamentTimeEndColumn;
-	@FXML
-	private TableColumn<TournamentFX, Game> gameColumn;
+
 	@FXML
 	private TableColumn<TournamentFX, String> tournamentResultColumn;
 
@@ -207,7 +205,7 @@ public class TournamentsScreenController {
 					.setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalTime>("tournamentTimeBeginn"));
 			tournamentTimeEndColumn
 					.setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalTime>("tournamentTimeEnd"));
-			gameColumn.setCellValueFactory(new PropertyValueFactory<TournamentFX, Game>("game"));
+
 			tournamentResultColumn
 					.setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentResult"));
 		}

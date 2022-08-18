@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import fxClasses.GameFX;
 import gcmClasses.Game;
-import gcmClasses.Member;
+import gcmClasses.Tournament;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,20 +24,18 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import serviceFunctions.GameServiceFunctions;
-import serviceFunctions.MemberServiceFunctions;
+import serviceFunctions.TournamentServiceFunctions;
 
-public class MembersAddGameDialogController extends Dialog<ButtonType> implements Initializable {
+public class TournamentAddGameDialogController extends Dialog<ButtonType> implements Initializable {
 
 	private int ccId = ControllerCommunicator.getId();
-
-	// Member member = MemberServiceFunctions.getMember(ccId);
 
 	@FXML
 	final DialogPane dialogPane = getDialogPane();
 	@FXML
 	private Dialog dialog;
 	@FXML
-	private BorderPane memberEditBp;
+	private BorderPane tournamentEditBp;
 
 	@FXML
 	ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
@@ -51,14 +49,14 @@ public class MembersAddGameDialogController extends Dialog<ButtonType> implement
 	@FXML
 	private Button gRemoveBtn;
 
-	// get Member from DB -----
-	public Member loadMember() {
+	// get Tournament from DB -----
+	public Tournament loadTournament() {
 
-		Member member = MemberServiceFunctions.getMember(ccId);
-		return member;
+		Tournament tournament = TournamentServiceFunctions.getTournament(ccId);
+		return tournament;
 	}
 
-	// Member Games Table
+	// Tournament Games Table
 	private ObservableList<GameFX> olGames = FXCollections.observableArrayList();
 
 	@FXML
@@ -94,7 +92,7 @@ public class MembersAddGameDialogController extends Dialog<ButtonType> implement
 		olGames.clear();
 
 		List<Game> xmlGames = new ArrayList<Game>();
-		xmlGames = GameServiceFunctions.getGamesByMemberId(ccId);
+		xmlGames = GameServiceFunctions.getGamesByTournamentId(ccId);
 
 		for (Game einT : xmlGames) {
 			olGames.add(new GameFX(einT));
@@ -177,7 +175,7 @@ public class MembersAddGameDialogController extends Dialog<ButtonType> implement
 
 		} else {
 			System.out.println("Game doesnt Exist");
-			GameServiceFunctions.addGameToMember(ccId, id);
+			GameServiceFunctions.addGameToTournament(id, ccId);
 			gamesTableView.getItems().clear();
 			gamesTableView.refresh();
 			readGamesList();
@@ -208,7 +206,7 @@ public class MembersAddGameDialogController extends Dialog<ButtonType> implement
 		int id = Game.getId();
 		// delete from database
 
-		GameServiceFunctions.deleteGameFromMember(id, ccId);
+		GameServiceFunctions.deleteGameFromTournament(id, ccId);
 
 		// remove from Tableview
 		gamesTableView.getItems().removeAll(gamesTableView.getSelectionModel().getSelectedItem());
@@ -223,7 +221,7 @@ public class MembersAddGameDialogController extends Dialog<ButtonType> implement
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		// Member Games Table
+		// Tournament Games Table
 		readGamesList();
 		initializeGamesColumns();
 		updateGamesTable();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import gcmClasses.Game;
 import gcmClasses.Member;
+import gcmClasses.Tournament;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -31,6 +32,14 @@ public class GameServiceFunctions {
 		return games;
 	}
 
+	// GET - get game list by tournamentId
+	public static List<Game> getGamesByTournamentId(int id) {
+		List<Game> games = ClientBuilder.newClient().target(serverURI).path("/getGamesByTournamentId/" + id)
+				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Game>>() {
+				});
+		return games;
+	}
+
 	// GET - get one game
 	public static Game getGame(int id) {
 		Game game = ClientBuilder.newClient().target(serverURI).path("/game/" + id).request(MediaType.APPLICATION_XML)
@@ -53,6 +62,14 @@ public class GameServiceFunctions {
 		return client.target(serverURI).path("/addGameToMember/" + memberID + "/" + gameID)
 				.request(MediaType.APPLICATION_XML).put(Entity.entity(m, MediaType.APPLICATION_XML));
 
+	}
+
+	// PUT - add game to member
+	public static Response addGameToTournament(int gameId, int tournamentId) {
+		Tournament m = new Tournament();
+		Client client = ClientBuilder.newClient();
+		return client.target(serverURI).path("/addGameToTournament/" + gameId + "/" + tournamentId)
+				.request(MediaType.APPLICATION_XML).put(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
 	// PUT - update game

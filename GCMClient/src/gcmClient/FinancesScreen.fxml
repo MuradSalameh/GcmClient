@@ -62,8 +62,8 @@
                   <HBox nodeOrientation="RIGHT_TO_LEFT" GridPane.rowIndex="3">
                      <children>
                         <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#handleDeleteRevBtn" text="Delete" />
-                        <Button fx:id="editDetailsBtn" mnemonicParsing="false" text="Show/Edit Details" />
-                        <Button fx:id="addNewBtn" mnemonicParsing="false" text="Add New" />
+                        <Button fx:id="revDetailsBtn" mnemonicParsing="false" onAction="#handleRevEditDetailsBtn" text="Show/Edit Details" />
+                        <Button fx:id="revNewBtn" mnemonicParsing="false" onAction="#handleRevAddNewBtn" text="Add New" />
                      </children>
                      <GridPane.margin>
                         <Insets right="10.0" />
@@ -72,8 +72,8 @@
                   <HBox nodeOrientation="RIGHT_TO_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
                         <Button fx:id="deleteBtn1" mnemonicParsing="false" onAction="#handleDeleteExpBtn" text="Delete" />
-                        <Button fx:id="editDetailsBtn1" mnemonicParsing="false" text="Show/Edit Details" />
-                        <Button fx:id="addNewBtn1" mnemonicParsing="false" text="Add New" />
+                        <Button fx:id="expDetailsBtn" mnemonicParsing="false" onAction="#handleExpEditDetailsBtn" text="Show/Edit Details" />
+                        <Button fx:id="expNewBtn" mnemonicParsing="false" onAction="#handleExpAddNewBtn" text="Add New" />
                      </children>
                      <GridPane.margin>
                         <Insets right="10.0" />

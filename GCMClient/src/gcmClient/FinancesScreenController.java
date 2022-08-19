@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -49,7 +50,6 @@ public class FinancesScreenController {
 	private ObservableList<RevenueFX> olRevenues = FXCollections.observableArrayList();
 	@FXML
 	private TableView<RevenueFX> revenuesTableView;
-
 	@FXML
 	private TableColumn<RevenueFX, Integer> revIdColumn;
 	@FXML
@@ -140,25 +140,199 @@ public class FinancesScreenController {
 	}
 
 	@FXML
-	public Button editDetailsBtn;
+	public Button revNewBtn;
 
 	@FXML
-	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("RevenuesDetailDialog.fxml"));
+	private void handleRevAddNewBtn(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("FinancesAddNewRevenueDialog.fxml"));
+		DialogPane dialogPane = loader.load();
+
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
-		dialog.showAndWait();
+		dialog.setResizable(true);
 
-		// Optional<ButtonType> r = new WeinDetailDialog(RevenueFX).showAndWait();
-		// if(r.isPresent() && r.get().getButtonData() == ButtonData.OK_DONE) {
-		// // neuer Revenue wurde gespeichert, daher neue Weinliste vom Server holen
-		// //leseRevenueliste();
-		// System.out.println("Aktualisiere Revenue Liste");
-		// }
+		FinancesAddNewRevenueDialogController edand = loader.getController();
+
+		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+
+		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+
+		Optional<ButtonType> result = dialog.showAndWait();
+
+		if (!result.isPresent()) {
+
+			// alert is exited, no button has been pressed.
+
+		} else if (result.get() == saveBtn) {
+
+			Revenue m = edand.updateRevenue();
+			int idRevenue = m.getId();
+			RevenueServiceFunctions.addRevenue(m);
+
+			revenuesTableView.getItems().clear();
+			revenuesTableView.refresh();
+			readRevenuesList();
+			revInitializeColumns();
+			revUpdateTable();
+			calculateTotals();
+
+		} else if (result.get() == cancelBtn) {
+			System.out.println("Cancel Button Pressed");
+		}
+	}
+
+	@FXML
+	public Button revDetailsBtn;
+
+	@FXML
+	private void handleRevEditDetailsBtn(ActionEvent event) throws IOException {
+		RevenueFX getRevenue = revenuesTableView.getSelectionModel().getSelectedItem();
+
+		if (getRevenue == null) {
+			return;
+		}
+
+		int id = getRevenue.getId();
+		ControllerCommunicator cc = new ControllerCommunicator(id);
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("FinancesEditRevenueDialog.fxml"));
+		DialogPane dialogPane = loader.load();
+
+		Dialog dialog = new Dialog();
+		dialog.setDialogPane(dialogPane);
+		dialog.setResizable(true);
+
+		FinancesEditRevenueDialogController eddc = loader.getController();
+
+		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+
+		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+
+		Optional<ButtonType> result = dialog.showAndWait();
+
+		if (!result.isPresent()) {
+
+			// alert is exited, no button has been pressed.
+
+		} else if (result.get() == saveBtn) {
+
+			Revenue m = eddc.updateRevenue();
+			int idRevenue = m.getId();
+			RevenueServiceFunctions.updateRevenue(idRevenue, m);
+
+			revenuesTableView.getItems().clear();
+			revenuesTableView.refresh();
+			readRevenuesList();
+			revInitializeColumns();
+			revUpdateTable();
+			calculateTotals();
+		} else if (result.get() == cancelBtn) {
+			System.out.println("Cancel Button Pressed");
+		}
 	}
 
 	// -------- Expenses Buttons ---------------
+	@FXML
+	public Button expNewBtn;
+
+	@FXML
+	private void handleExpAddNewBtn(ActionEvent event) throws IOException {
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("FinancesAddNewExpenseDialog.fxml"));
+		DialogPane dialogPane = loader.load();
+
+		Dialog dialog = new Dialog();
+		dialog.setDialogPane(dialogPane);
+		dialog.setResizable(true);
+
+		FinancesAddNewExpenseDialogController edand = loader.getController();
+
+		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+
+		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+
+		Optional<ButtonType> result = dialog.showAndWait();
+
+		if (!result.isPresent()) {
+
+			// alert is exited, no button has been pressed.
+
+		} else if (result.get() == saveBtn) {
+
+			Expense m = edand.updateExpense();
+			int idExpense = m.getId();
+			ExpenseServiceFunctions.addExpense(m);
+
+			expensesTableView.getItems().clear();
+			expensesTableView.refresh();
+			readExpensesList();
+			expInitializeColumns();
+			expUpdateTable();
+			calculateTotals();
+
+		} else if (result.get() == cancelBtn) {
+			System.out.println("Cancel Button Pressed");
+		}
+	}
+
+	@FXML
+	public Button expDetailsBtn;
+
+	@FXML
+	private void handleExpEditDetailsBtn(ActionEvent event) throws IOException {
+
+		ExpenseFX getExpense = expensesTableView.getSelectionModel().getSelectedItem();
+
+		if (getExpense == null) {
+			return;
+		}
+
+		int id = getExpense.getId();
+		ControllerCommunicator cc = new ControllerCommunicator(id);
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("FinancesEditExpenseDialog.fxml"));
+		DialogPane dialogPane = loader.load();
+
+		Dialog dialog = new Dialog();
+		dialog.setDialogPane(dialogPane);
+		dialog.setResizable(true);
+
+		FinancesEditExpenseDialogController eddc = loader.getController();
+
+		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+
+		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+
+		Optional<ButtonType> result = dialog.showAndWait();
+
+		if (!result.isPresent()) {
+
+			// alert is exited, no button has been pressed.
+
+		} else if (result.get() == saveBtn) {
+
+			Expense m = eddc.updateExpense();
+			int idExpense = m.getId();
+			ExpenseServiceFunctions.updateExpense(idExpense, m);
+
+			expensesTableView.getItems().clear();
+			expensesTableView.refresh();
+			readExpensesList();
+			expInitializeColumns();
+			expUpdateTable();
+			calculateTotals();
+		} else if (result.get() == cancelBtn) {
+			System.out.println("Cancel Button Pressed");
+		}
+	}
 
 	@FXML
 	private void handleDeleteExpBtn() {

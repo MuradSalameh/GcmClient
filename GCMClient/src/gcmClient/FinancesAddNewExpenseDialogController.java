@@ -16,11 +16,10 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import serviceFunctions.ExpenseServiceFunctions;
 
-public class FinancesEditExpenseDialogController extends Dialog<ButtonType> implements Initializable {
+public class FinancesAddNewExpenseDialogController extends Dialog<ButtonType> implements Initializable {
 
-	private int ccId = ControllerCommunicator.getId();
+	// private int ccId = ControllerCommunicator.getId();
 
 	@FXML
 	final DialogPane dialogPane = getDialogPane();
@@ -52,30 +51,35 @@ public class FinancesEditExpenseDialogController extends Dialog<ButtonType> impl
 
 	public Expense loadExpense() {
 
-		Expense expense = ExpenseServiceFunctions.getExpense(ccId);
-		return expense;
+		Expense newExpense = new Expense("test", // title
+				"ttttt", // desc
+				00.00, // amount
+				LocalDate.now(), // date
+				"" // recipient
+		);
+		return newExpense;
 	}
 
-	public Expense getSelectedExpense() {
-
-		if (loadExpense() != null) {
-			Expense expense = loadExpense();
-			return expense;
-		} else {
-			Expense newExpense = new Expense("test", // title
-					"ttttt", // desc
-					00.00, // amount
-					LocalDate.now(), // date
-					"heinrich" // recipient
-			);
-			return newExpense;
-		}
-	}
+//	public Expense getSelectedExpense() {
+//
+//		if (loadExpense() != null) {
+//			Expense expense = loadExpense();
+//			return expense;
+//		} else {
+//			Expense newExpense = new Expense("test", // title
+//					"ttttt", // desc
+//					00.00, // amount
+//					LocalDate.now(), // date
+//					"heinrich" // recipient
+//			);
+//			return newExpense;
+//		}
+//	}
 
 	public void initializeTextFields() {
 		Expense expense = loadExpense();
 
-		idLabel.setText(String.valueOf(ccId));
+		// idLabel.setText(String.valueOf(ccId));
 
 		// Expense TextFields
 		expenseTitleTF.setText(expense.getExpenseTitle());

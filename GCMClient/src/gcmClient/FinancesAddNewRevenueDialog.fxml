@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<DialogPane minWidth="350.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.FinancesEditExpenseDialogController">
+<DialogPane minWidth="350.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.FinancesAddNewRevenueDialogController">
    <buttonTypes>
       <ButtonType fx:constant="OK" />
       <ButtonType fx:constant="CANCEL" />
@@ -38,18 +38,15 @@
                                     <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
                                     <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
                                     <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
                                     <Label text="ID" />
                                     <Label text="Title" GridPane.rowIndex="1" />
                                     <Label text="Description" GridPane.rowIndex="2" />
-                                    <TextField fx:id="expenseTitleTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="expenseDescriptionTF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="revenueTitleTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="revenueDescriptionTF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label text="Amount" GridPane.rowIndex="3" />
                                     <Label text="Date" GridPane.rowIndex="4" />
-                                    <Label text="Recipient" GridPane.rowIndex="5" />
-                                    <TextField fx:id="recipientNameTF" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                     <TextField fx:id="amountTF" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Label fx:id="idLabel" text="ID" GridPane.columnIndex="1" />
                                     <DatePicker fx:id="dateDp" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />

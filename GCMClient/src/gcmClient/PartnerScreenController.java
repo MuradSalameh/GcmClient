@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -63,15 +64,98 @@ public class PartnerScreenController {
 
 	@FXML
 	public Button editDetailsBtn;
+	@FXML
+	public Button addNewBtn;
+
+	@FXML
+	private void handleAddNewBtn(ActionEvent event) throws IOException {
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("PartnerAddNewDialog.fxml"));
+		DialogPane dialogPane = loader.load();
+
+		Dialog dialog = new Dialog();
+		dialog.setDialogPane(dialogPane);
+		dialog.setResizable(true);
+
+		PartnerAddNewDialogController edand = loader.getController();
+
+		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+
+		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+
+		Optional<ButtonType> result = dialog.showAndWait();
+
+		if (!result.isPresent()) {
+
+			// alert is exited, no button has been pressed.
+
+		} else if (result.get() == saveBtn) {
+
+			Partner m = edand.updatePartner();
+			int idPartner = m.getId();
+			PartnerServiceFunctions.addPartner(m);
+
+			partnersTableView.getItems().clear();
+			partnersTableView.refresh();
+			readPartnersList();
+			initializeColumns();
+			updateTable();
+
+		} else if (result.get() == cancelBtn) {
+			System.out.println("Cancel Button Pressed");
+		}
+
+	}
 
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		DialogPane dialogPane = FXMLLoader.load(getClass().getResource("PartnersDetailDialog.fxml"));
+
+		PartnerFX getPartner = partnersTableView.getSelectionModel().getSelectedItem();
+
+		if (getPartner == null) {
+			return;
+		}
+
+		int id = getPartner.getId();
+		ControllerCommunicator cc = new ControllerCommunicator(id);
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("PartnerDetailDialog.fxml"));
+		DialogPane dialogPane = loader.load();
+
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
-		dialog.showAndWait();
-		System.out.println("PartnersDetailsDialog Button klicked");
+		dialog.setResizable(true);
+
+		PartnerDetailDialogController eddc = loader.getController();
+
+		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+
+		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+
+		Optional<ButtonType> result = dialog.showAndWait();
+
+		if (!result.isPresent()) {
+
+			// alert is exited, no button has been pressed.
+
+		} else if (result.get() == saveBtn) {
+
+			Partner m = eddc.updatePartner();
+			int idPartner = m.getId();
+			PartnerServiceFunctions.updatePartner(idPartner, m);
+
+			partnersTableView.getItems().clear();
+			partnersTableView.refresh();
+			readPartnersList();
+			initializeColumns();
+			updateTable();
+		} else if (result.get() == cancelBtn) {
+			System.out.println("Cancel Button Pressed");
+		}
 	}
 
 	@FXML

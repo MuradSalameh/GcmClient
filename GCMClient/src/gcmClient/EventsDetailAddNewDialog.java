@@ -6,7 +6,6 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 import gcmClasses.Event;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -18,7 +17,6 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import serviceFunctions.EventServiceFunctions;
 
 public class EventsDetailAddNewDialog extends Dialog<ButtonType> implements Initializable {
 
@@ -155,40 +153,40 @@ public class EventsDetailAddNewDialog extends Dialog<ButtonType> implements Init
 		return event;
 	}
 
-	@FXML
-	public void handleEventEditSaveBtn(ActionEvent e) {
-		int id = loadEvent().getId();
-
-		if (id != 0) {
-			Event updatedEvent = updateEvent();
-			EventServiceFunctions.updateEvent(id, updatedEvent);
-		} else {
-			Event updatedEvent = updateEvent();
-			EventServiceFunctions.addEvent(updatedEvent);
-
-		}
-	}
-
-	@FXML
-	public void handleEventEditNewBtn(ActionEvent e) {
-		Event event = updateEvent();
-		Integer id = null;
-
-		if (id == null) {
-			// Set Event ID Label
-			sIdLabel.setText(String.valueOf(id));
-
-			eventTitleTF.setPromptText("Enter Event Title");
-			eventDescriptionTF.setPromptText("Enter Description");
-			additionalNotesTF.setPromptText("Enter Additional Notes");
-
-			startHourTF.setPromptText("00");
-			startMinuteTF.setPromptText("00");
-			endHourTF.setPromptText("00");
-			endMinuteTF.setPromptText("00");
-			reoccuringCB.setSelected(event.isReoccuring());
-		}
-	}
+//	@FXML
+//	public void handleEventEditSaveBtn(ActionEvent e) {
+//		int id = loadEvent().getId();
+//
+//		if (id != 0) {
+//			Event updatedEvent = updateEvent();
+//			EventServiceFunctions.updateEvent(id, updatedEvent);
+//		} else {
+//			Event updatedEvent = updateEvent();
+//			EventServiceFunctions.addEvent(updatedEvent);
+//
+//		}
+//	}
+//
+//	@FXML
+//	public void handleEventEditNewBtn(ActionEvent e) {
+//		Event event = updateEvent();
+//		Integer id = null;
+//
+//		if (id == null) {
+//			// Set Event ID Label
+//			sIdLabel.setText(String.valueOf(id));
+//
+//			eventTitleTF.setPromptText("Enter Event Title");
+//			eventDescriptionTF.setPromptText("Enter Description");
+//			additionalNotesTF.setPromptText("Enter Additional Notes");
+//
+//			startHourTF.setPromptText("00");
+//			startMinuteTF.setPromptText("00");
+//			endHourTF.setPromptText("00");
+//			endMinuteTF.setPromptText("00");
+//			reoccuringCB.setSelected(event.isReoccuring());
+//		}
+//	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

@@ -155,31 +155,6 @@ public class EventsDetailDialogController extends Dialog<ButtonType> implements 
 		return event;
 	}
 
-	/*
-	 * @FXML public void handleEventEditSaveBtn(ActionEvent e) { int id =
-	 * loadEvent().getId();
-	 * 
-	 * if (id != 0) { Event updatedEvent = updateEvent();
-	 * EventServiceFunctions.updateEvent(id, updatedEvent); } else { Event
-	 * updatedEvent = updateEvent(); EventServiceFunctions.addEvent(updatedEvent);
-	 * 
-	 * } }
-	 * 
-	 * @FXML public void handleEventEditNewBtn(ActionEvent e) { Event event =
-	 * updateEvent(); Integer id = null;
-	 * 
-	 * if (id == null) { // Set Event ID Label idLabel.setText(String.valueOf(id));
-	 * 
-	 * eventTitleTF.setPromptText("Enter Event Title");
-	 * eventDescriptionTF.setPromptText("Enter Description");
-	 * additionalNotesTF.setPromptText("Enter Additional Notes");
-	 * 
-	 * startHourTF.setPromptText("00"); startMinuteTF.setPromptText("00");
-	 * endHourTF.setPromptText("00"); endMinuteTF.setPromptText("00");
-	 * reoccuringCB.setSelected(event.isReoccuring()); } }
-	 * 
-	 */
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadEvent();

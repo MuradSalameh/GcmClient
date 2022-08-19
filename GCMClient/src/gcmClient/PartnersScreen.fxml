@@ -50,7 +50,7 @@
                <children>
                   <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#handleDeleteBtn" text="Delete" />
                   <Button fx:id="editDetailsBtn" mnemonicParsing="false" onAction="#handleEditDetailsBtn" text="Show/Edit Details" />
-                  <Button fx:id="addNewBtn" mnemonicParsing="false" text="Add New" />
+                  <Button fx:id="addNewBtn" mnemonicParsing="false" onAction="#handleAddNewBtn" text="Add New" />
                </children>
                <VBox.margin>
                   <Insets right="5.0" top="5.0" />

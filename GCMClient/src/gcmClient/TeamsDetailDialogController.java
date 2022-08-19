@@ -205,7 +205,7 @@ public class TeamsDetailDialogController extends Dialog<ButtonType> implements I
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		loadTeam();
+		// loadTeam();
 		initializeTextFields();
 		readMembersList();
 		initializeColumns();

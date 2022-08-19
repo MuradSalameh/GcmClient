@@ -25,6 +25,16 @@ public class MemberServiceFunctions {
 	}
 
 	// GET - get member list
+	public static List<Member> getTodaysMembersBirthdays() {
+
+		List<Member> members = ClientBuilder.newClient().target(serverURI).path("/getTodaysMembersBirthdays")
+				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Member>>() {
+				});
+
+		return members;
+	}
+
+	// GET - get member list
 	public static List<Member> getMembersByTeamId(int id) {
 
 		List<Member> members = ClientBuilder.newClient().target(serverURI).path("/getMembersByTeamId/" + id)

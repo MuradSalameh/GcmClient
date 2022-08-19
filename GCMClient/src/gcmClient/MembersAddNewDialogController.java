@@ -75,7 +75,7 @@ public class MembersAddNewDialogController extends Dialog<ButtonType> implements
 				null, // socials
 				null, // games
 				null, // events
-				LocalDate.of(1981, 4, 11), // birthday
+				LocalDate.now(), // birthday
 				null); // teams
 
 		return member;

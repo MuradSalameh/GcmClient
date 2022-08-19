@@ -66,7 +66,7 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 	public Game loadGame() {
 
 		Game newGame = new Game("Game Title", // title
-				LocalDate.of(1981, 4, 11), // release date
+				LocalDate.now(), // release date
 				null, // tournaments
 				null, "Notes"); // notes
 

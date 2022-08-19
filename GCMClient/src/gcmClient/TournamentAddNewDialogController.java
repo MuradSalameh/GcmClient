@@ -62,7 +62,7 @@ public class TournamentAddNewDialogController extends Dialog<ButtonType> impleme
 
 		Tournament tournament = new Tournament("", // title
 				"", // description
-				LocalDate.of(2022, 1, 31), // tournament date
+				LocalDate.now(), // tournament date
 				LocalTime.of(00, 00), // start time
 				LocalTime.of(00, 00), // end time
 				null, // teams list

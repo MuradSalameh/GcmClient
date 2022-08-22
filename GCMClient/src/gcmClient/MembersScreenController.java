@@ -132,12 +132,19 @@ public class MembersScreenController implements Initializable {
 		alert.setTitle("WARNING - DELETING MEMBER");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
 		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
+		
+		
+		MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
+		
+		if (member == null) {
+			return;
+		}
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 
 			// get ID from item in table view
-			MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
+			
 			int id = member.getId();
 
 			// first delete connections to other objects, then delete from database

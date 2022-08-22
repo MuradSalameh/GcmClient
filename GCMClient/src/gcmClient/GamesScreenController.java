@@ -28,174 +28,182 @@ import serviceFunctions.GameServiceFunctions;
 
 public class GamesScreenController {
 
-	@FXML
-	private ObservableList<GameFX> olGames = FXCollections.observableArrayList();
-	@FXML
-	private AnchorPane gamesAnchor;
-	@FXML
-	private TableView<GameFX> gamesTableView;
-	@FXML
-	private TableColumn<GameFX, Integer> idColumn;
-	@FXML
-	private TableColumn<GameFX, String> gameTitleColumn;
-	@FXML
-	private TableColumn<GameFX, LocalDate> releaseDateColumn;
-	@FXML
-	private TableColumn<GameFX, String> additionalNotesColumn;
-	@FXML
-	public Button editDetailsBtn;
-	@FXML
-	public Button deleteBtn;
+    @FXML
+    private ObservableList<GameFX> olGames = FXCollections.observableArrayList();
+    @FXML
+    private AnchorPane gamesAnchor;
+    @FXML
+    private TableView<GameFX> gamesTableView;
+    @FXML
+    private TableColumn<GameFX, Integer> idColumn;
+    @FXML
+    private TableColumn<GameFX, String> gameTitleColumn;
+    @FXML
+    private TableColumn<GameFX, LocalDate> releaseDateColumn;
+    @FXML
+    private TableColumn<GameFX, String> additionalNotesColumn;
+    @FXML
+    public Button editDetailsBtn;
+    @FXML
+    public Button deleteBtn;
 
-	@FXML
-	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+    @FXML
+    private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 
-		GameFX game = gamesTableView.getSelectionModel().getSelectedItem();
+	GameFX game = gamesTableView.getSelectionModel().getSelectedItem();
 
-		if (game == null) {
-			return;
-		}
-
-		int id = game.getId();
-		ControllerCommunicator cc = new ControllerCommunicator(id);
-
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("GamesDetailsDialog.fxml"));
-		DialogPane dialogPane = loader.load();
-
-		Dialog dialog = new Dialog();
-		dialog.setDialogPane(dialogPane);
-		dialog.setResizable(true);
-
-		GamesDetailsDialogController mddc = loader.getController();
-
-		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
-
-		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
-		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
-
-		Optional<ButtonType> result = dialog.showAndWait();
-
-		if (!result.isPresent()) {
-
-			// alert is exited, no button has been pressed.
-
-		} else if (result.get() == saveBtn) {
-
-			Game m = mddc.updateGame();
-			int idGame = m.getId();
-			GameServiceFunctions.updateGame(idGame, m);
-
-			gamesTableView.getItems().clear();
-			gamesTableView.refresh();
-			readGamesList();
-			initializeColumns();
-			updateTable();
-		} else if (result.get() == cancelBtn) {
-			System.out.println("Cancel Button Pressed");
-		}
+	if (game == null) {
+	    return;
 	}
 
-	@FXML
-	private void handleAddNewBtn(ActionEvent event) throws IOException {
+	int id = game.getId();
+	ControllerCommunicator cc = new ControllerCommunicator(id);
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("GamesDetailsAddNewDialog.fxml"));
-		DialogPane dialogPane = loader.load();
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("GamesDetailsDialog.fxml"));
+	DialogPane dialogPane = loader.load();
 
-		Dialog dialog = new Dialog();
-		dialog.setDialogPane(dialogPane);
-		dialog.setResizable(true);
+	Dialog dialog = new Dialog();
+	dialog.setDialogPane(dialogPane);
+	dialog.setResizable(true);
 
-		GamesDetailsAddNewDialogController mddc = loader.getController();
+	GamesDetailsDialogController mddc = loader.getController();
 
-		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
-		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+	dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+	dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
 
-		Optional<ButtonType> result = dialog.showAndWait();
+	Optional<ButtonType> result = dialog.showAndWait();
 
-		if (!result.isPresent()) {
+	if (!result.isPresent()) {
 
-			// alert is exited, no button has been pressed.
+	    // alert is exited, no button has been pressed.
 
-		} else if (result.get() == saveBtn) {
+	} else if (result.get() == saveBtn) {
 
-			Game m = mddc.updateGame();
-			int idGame = m.getId();
-			GameServiceFunctions.addGame(m);
+	    Game m = mddc.updateGame();
+	    int idGame = m.getId();
+	    GameServiceFunctions.updateGame(idGame, m);
 
-			gamesTableView.getItems().clear();
-			gamesTableView.refresh();
-			readGamesList();
-			initializeColumns();
-			updateTable();
-
-		} else if (result.get() == cancelBtn) {
-			System.out.println("Cancel Button Pressed");
-		}
+	    gamesTableView.getItems().clear();
+	    gamesTableView.refresh();
+	    readGamesList();
+	    initializeColumns();
+	    updateTable();
+	} else if (result.get() == cancelBtn) {
+	    System.out.println("Cancel Button Pressed");
 	}
+    }
 
-	@FXML
-	private void handleDeleteBtn() {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("WARNING - DELETING GAME");
-		alert.setHeaderText("THIS CAN NOT BE UNDONE");
-		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS GAME?");
+    @FXML
+    private void handleAddNewBtn(ActionEvent event) throws IOException {
 
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("GamesDetailsAddNewDialog.fxml"));
+	DialogPane dialogPane = loader.load();
 
-			// get ID from item in table view
-			GameFX game = gamesTableView.getSelectionModel().getSelectedItem();
-			int id = game.getId();
+	Dialog dialog = new Dialog();
+	dialog.setDialogPane(dialogPane);
+	dialog.setResizable(true);
 
-			// delete from database
-			GameServiceFunctions.deleteGameFromAllTournaments(id);
-			GameServiceFunctions.deleteGameFromAllMembers(id);
-			GameServiceFunctions.deleteGame(id);
+	GamesDetailsAddNewDialogController mddc = loader.getController();
 
-			// remove from Tableview
-			gamesTableView.getItems().removeAll(gamesTableView.getSelectionModel().getSelectedItem());
+	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-			gamesTableView.refresh();
-		}
+	dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+	dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+
+	Optional<ButtonType> result = dialog.showAndWait();
+
+	if (!result.isPresent()) {
+
+	    // alert is exited, no button has been pressed.
+
+	} else if (result.get() == saveBtn) {
+
+	    Game m = mddc.updateGame();
+	    int idGame = m.getId();
+	    GameServiceFunctions.addGame(m);
+
+	    gamesTableView.getItems().clear();
+	    gamesTableView.refresh();
+	    readGamesList();
+	    initializeColumns();
+	    updateTable();
+
+	} else if (result.get() == cancelBtn) {
+	    System.out.println("Cancel Button Pressed");
 	}
+    }
 
-	public void updateTable() {
-		// load Data
-		if (gamesTableView != null) {
-			gamesTableView.getItems().addAll(olGames);
-		}
+    @FXML
+    private void handleDeleteBtn() {
+	Alert alert = new Alert(AlertType.CONFIRMATION);
+	alert.setTitle("WARNING - DELETING GAME");
+	alert.setHeaderText("THIS CAN NOT BE UNDONE");
+	alert.setContentText("DO YOU REALLY WANT TO DELETE THIS GAME?");
+
+	GameFX game = gamesTableView.getSelectionModel().getSelectedItem();
+
+	if (game == null) {
+	    return;
 	}
+	Optional<ButtonType> result = alert.showAndWait();
 
-	public void readGamesList() {
-		olGames.clear();
 
-		List<Game> xmlGames = new ArrayList<Game>();
-		xmlGames = GameServiceFunctions.getGames();
+	// get ID from item in table view
+	
+	if (result.get() == ButtonType.OK) {
 
-		for (Game einM : xmlGames) {
-			olGames.add(new GameFX(einM));
-			System.out.println("CLIENT------------" + "\n" + einM);
-		}
+
+	    int id = game.getId();
+
+	    // delete from database
+	    GameServiceFunctions.deleteGameFromAllTournaments(id);
+	    GameServiceFunctions.deleteGameFromAllMembers(id);
+	    GameServiceFunctions.deleteGame(id);
+
+	    // remove from Tableview
+	    gamesTableView.getItems().removeAll(gamesTableView.getSelectionModel().getSelectedItem());
+
+	    gamesTableView.refresh();
 	}
+    }
 
-	public void initializeColumns() {
-
-		if (idColumn != null) {
-			idColumn.setCellValueFactory(new PropertyValueFactory<GameFX, Integer>("id"));
-			gameTitleColumn.setCellValueFactory(new PropertyValueFactory<GameFX, String>("gameTitle"));
-			additionalNotesColumn.setCellValueFactory(new PropertyValueFactory<GameFX, String>("GameAdditionalNotes"));
-			releaseDateColumn.setCellValueFactory(new PropertyValueFactory<GameFX, LocalDate>("releaseDate"));
-		}
+    public void updateTable() {
+	// load Data
+	if (gamesTableView != null) {
+	    gamesTableView.getItems().addAll(olGames);
 	}
+    }
 
-	public void initialize() {
-		readGamesList();
-		initializeColumns();
-		updateTable();
+    public void readGamesList() {
+	olGames.clear();
+
+	List<Game> xmlGames = new ArrayList<Game>();
+	xmlGames = GameServiceFunctions.getGames();
+
+	for (Game einM : xmlGames) {
+	    olGames.add(new GameFX(einM));
+	    System.out.println("CLIENT------------" + "\n" + einM);
 	}
+    }
+
+    public void initializeColumns() {
+
+	if (idColumn != null) {
+	    idColumn.setCellValueFactory(new PropertyValueFactory<GameFX, Integer>("id"));
+	    gameTitleColumn.setCellValueFactory(new PropertyValueFactory<GameFX, String>("gameTitle"));
+	    additionalNotesColumn.setCellValueFactory(new PropertyValueFactory<GameFX, String>("GameAdditionalNotes"));
+	    releaseDateColumn.setCellValueFactory(new PropertyValueFactory<GameFX, LocalDate>("releaseDate"));
+	}
+    }
+
+    public void initialize() {
+	readGamesList();
+	initializeColumns();
+	updateTable();
+    }
 
 }

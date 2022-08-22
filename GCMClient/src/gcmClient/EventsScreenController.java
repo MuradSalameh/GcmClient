@@ -153,12 +153,19 @@ public class EventsScreenController {
 		alert.setTitle("WARNING - DELETING EVENT");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
 		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS EVENT?");
+		
+		EventFX event = eventsTableView.getSelectionModel().getSelectedItem();
+		if (event == null) {
+			return;}
+	
 
 		Optional<ButtonType> result = alert.showAndWait();
+		
+		
 		if (result.get() == ButtonType.OK) {
 
 			// get ID from item in table view
-			EventFX event = eventsTableView.getSelectionModel().getSelectedItem();
+			
 			int id = event.getId();
 			// delete from database
 			EventServiceFunctions.deleteEventFromMember(id);

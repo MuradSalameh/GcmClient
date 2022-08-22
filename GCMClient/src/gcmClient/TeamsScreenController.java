@@ -141,12 +141,17 @@ public class TeamsScreenController {
 		alert.setTitle("WARNING - DELETING TEAM");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
 		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS TEAM?");
+		
+		TeamFX team = teamsTableView.getSelectionModel().getSelectedItem();
+		if (team == null) {
+			return;
+		}
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 
 			// get ID from item in table view
-			TeamFX team = teamsTableView.getSelectionModel().getSelectedItem();
+			
 			int id = team.getId();
 			// delete from database
 			TeamServiceFunctions.deleteTeamFromMember(id);

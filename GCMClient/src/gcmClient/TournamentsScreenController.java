@@ -152,12 +152,18 @@ public class TournamentsScreenController {
 		alert.setTitle("WARNING - DELETING TOURNAMENT");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
 		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS TOURNAMENT?");
+		
+		TournamentFX tournament = tournamentsTableView.getSelectionModel().getSelectedItem();
+		
+		if (tournament == null) {
+			return;
+		}
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 
 			// get ID from item in table view
-			TournamentFX tournament = tournamentsTableView.getSelectionModel().getSelectedItem();
+			
 			int id = tournament.getId();
 			// delete from database
 

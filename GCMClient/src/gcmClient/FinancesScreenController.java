@@ -119,12 +119,19 @@ public class FinancesScreenController {
 		alert.setTitle("WARNING - DELETING REVENUE");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
 		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS REVENUE?");
+		
+		RevenueFX revenue = revenuesTableView.getSelectionModel().getSelectedItem();
+		
+		
+		if (revenue == null) {
+			return;
+		}
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 
 			// get ID from item in table view
-			RevenueFX revenue = revenuesTableView.getSelectionModel().getSelectedItem();
+			
 			int id = revenue.getId();
 			// delete from database
 			RevenueServiceFunctions.deleteRevenue(id);
@@ -340,12 +347,19 @@ public class FinancesScreenController {
 		alert.setTitle("WARNING - DELETING EXPENSE");
 		alert.setHeaderText("THIS CAN NOT BE UNDONE");
 		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS EXPENSE?");
+		
+		// get ID from item in table view
+		ExpenseFX expense = expensesTableView.getSelectionModel().getSelectedItem();
+	
+		
+		if (expense == null) {
+			return;
+		}
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 
-			// get ID from item in table view
-			ExpenseFX expense = expensesTableView.getSelectionModel().getSelectedItem();
+		
 			int id = expense.getId();
 			// delete from database
 			ExpenseServiceFunctions.deleteExpense(id);

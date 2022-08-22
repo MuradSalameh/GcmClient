@@ -1,10 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="apHome" maxWidth="2000.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="700.0" style="-fx-background-color: #66ffff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="apHome" maxWidth="2000.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label id="homeScreen" layoutX="310.0" layoutY="226.0" text="Home Screeen" />
+      <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="400.0" text="Willkommen im Gaming Clan Manager 2022 ">
+               <padding>
+                  <Insets top="50.0" />
+               </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_LEFT" minWidth="300.0" prefWidth="526.0" text="Der Gaming Clan Manager (GCM)  wurde im Rahmen meiner Abschlussarbeit für den Kurs &quot;Ausbildung zum geprüften Software Developer Java&quot; beim WIFI Wien erstellt. Es ist ein Verwaltungssystem für Gaming-Clans und Gaming-Communites.  Die Arbeit am GCM ist noch nicht abgeschlossen und wird bei Bedarf weiterentwickelt und optimiert." textOverrun="WORD_ELLIPSIS" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+            <Label nodeOrientation="LEFT_TO_RIGHT" text="Author: Murad Salameh">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+            <Label nodeOrientation="LEFT_TO_RIGHT" text="Finaler Abgabetermin: 30.08.2022">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label nodeOrientation="LEFT_TO_RIGHT" text="Abschlussbenotung: noch offen">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

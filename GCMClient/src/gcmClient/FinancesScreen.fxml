@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="financesAnchor" prefHeight="495.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.FinancesScreenController">
+<AnchorPane fx:id="financesAnchor" prefWidth="700.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.FinancesScreenController">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox prefHeight="75.0" prefWidth="700.0">
+            <HBox prefWidth="700.0">
                <children>
                   <Label text="Finances List:">
                      <font>
@@ -79,7 +79,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </HBox>
-                  <TableView fx:id="revenuesTableView" editable="true" prefHeight="46.0" prefWidth="350.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
+                  <TableView fx:id="revenuesTableView" editable="true" prefHeight="350.0" prefWidth="350.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
                     <columns>
                       <TableColumn fx:id="revIdColumn" prefWidth="75.0" text="ID" />
                       <TableColumn fx:id="revenueTitleColumn" prefWidth="75.0" text="Title" />
@@ -88,7 +88,7 @@
                         <TableColumn fx:id="revDateColumn" prefWidth="75.0" text="Date" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="expensesTableView" editable="true" prefHeight="406.0" prefWidth="341.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TableView fx:id="expensesTableView" editable="true" prefHeight="350.0" prefWidth="341.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <columns>
                       <TableColumn fx:id="expIdColumn" prefWidth="41.0" text="ID" />
                       <TableColumn fx:id="expenseTitleColumn" prefWidth="84.0" text="Title" />

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bpScreenView" minHeight="600.0" minWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.FxmlDocumentController">
+<BorderPane fx:id="bpScreenView" minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gcmClient.FxmlDocumentController">
 	<left>
 		<VBox prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #d3d3d3;" BorderPane.alignment="CENTER">
 			<children>

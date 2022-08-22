@@ -8,7 +8,7 @@
 
 <AnchorPane id="apHome" maxWidth="2000.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="400.0" text="Willkommen im Gaming Clan Manager 2022 ">
                <padding>
@@ -45,6 +45,9 @@
                </font>
             </Label>
          </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>

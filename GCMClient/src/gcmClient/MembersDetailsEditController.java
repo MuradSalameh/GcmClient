@@ -467,15 +467,32 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		Role rcbValue = rcb.getValue();
 		int roleId = rcbValue.getId();
 
-		RoleServiceFunctions.addRoleToMember(ccId, roleId);
+		if (containsItem(rolesTableView, rcbValue)) {
+		    
+		}
+		else {
+		    RoleServiceFunctions.addRoleToMember(ccId, roleId);
 
-		rolesTableView.getItems().clear();
+			rolesTableView.getItems().clear();
+			
+			readRolesList();
+			
+			updateRolesTable();
+			rolesTableView.refresh();
+		}
 		
-		readRolesList();
 		
-		updateRolesTable();
-		rolesTableView.refresh();
 	}
+	
+	// Method to check if Table already contains specific Item
+		public static boolean containsItem(TableView<RoleFX> rolesTableView, Role rcbValue) {
+			for (RoleFX item : rolesTableView.getItems()) {
+				if (item.getId() == rcbValue.getId()) {
+					return true;
+				}
+			}
+			return false;
+		}
 
 	@FXML
 	public void loadComboBox() {

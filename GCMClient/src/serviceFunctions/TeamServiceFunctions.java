@@ -13,10 +13,13 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 public class TeamServiceFunctions {
+    
+	// Methods to send and retrieve data from server 
+
 
 	private static final String serverURI = "http://localhost:4712/team";
 
-	// GET - get team list
+	// get list of all teams
 	public static List<Team> getTeams() {
 
 		List<Team> teams = ClientBuilder.newClient().target(serverURI).path("/teamlist")
@@ -26,6 +29,8 @@ public class TeamServiceFunctions {
 		return teams;
 	}
 
+	
+	// get teams by member id  from MemberTeam table
 	public static List<Team> getTeamsByMemberId(int id) {
 
 		List<Team> teams = ClientBuilder.newClient().target(serverURI).path("/teamsByMember/" + id)
@@ -35,6 +40,8 @@ public class TeamServiceFunctions {
 		return teams;
 	}
 
+	
+	// get teams by tournament id from TournamensTeams table
 	public static List<Team> getTeamsByTournamentId(int id) {
 
 		List<Team> teams = ClientBuilder.newClient().target(serverURI).path("/getTeamsByTournamentId/" + id)
@@ -44,6 +51,8 @@ public class TeamServiceFunctions {
 		return teams;
 	}
 
+	
+	// get members by team id from MemberTeams table
 	public static List<Member> getMembersByTeamId(int id) {
 
 		List<Member> members = ClientBuilder.newClient().target(serverURI).path("/membersByTeam/" + id)
@@ -53,7 +62,7 @@ public class TeamServiceFunctions {
 		return members;
 	}
 
-	// GET - get one team
+	// get team
 	public static Team getTeam(int id) {
 
 		Team team = ClientBuilder.newClient().target(serverURI).path("/team/" + id).request(MediaType.APPLICATION_XML)
@@ -63,7 +72,7 @@ public class TeamServiceFunctions {
 		return team;
 	}
 
-	// Post - add new team
+	// add new team
 	public static Response addTeam(Team m) {
 
 		Client client = ClientBuilder.newClient();
@@ -71,7 +80,7 @@ public class TeamServiceFunctions {
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// PUT - add geam to member
+	// assign team to tournament in TournamentsTeams table
 	public static Response addTeamToTournament(int geamId, int tournamentId) {
 
 		Tournament m = new Tournament();
@@ -80,7 +89,7 @@ public class TeamServiceFunctions {
 				.request(MediaType.APPLICATION_XML).put(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// PUT - update team
+	// update team
 	public static Response updateTeam(int id, Team m) {
 
 		Client client = ClientBuilder.newClient();
@@ -89,7 +98,7 @@ public class TeamServiceFunctions {
 
 	}
 
-	// Delete - delete team
+	// delete team
 	public static Response deleteTeam(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -97,7 +106,7 @@ public class TeamServiceFunctions {
 
 	}
 
-	// Delete - delete team from member
+	// delete team from all members in MemberTeams table
 	public static Response deleteTeamFromMember(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -105,7 +114,7 @@ public class TeamServiceFunctions {
 
 	}
 
-	// Delete - delete team from member
+	// delete team from all tournaments in TournamentsTeams table
 	public static Response deleteTeamFromTournaments(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -114,6 +123,8 @@ public class TeamServiceFunctions {
 
 	}
 
+	
+	//delete specific team from specific tournament
 	public static Response deleteTeamFromTournament(int teamid, int tournamentid) {
 
 		Client client = ClientBuilder.newClient();

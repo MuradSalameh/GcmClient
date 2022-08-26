@@ -12,10 +12,12 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 public class SocialServiceFunctions {
+	// Methods to send and retrieve data from server 
+
 
 	private static final String serverURI = "http://localhost:4712/social";
 
-	// GET - get social list
+	// get list of all socials
 	public static List<Social> getSocials() {
 
 		List<Social> socials = ClientBuilder.newClient().target(serverURI).path("/sociallist")
@@ -25,7 +27,7 @@ public class SocialServiceFunctions {
 		return socials;
 	}
 
-	// GET - get social list by memberId
+	//get socials by member id in MemberSocials table
 	public static List<Social> getSocialsByMemberId(int id) {
 
 		List<Social> socials = ClientBuilder.newClient().target(serverURI).path("/socialsByMember/" + id)
@@ -35,7 +37,7 @@ public class SocialServiceFunctions {
 		return socials;
 	}
 
-	// GET - get one social
+	// get social
 	public static Social getSocial(int id) {
 
 		Social social = ClientBuilder.newClient().target(serverURI).path("/social/" + id)
@@ -45,7 +47,7 @@ public class SocialServiceFunctions {
 		return social;
 	}
 
-	// GET - get socialWithHighestId
+	// get social with highest id
 	public static Social getSocialWithHighestId() {
 
 		Social social = ClientBuilder.newClient().target(serverURI).path("/socialWithHighestId/")
@@ -55,7 +57,7 @@ public class SocialServiceFunctions {
 		return social;
 	}
 
-	// Post - add new social
+	// add new social
 	public static Response addSocial(Social m) {
 
 		Client client = ClientBuilder.newClient();
@@ -63,7 +65,7 @@ public class SocialServiceFunctions {
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// PUT - update social
+	// update social
 	public static Response updateSocial(int id, Social m) {
 
 		Client client = ClientBuilder.newClient();
@@ -72,7 +74,7 @@ public class SocialServiceFunctions {
 
 	}
 
-	// PUT - add social to member
+	// assign social to member in MemberSocials table
 	public static Response addSocialToMember(int memberID, int socialID) {
 
 		Member m = new Member();
@@ -82,7 +84,7 @@ public class SocialServiceFunctions {
 
 	}
 
-	// Delete - delete social
+	// delete social
 	public static Response deleteSocial(int id) {
 
 		Client client = ClientBuilder.newClient();

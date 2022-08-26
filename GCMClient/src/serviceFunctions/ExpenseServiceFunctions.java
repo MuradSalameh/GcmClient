@@ -11,10 +11,12 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 public class ExpenseServiceFunctions {
+	// Methods to send and retrieve data from server 
+
 
 	private static final String serverURI = "http://localhost:4712/expense";
 
-	// GET - get expense list
+	// get list of all expenses
 	public static List<Expense> getExpenses() {
 
 		List<Expense> expenses = ClientBuilder.newClient().target(serverURI).path("/expenselist")
@@ -24,7 +26,7 @@ public class ExpenseServiceFunctions {
 		return expenses;
 	}
 
-	// GET - get one expense
+	// get expense
 	public static Expense getExpense(int id) {
 
 		Expense expense = ClientBuilder.newClient().target(serverURI).path("/expense/" + id)
@@ -34,7 +36,7 @@ public class ExpenseServiceFunctions {
 		return expense;
 	}
 
-	// Post - add new expense
+	// add new expense
 	public static Response addExpense(Expense m) {
 
 		Client client = ClientBuilder.newClient();
@@ -42,7 +44,7 @@ public class ExpenseServiceFunctions {
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// PUT - update expense
+	//update expense
 	public static Response updateExpense(int id, Expense m) {
 
 		Client client = ClientBuilder.newClient();
@@ -50,7 +52,7 @@ public class ExpenseServiceFunctions {
 				.put(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// Delete - delete expense
+	// delete expense
 	public static Response deleteExpense(int id) {
 
 		Client client = ClientBuilder.newClient();

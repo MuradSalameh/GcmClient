@@ -13,8 +13,10 @@ import jakarta.ws.rs.core.Response;
 public class RevenueServiceFunctions {
 
 	private static final String serverURI = "http://localhost:4712/revenue";
+	// Methods to send and retrieve data from server 
 
-	// GET - get revenue list
+
+	// get list of all revenues 
 	public static List<Revenue> getRevenues() {
 
 		List<Revenue> revenues = ClientBuilder.newClient().target(serverURI).path("/revenuelist")
@@ -24,7 +26,7 @@ public class RevenueServiceFunctions {
 		return revenues;
 	}
 
-	// GET - get one revenue
+	// get revenue
 	public static Revenue getRevenue(int id) {
 
 		Revenue revenue = ClientBuilder.newClient().target(serverURI).path("/revenue/" + id)
@@ -34,7 +36,7 @@ public class RevenueServiceFunctions {
 		return revenue;
 	}
 
-	// Post - add new revenue
+	// add new revenue
 	public static Response addRevenue(Revenue m) {
 
 		Client client = ClientBuilder.newClient();
@@ -42,7 +44,7 @@ public class RevenueServiceFunctions {
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// PUT - update revenue
+	// update revenue
 	public static Response updateRevenue(int id, Revenue m) {
 
 		Client client = ClientBuilder.newClient();
@@ -51,7 +53,7 @@ public class RevenueServiceFunctions {
 
 	}
 
-	// Delete - delete revenue
+	// delete revenue
 	public static Response deleteRevenue(int id) {
 
 		Client client = ClientBuilder.newClient();

@@ -41,7 +41,7 @@ public class TeamsAddNewDetailDialogController extends Dialog<ButtonType> implem
 		Team team = new Team("", // team name
 				"", // desc
 				null // members teams
-		); // team tournaments teams
+		); 
 
 		return team;
 	}

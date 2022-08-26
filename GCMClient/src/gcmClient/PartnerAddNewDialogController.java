@@ -16,7 +16,6 @@ import javafx.scene.layout.BorderPane;
 
 public class PartnerAddNewDialogController extends Dialog<ButtonType> implements Initializable {
 
-	// private int ccId = ControllerCommunicator.getId();
 
 	@FXML
 	final DialogPane dialogPane = getDialogPane();
@@ -77,34 +76,11 @@ public class PartnerAddNewDialogController extends Dialog<ButtonType> implements
 		return newPartner;
 	}
 
-//	public Partner getSelectedPartner() {
-//
-//		if (loadPartner() != null) {
-//			Partner partner = loadPartner();
-//			return partner;
-//		} else {
-//			Partner newPartner = new Partner("", // companyName
-//					"", // Contact name
-//					"", // contact phone
-//					"", // contact mail
-//					"", // first name
-//					"", // last name
-//					"", // adress street
-//					"", // street number
-//					"", // post code
-//					"", // city
-//					"", // country
-//					"", // email
-//					"");// phone number
-//
-//			return newPartner;
-//		}
-//	}
 
 	public void initializeTextFields() {
 		Partner partner = loadPartner();
 
-//		idLabel.setText(String.valueOf(ccId));
+
 
 		// Partner TextFields
 		companyNameTF.setText(partner.getCompanyName());

@@ -47,7 +47,9 @@ public class FinancesAddNewRevenueDialogController extends Dialog<ButtonType> im
 	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 	@FXML
 	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
-
+	
+	
+		// Create empty revenue object
 	public Revenue loadRevenue() {
 
 		Revenue newRevenue = new Revenue("test", // title
@@ -59,22 +61,8 @@ public class FinancesAddNewRevenueDialogController extends Dialog<ButtonType> im
 		return newRevenue;
 	}
 
-//	public Revenue getSelectedRevenue() {
-//
-//		if (loadRevenue() != null) {
-//			Revenue revenue = loadRevenue();
-//			return revenue;
-//		} else {
-//			Revenue newRevenue = new Revenue("test", // title
-//					"ttttt", // desc
-//					00.00, // amount
-//					LocalDate.now() // date
-//
-//			);
-//			return newRevenue;
-//		}
-//	}
 
+//initialize text fields
 	public void initializeTextFields() {
 		Revenue revenue = loadRevenue();
 
@@ -96,6 +84,7 @@ public class FinancesAddNewRevenueDialogController extends Dialog<ButtonType> im
 
 	}
 
+	//update revenue object
 	public Revenue updateRevenue() {
 		Revenue revenue = loadRevenue();
 
@@ -111,6 +100,7 @@ public class FinancesAddNewRevenueDialogController extends Dialog<ButtonType> im
 		return revenue;
 	}
 
+	// initialize methods when window is loading
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadRevenue();

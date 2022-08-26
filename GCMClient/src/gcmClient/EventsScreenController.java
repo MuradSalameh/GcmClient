@@ -88,10 +88,10 @@ public class EventsScreenController {
 			EventServiceFunctions.addEvent(m);
 
 			eventsTableView.getItems().clear();
-			eventsTableView.refresh();
-			readEventsList();
-			initializeColumns();
+			
+			readEventsList();	
 			updateTable();
+			eventsTableView.refresh();
 
 		} else if (result.get() == cancelBtn) {
 			System.out.println("Cancel Button Pressed");
@@ -100,6 +100,7 @@ public class EventsScreenController {
 
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("EventsDetailDialog.fxml"));
 
 		EventFX getEvent = eventsTableView.getSelectionModel().getSelectedItem();
 
@@ -109,22 +110,21 @@ public class EventsScreenController {
 
 		int id = getEvent.getId();
 		ControllerCommunicator cc = new ControllerCommunicator(id);
-
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("EventsDetailDialog.fxml"));
+		
 		DialogPane dialogPane = loader.load();
 
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
 		dialog.setResizable(true);
 
-		EventsDetailDialogController eddc = loader.getController();
+		
 
 		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
 		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
 		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
-
+		EventsDetailDialogController eddc = loader.getController();
 		Optional<ButtonType> result = dialog.showAndWait();
 
 		if (!result.isPresent()) {
@@ -133,15 +133,25 @@ public class EventsScreenController {
 
 		} else if (result.get() == saveBtn) {
 
-			Event m = eddc.updateEvent();
-			int idEvent = m.getId();
-			EventServiceFunctions.updateEvent(idEvent, m);
+			Event m;
+			try {
+			    m = eddc.updateEvent();
+			    int idEvent = m.getId();
+				EventServiceFunctions.updateEvent(idEvent, m);
+			} catch (Exception e) {
+			    // TODO Auto-generated catch block
+			    e.printStackTrace();
+			}
+			
+			
+			
 
 			eventsTableView.getItems().clear();
-			eventsTableView.refresh();
+			
 			readEventsList();
-			initializeColumns();
+			
 			updateTable();
+			eventsTableView.refresh();
 		} else if (result.get() == cancelBtn) {
 			System.out.println("Cancel Button Pressed");
 		}

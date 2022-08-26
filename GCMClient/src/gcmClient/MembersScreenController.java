@@ -71,6 +71,7 @@ public class MembersScreenController implements Initializable {
 
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailDialog.fxml"));
 
 		MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
 
@@ -81,7 +82,6 @@ public class MembersScreenController implements Initializable {
 		int id = member.getId();
 		ControllerCommunicator cc = new ControllerCommunicator(id);
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailDialog.fxml"));
 		DialogPane dialogPane = loader.load();
 
 		Dialog dialog = new Dialog();
@@ -109,10 +109,11 @@ public class MembersScreenController implements Initializable {
 			MemberServiceFunctions.updateMember(idMember, m);
 
 			membersTableView.getItems().clear();
-			membersTableView.refresh();
+			
 			readMembersList();
-			initializeColumns();
+			
 			updateTable();
+			membersTableView.refresh();
 
 			Social soc = mddc.updateSocial();
 			int idSocial = soc.getId();
@@ -194,10 +195,12 @@ public class MembersScreenController implements Initializable {
 			MemberServiceFunctions.addMember(m);
 
 			membersTableView.getItems().clear();
-			membersTableView.refresh();
+			
 			readMembersList();
-			initializeColumns();
+			
 			updateTable();
+			membersTableView.refresh();
+			
 
 		} else if (result.get() == cancelBtn) {
 
@@ -221,7 +224,6 @@ public class MembersScreenController implements Initializable {
 
 		for (Member einM : xmlMembers) {
 			olMembers.add(new MemberFX(einM));
-			System.out.println("CLIENT------------" + "\n" + einM);
 		}
 	}
 
@@ -242,12 +244,7 @@ public class MembersScreenController implements Initializable {
 		}
 	}
 
-	// public void initializer() {
-	// readMembersList();
-	// initializeColumns();
-	// updateTable();
-	// membersTableView.refresh();
-	// }
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

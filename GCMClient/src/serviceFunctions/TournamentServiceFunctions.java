@@ -14,7 +14,10 @@ public class TournamentServiceFunctions {
 
 	private static final String serverURI = "http://localhost:4712/tournament";
 
-	// GET - get tournament list
+	// Methods to send and retrieve data from server 
+	
+	
+	// GET - get tournament list 
 	public static List<Tournament> getTournaments() {
 
 		List<Tournament> tournaments = ClientBuilder.newClient().target(serverURI).path("/tournamentlist")
@@ -59,6 +62,7 @@ public class TournamentServiceFunctions {
 
 	}
 
+	// delete tournament assignments from all teams in TournamentsTeams DB table
 	public static Response deleteTournamentsFromTeams(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -67,6 +71,7 @@ public class TournamentServiceFunctions {
 
 	}
 
+	// delete tournament assignements from all games in TournamentsGame DB table
 	public static Response deleteTournamentFromGame(int id) {
 
 		Client client = ClientBuilder.newClient();

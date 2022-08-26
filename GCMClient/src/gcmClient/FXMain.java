@@ -13,7 +13,7 @@ public class FXMain extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
 
 		System.out.println("root: " + root);
-		primaryStage.setTitle("Gaming Clan Manager");
+	primaryStage.setTitle("Gaming Clan Manager");
 		Scene scene = new Scene(root, 1200, 600);
 		primaryStage.setScene(scene);
 		// primaryStage.setResizable(false);

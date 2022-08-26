@@ -1,11 +1,9 @@
 package gcmClient;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import gcmClasses.Game;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,7 +22,6 @@ public class GamesDetailsDialogController extends Dialog<ButtonType> implements 
 
 	private int ccId = ControllerCommunicator.getId();
 
-	// Member member = MemberServiceFunctions.getMember(ccId);
 
 	@FXML
 	final DialogPane dialogPane = getDialogPane();
@@ -82,24 +79,10 @@ public class GamesDetailsDialogController extends Dialog<ButtonType> implements 
 		NotesTa.setText(game.getGameAdditionalNotes());
 	}
 
-	public Game getSelectedGame() {
 
-		if (loadGame() != null) {
-			Game game = loadGame();
-			return game;
-		} else {
-			Game newGame = new Game("Game Title", // title
-					LocalDate.of(1981, 4, 11), // release date
-					null, // members
-					null, // tournaments
-					"Notes"); // notes
-
-			return newGame;
-		}
-	}
 
 	public Game updateGame() {
-		Game game = getSelectedGame();
+		Game game = loadGame();
 
 		game.setGameTitle(gameTitleTf.getText());
 		game.setReleaseDate(relaseDateDP.getValue());
@@ -108,40 +91,8 @@ public class GamesDetailsDialogController extends Dialog<ButtonType> implements 
 		return game;
 	}
 
-	@FXML
-	public void handleGameEditBtn(ActionEvent e) {
-		Game game = getSelectedGame();
-		int id = getSelectedGame().getId();
 
-		if (id != 0) {
-			// Set Game ID Label
-			sIdLabel.setText(String.valueOf(id));
 
-			// Game TextFields
-			gameTitleTf.setText(game.getGameTitle());
-			relaseDateDP.setValue(game.getReleaseDate());
-			NotesTa.setText(game.getGameAdditionalNotes());
-		}
-	}
-
-	/*
-	 * @FXML public void handleGameEditSaveBtn(ActionEvent e) { int id =
-	 * getSelectedGame().getId();
-	 * 
-	 * if (id != 0) { Game updatedGame = updateGame();
-	 * GameServiceFunctions.updateGame(id, updatedGame); } else { Game updatedGame =
-	 * updateGame(); GameServiceFunctions.addGame(updatedGame); // int newGameId =
-	 * GameServiceFunctions.getGameWithHighestId().getId(); //
-	 * GameServiceFunctions.addGameToMember(ccId,newGameId); } }
-	 * 
-	 * @FXML public void handleGameEditNewBtn(ActionEvent e) { Game game =
-	 * updateGame(); Integer id = null;
-	 * 
-	 * if (id == null) { // Set Game ID Label sIdLabel.setText(String.valueOf(id));
-	 * 
-	 * gameTitleTf.setPromptText("Enter Game Title");
-	 * NotesTa.setPromptText("Enter Additional Notes"); } }
-	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initializeTextFields();

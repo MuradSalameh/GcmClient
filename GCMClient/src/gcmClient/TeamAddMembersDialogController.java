@@ -29,7 +29,6 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 
 	private int ccId = ControllerCommunicator.getId();
 
-	// Member member = MemberServiceFunctions.getMember(ccId);
 
 	@FXML
 	final DialogPane dialogPane = getDialogPane();
@@ -90,7 +89,15 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 		olMembers.clear();
 
 		List<Member> xmlMembers = new ArrayList<Member>();
-		xmlMembers = MemberServiceFunctions.getMembersByTeamId(ccId);
+
+
+		
+		try {
+		    xmlMembers = MemberServiceFunctions.getMembersByTeamId(ccId);
+		} catch (Exception e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
 
 		for (Member einT : xmlMembers) {
 			olMembers.add(new MemberFX(einT));
@@ -158,7 +165,6 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 	public void handleMemberAddBtn(ActionEvent e) {
 		int id = getSelectedMemberFromAvailableMembers().getId();
 		MemberFX selectedMember = membersTableView1.getSelectionModel().getSelectedItem();
-		System.out.println("Selected Member " + selectedMember);
 
 		if (containsItem(membersTableView, selectedMember)) {
 
@@ -168,10 +174,11 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 			System.out.println("Member doesnt Exist");
 			MemberServiceFunctions.addMemberToTeam(id, ccId);
 			membersTableView.getItems().clear();
-			membersTableView.refresh();
+			
 			readMembersList();
-			initializeMembersColumns();
+			
 			updateMembersTable();
+			membersTableView.refresh();
 		}
 	}
 
@@ -198,10 +205,11 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 		membersTableView.getItems().removeAll(membersTableView.getSelectionModel().getSelectedItem());
 
 		membersTableView.getItems().clear();
-		membersTableView.refresh();
+		
 		readMembersList();
-		initializeMembersColumns();
+		
 		updateMembersTable();
+		membersTableView.refresh();
 	}
 
 	@Override

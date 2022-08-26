@@ -61,7 +61,7 @@ public class FinancesScreenController {
 	@FXML
 	private TableColumn<RevenueFX, LocalDate> revDateColumn;
 
-	// -------- Revenues Column Initalize ---------------
+	// -------- Revenues Columns Initalize ---------------
 
 	public void revInitializeColumns() {
 
@@ -81,7 +81,6 @@ public class FinancesScreenController {
 	private ObservableList<ExpenseFX> olExpenses = FXCollections.observableArrayList();
 	@FXML
 	private TableView<ExpenseFX> expensesTableView;
-
 	@FXML
 	private TableColumn<ExpenseFX, Integer> expIdColumn;
 	@FXML
@@ -95,7 +94,7 @@ public class FinancesScreenController {
 	@FXML
 	private TableColumn<ExpenseFX, String> recipientNameColumn;
 
-	// -------- Expense Column Initalize ---------------
+	// -------- Expense Columns Initalize ---------------
 
 	public void expInitializeColumns() {
 
@@ -113,6 +112,8 @@ public class FinancesScreenController {
 
 	// -------- Revenues Buttons ---------------
 
+	
+	// Delete revenue button
 	@FXML
 	private void handleDeleteRevBtn() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -148,7 +149,9 @@ public class FinancesScreenController {
 
 	@FXML
 	public Button revNewBtn;
-
+	
+	
+	// add new revenue button
 	@FXML
 	private void handleRevAddNewBtn(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("FinancesAddNewRevenueDialog.fxml"));
@@ -178,11 +181,10 @@ public class FinancesScreenController {
 			int idRevenue = m.getId();
 			RevenueServiceFunctions.addRevenue(m);
 
-			revenuesTableView.getItems().clear();
-			revenuesTableView.refresh();
-			readRevenuesList();
-			revInitializeColumns();
+			revenuesTableView.getItems().clear();			
+			readRevenuesList();		
 			revUpdateTable();
+			revenuesTableView.refresh();
 			calculateTotals();
 
 		} else if (result.get() == cancelBtn) {
@@ -192,9 +194,13 @@ public class FinancesScreenController {
 
 	@FXML
 	public Button revDetailsBtn;
-
+	
+	
+	// edit revenue details button
 	@FXML
 	private void handleRevEditDetailsBtn(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("FinancesEditRevenueDialog.fxml"));
+
 		RevenueFX getRevenue = revenuesTableView.getSelectionModel().getSelectedItem();
 
 		if (getRevenue == null) {
@@ -204,7 +210,6 @@ public class FinancesScreenController {
 		int id = getRevenue.getId();
 		ControllerCommunicator cc = new ControllerCommunicator(id);
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("FinancesEditRevenueDialog.fxml"));
 		DialogPane dialogPane = loader.load();
 
 		Dialog dialog = new Dialog();
@@ -231,11 +236,10 @@ public class FinancesScreenController {
 			int idRevenue = m.getId();
 			RevenueServiceFunctions.updateRevenue(idRevenue, m);
 
-			revenuesTableView.getItems().clear();
-			revenuesTableView.refresh();
-			readRevenuesList();
-			revInitializeColumns();
+			revenuesTableView.getItems().clear();		
+			readRevenuesList();			
 			revUpdateTable();
+			revenuesTableView.refresh();
 			calculateTotals();
 		} else if (result.get() == cancelBtn) {
 			System.out.println("Cancel Button Pressed");
@@ -246,6 +250,8 @@ public class FinancesScreenController {
 	@FXML
 	public Button expNewBtn;
 
+	
+	// add new expense button
 	@FXML
 	private void handleExpAddNewBtn(ActionEvent event) throws IOException {
 
@@ -276,11 +282,10 @@ public class FinancesScreenController {
 			int idExpense = m.getId();
 			ExpenseServiceFunctions.addExpense(m);
 
-			expensesTableView.getItems().clear();
-			expensesTableView.refresh();
-			readExpensesList();
-			expInitializeColumns();
+			expensesTableView.getItems().clear();			
+			readExpensesList();			
 			expUpdateTable();
+			expensesTableView.refresh();
 			calculateTotals();
 
 		} else if (result.get() == cancelBtn) {
@@ -291,8 +296,11 @@ public class FinancesScreenController {
 	@FXML
 	public Button expDetailsBtn;
 
+	
+	// edit expense details button
 	@FXML
 	private void handleExpEditDetailsBtn(ActionEvent event) throws IOException {
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("FinancesEditExpenseDialog.fxml"));
 
 		ExpenseFX getExpense = expensesTableView.getSelectionModel().getSelectedItem();
 
@@ -303,8 +311,8 @@ public class FinancesScreenController {
 		int id = getExpense.getId();
 		ControllerCommunicator cc = new ControllerCommunicator(id);
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("FinancesEditExpenseDialog.fxml"));
 		DialogPane dialogPane = loader.load();
+		
 
 		Dialog dialog = new Dialog();
 		dialog.setDialogPane(dialogPane);
@@ -330,11 +338,10 @@ public class FinancesScreenController {
 			int idExpense = m.getId();
 			ExpenseServiceFunctions.updateExpense(idExpense, m);
 
-			expensesTableView.getItems().clear();
-			expensesTableView.refresh();
-			readExpensesList();
-			expInitializeColumns();
+			expensesTableView.getItems().clear();			
+			readExpensesList();		
 			expUpdateTable();
+			expensesTableView.refresh();
 			calculateTotals();
 		} else if (result.get() == cancelBtn) {
 			System.out.println("Cancel Button Pressed");
@@ -368,9 +375,7 @@ public class FinancesScreenController {
 			expensesTableView.getItems().removeAll(expensesTableView.getSelectionModel().getSelectedItem());
 			readExpensesList();
 			expensesTableView.refresh();
-
 			calculateTotals();
-
 		}
 	}
 
@@ -405,8 +410,6 @@ public class FinancesScreenController {
 
 			olRevenues.add(new RevenueFX(r));
 			revTotal += r.getAmount();
-
-			System.out.println("CLIENT------------" + "\n" + r);
 		}
 	}
 
@@ -423,7 +426,6 @@ public class FinancesScreenController {
 
 			olExpenses.add(new ExpenseFX(e));
 			expTotal += e.getAmount();
-			System.out.println("CLIENT------------" + "\n" + e);
 		}
 	}
 
@@ -446,9 +448,5 @@ public class FinancesScreenController {
 		if (this.totalLabel != null) {
 			calculateTotals();
 		}
-
 	}
-
-	// -------- Expenses Methods ---------------
-
 }

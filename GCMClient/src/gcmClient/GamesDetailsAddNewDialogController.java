@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import gcmClasses.Game;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,13 +17,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import serviceFunctions.GameServiceFunctions;
 
 public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> implements Initializable {
 
 	private int ccId = ControllerCommunicator.getId();
-
-	// Member member = MemberServiceFunctions.getMember(ccId);
 
 	@FXML
 	final DialogPane dialogPane = getDialogPane();
@@ -62,7 +58,10 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 	private DatePicker relaseDateDP;
 	@FXML
 	private TextArea NotesTa;
-
+	
+	
+	
+	// create empty game object
 	public Game loadGame() {
 
 		Game newGame = new Game("Game Title", // title
@@ -70,7 +69,6 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 				null, // tournaments
 				null, "Notes"); // notes
 
-		// System.out.println("new Created Empty Game: " + newGame);
 		return newGame;
 	}
 
@@ -78,7 +76,6 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 
 	public void initializeTextFields() {
 		Game game = loadGame();
-		// System.out.println("Game import in Initializer: : " + game);
 
 		sIdLabel.setText(String.valueOf(loadGame().getId()));
 
@@ -90,6 +87,8 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 
 	// Handle Game Buttons ------------------------------------------------
 
+	
+	//update game
 	public Game updateGame() {
 		Game game = loadGame();
 
@@ -99,33 +98,8 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 		return game;
 	}
 
-	@FXML
-	public void handleGameEditSaveBtn(ActionEvent e) {
-		int id = loadGame().getId();
+	
 
-		if (id != 0) {
-			Game updatedGame = updateGame();
-			GameServiceFunctions.updateGame(id, updatedGame);
-		} else {
-			Game updatedGame = updateGame();
-			GameServiceFunctions.addGame(updatedGame);
-
-		}
-	}
-
-	@FXML
-	public void handleGameEditNewBtn(ActionEvent e) {
-		Game game = updateGame();
-		Integer id = null;
-
-		if (id == null) {
-			// Set Game ID Label
-			sIdLabel.setText(String.valueOf(id));
-
-			gameTitleTf.setPromptText("Enter Game Title");
-			NotesTa.setPromptText("Enter Additional Notes");
-		}
-	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

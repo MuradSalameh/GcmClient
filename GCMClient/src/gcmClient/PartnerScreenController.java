@@ -98,10 +98,11 @@ public class PartnerScreenController {
 	    PartnerServiceFunctions.addPartner(m);
 
 	    partnersTableView.getItems().clear();
-	    partnersTableView.refresh();
+	  
 	    readPartnersList();
-	    initializeColumns();
+	  
 	    updateTable();
+	    partnersTableView.refresh();
 
 	} else if (result.get() == cancelBtn) {
 	    System.out.println("Cancel Button Pressed");
@@ -111,6 +112,7 @@ public class PartnerScreenController {
 
     @FXML
     private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("PartnerDetailDialog.fxml"));
 
 	PartnerFX getPartner = partnersTableView.getSelectionModel().getSelectedItem();
 
@@ -121,7 +123,6 @@ public class PartnerScreenController {
 	int id = getPartner.getId();
 	ControllerCommunicator cc = new ControllerCommunicator(id);
 
-	FXMLLoader loader = new FXMLLoader(getClass().getResource("PartnerDetailDialog.fxml"));
 	DialogPane dialogPane = loader.load();
 
 	Dialog dialog = new Dialog();
@@ -149,10 +150,13 @@ public class PartnerScreenController {
 	    PartnerServiceFunctions.updatePartner(idPartner, m);
 
 	    partnersTableView.getItems().clear();
-	    partnersTableView.refresh();
+	  
 	    readPartnersList();
-	    initializeColumns();
+	
 	    updateTable();
+	    partnersTableView.refresh();
+	    
+	    
 	} else if (result.get() == cancelBtn) {
 	    System.out.println("Cancel Button Pressed");
 	}
@@ -202,7 +206,6 @@ public class PartnerScreenController {
 
 	for (Partner einM : xmlPartners) {
 	    olPartners.add(new PartnerFX(einM));
-	    System.out.println("CLIENT------------" + "\n" + einM);
 	}
     }
 

@@ -1,7 +1,6 @@
 package gcmClient;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import gcmClasses.Revenue;
@@ -49,28 +48,30 @@ public class FinancesEditRevenueDialogController extends Dialog<ButtonType> impl
 	@FXML
 	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
+	// Load selected object from database
 	public Revenue loadRevenue() {
 
 		Revenue revenue = RevenueServiceFunctions.getRevenue(ccId);
 		return revenue;
 	}
 
-	public Revenue getSelectedRevenue() {
+//	public Revenue getSelectedRevenue() {
+//
+//		if (loadRevenue() != null) {
+//			Revenue revenue = loadRevenue();
+//			return revenue;
+//		} else {
+//			Revenue newRevenue = new Revenue("test", // title
+//					"ttttt", // desc
+//					00.00, // amount
+//					LocalDate.now() // date
+//
+//			);
+//			return newRevenue;
+//		}
+//	}
 
-		if (loadRevenue() != null) {
-			Revenue revenue = loadRevenue();
-			return revenue;
-		} else {
-			Revenue newRevenue = new Revenue("test", // title
-					"ttttt", // desc
-					00.00, // amount
-					LocalDate.now() // date
-
-			);
-			return newRevenue;
-		}
-	}
-
+	//initialize text fields
 	public void initializeTextFields() {
 		Revenue revenue = loadRevenue();
 
@@ -92,6 +93,7 @@ public class FinancesEditRevenueDialogController extends Dialog<ButtonType> impl
 
 	}
 
+	// update object
 	public Revenue updateRevenue() {
 		Revenue revenue = loadRevenue();
 
@@ -107,6 +109,7 @@ public class FinancesEditRevenueDialogController extends Dialog<ButtonType> impl
 		return revenue;
 	}
 
+	//initialize methods when window is loading
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadRevenue();

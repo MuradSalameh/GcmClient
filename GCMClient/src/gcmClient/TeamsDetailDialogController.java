@@ -109,38 +109,22 @@ public class TeamsDetailDialogController extends Dialog<ButtonType> implements I
 		return team;
 	}
 
-	/*
-	 * @FXML public void handleTeamEditSaveBtn(ActionTeam e) { int id =
-	 * loadTeam().getId();
-	 * 
-	 * if (id != 0) { Team updatedTeam = updateTeam();
-	 * TeamServiceFunctions.updateTeam(id, updatedTeam); } else { Team updatedTeam =
-	 * updateTeam(); TeamServiceFunctions.addTeam(updatedTeam);
-	 * 
-	 * } }
-	 * 
-	 * @FXML public void handleTeamEditNewBtn(ActionTeam e) { Team team =
-	 * updateTeam(); Integer id = null;
-	 * 
-	 * if (id == null) { // Set Team ID Label idLabel.setText(String.valueOf(id));
-	 * 
-	 * teamTitleTF.setPromptText("Enter Team Title");
-	 * teamDescriptionTF.setPromptText("Enter Description");
-	 * additionalNotesTF.setPromptText("Enter Additional Notes");
-	 * 
-	 * startHourTF.setPromptText("00"); startMinuteTF.setPromptText("00");
-	 * endHourTF.setPromptText("00"); endMinuteTF.setPromptText("00");
-	 * reoccuringCB.setSelected(team.isReoccuring()); } }
-	 * 
-	 */
+
 	@FXML
 	private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
 
+	
 	public void readMembersList() {
 		olMembers.clear();
 
 		List<Member> xmlMembers = new ArrayList<Member>();
-		xmlMembers = MemberServiceFunctions.getMembersByTeamId(ccId);
+		
+		try {
+		    xmlMembers = MemberServiceFunctions.getMembersByTeamId(ccId);
+		} catch (Exception e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
 
 		for (Member einM : xmlMembers) {
 			olMembers.add(new MemberFX(einM));
@@ -191,13 +175,12 @@ public class TeamsDetailDialogController extends Dialog<ButtonType> implements I
 		} else if (result.get() == saveBtn) {
 
 			membersTableView.getItems().clear();
-			membersTableView.refresh();
-			readMembersList();
-			initializeColumns();
+			readMembersList();			
 			updateTable();
+			membersTableView.refresh();
 		} else if (result.get() == cancelBtn) {
 
-			System.out.println("Cancel Button Pressed");
+	
 
 		}
 

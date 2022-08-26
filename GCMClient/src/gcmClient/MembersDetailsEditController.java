@@ -52,7 +52,6 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 
 	private int ccId = ControllerCommunicator.getId();
 
-	// Member member = MemberServiceFunctions.getMember(ccId);
 
 	@FXML
 	final DialogPane dialogPane = getDialogPane();
@@ -352,11 +351,11 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 			SocialServiceFunctions.addSocialToMember(ccId, newSocialId);
 		}
 
-		socialsTableView.getItems().clear();
-		socialsTableView.refresh();
-		readSocialsList();
-		initializeSocialsColumns();
+		socialsTableView.getItems().clear();	
+		
+		readSocialsList();		
 		updateSocialsTable();
+		socialsTableView.refresh();
 	}
 
 	@FXML
@@ -453,7 +452,6 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 			xmlRoles = RoleServiceFunctions.getRolesByMemberId(ccId);
 			for (Role einT : xmlRoles) {
 				olRoles.add(new RoleFX(einT));
-				// System.out.println("CLIENT RolesTable------------" + "\n" + einT);
 
 			}
 		} catch (Exception e) {
@@ -472,10 +470,11 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		RoleServiceFunctions.addRoleToMember(ccId, roleId);
 
 		rolesTableView.getItems().clear();
-		rolesTableView.refresh();
+		
 		readRolesList();
-		initializeRolesColumns();
+		
 		updateRolesTable();
+		rolesTableView.refresh();
 	}
 
 	@FXML
@@ -591,10 +590,11 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		} else if (result.get() == saveBtn) {
 
 			gamesTableView.getItems().clear();
-			gamesTableView.refresh();
+			
 			readGamesList();
-			initializeGamesColumns();
+			
 			updateGamesTable();
+			gamesTableView.refresh();
 		} else if (result.get() == cancelBtn) {
 
 			System.out.println("Cancel Button Pressed");

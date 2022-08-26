@@ -1,7 +1,6 @@
 package gcmClient;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import gcmClasses.Expense;
@@ -50,28 +49,18 @@ public class FinancesEditExpenseDialogController extends Dialog<ButtonType> impl
 	@FXML
 	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
+	
+	// load selected expense from database
 	public Expense loadExpense() {
 
 		Expense expense = ExpenseServiceFunctions.getExpense(ccId);
 		return expense;
 	}
 
-	public Expense getSelectedExpense() {
+	
 
-		if (loadExpense() != null) {
-			Expense expense = loadExpense();
-			return expense;
-		} else {
-			Expense newExpense = new Expense("test", // title
-					"ttttt", // desc
-					00.00, // amount
-					LocalDate.now(), // date
-					"heinrich" // recipient
-			);
-			return newExpense;
-		}
-	}
 
+	// initialize text fields
 	public void initializeTextFields() {
 		Expense expense = loadExpense();
 
@@ -96,6 +85,8 @@ public class FinancesEditExpenseDialogController extends Dialog<ButtonType> impl
 
 	}
 
+	
+	// update expense object
 	public Expense updateExpense() {
 		Expense expense = loadExpense();
 
@@ -112,6 +103,7 @@ public class FinancesEditExpenseDialogController extends Dialog<ButtonType> impl
 		return expense;
 	}
 
+	//initialize methods when window is loading
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadExpense();

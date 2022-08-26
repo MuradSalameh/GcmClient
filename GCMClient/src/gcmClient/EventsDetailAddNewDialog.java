@@ -64,19 +64,20 @@ public class EventsDetailAddNewDialog extends Dialog<ButtonType> implements Init
 
 	private String startTime;
 	private String endTime;
-
+	
+	
+	// Creating new empty event 
 	public Event loadEvent() {
 
-		Event newEvent = new Event("", // event title
-				"", // eventdescription
-				LocalDate.now(), // tournament date
-				LocalTime.of(01, 11), // start time
-				LocalTime.of(02, 22), // end time
-				"", // additional notes
-				false, // reoccuring
-				null); // members
-
-		System.out.println("new Created Empty Event: " + newEvent);
+		Event newEvent = new Event("", 		// event title
+				"", 			// event description
+				LocalDate.now(), 	// tournament date
+				LocalTime.of(01, 11), 	// start time
+				LocalTime.of(02, 22), 	// end time
+				"", 			// additional notes
+				false, 			// reoccuring
+				null); 			// members
+		
 		return newEvent;
 	}
 
@@ -84,15 +85,12 @@ public class EventsDetailAddNewDialog extends Dialog<ButtonType> implements Init
 
 	public void initializeTextFields() {
 		Event event = loadEvent();
-		System.out.println("Event import in Initializer: : " + event);
 
 		startHour = String.valueOf(event.getEventStartTime().getHour());
 		startMinute = String.valueOf(event.getEventStartTime().getMinute());
 
 		endHour = String.valueOf(event.getEventEndTime().getHour());
 		endMinute = String.valueOf(event.getEventEndTime().getMinute());
-
-		// sIdLabel.setText("-");
 
 		// Event TextFields
 		eventTitleTF.setText(event.getEventTitle());
@@ -118,6 +116,7 @@ public class EventsDetailAddNewDialog extends Dialog<ButtonType> implements Init
 		reoccuringCB.setSelected(event.isReoccuring());
 	}
 
+	// Update event
 	public Event updateEvent() {
 		Event event = loadEvent();
 
@@ -153,41 +152,9 @@ public class EventsDetailAddNewDialog extends Dialog<ButtonType> implements Init
 		return event;
 	}
 
-//	@FXML
-//	public void handleEventEditSaveBtn(ActionEvent e) {
-//		int id = loadEvent().getId();
-//
-//		if (id != 0) {
-//			Event updatedEvent = updateEvent();
-//			EventServiceFunctions.updateEvent(id, updatedEvent);
-//		} else {
-//			Event updatedEvent = updateEvent();
-//			EventServiceFunctions.addEvent(updatedEvent);
-//
-//		}
-//	}
-//
-//	@FXML
-//	public void handleEventEditNewBtn(ActionEvent e) {
-//		Event event = updateEvent();
-//		Integer id = null;
-//
-//		if (id == null) {
-//			// Set Event ID Label
-//			sIdLabel.setText(String.valueOf(id));
-//
-//			eventTitleTF.setPromptText("Enter Event Title");
-//			eventDescriptionTF.setPromptText("Enter Description");
-//			additionalNotesTF.setPromptText("Enter Additional Notes");
-//
-//			startHourTF.setPromptText("00");
-//			startMinuteTF.setPromptText("00");
-//			endHourTF.setPromptText("00");
-//			endMinuteTF.setPromptText("00");
-//			reoccuringCB.setSelected(event.isReoccuring());
-//		}
-//	}
 
+
+	// initialize when window is opened
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadEvent();

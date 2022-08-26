@@ -19,106 +19,93 @@ import javafx.scene.layout.BorderPane;
 
 public class FinancesAddNewExpenseDialogController extends Dialog<ButtonType> implements Initializable {
 
-	// private int ccId = ControllerCommunicator.getId();
+    @FXML
+    final DialogPane dialogPane = getDialogPane();
+    @FXML
+    private Dialog dialog;
+    @FXML
+    private BorderPane expenseEditBp;
+    @FXML
+    private Label idLabel;
+    @FXML
+    private TextField expenseTitleTF;
+    @FXML
+    private TextField expenseDescriptionTF;
+    @FXML
+    private TextField amountTF;
+    @FXML
+    private DatePicker dateDp;
+    @FXML
+    private TextField recipientNameTF;
+    @FXML
+    public Button editDetailsBtn;
+    @FXML
+    public Button addNewBtn;
 
-	@FXML
-	final DialogPane dialogPane = getDialogPane();
-	@FXML
-	private Dialog dialog;
-	@FXML
-	private BorderPane expenseEditBp;
-	@FXML
-	private Label idLabel;
-	@FXML
-	private TextField expenseTitleTF;
-	@FXML
-	private TextField expenseDescriptionTF;
-	@FXML
-	private TextField amountTF;
-	@FXML
-	private DatePicker dateDp;
-	@FXML
-	private TextField recipientNameTF;
-	@FXML
-	public Button editDetailsBtn;
-	@FXML
-	public Button addNewBtn;
+    @FXML
+    ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+    @FXML
+    ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-	@FXML
-	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-	@FXML
-	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-	public Expense loadExpense() {
+    // Create empty Expense 
+    public Expense loadExpense() {
 
-		Expense newExpense = new Expense("test", // title
-				"ttttt", // desc
-				00.00, // amount
-				LocalDate.now(), // date
-				"" // recipient
+	Expense newExpense = new Expense("test", 	// title
+		"ttttt", 			// desc
+		00.00, 				// amount
+		LocalDate.now(), 		// date
+		"" 				// recipient
 		);
-		return newExpense;
-	}
+	return newExpense;
+    }
 
-//	public Expense getSelectedExpense() {
-//
-//		if (loadExpense() != null) {
-//			Expense expense = loadExpense();
-//			return expense;
-//		} else {
-//			Expense newExpense = new Expense("test", // title
-//					"ttttt", // desc
-//					00.00, // amount
-//					LocalDate.now(), // date
-//					"heinrich" // recipient
-//			);
-//			return newExpense;
-//		}
-//	}
 
-	public void initializeTextFields() {
-		Expense expense = loadExpense();
 
-		// idLabel.setText(String.valueOf(ccId));
+    // initialize TextFields
+    public void initializeTextFields() {
+	Expense expense = loadExpense();
 
-		// Expense TextFields
-		expenseTitleTF.setText(expense.getExpenseTitle());
-		expenseDescriptionTF.setText(expense.getExpenseDescription());
+	// Expense TextFields
+	expenseTitleTF.setText(expense.getExpenseTitle());
+	expenseDescriptionTF.setText(expense.getExpenseDescription());
 
-		// Converting Double to String
-		String amountToString = String.valueOf(expense.getAmount());
-		amountTF.setText(amountToString);
+	// Converting Double to String
+	String amountToString = String.valueOf(expense.getAmount());
+	amountTF.setText(amountToString);
 
-		dateDp.setValue(expense.getDate());
-		recipientNameTF.setText(expense.getRecipientName());
+	dateDp.setValue(expense.getDate());
+	recipientNameTF.setText(expense.getRecipientName());
 
-		expenseTitleTF.setPromptText("Enter Expense Title");
-		expenseDescriptionTF.setPromptText("Enter Description");
-		amountTF.setPromptText("Enter Amount");
+	expenseTitleTF.setPromptText("Enter Expense Title");
+	expenseDescriptionTF.setPromptText("Enter Description");
+	amountTF.setPromptText("Enter Amount");
 
-		recipientNameTF.setPromptText("Enter Recipient Name");
+	recipientNameTF.setPromptText("Enter Recipient Name");
 
-	}
+    }
 
-	public Expense updateExpense() {
-		Expense expense = loadExpense();
+    // Update Expense
+    public Expense updateExpense() {
+	Expense expense = loadExpense();
 
-		expense.setExpenseTitle(expenseTitleTF.getText());
-		expense.setExpenseDescription(expenseDescriptionTF.getText());
+	expense.setExpenseTitle(expenseTitleTF.getText());
+	expense.setExpenseDescription(expenseDescriptionTF.getText());
 
-		// Converting String to Double
-		double StringToAmount = Double.parseDouble(amountTF.getText());
-		expense.setAmount(StringToAmount);
+	// Converting String to Double
+	double StringToAmount = Double.parseDouble(amountTF.getText());
+	expense.setAmount(StringToAmount);
 
-		expense.setDate(dateDp.getValue());
-		expense.setRecipientName(recipientNameTF.getText());
+	expense.setDate(dateDp.getValue());
+	expense.setRecipientName(recipientNameTF.getText());
 
-		return expense;
-	}
+	return expense;
+    }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		loadExpense();
-		initializeTextFields();
-	}
+    // initilaize methods when window is opened
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+	loadExpense();
+	initializeTextFields();
+    }
 }

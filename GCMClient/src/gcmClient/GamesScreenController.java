@@ -49,6 +49,7 @@ public class GamesScreenController {
 
     @FXML
     private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("GamesDetailsDialog.fxml"));
 
 	GameFX game = gamesTableView.getSelectionModel().getSelectedItem();
 
@@ -59,7 +60,6 @@ public class GamesScreenController {
 	int id = game.getId();
 	ControllerCommunicator cc = new ControllerCommunicator(id);
 
-	FXMLLoader loader = new FXMLLoader(getClass().getResource("GamesDetailsDialog.fxml"));
 	DialogPane dialogPane = loader.load();
 
 	Dialog dialog = new Dialog();
@@ -86,11 +86,10 @@ public class GamesScreenController {
 	    int idGame = m.getId();
 	    GameServiceFunctions.updateGame(idGame, m);
 
-	    gamesTableView.getItems().clear();
-	    gamesTableView.refresh();
-	    readGamesList();
-	    initializeColumns();
+	    gamesTableView.getItems().clear();	    
+	    readGamesList();	  
 	    updateTable();
+	    gamesTableView.refresh();
 	} else if (result.get() == cancelBtn) {
 	    System.out.println("Cancel Button Pressed");
 	}
@@ -126,11 +125,10 @@ public class GamesScreenController {
 	    int idGame = m.getId();
 	    GameServiceFunctions.addGame(m);
 
-	    gamesTableView.getItems().clear();
-	    gamesTableView.refresh();
-	    readGamesList();
-	    initializeColumns();
+	    gamesTableView.getItems().clear();	 
+	    readGamesList();	  
 	    updateTable();
+	    gamesTableView.refresh();
 
 	} else if (result.get() == cancelBtn) {
 	    System.out.println("Cancel Button Pressed");
@@ -186,7 +184,6 @@ public class GamesScreenController {
 
 	for (Game einM : xmlGames) {
 	    olGames.add(new GameFX(einM));
-	    System.out.println("CLIENT------------" + "\n" + einM);
 	}
     }
 

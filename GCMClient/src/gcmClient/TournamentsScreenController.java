@@ -87,10 +87,11 @@ public class TournamentsScreenController {
 			TournamentServiceFunctions.addTournament(m);
 
 			tournamentsTableView.getItems().clear();
-			tournamentsTableView.refresh();
+			
 			readTournamentsList();
-			initializeColumns();
+			
 			updateTable();
+			tournamentsTableView.refresh();
 
 		} else if (result.get() == cancelBtn) {
 			System.out.println("Cancel Button Pressed");
@@ -99,6 +100,7 @@ public class TournamentsScreenController {
 
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("TournamentDetailDialog.fxml"));
 
 		TournamentFX getTournament = tournamentsTableView.getSelectionModel().getSelectedItem();
 
@@ -109,7 +111,6 @@ public class TournamentsScreenController {
 		int id = getTournament.getId();
 		ControllerCommunicator cc = new ControllerCommunicator(id);
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("TournamentDetailDialog.fxml"));
 		DialogPane dialogPane = loader.load();
 
 		Dialog dialog = new Dialog();
@@ -137,10 +138,12 @@ public class TournamentsScreenController {
 			TournamentServiceFunctions.updateTournament(idTournament, m);
 
 			tournamentsTableView.getItems().clear();
-			tournamentsTableView.refresh();
+			
 			readTournamentsList();
-			initializeColumns();
+			
 			updateTable();
+			tournamentsTableView.refresh();
+			
 		} else if (result.get() == cancelBtn) {
 			System.out.println("Cancel Button Pressed");
 		}
@@ -193,7 +196,6 @@ public class TournamentsScreenController {
 
 		for (Tournament einM : xmlTournaments) {
 			olTournaments.add(new TournamentFX(einM));
-			System.out.println("CLIENT------------" + "\n" + einM);
 		}
 	}
 

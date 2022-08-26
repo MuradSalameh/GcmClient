@@ -18,9 +18,6 @@ import javafx.scene.layout.BorderPane;
 
 public class MembersAddNewDialogController extends Dialog<ButtonType> implements Initializable {
 
-//	private int ccId = ControllerCommunicator.getId();
-
-	// Member member = MemberServiceFunctions.getMember(ccId);
 
 	@FXML
 	final DialogPane dialogPane = getDialogPane();

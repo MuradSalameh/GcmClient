@@ -169,20 +169,19 @@ public class MembersAddGameDialogController extends Dialog<ButtonType> implement
 			return;
 		}
 
-		System.out.println("Selected Game " + selectedGame);
 
 		if (containsItem(gamesTableView, selectedGame)) {
 
-			System.out.println("Game already Exists");
 
 		} else {
-			System.out.println("Game doesnt Exist");
 			GameServiceFunctions.addGameToMember(ccId, id);
 			gamesTableView.getItems().clear();
-			gamesTableView.refresh();
+			
 			readGamesList();
-			initializeGamesColumns();
+			
 			updateGamesTable();
+			gamesTableView.refresh();
+			
 		}
 	}
 
@@ -214,10 +213,11 @@ public class MembersAddGameDialogController extends Dialog<ButtonType> implement
 		gamesTableView.getItems().removeAll(gamesTableView.getSelectionModel().getSelectedItem());
 
 		gamesTableView.getItems().clear();
-		gamesTableView.refresh();
+		
 		readGamesList();
-		initializeGamesColumns();
+		
 		updateGamesTable();
+		gamesTableView.refresh();
 	}
 
 	@Override

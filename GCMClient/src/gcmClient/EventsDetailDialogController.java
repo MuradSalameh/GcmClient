@@ -1,7 +1,6 @@
 package gcmClient;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
@@ -66,25 +65,19 @@ public class EventsDetailDialogController extends Dialog<ButtonType> implements 
 		return event;
 	}
 
-	public Event getSelectedEvent() {
+//	// get selected event
+//	public Event getSelectedEvent() {
+//
+//		if (loadEvent() != null) {
+//			Event event = loadEvent();
+//			return event;
+//		} else {
+//		    System.out.println("nothing selected");
+//		    return null;
+//		}		
+//	}
 
-		if (loadEvent() != null) {
-			Event event = loadEvent();
-			return event;
-		} else {
-			Event newEvent = new Event("", // event title
-					"", // eventdescription
-					LocalDate.of(2022, 01, 31), // tournament date
-					LocalTime.of(00, 00), // start time
-					LocalTime.of(00, 00), // end time
-					"", // additional notes
-					false, // reoccuring
-					null); // members
-
-			return newEvent;
-		}
-	}
-
+	// intitializing textfields
 	public void initializeTextFields() {
 		Event event = loadEvent();
 
@@ -120,6 +113,7 @@ public class EventsDetailDialogController extends Dialog<ButtonType> implements 
 		reoccuringCB.setSelected(event.isReoccuring());
 	}
 
+	//updating events
 	public Event updateEvent() {
 		Event event = loadEvent();
 
@@ -155,6 +149,7 @@ public class EventsDetailDialogController extends Dialog<ButtonType> implements 
 		return event;
 	}
 
+	//initializing methods when window is opened
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadEvent();

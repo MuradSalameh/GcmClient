@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import fxClasses.GameFX;
 import fxClasses.TeamFX;
@@ -74,6 +76,7 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	@FXML
 	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
+	
 	private String startHour;
 	private String startMinute;
 
@@ -149,9 +152,26 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 		// ------ Time converters -------
 
 		// Start time
-		startHour = String.valueOf(startHourTF.getText());
-		startMinute = String.valueOf(startMinuteTF.getText());
-
+		String hourPattern = "([01]?[0-9]|2[0-3])";
+		String minutePattern = "[0-5][0-9]";
+		Pattern hPattern = Pattern.compile(hourPattern);
+		Pattern mPattern = Pattern.compile(minutePattern);
+		
+		Matcher hMatcher = hPattern.matcher(startHourTF.getText());
+		  if(hMatcher.matches()){
+		      startHour = String.valueOf(startHourTF.getText());
+		  } else {
+		     
+		  }
+		  
+		  Matcher mMatcher = hPattern.matcher(startMinuteTF.getText());
+		  if(mMatcher.matches()){
+		      startMinute = String.valueOf(startMinuteTF.getText());
+		  } else {
+		      
+		  }
+		  
+		
 		int startHourInt = Integer.parseInt(startHour);
 		int startMinuteInt = Integer.parseInt(startMinute);
 		LocalTime start = LocalTime.of(startHourInt, startMinuteInt);
@@ -159,8 +179,22 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 		tournament.setTournamentTimeBeginn(start);
 
 		// End Time
-		endHour = String.valueOf(endHourTF.getText());
-		endMinute = String.valueOf(endMinuteTF.getText());
+		
+		String endHourPattern = "([01]?[0-9]|2[0-3])";
+		String endMinutePattern = "[0-5][0-9]";
+		Pattern endHPattern = Pattern.compile(endHourPattern);
+		Pattern endMPattern = Pattern.compile(endMinutePattern);
+		
+		Matcher ehMatcher = hPattern.matcher(endHourTF.getText());
+		  if(ehMatcher.matches()){
+		     endHour = String.valueOf(endHourTF.getText()); 
+		  }
+		
+		  Matcher emMatcher = hPattern.matcher(endMinuteTF.getText());
+		  if(emMatcher.matches()){
+		      endMinute = String.valueOf(endMinuteTF.getText());
+		  }
+		
 
 		int endHourInt = Integer.parseInt(endHour);
 		int endMinuteInt = Integer.parseInt(endMinute);
@@ -236,10 +270,12 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 		} else if (result.get() == saveBtn) {
 
 			gamesTableView.getItems().clear();
-			gamesTableView.refresh();
+			
 			readGamesList();
-			initializeGamesColumns();
+			
 			updateGamesTable();
+			gamesTableView.refresh();
+			
 		} else if (result.get() == cancelBtn) {
 
 			System.out.println("Cancel Button Pressed");
@@ -312,10 +348,11 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 		} else if (result.get() == saveBtn) {
 
 			teamsTableView.getItems().clear();
-			teamsTableView.refresh();
+			
 			readTeamsList();
-			initializeTeamsColumns();
+		
 			updateTeamsTable();
+			teamsTableView.refresh();
 		} else if (result.get() == cancelBtn) {
 
 			System.out.println("Cancel Button Pressed");

@@ -74,19 +74,19 @@ public class TeamsScreenController {
 			int idTeam = m.getId();
 			TeamServiceFunctions.addTeam(m);
 
-			teamsTableView.getItems().clear();
-			teamsTableView.refresh();
-			readTeamsList();
-			initializeColumns();
+			teamsTableView.getItems().clear();			
+			readTeamsList();			
 			updateTable();
+			teamsTableView.refresh();
 
 		} else if (result.get() == cancelBtn) {
-			System.out.println("Cancel Button Pressed");
+			
 		}
 	}
 
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamsDetailDialog.fxml"));
 
 		TeamFX team = teamsTableView.getSelectionModel().getSelectedItem();
 
@@ -97,7 +97,6 @@ public class TeamsScreenController {
 		int id = team.getId();
 		ControllerCommunicator cc = new ControllerCommunicator(id);
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamsDetailDialog.fxml"));
 		DialogPane dialogPane = loader.load();
 
 		Dialog dialog = new Dialog();
@@ -125,13 +124,14 @@ public class TeamsScreenController {
 			TeamServiceFunctions.updateTeam(idTeam, m);
 
 			teamsTableView.getItems().clear();
-			teamsTableView.refresh();
+			
 			readTeamsList();
-			initializeColumns();
+			
 			updateTable();
+			teamsTableView.refresh();
 
 		} else if (result.get() == cancelBtn) {
-			System.out.println("Cancel Button Pressed");
+			
 		}
 	}
 
@@ -180,7 +180,7 @@ public class TeamsScreenController {
 
 		for (Team einM : xmlTeams) {
 			olTeams.add(new TeamFX(einM));
-			System.out.println("CLIENT------------" + "\n" + einM);
+			
 		}
 	}
 

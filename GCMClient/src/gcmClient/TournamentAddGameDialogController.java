@@ -169,7 +169,6 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 
 		int id = getSelectedGameFromAvailableGames().getId();
 
-		System.out.println("Selected Game " + selectedGame);
 
 		if (containsItem(gamesTableView, selectedGame)) {
 
@@ -179,10 +178,11 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 			System.out.println("Game doesnt Exist");
 			GameServiceFunctions.addGameToTournament(id, ccId);
 			gamesTableView.getItems().clear();
-			gamesTableView.refresh();
+		
 			readGamesList();
-			initializeGamesColumns();
+		
 			updateGamesTable();
+			gamesTableView.refresh();
 		}
 	}
 
@@ -214,10 +214,12 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 		gamesTableView.getItems().removeAll(gamesTableView.getSelectionModel().getSelectedItem());
 
 		gamesTableView.getItems().clear();
-		gamesTableView.refresh();
+	
 		readGamesList();
-		initializeGamesColumns();
+		
 		updateGamesTable();
+		gamesTableView.refresh();
+		
 	}
 
 	@Override

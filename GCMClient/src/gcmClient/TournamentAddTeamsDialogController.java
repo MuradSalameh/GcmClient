@@ -161,7 +161,6 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 
 		int id = selectedTeam.getId();
 
-		System.out.println("Selected Team " + selectedTeam);
 
 		if (containsItem(teamsTableView, selectedTeam)) {
 
@@ -171,10 +170,11 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 			System.out.println("Team doesnt Exist");
 			TeamServiceFunctions.addTeamToTournament(id, ccId);
 			teamsTableView.getItems().clear();
-			teamsTableView.refresh();
+			
 			readTeamsList();
-			initializeTeamsColumns();
+		
 			updateTeamsTable();
+			teamsTableView.refresh();
 		}
 	}
 
@@ -206,10 +206,11 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 		teamsTableView.getItems().removeAll(teamsTableView.getSelectionModel().getSelectedItem());
 
 		teamsTableView.getItems().clear();
-		teamsTableView.refresh();
+		
 		readTeamsList();
-		initializeTeamsColumns();
+		
 		updateTeamsTable();
+		teamsTableView.refresh();
 	}
 
 	@Override

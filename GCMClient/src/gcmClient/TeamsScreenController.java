@@ -177,11 +177,13 @@ public class TeamsScreenController {
 
 		List<Team> xmlTeams = new ArrayList<Team>();
 		xmlTeams = TeamServiceFunctions.getTeams();
-
-		for (Team einM : xmlTeams) {
+		if(xmlTeams != null) {
+		  for (Team einM : xmlTeams) {
 			olTeams.add(new TeamFX(einM));
 			
+		}  
 		}
+		
 	}
 
 	public void initializeColumns() {

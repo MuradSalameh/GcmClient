@@ -204,9 +204,12 @@ public class PartnerScreenController {
 	List<Partner> xmlPartners = new ArrayList<Partner>();
 	xmlPartners = PartnerServiceFunctions.getPartners();
 
-	for (Partner einM : xmlPartners) {
+	if(xmlPartners != null) {
+	  for (Partner einM : xmlPartners) {
 	    olPartners.add(new PartnerFX(einM));
+	}  
 	}
+	
     }
 
     public void initializeColumns() {

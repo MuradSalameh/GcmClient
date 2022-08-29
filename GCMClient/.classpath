@@ -12,6 +12,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jersey"/>
 	<classpathentry kind="lib" path="/Volumes/GoogleDrive/Andere Computer/Mein Laptop/Praxisprojekt/JavaLibraries/GcmClasses.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -23,6 +24,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAXB"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jersey"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -42,8 +42,8 @@ public class FxmlDocumentController implements Initializable {
 	private void handleGamesBtn(ActionEvent event) throws IOException {
 		Pane view = FXMLLoader.load(getClass().getResource("GamesScreen.fxml"));		
 		bpScreenView.setCenter(view);
-		GamesScreenController gsc = new GamesScreenController();
-		gsc.initialize();
+//		GamesScreenController gsc = new GamesScreenController();
+//		gsc.initialize();
 	}
 
 	// load EventScreen when Events button is clicked in main menu
@@ -51,8 +51,8 @@ public class FxmlDocumentController implements Initializable {
 	private void handleEventsBtn(ActionEvent event) throws IOException {
 		Pane view = FXMLLoader.load(getClass().getResource("EventsScreen.fxml"));
 		bpScreenView.setCenter(view);
-		EventsScreenController esc = new EventsScreenController();
-		esc.initialize();
+//		EventsScreenController esc = new EventsScreenController();
+//		esc.initialize();
 	}
 
 	
@@ -61,8 +61,8 @@ public class FxmlDocumentController implements Initializable {
 	private void handleTeamsBtn(ActionEvent event) throws IOException {
 		Pane view = FXMLLoader.load(getClass().getResource("TeamsScreen.fxml"));
 		bpScreenView.setCenter(view);
-		TeamsScreenController tsc = new TeamsScreenController();
-		tsc.initialize();
+//		TeamsScreenController tsc = new TeamsScreenController();
+//		tsc.initialize();
 	}
 
 	
@@ -71,8 +71,8 @@ public class FxmlDocumentController implements Initializable {
 	private void handleTournamentsBtn(ActionEvent event) throws IOException {
 		Pane view = FXMLLoader.load(getClass().getResource("TournamentsScreen.fxml"));
 		bpScreenView.setCenter(view);
-		TournamentsScreenController trsc = new TournamentsScreenController();
-		trsc.initialize();
+//		TournamentsScreenController trsc = new TournamentsScreenController();
+//		trsc.initialize();
 	}
 
 	
@@ -81,8 +81,8 @@ public class FxmlDocumentController implements Initializable {
 	private void handlePartnersBtn(ActionEvent event) throws IOException {
 	    	Pane view = FXMLLoader.load(getClass().getResource("PartnersScreen.fxml"));	
 		bpScreenView.setCenter(view);
-		PartnerScreenController psc = new PartnerScreenController();
-		psc.initialize();
+//		PartnerScreenController psc = new PartnerScreenController();
+//		psc.initialize();
 	}
 
 	
@@ -91,8 +91,8 @@ public class FxmlDocumentController implements Initializable {
 	private void handleFinancesBtn(ActionEvent event) throws IOException {
 		Pane view = FXMLLoader.load(getClass().getResource("FinancesScreen.fxml"));
 		bpScreenView.setCenter(view);
-		FinancesScreenController fsc = new FinancesScreenController();
-		fsc.initialize();
+//		FinancesScreenController fsc = new FinancesScreenController();
+//		fsc.initialize();
 	}
 
 	//initialize when FXMLFocumentController is called

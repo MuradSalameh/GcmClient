@@ -131,7 +131,7 @@ public class TournamentAddNewDialogController extends Dialog<ButtonType> impleme
 		     
 		  }
 		  
-		  Matcher mMatcher = hPattern.matcher(startMinuteTF.getText());
+		  Matcher mMatcher = mPattern.matcher(startMinuteTF.getText());
 		  if(mMatcher.matches()){
 		      startMinute = String.valueOf(startMinuteTF.getText());
 		  } else {
@@ -147,17 +147,14 @@ public class TournamentAddNewDialogController extends Dialog<ButtonType> impleme
 
 		// End Time
 		
-		String endHourPattern = "([01]?[0-9]|2[0-3])";
-		String endMinutePattern = "[0-5][0-9]";
-		Pattern endHPattern = Pattern.compile(endHourPattern);
-		Pattern endMPattern = Pattern.compile(endMinutePattern);
+		
 		
 		Matcher ehMatcher = hPattern.matcher(endHourTF.getText());
 		  if(ehMatcher.matches()){
 		     endHour = String.valueOf(endHourTF.getText()); 
 		  }
 		
-		  Matcher emMatcher = hPattern.matcher(endMinuteTF.getText());
+		  Matcher emMatcher = mPattern.matcher(endMinuteTF.getText());
 		  if(emMatcher.matches()){
 		      endMinute = String.valueOf(endMinuteTF.getText());
 		  }

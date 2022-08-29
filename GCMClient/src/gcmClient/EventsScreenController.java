@@ -201,10 +201,13 @@ public class EventsScreenController {
 		List<Event> xmlEvents = new ArrayList<Event>();
 		xmlEvents = EventServiceFunctions.getEvents();
 
-		for (Event einM : xmlEvents) {
+		if(xmlEvents != null) {
+		    for (Event einM : xmlEvents) {
 			olEvents.add(new EventFX(einM));
 			System.out.println("CLIENT------------" + "\n" + einM);
 		}
+		}
+		
 	}
 
 	public void initializeColumns() {

@@ -94,10 +94,13 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 		List<Game> xmlGames = new ArrayList<Game>();
 		xmlGames = GameServiceFunctions.getGamesByTournamentId(ccId);
 
-		for (Game einT : xmlGames) {
+		if(xmlGames != null) {
+		    for (Game einT : xmlGames) {
 			olGames.add(new GameFX(einT));
 
 		}
+		}
+		
 	}
 
 	// -------------------------------------------------------------
@@ -141,10 +144,13 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 		List<Game> xmlGames1 = new ArrayList<Game>();
 		xmlGames1 = GameServiceFunctions.getGames();
 
-		for (Game einT : xmlGames1) {
+		if(xmlGames1 != null) {
+		  for (Game einT : xmlGames1) {
 			olGames1.add(new GameFX(einT));
 
+		}  
 		}
+		
 	}
 
 	public Game getSelectedGameFromAvailableGames() {

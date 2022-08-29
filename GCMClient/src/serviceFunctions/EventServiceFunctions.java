@@ -11,6 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
+
 public class EventServiceFunctions {
 
 	private static final String serverURI = "http://localhost:4712/event";

@@ -119,17 +119,17 @@ public class TeamsDetailDialogController extends Dialog<ButtonType> implements I
 
 		List<Member> xmlMembers = new ArrayList<Member>();
 		
-		try {
+		
 		    xmlMembers = MemberServiceFunctions.getMembersByTeamId(ccId);
-		} catch (Exception e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		}
+		
 
-		for (Member einM : xmlMembers) {
+		if(xmlMembers != null) {
+		  for (Member einM : xmlMembers) {
 			olMembers.add(new MemberFX(einM));
 
+		}  
 		}
+		
 	}
 
 	public void initializeColumns() {

@@ -2,10 +2,12 @@ module FXMAVEN {
 	requires javafx.controls;
 	requires javafx.graphics;
 	
-	requires GcmClasses;
+
 	requires javafx.fxml;
 	requires javafx.base;
 	requires jakarta.ws.rs;
+	requires GcmClasses;
+
 	
 	
 	

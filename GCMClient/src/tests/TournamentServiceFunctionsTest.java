@@ -30,7 +30,7 @@ public class TournamentServiceFunctionsTest {
 		// --------- getTournaments() Test to get a List of all tournaments in
 		// database-----------//
 
-//			getTournamentList();
+			getTournamentList();
 
 		// --------- deleteTournament() Test -----------//
 

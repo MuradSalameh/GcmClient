@@ -36,6 +36,8 @@ public class TournamentServiceFunctions {
 	    List<Tournament> tournaments = invocationBuilder.get(new GenericType<List<Tournament>>() {
 		});
 	    
+
+	    
 	    AsyncInvoker asyncInvoker = invocationBuilder.async();
 
 	    asyncInvoker.get(new InvocationCallback<Response>() {

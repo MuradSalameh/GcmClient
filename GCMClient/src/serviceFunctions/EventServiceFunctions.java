@@ -18,6 +18,7 @@ public class EventServiceFunctions {
 
 	// get list of all events 
 	public static List<Event> getEvents() {
+	    
 
 		List<Event> events = ClientBuilder.newClient().target(serverURI).path("/eventlist")
 				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Event>>() {

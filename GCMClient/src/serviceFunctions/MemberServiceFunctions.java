@@ -36,7 +36,9 @@ public class MemberServiceFunctions {
 
 	// get members by team id from MemberTeams table
 	public static List<Member> getMembersByTeamId(int id) {
-
+	    
+	  
+	    	System.out.println("getMembersByTeamId" + " " + id);
 		List<Member> members = ClientBuilder.newClient().target(serverURI).path("/getMembersByTeamId/" + id)
 				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Member>>() {
 				});

@@ -67,6 +67,8 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
     @FXML
     private TableColumn<TeamFX, String> teamDescriptionColumn;
 
+    
+    // initialize teamsTableView columns
     public void initializeTeamsColumns() {
 
 	if (teamIdColumn != null) {
@@ -77,6 +79,8 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 	}
     }
 
+    
+    //update teamsTableView
     public void updateTeamsTable() {
 	// load Data
 	if (teamsTableView != null) {
@@ -84,6 +88,7 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 	}
     }
 
+    // read list of all teams by tournament id
     public void readTeamsList() {
 	olTeams.clear();
 
@@ -114,6 +119,8 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
     @FXML
     private TableColumn<TeamFX, String> teamDescriptionColumn1;
 
+    
+    // initialize teamsTableView1 columns
     public void initializeTeamsColumns1() {
 
 	if (teamIdColumn1 != null) {
@@ -123,6 +130,7 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 	}
     }
 
+    // update teamsTableView1
     public void updateTeamsTable1() {
 	// load Data
 	if (teamsTableView1 != null) {
@@ -130,6 +138,7 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 	}
     }
 
+    // read list of all teams
     public void readTeamsList1() {
 	olTeams1.clear();
 
@@ -145,6 +154,8 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 
     }
 
+    
+    // get selceted team from allavailable teams in teamsTableView1
     public Team getSelectedTeamFromAvailableTeams() {
 
 	TeamFX getTeam = teamsTableView1.getSelectionModel().getSelectedItem();
@@ -157,6 +168,7 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 	}
     }
 
+    // add team from all available teams in teamsTableView1 to tournament in teamsTableView
     public void handleTeamAddBtn(ActionEvent e) {
 
 	TeamFX selectedTeam = teamsTableView1.getSelectionModel().getSelectedItem();
@@ -184,7 +196,7 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 	}
     }
 
-    // Method to check if Table already contains specific Item
+    // Method to check if table already contains specific Item
     public static boolean containsItem(TableView<TeamFX> teamsTableView, TeamFX teamFX) {
 	for (TeamFX item : teamsTableView.getItems()) {
 	    if (item.getId() == teamFX.getId()) {
@@ -194,6 +206,8 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 	return false;
     }
 
+    
+    // remove team from tournament in teamsTableView
     @FXML
     public void handleTeamDeleteBtn() {
 
@@ -219,6 +233,7 @@ public class TournamentAddTeamsDialogController extends Dialog<ButtonType> imple
 	teamsTableView.refresh();
     }
 
+    //initialize methods when TournamentAddTeamsDialog.fxml is loaded
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

@@ -44,6 +44,7 @@ public class TeamsScreenController {
     public Button editDetailsBtn;
     public Button addNewBtn;
 
+    // add new Team button
     @FXML
     private void handleAddNewBtn(ActionEvent team) throws IOException {
 
@@ -84,6 +85,8 @@ public class TeamsScreenController {
 	}
     }
 
+    
+    // edit team details button
     @FXML
     private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 	FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamsDetailDialog.fxml"));
@@ -136,6 +139,7 @@ public class TeamsScreenController {
 	}
     }
 
+    // delete team button
     @FXML
     private void handleDeleteBtn() {
 	Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -166,6 +170,7 @@ public class TeamsScreenController {
 	}
     }
 
+    //update teamsTableView
     public void updateTable() {
 	// load Data
 	if (teamsTableView != null) {
@@ -173,6 +178,7 @@ public class TeamsScreenController {
 	}
     }
 
+    // read list of all teams
     public void readTeamsList() {
 	olTeams.clear();
 
@@ -186,7 +192,7 @@ public class TeamsScreenController {
 	}
 
     }
-
+//initialize teamsTableView coumns
     public void initializeColumns() {
 
 	if (idColumn != null) {
@@ -196,6 +202,7 @@ public class TeamsScreenController {
 	}
     }
 
+    //initialize methods when TeamsScreen.fxml is loaded
     public void initialize() {
 	readTeamsList();
 	initializeColumns();

@@ -102,7 +102,7 @@ public class FinancesAddNewExpenseDialogController extends Dialog<ButtonType> im
 	return expense;
     }
 
-    // initilaize methods when window is opened
+    // initilaize methods when FinancesAddNewExpenseDialog.fxml is opened
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 	loadExpense();

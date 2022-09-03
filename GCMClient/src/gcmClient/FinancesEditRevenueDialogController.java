@@ -55,21 +55,7 @@ public class FinancesEditRevenueDialogController extends Dialog<ButtonType> impl
 		return revenue;
 	}
 
-//	public Revenue getSelectedRevenue() {
-//
-//		if (loadRevenue() != null) {
-//			Revenue revenue = loadRevenue();
-//			return revenue;
-//		} else {
-//			Revenue newRevenue = new Revenue("test", // title
-//					"ttttt", // desc
-//					00.00, // amount
-//					LocalDate.now() // date
-//
-//			);
-//			return newRevenue;
-//		}
-//	}
+
 
 	//initialize text fields
 	public void initializeTextFields() {
@@ -109,7 +95,7 @@ public class FinancesEditRevenueDialogController extends Dialog<ButtonType> impl
 		return revenue;
 	}
 
-	//initialize methods when window is loading
+	//initialize methods when FinancesEditRevenueDialog.fxml is loading
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadRevenue();

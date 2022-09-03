@@ -167,8 +167,6 @@ public class EventsDetailDialogController extends Dialog<ButtonType> implements 
 
 
 		event.setEventEndTime(end);
-
-		// ---------------------------------
 		return event;
 	}
 

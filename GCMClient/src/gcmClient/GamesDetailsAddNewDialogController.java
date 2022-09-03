@@ -85,7 +85,7 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 		NotesTa.setText(game.getGameAdditionalNotes());
 	}
 
-	// Handle Game Buttons ------------------------------------------------
+	
 
 	
 	//update game
@@ -100,7 +100,7 @@ public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> imple
 
 	
 
-
+	//initialize methods when GamesDetailsAddNewDialog.fxml is loaded
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadGame();

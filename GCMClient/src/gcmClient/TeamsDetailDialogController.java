@@ -65,27 +65,15 @@ public class TeamsDetailDialogController extends Dialog<ButtonType> implements I
 	@FXML
 	private TableColumn<MemberFX, String> clanNameColumn;
 
+	//load selected team
 	public Team loadTeam() {
 
 		Team event = TeamServiceFunctions.getTeam(ccId);
 		return event;
 	}
 
-	public Team getSelectedTeam() {
-
-		if (loadTeam() != null) {
-			Team event = loadTeam();
-			return event;
-		} else {
-			Team newTeam = new Team("", // team name
-					"", // desc
-					null // members teams
-			); // team tournaments teams
-
-			return newTeam;
-		}
-	}
-
+	
+//initialize text fields
 	public void initializeTextFields() {
 		Team team = loadTeam();
 
@@ -100,6 +88,7 @@ public class TeamsDetailDialogController extends Dialog<ButtonType> implements I
 
 	}
 
+	//update team
 	public Team updateTeam() {
 		Team team = loadTeam();
 
@@ -113,7 +102,7 @@ public class TeamsDetailDialogController extends Dialog<ButtonType> implements I
 	@FXML
 	private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
 
-	
+	//read list with all members
 	public void readMembersList() {
 		olMembers.clear();
 
@@ -132,6 +121,7 @@ public class TeamsDetailDialogController extends Dialog<ButtonType> implements I
 		
 	}
 
+	//initialize membersTableView columns
 	public void initializeColumns() {
 
 		if (idColumn != null) {
@@ -141,6 +131,7 @@ public class TeamsDetailDialogController extends Dialog<ButtonType> implements I
 		}
 	}
 
+	//update membersTableView 
 	public void updateTable() {
 		// load Data
 		if (membersTableView != null) {
@@ -148,6 +139,7 @@ public class TeamsDetailDialogController extends Dialog<ButtonType> implements I
 		}
 	}
 
+	// add members to team button
 	public void handleAddMembersBtn() throws IOException {
 
 		FXMLLoader addMemberloader = new FXMLLoader(getClass().getResource("TeamAddMembersDetailDialog.fxml"));
@@ -186,6 +178,7 @@ public class TeamsDetailDialogController extends Dialog<ButtonType> implements I
 
 	}
 
+	// initialize methods when TournamentDetailDialog.fxml is loaded
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// loadTeam();

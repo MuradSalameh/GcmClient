@@ -2,7 +2,6 @@ package gcmClient;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,31 +82,16 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	private String endHour;
 	private String endMinute;
 
+	
+	//load selected tournament
     public Tournament loadTournament() {
 
 	Tournament tournament = TournamentServiceFunctions.getTournament(ccId);
 	return tournament;
     }
-
-    public Tournament getSelectedTournament() {
-
-	if (loadTournament() != null) {
-	    Tournament tournament = loadTournament();
-	    return tournament;
-	} else {
-	    Tournament tournament = new Tournament("", // title
-		    "", // description
-		    LocalDate.of(2022, 1, 31), // tournament date
-		    LocalTime.of(00, 00), // start time
-		    LocalTime.of(00, 00), // end time
-		    null, // teams list
-		    null, // games list
-		    null); // result string
-
-	    return tournament;
-	}
-    }
-
+    
+    
+//initialize text fields
     public void initializeTextFields() {
 	Tournament tournament = loadTournament();
 
@@ -142,6 +126,7 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 
     }
 
+    //update tournament
     public Tournament updateTournament() {
 	Tournament tournament = loadTournament();
 
@@ -214,6 +199,8 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
     @FXML
     private TableColumn<GameFX, String> gameTitleColumn;
 
+    
+    //initialize gamesTableView columns
     public void initializeGamesColumns() {
 
 	if (gamesIdColumn != null) {
@@ -222,6 +209,7 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	}
     }
 
+    //update gamesTableView
     public void updateGamesTable() {
 	// load Data
 	if (gamesTableView != null) {
@@ -229,6 +217,7 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	}
     }
 
+    //read list of all games
     public void readGamesList() {
 	olGames.clear();
 
@@ -244,6 +233,7 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	
     }
 
+    // add game button
     @FXML
     public void handleAddGamesBtn(ActionEvent e) throws IOException {
 	FXMLLoader addGameloader = new FXMLLoader(getClass().getResource("TournamentAddGamesDialog.fxml"));
@@ -295,6 +285,7 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
     @FXML
     private TableColumn<TeamFX, String> teamNameColumn;
 
+    // initialize teamsTableView columns
     public void initializeTeamsColumns() {
 
 	if (teamsIdColumn != null) {
@@ -303,6 +294,7 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	}
     }
 
+    // update teamsTableView
     public void updateTeamsTable() {
 	// load Data
 	if (teamsTableView != null) {
@@ -310,6 +302,8 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	}
     }
 
+    
+    // read list of all teams associated to tournament id
     public void readTeamsList() {
 	olTeams.clear();
 
@@ -323,6 +317,8 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	}	
     }
 
+    
+    //add teams button
     @FXML
     public void handleAddTeamsBtn(ActionEvent e) throws IOException {
 	FXMLLoader addTeamloader = new FXMLLoader(getClass().getResource("TournamentAddTeamsDialog.fxml"));
@@ -362,6 +358,7 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	}
     }
 
+    //initialize methods when TournamentDetailDialog.fxml is loaded
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 	loadTournament();

@@ -59,36 +59,16 @@ public class PartnerDetailDialogController extends Dialog<ButtonType> implements
 	@FXML
 	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
+	// load selected partner
 	public Partner loadPartner() {
 
 		Partner partner = PartnerServiceFunctions.getPartner(ccId);
 		return partner;
 	}
 
-	public Partner getSelectedPartner() {
-
-		if (loadPartner() != null) {
-			Partner partner = loadPartner();
-			return partner;
-		} else {
-			Partner newPartner = new Partner("", // companyName
-					"", // Contact name
-					"", // contact phone
-					"", // contact mail
-					"", // first name
-					"", // last name
-					"", // adress street
-					"", // street number
-					"", // post code
-					"", // city
-					"", // country
-					"", // email
-					"");// phone number
-
-			return newPartner;
-		}
-	}
-
+	
+	
+	//initialize text fields
 	public void initializeTextFields() {
 		Partner partner = loadPartner();
 
@@ -124,6 +104,7 @@ public class PartnerDetailDialogController extends Dialog<ButtonType> implements
 		phoneNumberTF.setPromptText("Enter Phone Number");
 	}
 
+	//update partner
 	public Partner updatePartner() {
 		Partner partner = loadPartner();
 
@@ -144,6 +125,8 @@ public class PartnerDetailDialogController extends Dialog<ButtonType> implements
 		return partner;
 	}
 
+	
+	//initialize methods when PartnerDetailDialog.fxml is loaded
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadPartner();

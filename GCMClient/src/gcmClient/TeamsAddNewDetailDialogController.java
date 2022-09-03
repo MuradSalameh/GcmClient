@@ -36,6 +36,7 @@ public class TeamsAddNewDetailDialogController extends Dialog<ButtonType> implem
 	@FXML
 	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
+	//create new team
 	public Team loadTeam() {
 
 		Team team = new Team("", // team name
@@ -46,6 +47,7 @@ public class TeamsAddNewDetailDialogController extends Dialog<ButtonType> implem
 		return team;
 	}
 
+	//initialize text fields
 	public void initializeTextFields() {
 		Team team = loadTeam();
 
@@ -60,6 +62,7 @@ public class TeamsAddNewDetailDialogController extends Dialog<ButtonType> implem
 
 	}
 
+	//update team
 	public Team updateTeam() {
 		Team team = loadTeam();
 
@@ -69,6 +72,7 @@ public class TeamsAddNewDetailDialogController extends Dialog<ButtonType> implem
 		return team;
 	}
 
+	// initialize methods when TeamsAddNewDetailDialog.fxml is loaded
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadTeam();

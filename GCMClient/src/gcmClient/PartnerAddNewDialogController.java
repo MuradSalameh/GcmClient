@@ -57,6 +57,7 @@ public class PartnerAddNewDialogController extends Dialog<ButtonType> implements
 	@FXML
 	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
+	//create new partner
 	public Partner loadPartner() {
 
 		Partner newPartner = new Partner("", // companyName
@@ -76,7 +77,7 @@ public class PartnerAddNewDialogController extends Dialog<ButtonType> implements
 		return newPartner;
 	}
 
-
+// initialize text fields
 	public void initializeTextFields() {
 		Partner partner = loadPartner();
 
@@ -112,6 +113,7 @@ public class PartnerAddNewDialogController extends Dialog<ButtonType> implements
 		phoneNumberTF.setPromptText("Enter Phone Number");
 	}
 
+	//update partner
 	public Partner updatePartner() {
 		Partner partner = loadPartner();
 
@@ -132,6 +134,7 @@ public class PartnerAddNewDialogController extends Dialog<ButtonType> implements
 		return partner;
 	}
 
+	//initialize methods when PartnerAddNewDialog.fxml is loaded
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadPartner();

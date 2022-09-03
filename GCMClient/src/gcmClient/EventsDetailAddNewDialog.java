@@ -30,10 +30,8 @@ public class EventsDetailAddNewDialog extends Dialog<ButtonType> implements Init
 	private Dialog dialog;
 	@FXML
 	private BorderPane eventEditBp;
-
 	@FXML
 	private Label sIdLabel;
-
 	@FXML
 	private TextField eventTitleTF;
 	@FXML
@@ -181,7 +179,7 @@ public class EventsDetailAddNewDialog extends Dialog<ButtonType> implements Init
 
 				event.setEventEndTime(end);
 
-		// ---------------------------------
+		
 		return event;
 	}
 

@@ -47,6 +47,8 @@ public class GamesScreenController {
     @FXML
     public Button deleteBtn;
 
+    
+    // edit game details button
     @FXML
     private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 	FXMLLoader loader = new FXMLLoader(getClass().getResource("GamesDetailsDialog.fxml"));
@@ -95,6 +97,7 @@ public class GamesScreenController {
 	}
     }
 
+    // add new game button
     @FXML
     private void handleAddNewBtn(ActionEvent event) throws IOException {
 
@@ -135,6 +138,7 @@ public class GamesScreenController {
 	}
     }
 
+    // delete game
     @FXML
     private void handleDeleteBtn() {
 	Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -169,6 +173,7 @@ public class GamesScreenController {
 	}
     }
 
+    // update gamesTableView
     public void updateTable() {
 	// load Data
 	if (gamesTableView != null) {
@@ -176,6 +181,7 @@ public class GamesScreenController {
 	}
     }
 
+    // read list of all games
     public void readGamesList() {
 	olGames.clear();
 
@@ -192,6 +198,7 @@ public class GamesScreenController {
 	}
     }
 
+    // initialize gamesTableView columns
     public void initializeColumns() {
 
 	if (idColumn != null) {
@@ -201,7 +208,8 @@ public class GamesScreenController {
 	    releaseDateColumn.setCellValueFactory(new PropertyValueFactory<GameFX, LocalDate>("releaseDate"));
 	}
     }
-
+    
+    // inititalize methods when GamesScreen.fxml is loaded
     public void initialize() {
 	readGamesList();
 	initializeColumns();

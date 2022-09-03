@@ -59,7 +59,9 @@ public class TournamentAddNewDialogController extends Dialog<ButtonType> impleme
 
 	private String endHour;
 	private String endMinute;
-
+	
+	
+// create new tournament
 	public Tournament loadTournament() {
 
 		Tournament tournament = new Tournament("", // title
@@ -74,6 +76,7 @@ public class TournamentAddNewDialogController extends Dialog<ButtonType> impleme
 		return tournament;
 	}
 
+	//initialize text fields
 	public void initializeTextFields() {
 		Tournament tournament = loadTournament();
 
@@ -107,6 +110,7 @@ public class TournamentAddNewDialogController extends Dialog<ButtonType> impleme
 
 	}
 
+	// update tournament
 	public Tournament updateTournament() {
 		Tournament tournament = loadTournament();
 
@@ -166,10 +170,12 @@ public class TournamentAddNewDialogController extends Dialog<ButtonType> impleme
 
 		tournament.setTournamentTimeEnd(end);
 
-		// ---------------------------------
+		
 		return tournament;
 	}
 
+	
+	// initialize methods when TournamentAddNewDialog.fxml is loaded
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadTournament();

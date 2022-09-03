@@ -65,6 +65,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
     @FXML
     private TableColumn<MemberFX, String> memberClanIdColumn;
 
+    //inititalize membersTableView columns
     public void initializeMembersColumns() {
 
 	if (membersIdColumn != null) {
@@ -74,7 +75,8 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 
 	}
     }
-
+    
+// update membersTableView
     public void updateMembersTable() {
 	// load Data
 	if (membersTableView != null) {
@@ -85,6 +87,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
     // Member Members Table
     private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
 
+    //read list of all members by team id
     public void readMembersList() {
 	olMembers.clear();
 
@@ -118,6 +121,8 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
     @FXML
     private TableColumn<MemberFX, String> memberClanIdColumn1;
 
+    
+    // initialize membersTableView1 columns
     public void initializeMembersColumns1() {
 
 	if (membersIdColumn1 != null) {
@@ -128,6 +133,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 	}
     }
 
+   // update membersTableView1
     public void updateMembersTable1() {
 	// load Data
 	if (membersTableView1 != null) {
@@ -135,6 +141,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 	}
     }
 
+    //read list of all available members
     public void readMembersList1() {
 	olMembers1.clear();
 
@@ -150,6 +157,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 
     }
 
+    // get selected member from all available in membersTableView1
     public Member getSelectedMemberFromAvailableMembers() {
 
 	MemberFX getMember = membersTableView1.getSelectionModel().getSelectedItem();
@@ -162,6 +170,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 	}
     }
 
+    // add selected member from membersTableView1 to membersTableView
     public void handleMemberAddBtn(ActionEvent e) {
 	int id = getSelectedMemberFromAvailableMembers().getId();
 	MemberFX selectedMember = membersTableView1.getSelectionModel().getSelectedItem();
@@ -182,7 +191,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 	}
     }
 
-    // Method to check if Table already contains specific Item
+    // Method to check if table already contains specific Item
     public static boolean containsItem(TableView<MemberFX> membersTableView, MemberFX memberFX) {
 	for (MemberFX item : membersTableView.getItems()) {
 	    if (item.getId() == memberFX.getId()) {
@@ -192,6 +201,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 	return false;
     }
 
+    // remove selcted member from Team in membersTableView
     @FXML
     public void handleMemberDeleteBtn() {
 
@@ -212,6 +222,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 	membersTableView.refresh();
     }
 
+    //initialize methods when TeamAddMembersDetailDialog.fxml is loaded
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

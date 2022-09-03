@@ -70,6 +70,7 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 	@FXML
 	private TableColumn<GameFX, String> gamesAdditionalNotesColumn;
 
+	//initialize gamesTableView columns
 	public void initializeGamesColumns() {
 
 		if (gamesIdColumn != null) {
@@ -81,6 +82,7 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 		}
 	}
 
+	// update gamesTableView
 	public void updateGamesTable() {
 		// load Data
 		if (gamesTableView != null) {
@@ -88,6 +90,8 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 		}
 	}
 
+	
+	//read list of all games
 	public void readGamesList() {
 		olGames.clear();
 
@@ -120,6 +124,8 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 	@FXML
 	private TableColumn<GameFX, String> gamesAdditionalNotesColumn1;
 
+	
+	//initialize gamesTableView1 columns
 	public void initializeGamesColumns1() {
 
 		if (gamesIdColumn1 != null) {
@@ -131,13 +137,15 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 		}
 	}
 
+	//update gamesTableView1
 	public void updateGamesTable1() {
-		// load Data
+		
 		if (gamesTableView1 != null) {
 			gamesTableView1.getItems().addAll(olGames1);
 		}
 	}
 
+	//read list of all games in gamesTableView1
 	public void readGamesList1() {
 		olGames1.clear();
 
@@ -153,6 +161,7 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 		
 	}
 
+	// get selected game from all available games in gamesTableView1
 	public Game getSelectedGameFromAvailableGames() {
 
 		GameFX getGame = gamesTableView1.getSelectionModel().getSelectedItem();
@@ -165,6 +174,7 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 		}
 	}
 
+	//ad selected game from gamesTableView1 to gamesTableView
 	public void handleGameAddBtn(ActionEvent e) {
 
 		GameFX selectedGame = gamesTableView1.getSelectionModel().getSelectedItem();
@@ -192,7 +202,7 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 		}
 	}
 
-	// Method to check if Table already contains specific Item
+	// Method to check if table already contains specific Item
 	public static boolean containsItem(TableView<GameFX> gamesTableView, GameFX gameFX) {
 		for (GameFX item : gamesTableView.getItems()) {
 			if (item.getId() == gameFX.getId()) {
@@ -202,6 +212,7 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 		return false;
 	}
 
+	//remove game from tournament in gamesTableView
 	@FXML
 	public void handleGameDeleteBtn() {
 
@@ -228,6 +239,8 @@ public class TournamentAddGameDialogController extends Dialog<ButtonType> implem
 		
 	}
 
+	
+	// initilize methods when TournamentAddGamesDialog.fxml is loaded
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 

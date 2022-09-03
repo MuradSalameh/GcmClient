@@ -57,6 +57,8 @@ public class EventsScreenController {
 	@FXML
 	public Button addNewBtn;
 
+	
+	// add new event button - opens EventsDetailAddNewDialog.fxml
 	@FXML
 	private void handleAddNewBtn(ActionEvent event) throws IOException {
 
@@ -98,6 +100,8 @@ public class EventsScreenController {
 		}
 	}
 
+	
+	// edit event detail button - opens EventsDetailDialog.fxml
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("EventsDetailDialog.fxml"));
@@ -157,6 +161,8 @@ public class EventsScreenController {
 		}
 	}
 
+	
+	// delete event button 
 	@FXML
 	private void handleDeleteBtn() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -188,6 +194,8 @@ public class EventsScreenController {
 		}
 	}
 
+	
+	// update eventsTableView
 	public void updateTable() {
 		// load Data
 		if (eventsTableView != null) {
@@ -195,6 +203,8 @@ public class EventsScreenController {
 		}
 	}
 
+	
+	// read list of all events
 	public void readEventsList() {
 		olEvents.clear();
 
@@ -210,6 +220,8 @@ public class EventsScreenController {
 		
 	}
 
+	
+	// initialize eventsTableView columns
 	public void initializeColumns() {
 
 		if (idColumn != null) {
@@ -225,6 +237,7 @@ public class EventsScreenController {
 		}
 	}
 
+	// initialize methods when EventsScreen.fxml is loaded
 	public void initialize() {
 		readEventsList();
 		initializeColumns();

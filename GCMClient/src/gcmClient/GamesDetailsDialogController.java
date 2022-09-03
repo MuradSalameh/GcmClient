@@ -80,7 +80,7 @@ public class GamesDetailsDialogController extends Dialog<ButtonType> implements 
 	}
 
 
-
+	// update game
 	public Game updateGame() {
 		Game game = loadGame();
 
@@ -92,7 +92,7 @@ public class GamesDetailsDialogController extends Dialog<ButtonType> implements 
 	}
 
 
-
+	// initialize methods when GamesDetailsDialog.fxml is opened
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initializeTextFields();

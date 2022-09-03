@@ -69,6 +69,7 @@ public class MembersScreenController implements Initializable {
 	@FXML
 	public Button addNewBtn;
 
+	//edit member details button
 	@FXML
 	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailDialog.fxml"));
@@ -126,6 +127,7 @@ public class MembersScreenController implements Initializable {
 		}
 	}
 
+	//delete member button
 	@FXML
 	private void handleDeleteBtn() {
 
@@ -164,6 +166,7 @@ public class MembersScreenController implements Initializable {
 		}
 	}
 
+	//add new member button
 	@FXML
 	public void handleAddNewBtn(ActionEvent t) throws IOException {
 
@@ -209,6 +212,7 @@ public class MembersScreenController implements Initializable {
 		}
 	}
 
+	// update membersTableView
 	public void updateTable() {
 		// load Data
 		if (membersTableView != null) {
@@ -216,6 +220,7 @@ public class MembersScreenController implements Initializable {
 		}
 	}
 
+	//read list of all members
 	public void readMembersList() {
 		olMembers.clear();
 
@@ -227,6 +232,7 @@ public class MembersScreenController implements Initializable {
 		}
 	}
 
+	// initialize membersTableView columns
 	public void initializeColumns() {
 
 		if (idColumn != null) {
@@ -245,7 +251,7 @@ public class MembersScreenController implements Initializable {
 	}
 
 
-
+//initialize methds when MembersScreen.fxml is loaded
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		readMembersList();

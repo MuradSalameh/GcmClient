@@ -103,7 +103,7 @@ public class FinancesEditExpenseDialogController extends Dialog<ButtonType> impl
 		return expense;
 	}
 
-	//initialize methods when window is loading
+	//initialize methods when FinancesEditExpenseDialog.fxml is loading
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadExpense();

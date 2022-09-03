@@ -67,6 +67,8 @@ public class PartnerScreenController {
     @FXML
     public Button addNewBtn;
 
+    
+    // add new partner button
     @FXML
     private void handleAddNewBtn(ActionEvent event) throws IOException {
 
@@ -110,6 +112,7 @@ public class PartnerScreenController {
 
     }
 
+    // edit partner details button
     @FXML
     private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 	FXMLLoader loader = new FXMLLoader(getClass().getResource("PartnerDetailDialog.fxml"));
@@ -162,6 +165,8 @@ public class PartnerScreenController {
 	}
     }
 
+    
+    //delete partner button
     @FXML
     private void handleDeleteBtn() {
 	Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -191,6 +196,7 @@ public class PartnerScreenController {
 	}
     }
 
+    // update partnersTableView
     public void updateTable() {
 	// load Data
 	if (partnersTableView != null) {
@@ -198,6 +204,7 @@ public class PartnerScreenController {
 	}
     }
 
+    //read list of all partners
     public void readPartnersList() {
 	olPartners.clear();
 
@@ -212,6 +219,7 @@ public class PartnerScreenController {
 	
     }
 
+    // initialize partnersTableView columns
     public void initializeColumns() {
 
 	if (idColumn != null) {
@@ -236,6 +244,7 @@ public class PartnerScreenController {
 	}
     }
 
+    //initialize methods when PartnersScreen.fxml is loaded
     public void initialize() {
 	readPartnersList();
 	initializeColumns();

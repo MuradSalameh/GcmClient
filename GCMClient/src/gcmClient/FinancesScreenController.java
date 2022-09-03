@@ -348,6 +348,7 @@ public class FinancesScreenController {
 		}
 	}
 
+	//delete expense button
 	@FXML
 	private void handleDeleteExpBtn() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -429,6 +430,7 @@ public class FinancesScreenController {
 		}
 	}
 
+	// calculate total amount of money and set result to total.label
 	public void calculateTotals() {
 		expTotalLabel.setText("Total: " + expTotal + " €");
 		revTotalLabel.setText("Total: " + revTotal + " €");
@@ -438,6 +440,7 @@ public class FinancesScreenController {
 
 	}
 
+	//initialize methods when FinancesScreen.fxml is loaded
 	public void initialize() {
 		readRevenuesList();
 		readExpensesList();

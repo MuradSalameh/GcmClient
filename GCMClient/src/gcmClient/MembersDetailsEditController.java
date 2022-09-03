@@ -218,6 +218,8 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 	@FXML
 	private TableColumn<TeamFX, String> teamDescriptionColumn;
 
+	
+	//initialize teamsTableView columns
 	public void initializeTeamsColumns() {
 
 		if (teamsIdColumn != null) {
@@ -227,6 +229,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
+	// update teamsTableView
 	public void updateTeamsTable() {
 		// load Data
 		if (teamsTableView != null) {
@@ -234,6 +237,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
+	//read list of all teams
 	public void readTeamsList() {
 		olTeams.clear();
 
@@ -262,6 +266,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 	@FXML
 	private TableColumn<SocialFX, String> socialNotesColumn;
 
+	// inititalize socialsTableView column
 	public void initializeSocialsColumns() {
 
 		if (socialIdColumn != null) {
@@ -273,6 +278,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
+	//update socialsTableView
 	public void updateSocialsTable() {
 		// load Data
 		if (socialsTableView != null) {
@@ -280,6 +286,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
+	//read list of all socials
 	public void readSocialsList() {
 		olSocials.clear();
 
@@ -291,6 +298,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
+	// get selected social from socialsTableView
 	public Social getSelectedSocial() {
 
 		SocialFX getSocial = socialsTableView.getSelectionModel().getSelectedItem();
@@ -307,6 +315,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
+	// update selected social from socialsTableView
 	public Social updateSocial() {
 		Social social = getSelectedSocial();
 
@@ -317,8 +326,8 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		return social;
 	}
 
-	// Handle Social Buttons ------------------------------------------------
-
+	
+//edit social details button
 	@FXML
 	public void handleSocialEditBtn(ActionEvent e) {
 		Social social = getSelectedSocial();
@@ -339,9 +348,9 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 			linkTf.setText(social.getSocialLink());
 			NotesTa.setText(social.getSocialNotes());
 		}
-		// updateSocial();
 	}
 
+	// save button for edited or new social
 	@FXML
 	public void handleSocialEditSaveBtn(ActionEvent e) {
 		int id = getSelectedSocial().getId();
@@ -363,6 +372,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		socialsTableView.refresh();
 	}
 
+	// add new social button
 	@FXML
 	public void handleSocialEditNewBtn(ActionEvent e) {
 		Social social = updateSocial();
@@ -397,6 +407,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 
 	}
 
+	// delete social
 	@FXML
 	public void handleSocialDeleteBtn() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -433,6 +444,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 	@FXML
 	private TableColumn<RoleFX, String> sroleDescriptionColumn;
 
+	// initialize rolesTableView columns
 	public void initializeRolesColumns() {
 
 		if (roleIdColumn != null) {
@@ -442,6 +454,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
+	// update rolesTableView 
 	public void updateRolesTable() {
 		// load Data
 		if (rolesTableView != null) {
@@ -449,6 +462,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
+	//read list of all socials
 	public void readRolesList() {
 		olRoles.clear();
 
@@ -464,8 +478,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
-	// Handle Roles Buttons ------------------------------------------------
-
+// add new role button
 	@FXML
 	public void handleRoleAddBtn() {
 		// GetRole from ComboBox
@@ -489,7 +502,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		
 	}
 	
-	// Method to check if Table already contains specific Item
+	// Method to check if table already contains specific Item
 		public static boolean containsItem(TableView<RoleFX> rolesTableView, Role rcbValue) {
 			for (RoleFX item : rolesTableView.getItems()) {
 				if (item.getId() == rcbValue.getId()) {
@@ -499,6 +512,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 			return false;
 		}
 
+	// inititalize comboBox and set role items
 	@FXML
 	public void loadComboBox() {
 		List<Role> xmlRoles = new ArrayList<Role>();
@@ -517,6 +531,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		rcb.getItems().addAll(xmlRoles);
 	}
 
+	// delete role button
 	@FXML
 	public void handleRoleDeleteBtn() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -559,6 +574,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 	@FXML
 	private TableColumn<GameFX, String> gamesAdditionalNotesColumn;
 
+	// inititalize gamesTableView columns
 	public void initializeGamesColumns() {
 
 		if (gamesIdColumn != null) {
@@ -570,6 +586,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
+	// update gamesTableView
 	public void updateGamesTable() {
 		// load Data
 		if (gamesTableView != null) {
@@ -577,6 +594,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
+	//read list of all games associated to member id
 	public void readGamesList() {
 		olGames.clear();
 
@@ -589,6 +607,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		}
 	}
 
+	// add game to member
 	public void handleAddGamesBtn() throws IOException {
 
 		FXMLLoader addGameloader = new FXMLLoader(getClass().getResource("MembersAddGamesDetailDialog.fxml"));
@@ -629,6 +648,7 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 
 	}
 
+	//initialize methods when MembersDetailDialog.fxml is loaded
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initializeTextFields();

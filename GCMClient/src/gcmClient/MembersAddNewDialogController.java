@@ -116,6 +116,7 @@ public class MembersAddNewDialogController extends Dialog<ButtonType> implements
 		return member;
 	}
 
+	//initialize methods when MembersAddNewDialog.fxml is loaded
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadMember();

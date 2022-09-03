@@ -100,7 +100,7 @@ public class FinancesAddNewRevenueDialogController extends Dialog<ButtonType> im
 		return revenue;
 	}
 
-	// initialize methods when window is loading
+	// initialize methods when FinancesAddNewRevenueDialog.fxml is loading
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loadRevenue();

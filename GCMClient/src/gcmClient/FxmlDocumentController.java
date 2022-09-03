@@ -61,8 +61,8 @@ public class FxmlDocumentController implements Initializable {
 	private void handleTeamsBtn(ActionEvent event) throws IOException {
 		Pane view = FXMLLoader.load(getClass().getResource("TeamsScreen.fxml"));
 		bpScreenView.setCenter(view);
-//		TeamsScreenController tsc = new TeamsScreenController();
-//		tsc.initialize();
+		TeamsScreenController tsc = new TeamsScreenController();
+		tsc.initialize();
 	}
 
 	

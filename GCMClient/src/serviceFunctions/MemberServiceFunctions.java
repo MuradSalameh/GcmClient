@@ -42,6 +42,8 @@ public class MemberServiceFunctions {
 		List<Member> members = ClientBuilder.newClient().target(serverURI).path("/getMembersByTeamId/" + id)
 				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Member>>() {
 				});
+		
+		
 
 		return members;
 	}

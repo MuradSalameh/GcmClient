@@ -36,8 +36,7 @@ System.out.println("getTeams");
 	    
 		List<Team> teams = ClientBuilder.newClient().target(serverURI).path("/teamsByMember/" + id)
 				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Team>>() {
-				});
-
+				});				
 		return teams;
 	}
 

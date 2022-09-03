@@ -149,7 +149,7 @@ public class MembersScreenController implements Initializable {
 			int id = member.getId();
 
 			// first delete connections to other objects, then delete from database
-
+			//MemberServiceFunctions.deleteRolesFromMember(id);
 			MemberServiceFunctions.deleteMemberFromRoles(id);
 			MemberServiceFunctions.deleteMemberFromGames(id);
 			MemberServiceFunctions.deleteMemberFromEvents(id);

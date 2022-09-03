@@ -198,15 +198,16 @@ public class MembersAddGameDialogController extends Dialog<ButtonType> implement
 	@FXML
 	public void handleGameDeleteBtn() {
 
-		GameFX Game = gamesTableView.getSelectionModel().getSelectedItem();
-
-		if (Game == null) {
+		GameFX game = gamesTableView.getSelectionModel().getSelectedItem();
+		System.out.println("Remove Game: ------------------------\n" + game);
+		if (game == null) {
 			return;
 		}
 
-		int id = Game.getId();
-		// delete from database
+		int id = game.getId();
+		System.out.println("Delete Game from Member:\n gameId: " + id + "\nmemberId: " + ccId);
 
+		// delete from database
 		GameServiceFunctions.deleteGameFromMember(id, ccId);
 
 		// remove from Tableview

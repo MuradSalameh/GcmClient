@@ -180,8 +180,13 @@ public class GamesScreenController {
 	olGames.clear();
 
 	List<Game> xmlGames = new ArrayList<Game>();
+	
 	xmlGames = GameServiceFunctions.getGames();
 
+	if(xmlGames == null) {
+	    return;
+	}
+	
 	for (Game einM : xmlGames) {
 	    olGames.add(new GameFX(einM));
 	}

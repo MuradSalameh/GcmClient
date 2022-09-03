@@ -322,7 +322,12 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 	@FXML
 	public void handleSocialEditBtn(ActionEvent e) {
 		Social social = getSelectedSocial();
-		int id = getSelectedSocial().getId();
+		
+		if(social == null) {
+		    return;
+		}
+		
+		int id = social.getId();
 
 		if (id != 0) {
 			// Set Social ID Label
@@ -523,8 +528,12 @@ public class MembersDetailsEditController extends Dialog<ButtonType> implements 
 		if (result.get() == ButtonType.OK) {
 
 			// get ID from item in table view
-			RoleFX Role = rolesTableView.getSelectionModel().getSelectedItem();
-			int id = Role.getId();
+			RoleFX role = rolesTableView.getSelectionModel().getSelectedItem();
+			
+			if(role == null) {
+			    return;
+			}
+			int id = role.getId();
 			// delete from database
 
 			RoleServiceFunctions.deleteRoleFromMember(id, ccId);

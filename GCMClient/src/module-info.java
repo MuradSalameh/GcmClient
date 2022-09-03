@@ -7,6 +7,7 @@ module FXMAVEN {
 	requires javafx.base;
 	requires jakarta.ws.rs;
 	requires GcmClasses;
+	requires jersey.client;
 
 	
 	

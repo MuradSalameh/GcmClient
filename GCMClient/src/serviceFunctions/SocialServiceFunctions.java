@@ -7,6 +7,8 @@ import gcmClasses.Social;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -40,13 +42,17 @@ public class SocialServiceFunctions {
 	// get social
 	public static Social getSocial(int id) {
 
-		Social social = ClientBuilder.newClient().target(serverURI).path("/social/" + id)
-				.request(MediaType.APPLICATION_XML).get(new GenericType<Social>() {
-				});
+	    Client client = ClientBuilder.newClient();
+	    WebTarget webTarget = client.target(serverURI).path("/social/" + id);
+	    
+	    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+	    Response response = invocationBuilder.get();
+	     
+	    Social social = response.readEntity(Social.class);
 
 		return social;
 	}
-
+	
 	// get social with highest id
 	public static Social getSocialWithHighestId() {
 

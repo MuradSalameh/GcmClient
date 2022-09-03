@@ -6,6 +6,8 @@ import gcmClasses.Event;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -30,9 +32,13 @@ public class EventServiceFunctions {
 	//get event
 	public static Event getEvent(int id) {
 
-		Event event = ClientBuilder.newClient().target(serverURI).path("/event/" + id)
-				.request(MediaType.APPLICATION_XML).get(new GenericType<Event>() {
-				});
+	    Client client = ClientBuilder.newClient();
+	    WebTarget webTarget = client.target(serverURI).path("/event/" + id);
+	    
+	    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+	    Response response = invocationBuilder.get();
+	     
+	    Event event = response.readEntity(Event.class);
 
 		return event;
 	}

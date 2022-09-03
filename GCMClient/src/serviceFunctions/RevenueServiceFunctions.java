@@ -6,6 +6,8 @@ import gcmClasses.Revenue;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -28,10 +30,14 @@ public class RevenueServiceFunctions {
 
 	// get revenue
 	public static Revenue getRevenue(int id) {
-
-		Revenue revenue = ClientBuilder.newClient().target(serverURI).path("/revenue/" + id)
-				.request(MediaType.APPLICATION_XML).get(new GenericType<Revenue>() {
-				});
+	    
+	    Client client = ClientBuilder.newClient();
+	    WebTarget webTarget = client.target(serverURI).path("/revenue/" + id);
+	    
+	    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+	    Response response = invocationBuilder.get();
+	     
+	    Revenue revenue = response.readEntity(Revenue.class);
 
 		return revenue;
 	}

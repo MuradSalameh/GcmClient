@@ -69,40 +69,13 @@ public class TournamentServiceFunctions {
 	public static Tournament getTournament(int id) {
 	    path = "/tournament/" + id;
 	    Client client = ClientBuilder.newClient();
-
-	    WebTarget webTarget = client.target(serverURI).path(path);
-
-	    Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_XML);
-	    // set headers and other stuff
+	    WebTarget webTarget = client.target(serverURI).path("/tournament/" + id);
 	    
-	   
-   
-	    AsyncInvoker asyncInvoker = invocationBuilder.async();
-	    
-	    Tournament tournament = invocationBuilder.get(new GenericType<Tournament>() {
-		});
+	    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+	    Response response = invocationBuilder.get();
+	     
+	    Tournament tournament = response.readEntity(Tournament.class);
 
-	    asyncInvoker.get(new InvocationCallback<Response>() {
-
-	        @Override
-	        public void completed(Response response) {
-	            if (response.getStatusInfo().equals(Status.OK)) {
-	        	System.out.println("Successful");
-	               // parse the response in success scenario
-	            } else {
-	               // parse the response if error response is received from server
-	            }
-	            client.close();
-	        }
-
-	        @Override
-	        public void failed(Throwable throwable) {
-	            System.out.println("An error occurred while calling API");
-	            throwable.printStackTrace();
-	            client.close();
-	        }
-	    });	
-	   
 		return tournament;
 	}
 

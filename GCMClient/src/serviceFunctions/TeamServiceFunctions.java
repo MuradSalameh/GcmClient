@@ -8,6 +8,8 @@ import gcmClasses.Tournament;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -68,9 +70,13 @@ System.out.println("getTeams");
 	public static Team getTeam(int id) {
 	    System.out.println("getTeam" + id);
 
-		Team team = ClientBuilder.newClient().target(serverURI).path("/team/" + id).request(MediaType.APPLICATION_XML)
-				.get(new GenericType<Team>() {
-				});
+	    Client client = ClientBuilder.newClient();
+	    WebTarget webTarget = client.target(serverURI).path("/team/" + id);
+	    
+	    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+	    Response response = invocationBuilder.get();
+	     
+	    Team team = response.readEntity(Team.class);
 
 		return team;
 	}

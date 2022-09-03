@@ -7,6 +7,8 @@ import gcmClasses.Role;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -43,9 +45,13 @@ public class RoleServiceFunctions {
 	// get role
 	public static Role getRole(int id) {
 
-		Role role = ClientBuilder.newClient().target(serverURI).path("/role/" + id).request(MediaType.APPLICATION_XML)
-				.get(new GenericType<Role>() {
-				});
+	    Client client = ClientBuilder.newClient();
+	    WebTarget webTarget = client.target(serverURI).path("/role/" + id);
+	    
+	    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+	    Response response = invocationBuilder.get();
+	     
+	    Role role = response.readEntity(Role.class);
 
 		return role;
 	}

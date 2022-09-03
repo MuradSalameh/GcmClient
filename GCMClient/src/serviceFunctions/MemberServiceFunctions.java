@@ -6,6 +6,8 @@ import gcmClasses.Member;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -52,9 +54,13 @@ public class MemberServiceFunctions {
 	// get member
 	public static Member getMember(int id) {
 
-		Member member = ClientBuilder.newClient().target(serverURI).path("/member/" + id)
-				.request(MediaType.APPLICATION_XML).get(new GenericType<Member>() {
-				});
+	    Client client = ClientBuilder.newClient();
+	    WebTarget webTarget = client.target(serverURI).path("/member/" + id);
+	    
+	    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+	    Response response = invocationBuilder.get();
+	     
+	    Member member = response.readEntity(Member.class);
 
 		return member;
 	}

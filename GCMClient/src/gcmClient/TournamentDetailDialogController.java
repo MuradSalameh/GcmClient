@@ -165,9 +165,6 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	tournament.setTournamentTimeBeginn(start);
 
 	// End Time
-
-	
-
 	Matcher ehMatcher = hPattern.matcher(endHourTF.getText());
 	if(ehMatcher.matches()){
 	    endHour = String.valueOf(endHourTF.getText()); 
@@ -177,7 +174,6 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	if(emMatcher.matches()){
 	    endMinute = String.valueOf(endMinuteTF.getText());
 	}
-
 
 	int endHourInt = Integer.parseInt(endHour);
 	int endMinuteInt = Integer.parseInt(endMinute);

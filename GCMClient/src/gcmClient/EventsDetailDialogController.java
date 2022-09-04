@@ -122,44 +122,37 @@ public class EventsDetailDialogController extends Dialog<ButtonType> implements 
 		String minutePattern = "[0-5][0-9]";
 		Pattern hPattern = Pattern.compile(hourPattern);
 		Pattern mPattern = Pattern.compile(minutePattern);
-		
+
 		Matcher hMatcher = hPattern.matcher(startHourTF.getText());
-		  if(hMatcher.matches()){
-		      startHour = String.valueOf(startHourTF.getText());
-		  } else {
-		     
-		  }
-		  
-		  Matcher mMatcher = hPattern.matcher(startMinuteTF.getText());
-		  if(mMatcher.matches()){
-		      startMinute = String.valueOf(startMinuteTF.getText());
-		  } else {
-		      
-		  }
-		  
+		if(hMatcher.matches()){
+		    startHour = String.valueOf(startHourTF.getText());
+		} else {
+		    
+		}
+
+		Matcher mMatcher = mPattern.matcher(startMinuteTF.getText());
+		if(mMatcher.matches()){
+		    startMinute = String.valueOf(startMinuteTF.getText());
+		} else {
+		 
+		}
 		
 		int startHourInt = Integer.parseInt(startHour);
 		int startMinuteInt = Integer.parseInt(startMinute);
 		LocalTime start = LocalTime.of(startHourInt, startMinuteInt);
-
 		event.setEventStartTime(start);
 
 		// End Time
-		String endHourPattern = "([01]?[0-9]|2[0-3])";
-		String endMinutePattern = "[0-5][0-9]";
-		Pattern endHPattern = Pattern.compile(endHourPattern);
-		Pattern endMPattern = Pattern.compile(endMinutePattern);
-		
 		Matcher ehMatcher = hPattern.matcher(endHourTF.getText());
-		  if(ehMatcher.matches()){
-		     endHour = String.valueOf(endHourTF.getText()); 
-		  }
-		
-		  Matcher emMatcher = hPattern.matcher(endMinuteTF.getText());
-		  if(emMatcher.matches()){
-		      endMinute = String.valueOf(endMinuteTF.getText());
-		  }
-		
+		if(ehMatcher.matches()){
+		    endHour = String.valueOf(endHourTF.getText()); 
+		}
+
+		Matcher emMatcher = mPattern.matcher(endMinuteTF.getText());
+		if(emMatcher.matches()){
+		    endMinute = String.valueOf(endMinuteTF.getText());
+		}
+
 
 		int endHourInt = Integer.parseInt(endHour);
 		int endMinuteInt = Integer.parseInt(endMinute);

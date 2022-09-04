@@ -17,6 +17,14 @@ https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#typesize
 	-fx-text-fill: #ffffff;
 }
 
+.textfield-error {
+  -fx-control-inner-background: red;
+}
+
+.textfield-ok {
+  -fx-control-inner-background: white;
+}
+
 
 .mainmenue-button {
 	-fx-font: 100px Verdana;

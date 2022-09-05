@@ -6,6 +6,8 @@ import gcmClasses.Member;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -14,7 +16,7 @@ public class MemberServiceFunctions {
 
 	private static final String serverURI = "http://localhost:4712/member";
 
-	// GET - get member list
+	// get list of all members
 	public static List<Member> getMembers() {
 
 		List<Member> members = ClientBuilder.newClient().target(serverURI).path("/memberlist")
@@ -24,7 +26,7 @@ public class MemberServiceFunctions {
 		return members;
 	}
 
-	// GET - get member list
+	// get list of all members who have birthday today
 	public static List<Member> getTodaysMembersBirthdays() {
 
 		List<Member> members = ClientBuilder.newClient().target(serverURI).path("/getTodaysMembersBirthdays")
@@ -34,27 +36,36 @@ public class MemberServiceFunctions {
 		return members;
 	}
 
-	// GET - get member list
+	// get members by team id from MemberTeams table
 	public static List<Member> getMembersByTeamId(int id) {
-
+	    
+	  
+	    	System.out.println("getMembersByTeamId" + " " + id);
 		List<Member> members = ClientBuilder.newClient().target(serverURI).path("/getMembersByTeamId/" + id)
 				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Member>>() {
 				});
+		
+		
 
 		return members;
 	}
 
-	// GET - get one member
+	
+	// get member
 	public static Member getMember(int id) {
 
-		Member member = ClientBuilder.newClient().target(serverURI).path("/member/" + id)
-				.request(MediaType.APPLICATION_XML).get(new GenericType<Member>() {
-				});
+	    Client client = ClientBuilder.newClient();
+	    WebTarget webTarget = client.target(serverURI).path("/member/" + id);
+	    
+	    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+	    Response response = invocationBuilder.get();
+	     
+	    Member member = response.readEntity(Member.class);
 
 		return member;
 	}
 
-	// GET - get memberWithHighestId
+	// get member with highest id
 	public static Member getMemberWithHighestId() {
 
 		Member member = ClientBuilder.newClient().target(serverURI).path("/memberWithHighestId/")
@@ -64,7 +75,7 @@ public class MemberServiceFunctions {
 		return member;
 	}
 
-	// Post - add new member
+	//  add new member
 	public static Response addMember(Member m) {
 
 		Client client = ClientBuilder.newClient();
@@ -72,7 +83,7 @@ public class MemberServiceFunctions {
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// PUT - add game to member
+	// assign member to team in MemberTeam table
 	public static Response addMemberToTeam(int memberID, int teamID) {
 
 		Member t = new Member();
@@ -81,6 +92,7 @@ public class MemberServiceFunctions {
 				.request(MediaType.APPLICATION_XML).put(Entity.entity(t, MediaType.APPLICATION_XML));
 	}
 
+	// delete specific member from specific team in MemberTeam table
 	public static Response deleteMemberFromTeam(int memberid, int teamid) {
 
 		Client client = ClientBuilder.newClient();
@@ -89,7 +101,7 @@ public class MemberServiceFunctions {
 
 	}
 
-	// PUT - update member
+	// update member
 	public static Response updateMember(int id, Member m) {
 
 		Client client = ClientBuilder.newClient();
@@ -98,7 +110,7 @@ public class MemberServiceFunctions {
 
 	}
 
-	// Delete - delete member
+	// delete member
 	public static Response deleteMember(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -106,7 +118,7 @@ public class MemberServiceFunctions {
 
 	}
 
-	// Delete - delete member from events
+	// delete member from all events in MemberEvents table
 	public static Response deleteMemberFromEvents(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -115,7 +127,7 @@ public class MemberServiceFunctions {
 
 	}
 
-	// Delete - delete member from Teams
+	// delete member from all teams in MemberTeam table
 	public static Response deleteMemberFromTeams(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -124,7 +136,7 @@ public class MemberServiceFunctions {
 
 	}
 
-	// Delete - delete member from Teams
+	// delete member from all games in MemberGames table
 	public static Response deleteMemberFromGames(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -133,7 +145,7 @@ public class MemberServiceFunctions {
 
 	}
 
-	// Delete - delete role
+	// delete member from all roles in MemberRoles table
 	public static Response deleteMemberFromRoles(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -142,7 +154,7 @@ public class MemberServiceFunctions {
 
 	}
 
-	// Delete - delete Social
+	//delete member from all socials in MemberSocials table
 	public static Response deleteMemberFromSocials(int id) {
 
 		Client client = ClientBuilder.newClient();

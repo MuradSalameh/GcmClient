@@ -7,15 +7,19 @@ import gcmClasses.Role;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 public class RoleServiceFunctions {
+	// Methods to send and retrieve data from server 
+
 
 	private static final String serverURI = "http://localhost:4712/role";
 
-	// GET - get role list
+	// get list of all roles
 	public static List<Role> getRoles() {
 
 		List<Role> roles = ClientBuilder.newClient().target(serverURI).path("/rolelist")
@@ -25,7 +29,7 @@ public class RoleServiceFunctions {
 		return roles;
 	}
 
-	// GET - get role list
+	// get roles by member id from MemberRoles table
 	public static List<Role> getRolesByMemberId(int id) {
 
 		try {
@@ -38,17 +42,21 @@ public class RoleServiceFunctions {
 		}
 	}
 
-	// GET - get one role
+	// get role
 	public static Role getRole(int id) {
 
-		Role role = ClientBuilder.newClient().target(serverURI).path("/role/" + id).request(MediaType.APPLICATION_XML)
-				.get(new GenericType<Role>() {
-				});
+	    Client client = ClientBuilder.newClient();
+	    WebTarget webTarget = client.target(serverURI).path("/role/" + id);
+	    
+	    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+	    Response response = invocationBuilder.get();
+	     
+	    Role role = response.readEntity(Role.class);
 
 		return role;
 	}
 
-	// GET - get roleWithHighestId
+	//get role with highest id
 	public static Role getRoleWithHighestId() {
 
 		Role role = ClientBuilder.newClient().target(serverURI).path("/roleWithHighestId/")
@@ -58,7 +66,7 @@ public class RoleServiceFunctions {
 		return role;
 	}
 
-	// Post - add new role
+	// add new role
 	public static Response addRole(Role m) {
 
 		Client client = ClientBuilder.newClient();
@@ -66,7 +74,7 @@ public class RoleServiceFunctions {
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// PUT - update role
+	// update role
 	public static Response updateRole(int id, Role m) {
 
 		Client client = ClientBuilder.newClient();
@@ -75,7 +83,7 @@ public class RoleServiceFunctions {
 
 	}
 
-	// PUT - add role to member
+	// assign role to member in MemberRoles table
 	public static Response addRoleToMember(int memberID, int roleID) {
 		Member m = new Member();
 		Client client = ClientBuilder.newClient();
@@ -84,7 +92,7 @@ public class RoleServiceFunctions {
 
 	}
 
-	// Delete - delete role
+	// delete role
 	public static Response deleteRole(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -92,7 +100,7 @@ public class RoleServiceFunctions {
 
 	}
 
-	// Delete - delete role
+	// delete specific role from  specific member in MemberRoles table
 	public static Response deleteRoleFromMember(int roleid, int memberid) {
 
 		Client client = ClientBuilder.newClient();

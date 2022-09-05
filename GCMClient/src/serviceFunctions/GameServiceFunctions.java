@@ -8,15 +8,19 @@ import gcmClasses.Tournament;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 public class GameServiceFunctions {
+	// Methods to send and retrieve data from server 
+
 
 	private static final String serverURI = "http://localhost:4712/game";
 
-	// GET - get expenseType list
+	//get list of all games
 	public static List<Game> getGames() {
 
 		List<Game> games = ClientBuilder.newClient().target(serverURI).path("/gamelist")
@@ -25,7 +29,7 @@ public class GameServiceFunctions {
 		return games;
 	}
 
-	// GET - get game list by memberId
+	// get games by member id in MemberGames table
 	public static List<Game> getGamesByMemberId(int id) {
 
 		List<Game> games = ClientBuilder.newClient().target(serverURI).path("/gamesByMember/" + id)
@@ -34,7 +38,7 @@ public class GameServiceFunctions {
 		return games;
 	}
 
-	// GET - get game list by tournamentId
+	//get games by tournament id in Tournamentgame table
 	public static List<Game> getGamesByTournamentId(int id) {
 
 		List<Game> games = ClientBuilder.newClient().target(serverURI).path("/getGamesByTournamentId/" + id)
@@ -43,16 +47,21 @@ public class GameServiceFunctions {
 		return games;
 	}
 
-	// GET - get one game
+	// get game
 	public static Game getGame(int id) {
 
-		Game game = ClientBuilder.newClient().target(serverURI).path("/game/" + id).request(MediaType.APPLICATION_XML)
-				.get(new GenericType<Game>() {
-				});
+	    Client client = ClientBuilder.newClient();
+	    WebTarget webTarget = client.target(serverURI).path("/game/" + id);
+	    
+	    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+	    Response response = invocationBuilder.get();
+	     
+	    Game game = response.readEntity(Game.class);
+
 		return game;
 	}
 
-	// Post - add new game
+	// add new game
 	public static Response addGame(Game m) {
 
 		Client client = ClientBuilder.newClient();
@@ -60,7 +69,7 @@ public class GameServiceFunctions {
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// PUT - add game to member
+	// assign game to member in MemberGames table
 	public static Response addGameToMember(int memberID, int gameID) {
 
 		Member m = new Member();
@@ -70,7 +79,7 @@ public class GameServiceFunctions {
 
 	}
 
-	// PUT - add game to member
+	//assign game to tournament in TournamentGame table
 	public static Response addGameToTournament(int gameId, int tournamentId) {
 
 		Tournament m = new Tournament();
@@ -79,7 +88,7 @@ public class GameServiceFunctions {
 				.request(MediaType.APPLICATION_XML).put(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// PUT - update game
+	// update game
 	public static Response updateGame(int id, Game m) {
 
 		Client client = ClientBuilder.newClient();
@@ -88,7 +97,7 @@ public class GameServiceFunctions {
 
 	}
 
-	// Delete - delete game
+	// delete game from all members in MmberGames table
 	public static Response deleteGameFromAllMembers(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -96,7 +105,7 @@ public class GameServiceFunctions {
 				.delete();
 	}
 
-	// Delete - delete game
+	// delete game from all tournaments in TournamentGame table
 	public static Response deleteGameFromAllTournaments(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -104,6 +113,7 @@ public class GameServiceFunctions {
 				.delete();
 	}
 
+	// delete game
 	public static Response deleteGame(int id) {
 
 		Client client = ClientBuilder.newClient();
@@ -111,6 +121,7 @@ public class GameServiceFunctions {
 
 	}
 
+	// delete specific game from specific member in MemberGames table 
 	public static Response deleteGameFromMember(int gameid, int memberid) {
 
 		Client client = ClientBuilder.newClient();
@@ -119,6 +130,7 @@ public class GameServiceFunctions {
 
 	}
 
+	// delete specific game from specific tournament in TournamentGame table
 	public static Response deleteGameFromTournament(int gameid, int tournamentid) {
 
 		Client client = ClientBuilder.newClient();
@@ -127,12 +139,6 @@ public class GameServiceFunctions {
 
 	}
 
-	public static Response deleteGameFromGenre(int gameid, int genreid) {
-
-		Client client = ClientBuilder.newClient();
-		return client.target(serverURI).path("/deleteGameFromGenre/" + gameid + "/" + genreid)
-				.request(MediaType.APPLICATION_XML).delete();
-
-	}
+	
 
 }

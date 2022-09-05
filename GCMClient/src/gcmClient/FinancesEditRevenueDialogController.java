@@ -1,7 +1,6 @@
 package gcmClient;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import gcmClasses.Revenue;
@@ -20,96 +19,83 @@ import serviceFunctions.RevenueServiceFunctions;
 
 public class FinancesEditRevenueDialogController extends Dialog<ButtonType> implements Initializable {
 
-	private int ccId = ControllerCommunicator.getId();
+    private int ccId = ControllerCommunicator.getId();
 
-	@FXML
-	final DialogPane dialogPane = getDialogPane();
-	@FXML
-	private Dialog dialog;
-	@FXML
-	private BorderPane revenueEditBp;
-	@FXML
-	private Label idLabel;
-	@FXML
-	private TextField revenueTitleTF;
-	@FXML
-	private TextField revenueDescriptionTF;
-	@FXML
-	private TextField amountTF;
-	@FXML
-	private DatePicker dateDp;
+    @FXML
+    final DialogPane dialogPane = getDialogPane();
+    @FXML
+    private Dialog dialog;
+    @FXML
+    private BorderPane revenueEditBp;
+    @FXML
+    private Label idLabel;
+    @FXML
+    private TextField revenueTitleTF;
+    @FXML
+    private TextField revenueDescriptionTF;
+    @FXML
+    private TextField amountTF;
+    @FXML
+    private DatePicker dateDp;
+    @FXML
+    public Button editDetailsBtn;
+    @FXML
+    public Button addNewBtn;
 
-	@FXML
-	public Button editDetailsBtn;
-	@FXML
-	public Button addNewBtn;
+    @FXML
+    ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+    @FXML
+    ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-	@FXML
-	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-	@FXML
-	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+    // Load selected object from database
+    public Revenue loadRevenue() {
 
-	public Revenue loadRevenue() {
+	Revenue revenue = RevenueServiceFunctions.getRevenue(ccId);
+	return revenue;
+    }
 
-		Revenue revenue = RevenueServiceFunctions.getRevenue(ccId);
-		return revenue;
-	}
+    // initialize text fields
+    public void initializeTextFields() {
+	Revenue revenue = loadRevenue();
 
-	public Revenue getSelectedRevenue() {
+	idLabel.setText(String.valueOf(ccId));
 
-		if (loadRevenue() != null) {
-			Revenue revenue = loadRevenue();
-			return revenue;
-		} else {
-			Revenue newRevenue = new Revenue("test", // title
-					"ttttt", // desc
-					00.00, // amount
-					LocalDate.now() // date
+	// Revenue TextFields
+	revenueTitleTF.setText(revenue.getRevenueTitle());
+	revenueDescriptionTF.setText(revenue.getRevenueDescription());
 
-			);
-			return newRevenue;
-		}
-	}
+	// Converting Double to String
+	String amountToString = String.valueOf(revenue.getAmount());
+	amountTF.setText(amountToString);
 
-	public void initializeTextFields() {
-		Revenue revenue = loadRevenue();
+	dateDp.setValue(revenue.getDate());
 
-		idLabel.setText(String.valueOf(ccId));
+	revenueTitleTF.setPromptText("Enter Revenue Title");
+	revenueDescriptionTF.setPromptText("Enter Description");
+	amountTF.setPromptText("Enter Amount");
 
-		// Revenue TextFields
-		revenueTitleTF.setText(revenue.getRevenueTitle());
-		revenueDescriptionTF.setText(revenue.getRevenueDescription());
+    }
 
-		// Converting Double to String
-		String amountToString = String.valueOf(revenue.getAmount());
-		amountTF.setText(amountToString);
+    // update object
+    public Revenue updateRevenue() {
+	Revenue revenue = loadRevenue();
 
-		dateDp.setValue(revenue.getDate());
+	revenue.setRevenueTitle(revenueTitleTF.getText());
+	revenue.setRevenueDescription(revenueDescriptionTF.getText());
 
-		revenueTitleTF.setPromptText("Enter Revenue Title");
-		revenueDescriptionTF.setPromptText("Enter Description");
-		amountTF.setPromptText("Enter Amount");
+	// Converting String to Double
+	double StringToAmount = Double.parseDouble(amountTF.getText());
+	revenue.setAmount(StringToAmount);
 
-	}
+	revenue.setDate(dateDp.getValue());
 
-	public Revenue updateRevenue() {
-		Revenue revenue = loadRevenue();
+	return revenue;
+    }
 
-		revenue.setRevenueTitle(revenueTitleTF.getText());
-		revenue.setRevenueDescription(revenueDescriptionTF.getText());
-
-		// Converting String to Double
-		double StringToAmount = Double.parseDouble(amountTF.getText());
-		revenue.setAmount(StringToAmount);
-
-		revenue.setDate(dateDp.getValue());
-
-		return revenue;
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		loadRevenue();
-		initializeTextFields();
-	}
+    // initialize methods when FinancesEditRevenueDialog.fxml is loading
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+	loadRevenue();
+	initializeTextFields();
+    }
 }

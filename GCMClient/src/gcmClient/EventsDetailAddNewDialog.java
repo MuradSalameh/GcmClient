@@ -4,6 +4,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import gcmClasses.Event;
 import javafx.fxml.FXML;
@@ -20,179 +22,162 @@ import javafx.scene.layout.BorderPane;
 
 public class EventsDetailAddNewDialog extends Dialog<ButtonType> implements Initializable {
 
-	private int ccId = ControllerCommunicator.getId();
+    private int ccId = ControllerCommunicator.getId();
 
-	@FXML
-	final DialogPane dialogPane = getDialogPane();
-	@FXML
-	private Dialog dialog;
-	@FXML
-	private BorderPane eventEditBp;
+    @FXML
+    final DialogPane dialogPane = getDialogPane();
+    @FXML
+    private Dialog dialog;
+    @FXML
+    private BorderPane eventEditBp;
+    @FXML
+    private Label sIdLabel;
+    @FXML
+    private TextField eventTitleTF;
+    @FXML
+    private TextField eventDescriptionTF;
+    @FXML
+    private DatePicker dateDp;
+    @FXML
+    private TextField startHourTF;
+    @FXML
+    private TextField startMinuteTF;
+    @FXML
+    private TextField endHourTF;
+    @FXML
+    private TextField endMinuteTF;
+    @FXML
+    private CheckBox reoccuringCB;
+    @FXML
+    private TextField additionalNotesTF;
 
-	@FXML
-	private Label sIdLabel;
+    @FXML
+    ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+    @FXML
+    ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-	@FXML
-	private TextField eventTitleTF;
-	@FXML
-	private TextField eventDescriptionTF;
-	@FXML
-	private DatePicker dateDp;
-	@FXML
-	private TextField startHourTF;
-	@FXML
-	private TextField startMinuteTF;
-	@FXML
-	private TextField endHourTF;
-	@FXML
-	private TextField endMinuteTF;
-	@FXML
-	private CheckBox reoccuringCB;
-	@FXML
-	private TextField additionalNotesTF;
+    private String startHour;
+    private String startMinute;
 
-	@FXML
-	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-	@FXML
-	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+    private String endHour;
+    private String endMinute;
 
-	private String startHour;
-	private String startMinute;
+    private String startTime;
+    private String endTime;
 
-	private String endHour;
-	private String endMinute;
 
-	private String startTime;
-	private String endTime;
+    // Creating new empty event 
+    public Event loadEvent() {
 
-	public Event loadEvent() {
+	Event newEvent = new Event("", 		// event title
+		"", 			// event description
+		LocalDate.now(), 	// tournament date
+		LocalTime.of(01, 11), 	// start time
+		LocalTime.of(02, 22), 	// end time
+		"", 			// additional notes
+		false, 			// reoccuring
+		null); 			// members
 
-		Event newEvent = new Event("", // event title
-				"", // eventdescription
-				LocalDate.now(), // tournament date
-				LocalTime.of(01, 11), // start time
-				LocalTime.of(02, 22), // end time
-				"", // additional notes
-				false, // reoccuring
-				null); // members
+	return newEvent;
+    }
+   
+    // initialize TextFields -----
+    public void initializeTextFields() {
+	Event event = loadEvent();
 
-		System.out.println("new Created Empty Event: " + newEvent);
-		return newEvent;
-	}
+	startHour = String.valueOf(event.getEventStartTime().getHour());
+	startMinute = String.valueOf(event.getEventStartTime().getMinute());
 
-	// initialize TextFields -----
+	endHour = String.valueOf(event.getEventEndTime().getHour());
+	endMinute = String.valueOf(event.getEventEndTime().getMinute());
 
-	public void initializeTextFields() {
-		Event event = loadEvent();
-		System.out.println("Event import in Initializer: : " + event);
+	// Event TextFields
+	eventTitleTF.setText(event.getEventTitle());
+	eventDescriptionTF.setText(event.getEventDescription());
+	additionalNotesTF.setText(event.getEventAddidtionalNotes());
+	dateDp.setValue(event.getDate());
 
-		startHour = String.valueOf(event.getEventStartTime().getHour());
-		startMinute = String.valueOf(event.getEventStartTime().getMinute());
+	startHourTF.setText(startHour);
+	startMinuteTF.setText(startMinute);
 
-		endHour = String.valueOf(event.getEventEndTime().getHour());
-		endMinute = String.valueOf(event.getEventEndTime().getMinute());
+	endHourTF.setText(endHour);
+	endMinuteTF.setText(endMinute);
 
-		// sIdLabel.setText("-");
+	reoccuringCB.setSelected(event.isReoccuring());
 
-		// Event TextFields
-		eventTitleTF.setText(event.getEventTitle());
-		eventDescriptionTF.setText(event.getEventDescription());
-		additionalNotesTF.setText(event.getEventAddidtionalNotes());
-		dateDp.setValue(event.getDate());
+	eventTitleTF.setPromptText("Enter Event Title");
+	eventDescriptionTF.setPromptText("Enter Description");
+	additionalNotesTF.setPromptText("Enter Additional Notes");
+	startHourTF.setPromptText("00");
+	startMinuteTF.setPromptText("00");
+	endHourTF.setPromptText("00");
+	endMinuteTF.setPromptText("00");
+	reoccuringCB.setSelected(event.isReoccuring());
+    }
 
-		startHourTF.setText(startHour);
-		startMinuteTF.setText(startMinute);
+    // Update event
+    public Event updateEvent() {
+	Event event = loadEvent();
 
-		endHourTF.setText(endHour);
-		endMinuteTF.setText(endMinute);
+	event.setEventTitle(eventTitleTF.getText());
+	event.setEventDescription(eventDescriptionTF.getText());
+	event.setEventAddidtionalNotes(additionalNotesTF.getText());
+	event.setDate(dateDp.getValue());
+	event.setReoccuring(reoccuringCB.isSelected());
 
-		reoccuringCB.setSelected(event.isReoccuring());
+	// ------ Time converters -------
 
-		eventTitleTF.setPromptText("Enter Event Title");
-		eventDescriptionTF.setPromptText("Enter Description");
-		additionalNotesTF.setPromptText("Enter Additional Notes");
-		startHourTF.setPromptText("00");
-		startMinuteTF.setPromptText("00");
-		endHourTF.setPromptText("00");
-		endMinuteTF.setPromptText("00");
-		reoccuringCB.setSelected(event.isReoccuring());
-	}
+	// Start time
+	String hourPattern = "([01]?[0-9]|2[0-3])";
+	String minutePattern = "[0-5][0-9]";
+	Pattern hPattern = Pattern.compile(hourPattern);
+	Pattern mPattern = Pattern.compile(minutePattern);
 
-	public Event updateEvent() {
-		Event event = loadEvent();
-
-		event.setEventTitle(eventTitleTF.getText());
-		event.setEventDescription(eventDescriptionTF.getText());
-		event.setEventAddidtionalNotes(additionalNotesTF.getText());
-		event.setDate(dateDp.getValue());
-		event.setReoccuring(reoccuringCB.isSelected());
-
-		// ------ Time converters -------
-
-		// Start time
-		startHour = String.valueOf(startHourTF.getText());
-		startMinute = String.valueOf(startMinuteTF.getText());
-
-		int startHourInt = Integer.parseInt(startHour);
-		int startMinuteInt = Integer.parseInt(startMinute);
-		LocalTime start = LocalTime.of(startHourInt, startMinuteInt);
-
-		event.setEventStartTime(start);
-
-		// End Time
-		endHour = String.valueOf(endHourTF.getText());
-		endMinute = String.valueOf(endMinuteTF.getText());
-
-		int endHourInt = Integer.parseInt(endHour);
-		int endMinuteInt = Integer.parseInt(endMinute);
-		LocalTime end = LocalTime.of(endHourInt, endMinuteInt);
-
-		event.setEventEndTime(end);
-
-		// ---------------------------------
-		return event;
-	}
-
-//	@FXML
-//	public void handleEventEditSaveBtn(ActionEvent e) {
-//		int id = loadEvent().getId();
-//
-//		if (id != 0) {
-//			Event updatedEvent = updateEvent();
-//			EventServiceFunctions.updateEvent(id, updatedEvent);
-//		} else {
-//			Event updatedEvent = updateEvent();
-//			EventServiceFunctions.addEvent(updatedEvent);
-//
-//		}
-//	}
-//
-//	@FXML
-//	public void handleEventEditNewBtn(ActionEvent e) {
-//		Event event = updateEvent();
-//		Integer id = null;
-//
-//		if (id == null) {
-//			// Set Event ID Label
-//			sIdLabel.setText(String.valueOf(id));
-//
-//			eventTitleTF.setPromptText("Enter Event Title");
-//			eventDescriptionTF.setPromptText("Enter Description");
-//			additionalNotesTF.setPromptText("Enter Additional Notes");
-//
-//			startHourTF.setPromptText("00");
-//			startMinuteTF.setPromptText("00");
-//			endHourTF.setPromptText("00");
-//			endMinuteTF.setPromptText("00");
-//			reoccuringCB.setSelected(event.isReoccuring());
-//		}
-//	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		loadEvent();
-		initializeTextFields();
+	Matcher hMatcher = hPattern.matcher(startHourTF.getText());
+	if(hMatcher.matches()){
+	    startHour = String.valueOf(startHourTF.getText());
+	} else {
 
 	}
+
+	Matcher mMatcher = mPattern.matcher(startMinuteTF.getText());
+	if(mMatcher.matches()){
+	    startMinute = String.valueOf(startMinuteTF.getText());
+	} else {
+
+	}
+
+	int startHourInt = Integer.parseInt(startHour);
+	int startMinuteInt = Integer.parseInt(startMinute);
+	LocalTime start = LocalTime.of(startHourInt, startMinuteInt);
+	event.setEventStartTime(start);
+
+	// End Time
+	Matcher ehMatcher = hPattern.matcher(endHourTF.getText());
+	if(ehMatcher.matches()){
+	    endHour = String.valueOf(endHourTF.getText()); 
+	}
+
+	Matcher emMatcher = mPattern.matcher(endMinuteTF.getText());
+	if(emMatcher.matches()){
+	    endMinute = String.valueOf(endMinuteTF.getText());
+	}
+
+	int endHourInt = Integer.parseInt(endHour);
+	int endMinuteInt = Integer.parseInt(endMinute);
+	LocalTime end = LocalTime.of(endHourInt, endMinuteInt);
+
+	event.setEventEndTime(end);
+
+	return event;
+    }
+
+    // initialize when window is opened
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+	loadEvent();
+	initializeTextFields();
+
+    }
 
 }

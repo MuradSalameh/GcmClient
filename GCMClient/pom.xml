@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>FXMAVEN</groupId>
 	<artifactId>FXMAVEN</artifactId>
@@ -12,19 +10,10 @@
 		<maven.compiler.target>17</maven.compiler.target>
 		<javafx.version>18</javafx.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jersey.version>3.1.0-M3</jersey.version>
-		<jerseyinject.version>3.1.0-M3</jerseyinject.version>
 	</properties>
 
 	<dependencies>
-
-		<dependency>
-			<!-- https://mvnrepository.com/artifact/net.dv8tion/JDA -->
-			<groupId>net.dv8tion</groupId>
-			<artifactId>JDA</artifactId>
-			<version>5.0.0-alpha.4</version>
-		</dependency>
-
+	
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
@@ -38,7 +27,7 @@
 			<artifactId>javafx-controls</artifactId>
 			<version>${javafx.version}</version>
 		</dependency>
-	
+
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
@@ -55,37 +44,82 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- ____________________________  JERSEY & JAXB ____________________________    -->
+		<!-- ____________________________  JERSEY & JAXB ____________________________    -->
+		<!-- ____________________________  JERSEY & JAXB ____________________________    -->
 
-		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet -->
+		<!-- https://mvnrepository.com/artifact/jakarta.activation/jakarta.activation-api -->
 		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet</artifactId>
-			<version>${jersey.version}</version>
+			<groupId>jakarta.activation</groupId>
+			<artifactId>jakarta.activation-api</artifactId>
+			<version>2.0.1</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.inject/jersey-hk2 -->
 		<dependency>
 			<groupId>org.glassfish.jersey.inject</groupId>
 			<artifactId>jersey-hk2</artifactId>
-			<version>${jerseyinject.version}</version>
+			<version>3.0.2</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-json-jackson -->
+		<!-- 
+
+
+
+<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.3.0</version>
+</dependency>
+
+<dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-ri</artifactId>
+    <version>3.0.0</version>
+    <type>pom</type>
+</dependency>
+
+-->
+
+
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-jaxb</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>${jerseyinject.version}</version>
+			<version>3.0.2</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client -->
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>3.1.0-M3</version>
+			<artifactId>jersey-common</artifactId>
+			<version>3.0.2</version>
 		</dependency>
 
 
+		<dependency>
+			<groupId>org.glassfish.hk2.external</groupId>
+			<artifactId>aopalliance-repackaged</artifactId>
+			<version>3.0.2</version>
+		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/jakarta.ws.rs/jakarta.ws.rs-api -->
+		<dependency>
+			<groupId>jakarta.ws.rs</groupId>
+			<artifactId>jakarta.ws.rs-api</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-jdk-http -->
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-jdk-http</artifactId>
+			<version>3.0.2</version>
+		</dependency>
 
 
 	</dependencies>

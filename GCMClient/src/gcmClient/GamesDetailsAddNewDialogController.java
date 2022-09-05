@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import gcmClasses.Game;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,118 +17,85 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import serviceFunctions.GameServiceFunctions;
 
 public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> implements Initializable {
 
-	private int ccId = ControllerCommunicator.getId();
+    private int ccId = ControllerCommunicator.getId();
 
-	// Member member = MemberServiceFunctions.getMember(ccId);
+    @FXML
+    final DialogPane dialogPane = getDialogPane();
+    @FXML
+    private Dialog dialog;
+    @FXML
+    private BorderPane memberEditBp;
 
-	@FXML
-	final DialogPane dialogPane = getDialogPane();
-	@FXML
-	private Dialog dialog;
-	@FXML
-	private BorderPane memberEditBp;
+    @FXML
+    ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+    @FXML
+    ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-	@FXML
-	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-	@FXML
-	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+    // Games Buttons -----
 
-	// Games Buttons -----
+    @FXML
+    private Button gSaveBtn;
+    @FXML
+    private Button gAnBtn;
+    @FXML
+    private Button gEBtn;
+    @FXML
+    private Button gDelBtn;
 
-	@FXML
-	private Button gSaveBtn;
-	@FXML
-	private Button gAnBtn;
-	@FXML
-	private Button gEBtn;
-	@FXML
-	private Button gDelBtn;
+    // ID Labels -----
 
-	// ID Labels -----
+    @FXML
+    private Label sIdLabel;
 
-	@FXML
-	private Label sIdLabel;
+    // Game TextFields -----
 
-	// Game TextFields -----
+    @FXML
+    private TextField gameTitleTf;
+    @FXML
+    private DatePicker relaseDateDP;
+    @FXML
+    private TextArea NotesTa;
 
-	@FXML
-	private TextField gameTitleTf;
-	@FXML
-	private DatePicker relaseDateDP;
-	@FXML
-	private TextArea NotesTa;
+    // create empty game object
+    public Game loadGame() {
 
-	public Game loadGame() {
+	Game newGame = new Game("Game Title", // title
+		LocalDate.now(), // release date
+		null, // tournaments
+		null, "Notes"); // notes
 
-		Game newGame = new Game("Game Title", // title
-				LocalDate.now(), // release date
-				null, // tournaments
-				null, "Notes"); // notes
+	return newGame;
+    }
 
-		// System.out.println("new Created Empty Game: " + newGame);
-		return newGame;
-	}
+    // initialize TextFields -----
+    public void initializeTextFields() {
+	Game game = loadGame();
 
-	// initialize TextFields -----
+	sIdLabel.setText(String.valueOf(loadGame().getId()));
 
-	public void initializeTextFields() {
-		Game game = loadGame();
-		// System.out.println("Game import in Initializer: : " + game);
+	// Game TextFields
+	gameTitleTf.setText(game.getGameTitle());
+	relaseDateDP.setValue(game.getReleaseDate());
+	NotesTa.setText(game.getGameAdditionalNotes());
+    }
 
-		sIdLabel.setText(String.valueOf(loadGame().getId()));
+    // update game
+    public Game updateGame() {
+	Game game = loadGame();
 
-		// Game TextFields
-		gameTitleTf.setText(game.getGameTitle());
-		relaseDateDP.setValue(game.getReleaseDate());
-		NotesTa.setText(game.getGameAdditionalNotes());
-	}
+	game.setGameTitle(gameTitleTf.getText());
+	game.setReleaseDate(relaseDateDP.getValue());
+	game.setGameAdditionalNotes(NotesTa.getText());
+	return game;
+    }
 
-	// Handle Game Buttons ------------------------------------------------
-
-	public Game updateGame() {
-		Game game = loadGame();
-
-		game.setGameTitle(gameTitleTf.getText());
-		game.setReleaseDate(relaseDateDP.getValue());
-		game.setGameAdditionalNotes(NotesTa.getText());
-		return game;
-	}
-
-	@FXML
-	public void handleGameEditSaveBtn(ActionEvent e) {
-		int id = loadGame().getId();
-
-		if (id != 0) {
-			Game updatedGame = updateGame();
-			GameServiceFunctions.updateGame(id, updatedGame);
-		} else {
-			Game updatedGame = updateGame();
-			GameServiceFunctions.addGame(updatedGame);
-
-		}
-	}
-
-	@FXML
-	public void handleGameEditNewBtn(ActionEvent e) {
-		Game game = updateGame();
-		Integer id = null;
-
-		if (id == null) {
-			// Set Game ID Label
-			sIdLabel.setText(String.valueOf(id));
-
-			gameTitleTf.setPromptText("Enter Game Title");
-			NotesTa.setPromptText("Enter Additional Notes");
-		}
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		loadGame();
-		initializeTextFields();
-	}
+    // initialize methods when GamesDetailsAddNewDialog.fxml is loaded
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+	loadGame();
+	initializeTextFields();
+    }
 }

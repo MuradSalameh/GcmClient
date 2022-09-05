@@ -6,6 +6,8 @@ import gcmClasses.Revenue;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -13,8 +15,10 @@ import jakarta.ws.rs.core.Response;
 public class RevenueServiceFunctions {
 
 	private static final String serverURI = "http://localhost:4712/revenue";
+	// Methods to send and retrieve data from server 
 
-	// GET - get revenue list
+
+	// get list of all revenues 
 	public static List<Revenue> getRevenues() {
 
 		List<Revenue> revenues = ClientBuilder.newClient().target(serverURI).path("/revenuelist")
@@ -24,17 +28,21 @@ public class RevenueServiceFunctions {
 		return revenues;
 	}
 
-	// GET - get one revenue
+	// get revenue
 	public static Revenue getRevenue(int id) {
-
-		Revenue revenue = ClientBuilder.newClient().target(serverURI).path("/revenue/" + id)
-				.request(MediaType.APPLICATION_XML).get(new GenericType<Revenue>() {
-				});
+	    
+	    Client client = ClientBuilder.newClient();
+	    WebTarget webTarget = client.target(serverURI).path("/revenue/" + id);
+	    
+	    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+	    Response response = invocationBuilder.get();
+	     
+	    Revenue revenue = response.readEntity(Revenue.class);
 
 		return revenue;
 	}
 
-	// Post - add new revenue
+	// add new revenue
 	public static Response addRevenue(Revenue m) {
 
 		Client client = ClientBuilder.newClient();
@@ -42,7 +50,7 @@ public class RevenueServiceFunctions {
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// PUT - update revenue
+	// update revenue
 	public static Response updateRevenue(int id, Revenue m) {
 
 		Client client = ClientBuilder.newClient();
@@ -51,7 +59,7 @@ public class RevenueServiceFunctions {
 
 	}
 
-	// Delete - delete revenue
+	// delete revenue
 	public static Response deleteRevenue(int id) {
 
 		Client client = ClientBuilder.newClient();

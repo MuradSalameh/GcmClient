@@ -18,110 +18,107 @@ import javafx.scene.layout.BorderPane;
 
 public class MembersAddNewDialogController extends Dialog<ButtonType> implements Initializable {
 
-//	private int ccId = ControllerCommunicator.getId();
+    @FXML
+    final DialogPane dialogPane = getDialogPane();
+    @FXML
+    private Dialog dialog;
+    @FXML
+    private BorderPane memberEditBp;
 
-	// Member member = MemberServiceFunctions.getMember(ccId);
+    @FXML
+    ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
+    @FXML
+    ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);
 
-	@FXML
-	final DialogPane dialogPane = getDialogPane();
-	@FXML
-	private Dialog dialog;
-	@FXML
-	private BorderPane memberEditBp;
+    @FXML
+    private Label idLabel;
 
-	@FXML
-	ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
-	@FXML
-	ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);
+    // Member TextFields -----
 
-	@FXML
-	private Label idLabel;
+    @FXML
+    private TextField clanNameTf;
+    @FXML
+    private TextField clanIdTf;
+    @FXML
+    private TextField realNameTf;
+    @FXML
+    private TextField addressTf;
+    @FXML
+    private TextField postCodeTf;
+    @FXML
+    private TextField cityTf;
+    @FXML
+    private TextField countryTf;
+    @FXML
+    private TextField emailTf;
+    @FXML
+    private TextField phoneNumberTf;
+    @FXML
+    private DatePicker dateDp;
 
-	// Member TextFields -----
+    // get Member from DB -----
+    public Member loadMember() {
+	Member member = new Member("", // clan name
+		"", // clan id
+		"", // real name
+		"", // address
+		"", // adress post code
+		"", // city
+		"", // country
+		"", // mail
+		"", // phone number
+		null, // role
+		null, // socials
+		null, // games
+		null, // events
+		LocalDate.now(), // birthday
+		null); // teams
 
-	@FXML
-	private TextField clanNameTf;
-	@FXML
-	private TextField clanIdTf;
-	@FXML
-	private TextField realNameTf;
-	@FXML
-	private TextField addressTf;
-	@FXML
-	private TextField postCodeTf;
-	@FXML
-	private TextField cityTf;
-	@FXML
-	private TextField countryTf;
-	@FXML
-	private TextField emailTf;
-	@FXML
-	private TextField phoneNumberTf;
-	@FXML
-	private DatePicker dateDp;
+	return member;
+    }
 
-	// get Member from DB -----
-	public Member loadMember() {
-		Member member = new Member("", // clan name
-				"", // clan id
-				"", // real name
-				"", // address
-				"", // adress post code
-				"", // city
-				"", // country
-				"", // mail
-				"", // phone number
-				null, // role
-				null, // socials
-				null, // games
-				null, // events
-				LocalDate.now(), // birthday
-				null); // teams
+    // initialize TextFields -----
 
-		return member;
-	}
+    public void initializeTextFields() {
+	Member member = loadMember();
 
-	// initialize TextFields -----
+	idLabel.setText("null");
 
-	public void initializeTextFields() {
-		Member member = loadMember();
+	clanNameTf.setPromptText("Enter Clan Name");
+	clanIdTf.setPromptText("Enter Clan ID");
+	realNameTf.setPromptText("Enter Real Name");
+	addressTf.setPromptText("Enter Adress");
+	postCodeTf.setPromptText("Enter Post Code");
+	cityTf.setPromptText("Enter City");
+	countryTf.setPromptText("Enter Country");
+	emailTf.setPromptText("Enter Email");
+	phoneNumberTf.setPromptText("Enter Phone Number");
 
-		idLabel.setText("null");
+    }
 
-		clanNameTf.setPromptText("Enter Clan Name");
-		clanIdTf.setPromptText("Enter Clan ID");
-		realNameTf.setPromptText("Enter Real Name");
-		addressTf.setPromptText("Enter Adress");
-		postCodeTf.setPromptText("Enter Post Code");
-		cityTf.setPromptText("Enter City");
-		countryTf.setPromptText("Enter Country");
-		emailTf.setPromptText("Enter Email");
-		phoneNumberTf.setPromptText("Enter Phone Number");
+    // update Member TextFields -----
 
-	}
+    public Member updateMemberDetails() {
+	Member member = loadMember();
 
-	// update Member TextFields -----
+	member.setClanName(clanNameTf.getText());
+	member.setClanId(clanIdTf.getText());
+	member.setRealName(realNameTf.getText());
+	member.setAddress(addressTf.getText());
+	member.setAddressPostCode(postCodeTf.getText());
+	member.setAddressCity(cityTf.getText());
+	member.setCountry(countryTf.getText());
+	member.setEmail(emailTf.getText());
+	member.setPhoneNumber(phoneNumberTf.getText());
+	member.setBirthday(dateDp.getValue());
 
-	public Member updateMemberDetails() {
-		Member member = loadMember();
+	return member;
+    }
 
-		member.setClanName(clanNameTf.getText());
-		member.setClanId(clanIdTf.getText());
-		member.setRealName(realNameTf.getText());
-		member.setAddress(addressTf.getText());
-		member.setAddressPostCode(postCodeTf.getText());
-		member.setAddressCity(cityTf.getText());
-		member.setCountry(countryTf.getText());
-		member.setEmail(emailTf.getText());
-		member.setPhoneNumber(phoneNumberTf.getText());
-		member.setBirthday(dateDp.getValue());
-
-		return member;
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		loadMember();
-		initializeTextFields();
-	}
+    // initialize methods when MembersAddNewDialog.fxml is loaded
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+	loadMember();
+	initializeTextFields();
+    }
 }

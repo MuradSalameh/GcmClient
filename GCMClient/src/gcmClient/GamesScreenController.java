@@ -47,8 +47,10 @@ public class GamesScreenController {
     @FXML
     public Button deleteBtn;
 
+    // edit game details button
     @FXML
     private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("GamesDetailsDialog.fxml"));
 
 	GameFX game = gamesTableView.getSelectionModel().getSelectedItem();
 
@@ -59,7 +61,6 @@ public class GamesScreenController {
 	int id = game.getId();
 	ControllerCommunicator cc = new ControllerCommunicator(id);
 
-	FXMLLoader loader = new FXMLLoader(getClass().getResource("GamesDetailsDialog.fxml"));
 	DialogPane dialogPane = loader.load();
 
 	Dialog dialog = new Dialog();
@@ -87,15 +88,15 @@ public class GamesScreenController {
 	    GameServiceFunctions.updateGame(idGame, m);
 
 	    gamesTableView.getItems().clear();
-	    gamesTableView.refresh();
 	    readGamesList();
-	    initializeColumns();
 	    updateTable();
+	    gamesTableView.refresh();
 	} else if (result.get() == cancelBtn) {
 	    System.out.println("Cancel Button Pressed");
 	}
     }
 
+    // add new game button
     @FXML
     private void handleAddNewBtn(ActionEvent event) throws IOException {
 
@@ -127,16 +128,16 @@ public class GamesScreenController {
 	    GameServiceFunctions.addGame(m);
 
 	    gamesTableView.getItems().clear();
-	    gamesTableView.refresh();
 	    readGamesList();
-	    initializeColumns();
 	    updateTable();
+	    gamesTableView.refresh();
 
 	} else if (result.get() == cancelBtn) {
 	    System.out.println("Cancel Button Pressed");
 	}
     }
 
+    // delete game
     @FXML
     private void handleDeleteBtn() {
 	Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -151,11 +152,9 @@ public class GamesScreenController {
 	}
 	Optional<ButtonType> result = alert.showAndWait();
 
-
 	// get ID from item in table view
-	
-	if (result.get() == ButtonType.OK) {
 
+	if (result.get() == ButtonType.OK) {
 
 	    int id = game.getId();
 
@@ -171,6 +170,7 @@ public class GamesScreenController {
 	}
     }
 
+    // update gamesTableView
     public void updateTable() {
 	// load Data
 	if (gamesTableView != null) {
@@ -178,18 +178,24 @@ public class GamesScreenController {
 	}
     }
 
+    // read list of all games
     public void readGamesList() {
 	olGames.clear();
 
 	List<Game> xmlGames = new ArrayList<Game>();
+
 	xmlGames = GameServiceFunctions.getGames();
+
+	if (xmlGames == null) {
+	    return;
+	}
 
 	for (Game einM : xmlGames) {
 	    olGames.add(new GameFX(einM));
-	    System.out.println("CLIENT------------" + "\n" + einM);
 	}
     }
 
+    // initialize gamesTableView columns
     public void initializeColumns() {
 
 	if (idColumn != null) {
@@ -200,6 +206,7 @@ public class GamesScreenController {
 	}
     }
 
+    // inititalize methods when GamesScreen.fxml is loaded
     public void initialize() {
 	readGamesList();
 	initializeColumns();

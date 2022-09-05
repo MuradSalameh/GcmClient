@@ -6,16 +6,21 @@ import gcmClasses.Event;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
+
 
 public class EventServiceFunctions {
 
 	private static final String serverURI = "http://localhost:4712/event";
 
-	// GET - get event list
+	// get list of all events 
 	public static List<Event> getEvents() {
+	    
 
 		List<Event> events = ClientBuilder.newClient().target(serverURI).path("/eventlist")
 				.request(MediaType.APPLICATION_XML).get(new GenericType<List<Event>>() {
@@ -24,17 +29,21 @@ public class EventServiceFunctions {
 		return events;
 	}
 
-	// GET - get one event
+	//get event
 	public static Event getEvent(int id) {
 
-		Event event = ClientBuilder.newClient().target(serverURI).path("/event/" + id)
-				.request(MediaType.APPLICATION_XML).get(new GenericType<Event>() {
-				});
+	    Client client = ClientBuilder.newClient();
+	    WebTarget webTarget = client.target(serverURI).path("/event/" + id);
+	    
+	    Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_XML);
+	    Response response = invocationBuilder.get();
+	     
+	    Event event = response.readEntity(Event.class);
 
 		return event;
 	}
 
-	// GET - get event list by memberId
+	// get events by member id from MemberEvents table
 	public static List<Event> getEventsByMemberId(int id) {
 
 		List<Event> events = ClientBuilder.newClient().target(serverURI).path("/eventsByMember/" + id)
@@ -44,7 +53,7 @@ public class EventServiceFunctions {
 		return events;
 	}
 
-	// Post - add new event
+	// add new event
 	public static Response addEvent(Event m) {
 
 		Client client = ClientBuilder.newClient();
@@ -52,7 +61,7 @@ public class EventServiceFunctions {
 				.post(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// PUT - update event
+	// update event
 	public static Response updateEvent(int id, Event m) {
 
 		Client client = ClientBuilder.newClient();
@@ -60,14 +69,14 @@ public class EventServiceFunctions {
 				.put(Entity.entity(m, MediaType.APPLICATION_XML));
 	}
 
-	// Delete - delete event
+	// delete event
 	public static Response deleteEvent(int id) {
 
 		Client client = ClientBuilder.newClient();
 		return client.target(serverURI).path("/deleteEvent/" + id).request(MediaType.APPLICATION_XML).delete();
 	}
 
-	// Delete - delete event
+	// delete event from all members in MemberEvents table
 	public static Response deleteEventFromMember(int id) {
 
 		Client client = ClientBuilder.newClient();

@@ -29,7 +29,7 @@ public class MemberServiceFunctionsTest {
 		// --------- getMembers() Test to get a List of all members in
 		// database-----------//
 
-		// getMemberList();
+//		 getMemberList();
 
 		// --------- deleteMember() Test -----------//
 
@@ -37,7 +37,7 @@ public class MemberServiceFunctionsTest {
 
 		// --------- getMember() Test to get one specific member by id -----------//
 
-		// getMemberTest(id);
+		 getMemberTest(10);
 
 		// --------- updateMember() Test -----------//
 
@@ -56,7 +56,7 @@ public class MemberServiceFunctionsTest {
 
 		// deleteMemberFromTeamsTest(1);
 
-		addMemberToTeamTest(1, 1);
+//		addMemberToTeamTest(1, 1);
 
 	}
 

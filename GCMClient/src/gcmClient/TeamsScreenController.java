@@ -27,176 +27,186 @@ import serviceFunctions.TeamServiceFunctions;
 
 public class TeamsScreenController {
 
-	@FXML
-	private ObservableList<TeamFX> olTeams = FXCollections.observableArrayList();
-	@FXML
-	private AnchorPane teamsAnchor;
-	@FXML
-	private TableView<TeamFX> teamsTableView;
-	@FXML
-	private TableColumn<TeamFX, Integer> idColumn;
-	@FXML
-	private TableColumn<TeamFX, String> teamNameColumn;
-	@FXML
-	private TableColumn<TeamFX, String> teamDescriptionColumn;
+    @FXML
+    private ObservableList<TeamFX> olTeams = FXCollections.observableArrayList();
+    @FXML
+    private AnchorPane teamsAnchor;
+    @FXML
+    private TableView<TeamFX> teamsTableView;
+    @FXML
+    private TableColumn<TeamFX, Integer> idColumn;
+    @FXML
+    private TableColumn<TeamFX, String> teamNameColumn;
+    @FXML
+    private TableColumn<TeamFX, String> teamDescriptionColumn;
 
-	@FXML
-	public Button editDetailsBtn;
-	public Button addNewBtn;
+    @FXML
+    public Button editDetailsBtn;
+    public Button addNewBtn;
 
-	@FXML
-	private void handleAddNewBtn(ActionEvent team) throws IOException {
+    // add new Team button
+    @FXML
+    private void handleAddNewBtn(ActionEvent team) throws IOException {
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamsAddNewDetailDialog.fxml"));
-		DialogPane dialogPane = loader.load();
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamsAddNewDetailDialog.fxml"));
+	DialogPane dialogPane = loader.load();
 
-		Dialog dialog = new Dialog();
-		dialog.setDialogPane(dialogPane);
-		dialog.setResizable(true);
+	Dialog dialog = new Dialog();
+	dialog.setDialogPane(dialogPane);
+	dialog.setResizable(true);
 
-		TeamsAddNewDetailDialogController tanddc = loader.getController();
+	TeamsAddNewDetailDialogController tanddc = loader.getController();
 
-		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
-		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+	dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+	dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
 
-		Optional<ButtonType> result = dialog.showAndWait();
+	Optional<ButtonType> result = dialog.showAndWait();
 
-		if (!result.isPresent()) {
+	if (!result.isPresent()) {
 
-			// alert is exited, no button has been pressed.
+	    // alert is exited, no button has been pressed.
 
-		} else if (result.get() == saveBtn) {
+	} else if (result.get() == saveBtn) {
 
-			Team m = tanddc.updateTeam();
-			int idTeam = m.getId();
-			TeamServiceFunctions.addTeam(m);
+	    Team m = tanddc.updateTeam();
+	    int idTeam = m.getId();
+	    TeamServiceFunctions.addTeam(m);
 
-			teamsTableView.getItems().clear();
-			teamsTableView.refresh();
-			readTeamsList();
-			initializeColumns();
-			updateTable();
+	    teamsTableView.getItems().clear();
+	    readTeamsList();
+	    updateTable();
+	    teamsTableView.refresh();
 
-		} else if (result.get() == cancelBtn) {
-			System.out.println("Cancel Button Pressed");
-		}
+	} else if (result.get() == cancelBtn) {
+
+	}
+    }
+
+    // edit team details button
+    @FXML
+    private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamsDetailDialog.fxml"));
+
+	TeamFX team = teamsTableView.getSelectionModel().getSelectedItem();
+
+	if (team == null) {
+	    return;
 	}
 
-	@FXML
-	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+	int id = team.getId();
+	ControllerCommunicator cc = new ControllerCommunicator(id);
 
-		TeamFX team = teamsTableView.getSelectionModel().getSelectedItem();
+	DialogPane dialogPane = loader.load();
+	Dialog dialog = new Dialog();
+	dialog.setDialogPane(dialogPane);
+	dialog.setResizable(true);
 
-		if (team == null) {
-			return;
-		}
+	TeamsDetailDialogController tddc = loader.getController();
 
-		int id = team.getId();
-		ControllerCommunicator cc = new ControllerCommunicator(id);
+	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("TeamsDetailDialog.fxml"));
-		DialogPane dialogPane = loader.load();
+	System.out.println("SHOW AND WAIT");
 
-		Dialog dialog = new Dialog();
-		dialog.setDialogPane(dialogPane);
-		dialog.setResizable(true);
+	dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+	dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
 
-		TeamsDetailDialogController tddc = loader.getController();
+	Optional<ButtonType> result = dialog.showAndWait();
 
-		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+	if (!result.isPresent()) {
 
-		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
-		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+	    // alert is exited, no button has been pressed.
 
-		Optional<ButtonType> result = dialog.showAndWait();
+	} else if (result.get() == saveBtn) {
 
-		if (!result.isPresent()) {
+	    Team m = tddc.updateTeam();
+	    int idTeam = m.getId();
+	    TeamServiceFunctions.updateTeam(idTeam, m);
 
-			// alert is exited, no button has been pressed.
+	    teamsTableView.getItems().clear();
 
-		} else if (result.get() == saveBtn) {
+	    readTeamsList();
 
-			Team m = tddc.updateTeam();
-			int idTeam = m.getId();
-			TeamServiceFunctions.updateTeam(idTeam, m);
+	    updateTable();
+	    teamsTableView.refresh();
 
-			teamsTableView.getItems().clear();
-			teamsTableView.refresh();
-			readTeamsList();
-			initializeColumns();
-			updateTable();
+	} else if (result.get() == cancelBtn) {
 
-		} else if (result.get() == cancelBtn) {
-			System.out.println("Cancel Button Pressed");
-		}
+	}
+    }
+
+    // delete team button
+    @FXML
+    private void handleDeleteBtn() {
+	Alert alert = new Alert(AlertType.CONFIRMATION);
+	alert.setTitle("WARNING - DELETING TEAM");
+	alert.setHeaderText("THIS CAN NOT BE UNDONE");
+	alert.setContentText("DO YOU REALLY WANT TO DELETE THIS TEAM?");
+
+	TeamFX team = teamsTableView.getSelectionModel().getSelectedItem();
+	if (team == null) {
+	    return;
 	}
 
-	@FXML
-	private void handleDeleteBtn() {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("WARNING - DELETING TEAM");
-		alert.setHeaderText("THIS CAN NOT BE UNDONE");
-		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS TEAM?");
-		
-		TeamFX team = teamsTableView.getSelectionModel().getSelectedItem();
-		if (team == null) {
-			return;
-		}
+	Optional<ButtonType> result = alert.showAndWait();
+	if (result.get() == ButtonType.OK) {
 
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
+	    // get ID from item in table view
 
-			// get ID from item in table view
-			
-			int id = team.getId();
-			// delete from database
-			TeamServiceFunctions.deleteTeamFromMember(id);
-			TeamServiceFunctions.deleteTeamFromTournaments(id);
-			TeamServiceFunctions.deleteTeam(id);
+	    int id = team.getId();
+	    // delete from database
+	    TeamServiceFunctions.deleteTeamFromMember(id);
+	    TeamServiceFunctions.deleteTeamFromTournaments(id);
+	    TeamServiceFunctions.deleteTeam(id);
 
-			// remove from Tableview
-			teamsTableView.getItems().removeAll(teamsTableView.getSelectionModel().getSelectedItem());
+	    // remove from Tableview
+	    teamsTableView.getItems().removeAll(teamsTableView.getSelectionModel().getSelectedItem());
 
-			teamsTableView.refresh();
-		}
+	    teamsTableView.refresh();
+	}
+    }
+
+    // update teamsTableView
+    public void updateTable() {
+	// load Data
+	if (teamsTableView != null) {
+	    teamsTableView.getItems().addAll(olTeams);
+	}
+    }
+
+    // read list of all teams
+    public void readTeamsList() {
+	olTeams.clear();
+
+	List<Team> xmlTeams = new ArrayList<Team>();
+	xmlTeams = TeamServiceFunctions.getTeams();
+	if (xmlTeams != null) {
+	    for (Team einM : xmlTeams) {
+		olTeams.add(new TeamFX(einM));
+
+	    }
 	}
 
-	public void updateTable() {
-		// load Data
-		if (teamsTableView != null) {
-			teamsTableView.getItems().addAll(olTeams);
-		}
+    }
+
+//initialize teamsTableView coumns
+    public void initializeColumns() {
+
+	if (idColumn != null) {
+	    idColumn.setCellValueFactory(new PropertyValueFactory<TeamFX, Integer>("id"));
+	    teamNameColumn.setCellValueFactory(new PropertyValueFactory<TeamFX, String>("teamName"));
+	    teamDescriptionColumn.setCellValueFactory(new PropertyValueFactory<TeamFX, String>("teamDescription"));
 	}
+    }
 
-	public void readTeamsList() {
-		olTeams.clear();
-
-		List<Team> xmlTeams = new ArrayList<Team>();
-		xmlTeams = TeamServiceFunctions.getTeams();
-
-		for (Team einM : xmlTeams) {
-			olTeams.add(new TeamFX(einM));
-			System.out.println("CLIENT------------" + "\n" + einM);
-		}
-	}
-
-	public void initializeColumns() {
-
-		if (idColumn != null) {
-			idColumn.setCellValueFactory(new PropertyValueFactory<TeamFX, Integer>("id"));
-			teamNameColumn.setCellValueFactory(new PropertyValueFactory<TeamFX, String>("teamName"));
-			teamDescriptionColumn.setCellValueFactory(new PropertyValueFactory<TeamFX, String>("teamDescription"));
-		}
-	}
-
-	public void initialize() {
-		readTeamsList();
-		initializeColumns();
-		updateTable();
-	}
+    // initialize methods when TeamsScreen.fxml is loaded
+    public void initialize() {
+	readTeamsList();
+	initializeColumns();
+	updateTable();
+    }
 
 }

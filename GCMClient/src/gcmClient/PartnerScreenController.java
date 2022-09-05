@@ -67,6 +67,7 @@ public class PartnerScreenController {
     @FXML
     public Button addNewBtn;
 
+    // add new partner button
     @FXML
     private void handleAddNewBtn(ActionEvent event) throws IOException {
 
@@ -98,10 +99,11 @@ public class PartnerScreenController {
 	    PartnerServiceFunctions.addPartner(m);
 
 	    partnersTableView.getItems().clear();
-	    partnersTableView.refresh();
+
 	    readPartnersList();
-	    initializeColumns();
+
 	    updateTable();
+	    partnersTableView.refresh();
 
 	} else if (result.get() == cancelBtn) {
 	    System.out.println("Cancel Button Pressed");
@@ -109,8 +111,10 @@ public class PartnerScreenController {
 
     }
 
+    // edit partner details button
     @FXML
     private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("PartnerDetailDialog.fxml"));
 
 	PartnerFX getPartner = partnersTableView.getSelectionModel().getSelectedItem();
 
@@ -121,7 +125,6 @@ public class PartnerScreenController {
 	int id = getPartner.getId();
 	ControllerCommunicator cc = new ControllerCommunicator(id);
 
-	FXMLLoader loader = new FXMLLoader(getClass().getResource("PartnerDetailDialog.fxml"));
 	DialogPane dialogPane = loader.load();
 
 	Dialog dialog = new Dialog();
@@ -149,15 +152,18 @@ public class PartnerScreenController {
 	    PartnerServiceFunctions.updatePartner(idPartner, m);
 
 	    partnersTableView.getItems().clear();
-	    partnersTableView.refresh();
+
 	    readPartnersList();
-	    initializeColumns();
+
 	    updateTable();
+	    partnersTableView.refresh();
+
 	} else if (result.get() == cancelBtn) {
 	    System.out.println("Cancel Button Pressed");
 	}
     }
 
+    // delete partner button
     @FXML
     private void handleDeleteBtn() {
 	Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -175,7 +181,6 @@ public class PartnerScreenController {
 	Optional<ButtonType> result = alert.showAndWait();
 	if (result.get() == ButtonType.OK) {
 
-
 	    int id = partner.getId();
 	    // delete from database
 	    PartnerServiceFunctions.deletePartner(id);
@@ -187,6 +192,7 @@ public class PartnerScreenController {
 	}
     }
 
+    // update partnersTableView
     public void updateTable() {
 	// load Data
 	if (partnersTableView != null) {
@@ -194,29 +200,33 @@ public class PartnerScreenController {
 	}
     }
 
+    // read list of all partners
     public void readPartnersList() {
 	olPartners.clear();
 
 	List<Partner> xmlPartners = new ArrayList<Partner>();
 	xmlPartners = PartnerServiceFunctions.getPartners();
 
-	for (Partner einM : xmlPartners) {
-	    olPartners.add(new PartnerFX(einM));
-	    System.out.println("CLIENT------------" + "\n" + einM);
+	if (xmlPartners != null) {
+	    for (Partner einM : xmlPartners) {
+		olPartners.add(new PartnerFX(einM));
+	    }
 	}
+
     }
 
+    // initialize partnersTableView columns
     public void initializeColumns() {
 
 	if (idColumn != null) {
 	    idColumn.setCellValueFactory(new PropertyValueFactory<PartnerFX, Integer>("id"));
 	    companyNameColumn.setCellValueFactory(new PropertyValueFactory<PartnerFX, String>("companyName"));
 	    contactPersonNameColumn
-	    .setCellValueFactory(new PropertyValueFactory<PartnerFX, String>("contactPersonName"));
+		    .setCellValueFactory(new PropertyValueFactory<PartnerFX, String>("contactPersonName"));
 	    contactPersonPhoneColumn
-	    .setCellValueFactory(new PropertyValueFactory<PartnerFX, String>("contactPersonPhone"));
+		    .setCellValueFactory(new PropertyValueFactory<PartnerFX, String>("contactPersonPhone"));
 	    contactPersonMailColumn
-	    .setCellValueFactory(new PropertyValueFactory<PartnerFX, String>("contactPersonMail"));
+		    .setCellValueFactory(new PropertyValueFactory<PartnerFX, String>("contactPersonMail"));
 	    firstNameColumn.setCellValueFactory(new PropertyValueFactory<PartnerFX, String>("firstName"));
 	    lastNameColumn.setCellValueFactory(new PropertyValueFactory<PartnerFX, String>("lastName"));
 	    adressStreetColumn.setCellValueFactory(new PropertyValueFactory<PartnerFX, String>("adressStreet"));
@@ -230,6 +240,7 @@ public class PartnerScreenController {
 	}
     }
 
+    // initialize methods when PartnersScreen.fxml is loaded
     public void initialize() {
 	readPartnersList();
 	initializeColumns();

@@ -1,11 +1,13 @@
 package gcmClient;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import fxClasses.TournamentFX;
 import gcmClasses.Tournament;
@@ -14,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -27,199 +30,216 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import serviceFunctions.TournamentServiceFunctions;
 
-public class TournamentsScreenController {
+public class TournamentsScreenController extends Dialog<ButtonType> implements Initializable {
 
-	@FXML
-	private ObservableList<TournamentFX> olTournaments = FXCollections.observableArrayList();
-	@FXML
-	private AnchorPane tournamentsAnchor;
-	@FXML
-	private TableView<TournamentFX> tournamentsTableView;
-	@FXML
-	private TableColumn<TournamentFX, Integer> idColumn;
-	@FXML
-	private TableColumn<TournamentFX, String> tournamentTitleColumn;
-	@FXML
-	private TableColumn<TournamentFX, String> tournamentDescriptionColumn;
-	@FXML
-	private TableColumn<TournamentFX, LocalDate> tournamentDateColumn;
-	@FXML
-	private TableColumn<TournamentFX, LocalTime> tournamentTimeBeginnColumn;
-	@FXML
-	private TableColumn<TournamentFX, LocalTime> tournamentTimeEndColumn;
+    // JavaFX Client GUI Controller for Tournaments Screen
 
-	@FXML
-	private TableColumn<TournamentFX, String> tournamentResultColumn;
+    @FXML
+    private ObservableList<TournamentFX> olTournaments = FXCollections.observableArrayList();
+    @FXML
+    private AnchorPane tournamentsAnchor;
+    @FXML
+    private TableView<TournamentFX> tournamentsTableView;
+    @FXML
+    private TableColumn<TournamentFX, Integer> idColumn;
+    @FXML
+    private TableColumn<TournamentFX, String> tournamentTitleColumn;
+    @FXML
+    private TableColumn<TournamentFX, String> tournamentDescriptionColumn;
+    @FXML
+    private TableColumn<TournamentFX, LocalDate> tournamentDateColumn;
+    @FXML
+    private TableColumn<TournamentFX, LocalTime> tournamentTimeBeginnColumn;
+    @FXML
+    private TableColumn<TournamentFX, LocalTime> tournamentTimeEndColumn;
 
-	@FXML
-	public Button editDetailsBtn;
-	@FXML
-	Button addNewBtn;
+    @FXML
+    private TableColumn<TournamentFX, String> tournamentResultColumn;
 
-	@FXML
-	private void handleAddNewBtn(ActionEvent event) throws IOException {
+    @FXML
+    public Button editDetailsBtn;
+    @FXML
+    Button addNewBtn;
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("TournamentAddNewDialog.fxml"));
-		DialogPane dialogPane = loader.load();
+    // Add New Button method. Opens TournamentAddNewDialog window
+    @FXML
+    private void handleAddNewBtn(ActionEvent event) throws IOException {
 
-		Dialog dialog = new Dialog();
-		dialog.setDialogPane(dialogPane);
-		dialog.setResizable(true);
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("TournamentAddNewDialog.fxml"));
+	DialogPane dialogPane = loader.load();
 
-		TournamentAddNewDialogController edand = loader.getController();
+	Dialog dialog = new Dialog();
+	dialog.setDialogPane(dialogPane);
+	dialog.setResizable(true);
 
-		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+	TournamentAddNewDialogController edand = loader.getController();
 
-		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
-		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-		Optional<ButtonType> result = dialog.showAndWait();
+	dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+	dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
 
-		if (!result.isPresent()) {
+	Optional<ButtonType> result = dialog.showAndWait();
 
-			// alert is exited, no button has been pressed.
+	if (!result.isPresent()) {
 
-		} else if (result.get() == saveBtn) {
+	    // alert is exited, no button has been pressed.
 
-			Tournament m = edand.updateTournament();
-			int idTournament = m.getId();
-			TournamentServiceFunctions.addTournament(m);
+	} else if (result.get() == saveBtn) {
 
-			tournamentsTableView.getItems().clear();
-			tournamentsTableView.refresh();
-			readTournamentsList();
-			initializeColumns();
-			updateTable();
+	    Tournament m = edand.updateTournament();
+	    int idTournament = m.getId();
+	    TournamentServiceFunctions.addTournament(m);
 
-		} else if (result.get() == cancelBtn) {
-			System.out.println("Cancel Button Pressed");
-		}
+	    tournamentsTableView.getItems().clear();
+
+	    readTournamentsList();
+
+	    updateTable();
+	    tournamentsTableView.refresh();
+
+	} else if (result.get() == cancelBtn) {
+	    System.out.println("Cancel Button Pressed");
+	}
+    }
+
+    // Edit Details Button method. Opens TournamentDetailDialog window
+    @FXML
+    private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("TournamentDetailDialog.fxml"));
+
+	TournamentFX getTournament = tournamentsTableView.getSelectionModel().getSelectedItem();
+
+	if (getTournament == null) {
+	    return;
 	}
 
-	@FXML
-	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+	int id = getTournament.getId();
+	ControllerCommunicator cc = new ControllerCommunicator(id);
 
-		TournamentFX getTournament = tournamentsTableView.getSelectionModel().getSelectedItem();
+	DialogPane dialogPane = loader.load();
+	Dialog dialog = new Dialog();
+	dialog.setDialogPane(dialogPane);
+	dialog.setResizable(true);
 
-		if (getTournament == null) {
-			return;
-		}
+	TournamentDetailDialogController tddc = loader.getController();
 
-		int id = getTournament.getId();
-		ControllerCommunicator cc = new ControllerCommunicator(id);
+	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("TournamentDetailDialog.fxml"));
-		DialogPane dialogPane = loader.load();
+	dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+	dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
 
-		Dialog dialog = new Dialog();
-		dialog.setDialogPane(dialogPane);
-		dialog.setResizable(true);
+	Optional<ButtonType> result = dialog.showAndWait();
 
-		TournamentDetailDialogController tddc = loader.getController();
+	if (!result.isPresent()) {
 
-		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+	    // alert is exited, no button has been pressed.
 
-		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
-		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+	} else if (result.get() == saveBtn) {
 
-		Optional<ButtonType> result = dialog.showAndWait();
+	    Tournament m = tddc.updateTournament();
+	    int idTournament = m.getId();
 
-		if (!result.isPresent()) {
+	    TournamentServiceFunctions.updateTournament(idTournament, m);
 
-			// alert is exited, no button has been pressed.
+	    tournamentsTableView.getItems().clear();
 
-		} else if (result.get() == saveBtn) {
+	    readTournamentsList();
 
-			Tournament m = tddc.updateTournament();
-			int idTournament = m.getId();
-			TournamentServiceFunctions.updateTournament(idTournament, m);
+	    tournamentsTableView.refresh();
+	    updateTable();
 
-			tournamentsTableView.getItems().clear();
-			tournamentsTableView.refresh();
-			readTournamentsList();
-			initializeColumns();
-			updateTable();
-		} else if (result.get() == cancelBtn) {
-			System.out.println("Cancel Button Pressed");
-		}
+	} else if (result.get() == cancelBtn) {
+	    System.out.println("Cancel Button Pressed");
+	}
+    }
+
+    // Delete Button method
+
+    @FXML
+    private void handleDeleteBtn() {
+	Alert alert = new Alert(AlertType.CONFIRMATION);
+	alert.setTitle("WARNING - DELETING TOURNAMENT");
+	alert.setHeaderText("THIS CAN NOT BE UNDONE");
+	alert.setContentText("DO YOU REALLY WANT TO DELETE THIS TOURNAMENT?");
+
+	TournamentFX tournament = tournamentsTableView.getSelectionModel().getSelectedItem();
+
+	if (tournament == null) {
+	    return;
 	}
 
-	@FXML
-	private void handleDeleteBtn() {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("WARNING - DELETING TOURNAMENT");
-		alert.setHeaderText("THIS CAN NOT BE UNDONE");
-		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS TOURNAMENT?");
-		
-		TournamentFX tournament = tournamentsTableView.getSelectionModel().getSelectedItem();
-		
-		if (tournament == null) {
-			return;
-		}
+	Optional<ButtonType> result = alert.showAndWait();
+	if (result.get() == ButtonType.OK) {
 
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
+	    // get ID from item in table view
 
-			// get ID from item in table view
-			
-			int id = tournament.getId();
-			// delete from database
+	    int id = tournament.getId();
+	    // delete from database
 
-			TournamentServiceFunctions.deleteTournamentFromGame(id);
-			TournamentServiceFunctions.deleteTournamentsFromTeams(id);
-			TournamentServiceFunctions.deleteTournament(id);
+	    TournamentServiceFunctions.deleteTournamentFromGame(id);
+	    TournamentServiceFunctions.deleteTournamentsFromTeams(id);
+	    TournamentServiceFunctions.deleteTournament(id);
 
-			// remove from Tableview
-			tournamentsTableView.getItems().removeAll(tournamentsTableView.getSelectionModel().getSelectedItem());
+	    // remove from Tableview
+	    tournamentsTableView.getItems().removeAll(tournamentsTableView.getSelectionModel().getSelectedItem());
 
-			tournamentsTableView.refresh();
-		}
+	    tournamentsTableView.refresh();
+	}
+    }
+
+    // update TableView
+    public void updateTable() {
+	// load Data
+	if (tournamentsTableView != null) {
+	    tournamentsTableView.getItems().addAll(olTournaments);
+	}
+    }
+
+    // read tournaments list and add objects to ObservableList
+    public void readTournamentsList() {
+	olTournaments.clear();
+
+	List<Tournament> xmlTournaments = new ArrayList<Tournament>();
+	xmlTournaments = TournamentServiceFunctions.getTournaments();
+
+	if (xmlTournaments != null) {
+	    for (Tournament einM : xmlTournaments) {
+		olTournaments.add(new TournamentFX(einM));
+	    }
 	}
 
-	public void updateTable() {
-		// load Data
-		if (tournamentsTableView != null) {
-			tournamentsTableView.getItems().addAll(olTournaments);
-		}
+    }
+
+    // initialize Tableview columns
+    public void initializeColumns() {
+
+	if (idColumn != null) {
+	    idColumn.setCellValueFactory(new PropertyValueFactory<TournamentFX, Integer>("id"));
+	    tournamentTitleColumn
+		    .setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentTitle"));
+	    tournamentDescriptionColumn
+		    .setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentDescription"));
+	    tournamentDateColumn
+		    .setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalDate>("tournamentDate"));
+	    tournamentTimeBeginnColumn
+		    .setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalTime>("tournamentTimeBeginn"));
+	    tournamentTimeEndColumn
+		    .setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalTime>("tournamentTimeEnd"));
+	    tournamentResultColumn
+		    .setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentResult"));
 	}
+    }
 
-	public void readTournamentsList() {
-		olTournaments.clear();
+    // initialize methods when TournamentsScreen opened
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+	readTournamentsList();
+	initializeColumns();
+	updateTable();
 
-		List<Tournament> xmlTournaments = new ArrayList<Tournament>();
-		xmlTournaments = TournamentServiceFunctions.getTournaments();
-
-		for (Tournament einM : xmlTournaments) {
-			olTournaments.add(new TournamentFX(einM));
-			System.out.println("CLIENT------------" + "\n" + einM);
-		}
-	}
-
-	public void initializeColumns() {
-
-		if (idColumn != null) {
-			idColumn.setCellValueFactory(new PropertyValueFactory<TournamentFX, Integer>("id"));
-			tournamentTitleColumn
-					.setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentTitle"));
-			tournamentDescriptionColumn
-					.setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentDescription"));
-			tournamentDateColumn
-					.setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalDate>("tournamentDate"));
-			tournamentTimeBeginnColumn
-					.setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalTime>("tournamentTimeBeginn"));
-			tournamentTimeEndColumn
-					.setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalTime>("tournamentTimeEnd"));
-			tournamentResultColumn
-					.setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentResult"));
-		}
-	}
-
-	public void initialize() {
-		readTournamentsList();
-		initializeColumns();
-		updateTable();
-	}
+    }
 
 }

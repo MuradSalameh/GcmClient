@@ -80,9 +80,8 @@ public class EventsDetailAddNewDialog extends Dialog<ButtonType> implements Init
 
 	return newEvent;
     }
-
+   
     // initialize TextFields -----
-
     public void initializeTextFields() {
 	Event event = loadEvent();
 
@@ -148,7 +147,6 @@ public class EventsDetailAddNewDialog extends Dialog<ButtonType> implements Init
 
 	}
 
-
 	int startHourInt = Integer.parseInt(startHour);
 	int startMinuteInt = Integer.parseInt(startMinute);
 	LocalTime start = LocalTime.of(startHourInt, startMinuteInt);
@@ -165,19 +163,14 @@ public class EventsDetailAddNewDialog extends Dialog<ButtonType> implements Init
 	    endMinute = String.valueOf(endMinuteTF.getText());
 	}
 
-
 	int endHourInt = Integer.parseInt(endHour);
 	int endMinuteInt = Integer.parseInt(endMinute);
 	LocalTime end = LocalTime.of(endHourInt, endMinuteInt);
 
-
 	event.setEventEndTime(end);
-
 
 	return event;
     }
-
-
 
     // initialize when window is opened
     @Override

@@ -47,7 +47,6 @@ public class GamesScreenController {
     @FXML
     public Button deleteBtn;
 
-    
     // edit game details button
     @FXML
     private void handleEditDetailsBtn(ActionEvent event) throws IOException {
@@ -88,8 +87,8 @@ public class GamesScreenController {
 	    int idGame = m.getId();
 	    GameServiceFunctions.updateGame(idGame, m);
 
-	    gamesTableView.getItems().clear();	    
-	    readGamesList();	  
+	    gamesTableView.getItems().clear();
+	    readGamesList();
 	    updateTable();
 	    gamesTableView.refresh();
 	} else if (result.get() == cancelBtn) {
@@ -128,8 +127,8 @@ public class GamesScreenController {
 	    int idGame = m.getId();
 	    GameServiceFunctions.addGame(m);
 
-	    gamesTableView.getItems().clear();	 
-	    readGamesList();	  
+	    gamesTableView.getItems().clear();
+	    readGamesList();
 	    updateTable();
 	    gamesTableView.refresh();
 
@@ -153,11 +152,9 @@ public class GamesScreenController {
 	}
 	Optional<ButtonType> result = alert.showAndWait();
 
-
 	// get ID from item in table view
-	
-	if (result.get() == ButtonType.OK) {
 
+	if (result.get() == ButtonType.OK) {
 
 	    int id = game.getId();
 
@@ -186,13 +183,13 @@ public class GamesScreenController {
 	olGames.clear();
 
 	List<Game> xmlGames = new ArrayList<Game>();
-	
+
 	xmlGames = GameServiceFunctions.getGames();
 
-	if(xmlGames == null) {
+	if (xmlGames == null) {
 	    return;
 	}
-	
+
 	for (Game einM : xmlGames) {
 	    olGames.add(new GameFX(einM));
 	}
@@ -208,7 +205,7 @@ public class GamesScreenController {
 	    releaseDateColumn.setCellValueFactory(new PropertyValueFactory<GameFX, LocalDate>("releaseDate"));
 	}
     }
-    
+
     // inititalize methods when GamesScreen.fxml is loaded
     public void initialize() {
 	readGamesList();

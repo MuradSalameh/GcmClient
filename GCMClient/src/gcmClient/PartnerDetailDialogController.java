@@ -17,119 +17,116 @@ import serviceFunctions.PartnerServiceFunctions;
 
 public class PartnerDetailDialogController extends Dialog<ButtonType> implements Initializable {
 
-	private int ccId = ControllerCommunicator.getId();
+    private int ccId = ControllerCommunicator.getId();
 
-	@FXML
-	final DialogPane dialogPane = getDialogPane();
-	@FXML
-	private Dialog dialog;
-	@FXML
-	private BorderPane partnerEditBp;
-	@FXML
-	private Label idLabel;
-	@FXML
-	private TextField companyNameTF;
-	@FXML
-	private TextField contactPersonNameTF;
-	@FXML
-	private TextField contactPersonPhoneTF;
-	@FXML
-	private TextField contactPersonMailTF;
-	@FXML
-	private TextField firstNameTF;
-	@FXML
-	private TextField lastNameTF;
-	@FXML
-	private TextField adressStreetTF;
-	@FXML
-	private TextField adressNumberTF;
-	@FXML
-	private TextField adressPostCodeTF;
-	@FXML
-	private TextField adressCityTF;
-	@FXML
-	private TextField countryTF;
-	@FXML
-	private TextField emailTF;
-	@FXML
-	private TextField phoneNumberTF;
+    @FXML
+    final DialogPane dialogPane = getDialogPane();
+    @FXML
+    private Dialog dialog;
+    @FXML
+    private BorderPane partnerEditBp;
+    @FXML
+    private Label idLabel;
+    @FXML
+    private TextField companyNameTF;
+    @FXML
+    private TextField contactPersonNameTF;
+    @FXML
+    private TextField contactPersonPhoneTF;
+    @FXML
+    private TextField contactPersonMailTF;
+    @FXML
+    private TextField firstNameTF;
+    @FXML
+    private TextField lastNameTF;
+    @FXML
+    private TextField adressStreetTF;
+    @FXML
+    private TextField adressNumberTF;
+    @FXML
+    private TextField adressPostCodeTF;
+    @FXML
+    private TextField adressCityTF;
+    @FXML
+    private TextField countryTF;
+    @FXML
+    private TextField emailTF;
+    @FXML
+    private TextField phoneNumberTF;
 
-	@FXML
-	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-	@FXML
-	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+    @FXML
+    ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+    @FXML
+    ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-	// load selected partner
-	public Partner loadPartner() {
+    // load selected partner
+    public Partner loadPartner() {
 
-		Partner partner = PartnerServiceFunctions.getPartner(ccId);
-		return partner;
-	}
+	Partner partner = PartnerServiceFunctions.getPartner(ccId);
+	return partner;
+    }
 
-	
-	
-	//initialize text fields
-	public void initializeTextFields() {
-		Partner partner = loadPartner();
+    // initialize text fields
+    public void initializeTextFields() {
+	Partner partner = loadPartner();
 
-		idLabel.setText(String.valueOf(ccId));
+	idLabel.setText(String.valueOf(ccId));
 
-		// Partner TextFields
-		companyNameTF.setText(partner.getCompanyName());
-		contactPersonNameTF.setText(partner.getContactPersonName());
-		contactPersonPhoneTF.setText(partner.getContactPersonPhone());
-		contactPersonMailTF.setText(partner.getContactPersonMail());
-		firstNameTF.setText(partner.getFirstName());
-		lastNameTF.setText(partner.getLastName());
-		adressStreetTF.setText(partner.getAdressStreet());
-		adressNumberTF.setText(partner.getAdressNumber());
-		adressPostCodeTF.setText(partner.getAdressPostCode());
-		adressCityTF.setText(partner.getAdressCity());
-		countryTF.setText(partner.getCountry());
-		emailTF.setText(partner.getEmail());
-		phoneNumberTF.setText(partner.getPhoneNumber());
+	// Partner TextFields
+	companyNameTF.setText(partner.getCompanyName());
+	contactPersonNameTF.setText(partner.getContactPersonName());
+	contactPersonPhoneTF.setText(partner.getContactPersonPhone());
+	contactPersonMailTF.setText(partner.getContactPersonMail());
+	firstNameTF.setText(partner.getFirstName());
+	lastNameTF.setText(partner.getLastName());
+	adressStreetTF.setText(partner.getAdressStreet());
+	adressNumberTF.setText(partner.getAdressNumber());
+	adressPostCodeTF.setText(partner.getAdressPostCode());
+	adressCityTF.setText(partner.getAdressCity());
+	countryTF.setText(partner.getCountry());
+	emailTF.setText(partner.getEmail());
+	phoneNumberTF.setText(partner.getPhoneNumber());
 
-		companyNameTF.setPromptText("Enter Company Name");
-		contactPersonNameTF.setPromptText("Enter Contct Person Name");
-		contactPersonPhoneTF.setPromptText("Enter Contact Phone Number");
-		contactPersonMailTF.setPromptText("Enter Contact email");
-		firstNameTF.setPromptText("Enter First Name");
-		lastNameTF.setPromptText("Enter Last Name");
-		adressStreetTF.setPromptText("Enter Adress Street");
-		adressNumberTF.setPromptText("Enter Adress Number");
-		adressPostCodeTF.setPromptText("Enter Post Code");
-		adressCityTF.setPromptText("Enter City");
-		countryTF.setPromptText("Enter Country");
-		emailTF.setPromptText("Enter Email");
-		phoneNumberTF.setPromptText("Enter Phone Number");
-	}
+	companyNameTF.setPromptText("Enter Company Name");
+	contactPersonNameTF.setPromptText("Enter Contct Person Name");
+	contactPersonPhoneTF.setPromptText("Enter Contact Phone Number");
+	contactPersonMailTF.setPromptText("Enter Contact email");
+	firstNameTF.setPromptText("Enter First Name");
+	lastNameTF.setPromptText("Enter Last Name");
+	adressStreetTF.setPromptText("Enter Adress Street");
+	adressNumberTF.setPromptText("Enter Adress Number");
+	adressPostCodeTF.setPromptText("Enter Post Code");
+	adressCityTF.setPromptText("Enter City");
+	countryTF.setPromptText("Enter Country");
+	emailTF.setPromptText("Enter Email");
+	phoneNumberTF.setPromptText("Enter Phone Number");
+    }
 
-	//update partner
-	public Partner updatePartner() {
-		Partner partner = loadPartner();
+    // update partner
+    public Partner updatePartner() {
+	Partner partner = loadPartner();
 
-		partner.setCompanyName(companyNameTF.getText());
-		partner.setContactPersonName(contactPersonNameTF.getText());
-		partner.setContactPersonPhone(contactPersonPhoneTF.getText());
-		partner.setContactPersonMail(contactPersonMailTF.getText());
-		partner.setFirstName(firstNameTF.getText());
-		partner.setLastName(lastNameTF.getText());
-		partner.setAdressStreet(adressStreetTF.getText());
-		partner.setAdressNumber(adressNumberTF.getText());
-		partner.setAdressPostCode(adressPostCodeTF.getText());
-		partner.setAdressCity(adressCityTF.getText());
-		partner.setCountry(countryTF.getText());
-		partner.setEmail(emailTF.getText());
-		partner.setPhoneNumber(phoneNumberTF.getText());
+	partner.setCompanyName(companyNameTF.getText());
+	partner.setContactPersonName(contactPersonNameTF.getText());
+	partner.setContactPersonPhone(contactPersonPhoneTF.getText());
+	partner.setContactPersonMail(contactPersonMailTF.getText());
+	partner.setFirstName(firstNameTF.getText());
+	partner.setLastName(lastNameTF.getText());
+	partner.setAdressStreet(adressStreetTF.getText());
+	partner.setAdressNumber(adressNumberTF.getText());
+	partner.setAdressPostCode(adressPostCodeTF.getText());
+	partner.setAdressCity(adressCityTF.getText());
+	partner.setCountry(countryTF.getText());
+	partner.setEmail(emailTF.getText());
+	partner.setPhoneNumber(phoneNumberTF.getText());
 
-		return partner;
-	}
+	return partner;
+    }
 
-	
-	//initialize methods when PartnerDetailDialog.fxml is loaded
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		loadPartner();
-		initializeTextFields();
-	}
+    // initialize methods when PartnerDetailDialog.fxml is loaded
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+	loadPartner();
+	initializeTextFields();
+    }
 }

@@ -29,7 +29,6 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 
     private int ccId = ControllerCommunicator.getId();
 
-
     @FXML
     final DialogPane dialogPane = getDialogPane();
     @FXML
@@ -65,7 +64,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
     @FXML
     private TableColumn<MemberFX, String> memberClanIdColumn;
 
-    //inititalize membersTableView columns
+    // inititalize membersTableView columns
     public void initializeMembersColumns() {
 
 	if (membersIdColumn != null) {
@@ -75,8 +74,8 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 
 	}
     }
-    
-// update membersTableView
+
+    // update membersTableView
     public void updateMembersTable() {
 	// load Data
 	if (membersTableView != null) {
@@ -87,7 +86,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
     // Member Members Table
     private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
 
-    //read list of all members by team id
+    // read list of all members by team id
     public void readMembersList() {
 	olMembers.clear();
 
@@ -95,13 +94,12 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 
 	xmlMembers = MemberServiceFunctions.getMembersByTeamId(ccId);
 
-	if(xmlMembers != null) {
+	if (xmlMembers != null) {
 	    for (Member einT : xmlMembers) {
 		olMembers.add(new MemberFX(einT));
 
 	    }
 	}
-
 
     }
 
@@ -121,7 +119,6 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
     @FXML
     private TableColumn<MemberFX, String> memberClanIdColumn1;
 
-    
     // initialize membersTableView1 columns
     public void initializeMembersColumns1() {
 
@@ -133,7 +130,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 	}
     }
 
-   // update membersTableView1
+    // update membersTableView1
     public void updateMembersTable1() {
 	// load Data
 	if (membersTableView1 != null) {
@@ -141,14 +138,14 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 	}
     }
 
-    //read list of all available members
+    // read list of all available members
     public void readMembersList1() {
 	olMembers1.clear();
 
 	List<Member> xmlMembers1 = new ArrayList<Member>();
 	xmlMembers1 = MemberServiceFunctions.getMembers();
 
-	if(xmlMembers1 != null) {
+	if (xmlMembers1 != null) {
 	    for (Member einT : xmlMembers1) {
 		olMembers1.add(new MemberFX(einT));
 
@@ -222,7 +219,7 @@ public class TeamAddMembersDialogController extends Dialog<ButtonType> implement
 	membersTableView.refresh();
     }
 
-    //initialize methods when TeamAddMembersDetailDialog.fxml is loaded
+    // initialize methods when TeamAddMembersDetailDialog.fxml is loaded
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

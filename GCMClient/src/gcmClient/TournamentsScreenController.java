@@ -30,7 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import serviceFunctions.TournamentServiceFunctions;
 
-public class TournamentsScreenController extends Dialog<ButtonType> implements Initializable{
+public class TournamentsScreenController extends Dialog<ButtonType> implements Initializable {
 
     // JavaFX Client GUI Controller for Tournaments Screen
 
@@ -60,7 +60,6 @@ public class TournamentsScreenController extends Dialog<ButtonType> implements I
     public Button editDetailsBtn;
     @FXML
     Button addNewBtn;
-
 
     // Add New Button method. Opens TournamentAddNewDialog window
     @FXML
@@ -105,29 +104,25 @@ public class TournamentsScreenController extends Dialog<ButtonType> implements I
 	}
     }
 
-
     // Edit Details Button method. Opens TournamentDetailDialog window
     @FXML
     private void handleEditDetailsBtn(ActionEvent event) throws IOException {
 	FXMLLoader loader = new FXMLLoader(getClass().getResource("TournamentDetailDialog.fxml"));
-	
+
 	TournamentFX getTournament = tournamentsTableView.getSelectionModel().getSelectedItem();
 
 	if (getTournament == null) {
 	    return;
 	}
-	
+
 	int id = getTournament.getId();
 	ControllerCommunicator cc = new ControllerCommunicator(id);
 
-	
 	DialogPane dialogPane = loader.load();
 	Dialog dialog = new Dialog();
 	dialog.setDialogPane(dialogPane);
 	dialog.setResizable(true);
-	
-	 
-	    
+
 	TournamentDetailDialogController tddc = loader.getController();
 
 	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
@@ -148,20 +143,18 @@ public class TournamentsScreenController extends Dialog<ButtonType> implements I
 	    int idTournament = m.getId();
 
 	    TournamentServiceFunctions.updateTournament(idTournament, m);
-	
-		tournamentsTableView.getItems().clear();
-		
-		readTournamentsList();
 
-		tournamentsTableView.refresh();
-		updateTable();
+	    tournamentsTableView.getItems().clear();
 
-	
+	    readTournamentsList();
+
+	    tournamentsTableView.refresh();
+	    updateTable();
+
 	} else if (result.get() == cancelBtn) {
 	    System.out.println("Cancel Button Pressed");
 	}
     }
-
 
     // Delete Button method
 
@@ -197,7 +190,6 @@ public class TournamentsScreenController extends Dialog<ButtonType> implements I
 	}
     }
 
-
     // update TableView
     public void updateTable() {
 	// load Data
@@ -213,14 +205,13 @@ public class TournamentsScreenController extends Dialog<ButtonType> implements I
 	List<Tournament> xmlTournaments = new ArrayList<Tournament>();
 	xmlTournaments = TournamentServiceFunctions.getTournaments();
 
-	if(xmlTournaments != null) {
-	   for (Tournament einM : xmlTournaments) {
-	    olTournaments.add(new TournamentFX(einM));
-	} 
+	if (xmlTournaments != null) {
+	    for (Tournament einM : xmlTournaments) {
+		olTournaments.add(new TournamentFX(einM));
+	    }
 	}
-	
-    }
 
+    }
 
     // initialize Tableview columns
     public void initializeColumns() {
@@ -228,20 +219,19 @@ public class TournamentsScreenController extends Dialog<ButtonType> implements I
 	if (idColumn != null) {
 	    idColumn.setCellValueFactory(new PropertyValueFactory<TournamentFX, Integer>("id"));
 	    tournamentTitleColumn
-	    .setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentTitle"));
+		    .setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentTitle"));
 	    tournamentDescriptionColumn
-	    .setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentDescription"));
+		    .setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentDescription"));
 	    tournamentDateColumn
-	    .setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalDate>("tournamentDate"));
+		    .setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalDate>("tournamentDate"));
 	    tournamentTimeBeginnColumn
-	    .setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalTime>("tournamentTimeBeginn"));
+		    .setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalTime>("tournamentTimeBeginn"));
 	    tournamentTimeEndColumn
-	    .setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalTime>("tournamentTimeEnd"));
+		    .setCellValueFactory(new PropertyValueFactory<TournamentFX, LocalTime>("tournamentTimeEnd"));
 	    tournamentResultColumn
-	    .setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentResult"));
+		    .setCellValueFactory(new PropertyValueFactory<TournamentFX, String>("tournamentResult"));
 	}
     }
-
 
     // initialize methods when TournamentsScreen opened
     @Override

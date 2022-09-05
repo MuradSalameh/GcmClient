@@ -31,160 +31,154 @@ import serviceFunctions.TeamServiceFunctions;
 
 public class TeamsDetailDialogController extends Dialog<ButtonType> implements Initializable {
 
-	private int ccId = ControllerCommunicator.getId();
+    private int ccId = ControllerCommunicator.getId();
 
-	@FXML
-	final DialogPane dialogPane = getDialogPane();
-	@FXML
-	private Dialog dialog;
-	@FXML
-	private BorderPane teamEditBp;
-	@FXML
-	private Label idLabel;
-	@FXML
-	private TextField teamNameTF;
-	@FXML
-	private TextField teamDescriptionTF;
+    @FXML
+    final DialogPane dialogPane = getDialogPane();
+    @FXML
+    private Dialog dialog;
+    @FXML
+    private BorderPane teamEditBp;
+    @FXML
+    private Label idLabel;
+    @FXML
+    private TextField teamNameTF;
+    @FXML
+    private TextField teamDescriptionTF;
 
-	@FXML
+    @FXML
+    ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+    @FXML
+    ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+
+    @FXML
+    Button addMemberBtn;
+    @FXML
+    Button removeMemberBtn;
+
+    @FXML
+    private TableView<MemberFX> membersTableView;
+    @FXML
+    private TableColumn<MemberFX, Integer> idColumn;
+    @FXML
+    private TableColumn<MemberFX, String> clanIdColumn;
+    @FXML
+    private TableColumn<MemberFX, String> clanNameColumn;
+
+    // load selected team
+    public Team loadTeam() {
+
+	Team event = TeamServiceFunctions.getTeam(ccId);
+	return event;
+    }
+
+//initialize text fields
+    public void initializeTextFields() {
+	Team team = loadTeam();
+
+	idLabel.setText(String.valueOf(ccId));
+
+	// Team TextFields
+	teamNameTF.setText(team.getTeamName());
+	teamDescriptionTF.setText(team.getTeamDescription());
+
+	teamNameTF.setPromptText("Enter Team Name");
+	teamDescriptionTF.setPromptText("Enter Description");
+
+    }
+
+    // update team
+    public Team updateTeam() {
+	Team team = loadTeam();
+
+	team.setTeamName(teamNameTF.getText());
+	team.setTeamDescription(teamDescriptionTF.getText());
+
+	return team;
+    }
+
+    @FXML
+    private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
+
+    // read list with all members
+    public void readMembersList() {
+	olMembers.clear();
+
+	List<Member> xmlMembers = new ArrayList<Member>();
+
+	xmlMembers = MemberServiceFunctions.getMembersByTeamId(ccId);
+
+	if (xmlMembers != null) {
+	    for (Member einM : xmlMembers) {
+		olMembers.add(new MemberFX(einM));
+
+	    }
+	}
+
+    }
+
+    // initialize membersTableView columns
+    public void initializeColumns() {
+
+	if (idColumn != null) {
+	    idColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, Integer>("id"));
+	    clanNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanName"));
+	    clanIdColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanId"));
+	}
+    }
+
+    // update membersTableView
+    public void updateTable() {
+	// load Data
+	if (membersTableView != null) {
+	    membersTableView.getItems().addAll(olMembers);
+	}
+    }
+
+    // add members to team button
+    public void handleAddMembersBtn() throws IOException {
+
+	FXMLLoader addMemberloader = new FXMLLoader(getClass().getResource("TeamAddMembersDetailDialog.fxml"));
+
+	DialogPane dialogPaneAddMember = addMemberloader.load();
+
+	Dialog dialog = new Dialog();
+	dialog.setDialogPane(dialogPaneAddMember);
+	dialog.setResizable(true);
+
+	TeamAddMembersDialogController tamdc = addMemberloader.getController();
+
 	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-	@FXML
 	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-	@FXML
-	Button addMemberBtn;
-	@FXML
-	Button removeMemberBtn;
+	dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+	dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
 
-	@FXML
-	private TableView<MemberFX> membersTableView;
-	@FXML
-	private TableColumn<MemberFX, Integer> idColumn;
-	@FXML
-	private TableColumn<MemberFX, String> clanIdColumn;
-	@FXML
-	private TableColumn<MemberFX, String> clanNameColumn;
+	Optional<ButtonType> result = dialog.showAndWait();
 
-	//load selected team
-	public Team loadTeam() {
+	if (!result.isPresent()) {
 
-		Team event = TeamServiceFunctions.getTeam(ccId);
-		return event;
-	}
+	    // alert is exited, no button has been pressed.
 
-	
-//initialize text fields
-	public void initializeTextFields() {
-		Team team = loadTeam();
+	} else if (result.get() == saveBtn) {
 
-		idLabel.setText(String.valueOf(ccId));
-
-		// Team TextFields
-		teamNameTF.setText(team.getTeamName());
-		teamDescriptionTF.setText(team.getTeamDescription());
-
-		teamNameTF.setPromptText("Enter Team Name");
-		teamDescriptionTF.setPromptText("Enter Description");
+	    membersTableView.getItems().clear();
+	    readMembersList();
+	    updateTable();
+	    membersTableView.refresh();
+	} else if (result.get() == cancelBtn) {
 
 	}
 
-	//update team
-	public Team updateTeam() {
-		Team team = loadTeam();
+    }
 
-		team.setTeamName(teamNameTF.getText());
-		team.setTeamDescription(teamDescriptionTF.getText());
-
-		return team;
-	}
-
-
-	@FXML
-	private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
-
-	//read list with all members
-	public void readMembersList() {
-		olMembers.clear();
-
-		List<Member> xmlMembers = new ArrayList<Member>();
-		
-		
-		    xmlMembers = MemberServiceFunctions.getMembersByTeamId(ccId);
-		
-
-		if(xmlMembers != null) {
-		  for (Member einM : xmlMembers) {
-			olMembers.add(new MemberFX(einM));
-
-		}  
-		}
-		
-	}
-
-	//initialize membersTableView columns
-	public void initializeColumns() {
-
-		if (idColumn != null) {
-			idColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, Integer>("id"));
-			clanNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanName"));
-			clanIdColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanId"));
-		}
-	}
-
-	//update membersTableView 
-	public void updateTable() {
-		// load Data
-		if (membersTableView != null) {
-			membersTableView.getItems().addAll(olMembers);
-		}
-	}
-
-	// add members to team button
-	public void handleAddMembersBtn() throws IOException {
-
-		FXMLLoader addMemberloader = new FXMLLoader(getClass().getResource("TeamAddMembersDetailDialog.fxml"));
-
-		DialogPane dialogPaneAddMember = addMemberloader.load();
-
-		Dialog dialog = new Dialog();
-		dialog.setDialogPane(dialogPaneAddMember);
-		dialog.setResizable(true);
-
-		TeamAddMembersDialogController tamdc = addMemberloader.getController();
-
-		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
-
-		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
-		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
-
-		Optional<ButtonType> result = dialog.showAndWait();
-
-		if (!result.isPresent()) {
-
-			// alert is exited, no button has been pressed.
-
-		} else if (result.get() == saveBtn) {
-
-			membersTableView.getItems().clear();
-			readMembersList();			
-			updateTable();
-			membersTableView.refresh();
-		} else if (result.get() == cancelBtn) {
-
-	
-
-		}
-
-	}
-
-	// initialize methods when TournamentDetailDialog.fxml is loaded
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// loadTeam();
-		initializeTextFields();
-		readMembersList();
-		initializeColumns();
-		updateTable();
-	}
+    // initialize methods when TournamentDetailDialog.fxml is loaded
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+	// loadTeam();
+	initializeTextFields();
+	readMembersList();
+	initializeColumns();
+	updateTable();
+    }
 }

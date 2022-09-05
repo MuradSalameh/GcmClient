@@ -20,90 +20,82 @@ import javafx.scene.layout.BorderPane;
 
 public class GamesDetailsAddNewDialogController extends Dialog<ButtonType> implements Initializable {
 
-	private int ccId = ControllerCommunicator.getId();
+    private int ccId = ControllerCommunicator.getId();
 
-	@FXML
-	final DialogPane dialogPane = getDialogPane();
-	@FXML
-	private Dialog dialog;
-	@FXML
-	private BorderPane memberEditBp;
+    @FXML
+    final DialogPane dialogPane = getDialogPane();
+    @FXML
+    private Dialog dialog;
+    @FXML
+    private BorderPane memberEditBp;
 
-	@FXML
-	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-	@FXML
-	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+    @FXML
+    ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+    @FXML
+    ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-	// Games Buttons -----
+    // Games Buttons -----
 
-	@FXML
-	private Button gSaveBtn;
-	@FXML
-	private Button gAnBtn;
-	@FXML
-	private Button gEBtn;
-	@FXML
-	private Button gDelBtn;
+    @FXML
+    private Button gSaveBtn;
+    @FXML
+    private Button gAnBtn;
+    @FXML
+    private Button gEBtn;
+    @FXML
+    private Button gDelBtn;
 
-	// ID Labels -----
+    // ID Labels -----
 
-	@FXML
-	private Label sIdLabel;
+    @FXML
+    private Label sIdLabel;
 
-	// Game TextFields -----
+    // Game TextFields -----
 
-	@FXML
-	private TextField gameTitleTf;
-	@FXML
-	private DatePicker relaseDateDP;
-	@FXML
-	private TextArea NotesTa;
-	
-	
-	
-	// create empty game object
-	public Game loadGame() {
+    @FXML
+    private TextField gameTitleTf;
+    @FXML
+    private DatePicker relaseDateDP;
+    @FXML
+    private TextArea NotesTa;
 
-		Game newGame = new Game("Game Title", // title
-				LocalDate.now(), // release date
-				null, // tournaments
-				null, "Notes"); // notes
+    // create empty game object
+    public Game loadGame() {
 
-		return newGame;
-	}
+	Game newGame = new Game("Game Title", // title
+		LocalDate.now(), // release date
+		null, // tournaments
+		null, "Notes"); // notes
 
-	// initialize TextFields -----
+	return newGame;
+    }
 
-	public void initializeTextFields() {
-		Game game = loadGame();
+    // initialize TextFields -----
+    public void initializeTextFields() {
+	Game game = loadGame();
 
-		sIdLabel.setText(String.valueOf(loadGame().getId()));
+	sIdLabel.setText(String.valueOf(loadGame().getId()));
 
-		// Game TextFields
-		gameTitleTf.setText(game.getGameTitle());
-		relaseDateDP.setValue(game.getReleaseDate());
-		NotesTa.setText(game.getGameAdditionalNotes());
-	}
+	// Game TextFields
+	gameTitleTf.setText(game.getGameTitle());
+	relaseDateDP.setValue(game.getReleaseDate());
+	NotesTa.setText(game.getGameAdditionalNotes());
+    }
 
-	
+    // update game
+    public Game updateGame() {
+	Game game = loadGame();
 
-	
-	//update game
-	public Game updateGame() {
-		Game game = loadGame();
+	game.setGameTitle(gameTitleTf.getText());
+	game.setReleaseDate(relaseDateDP.getValue());
+	game.setGameAdditionalNotes(NotesTa.getText());
+	return game;
+    }
 
-		game.setGameTitle(gameTitleTf.getText());
-		game.setReleaseDate(relaseDateDP.getValue());
-		game.setGameAdditionalNotes(NotesTa.getText());
-		return game;
-	}
-
-	
-
-	//initialize methods when GamesDetailsAddNewDialog.fxml is loaded
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		loadGame();
-		initializeTextFields();
-	}
+    // initialize methods when GamesDetailsAddNewDialog.fxml is loaded
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+	loadGame();
+	initializeTextFields();
+    }
 }

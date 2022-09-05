@@ -20,81 +20,77 @@ import serviceFunctions.GameServiceFunctions;
 
 public class GamesDetailsDialogController extends Dialog<ButtonType> implements Initializable {
 
-	private int ccId = ControllerCommunicator.getId();
+    private int ccId = ControllerCommunicator.getId();
 
+    @FXML
+    final DialogPane dialogPane = getDialogPane();
+    @FXML
+    private Dialog dialog;
+    @FXML
+    private BorderPane memberEditBp;
 
-	@FXML
-	final DialogPane dialogPane = getDialogPane();
-	@FXML
-	private Dialog dialog;
-	@FXML
-	private BorderPane memberEditBp;
+    @FXML
+    ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
+    @FXML
+    ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);
 
-	@FXML
-	ButtonType cancelBtn = new ButtonType("Cancellus", ButtonData.CANCEL_CLOSE);
-	@FXML
-	ButtonType saveBtn = new ButtonType("Speichii", ButtonData.OK_DONE);
+    // Games Buttons -----
 
-	// Games Buttons -----
+    @FXML
+    private Button gSaveBtn;
+    @FXML
+    private Button gAnBtn;
+    @FXML
+    private Button gEBtn;
+    @FXML
+    private Button gDelBtn;
 
-	@FXML
-	private Button gSaveBtn;
-	@FXML
-	private Button gAnBtn;
-	@FXML
-	private Button gEBtn;
-	@FXML
-	private Button gDelBtn;
+    // ID Labels -----
 
-	// ID Labels -----
+    @FXML
+    private Label sIdLabel;
 
-	@FXML
-	private Label sIdLabel;
+    // Game TextFields -----
 
-	// Game TextFields -----
+    @FXML
+    private TextField gameTitleTf;
+    @FXML
+    private DatePicker relaseDateDP;
+    @FXML
+    private TextArea NotesTa;
 
-	@FXML
-	private TextField gameTitleTf;
-	@FXML
-	private DatePicker relaseDateDP;
-	@FXML
-	private TextArea NotesTa;
+    // get Member from DB -----
+    public Game loadGame() {
+	Game game = GameServiceFunctions.getGame(ccId);
+	return game;
+    }
 
-	// get Member from DB -----
-	public Game loadGame() {
-		Game game = GameServiceFunctions.getGame(ccId);
-		return game;
-	}
+    // initialize TextFields -----
+    public void initializeTextFields() {
+	Game game = loadGame();
 
-	// initialize TextFields -----
+	sIdLabel.setText(String.valueOf(ccId));
 
-	public void initializeTextFields() {
-		Game game = loadGame();
+	// Game TextFields
+	gameTitleTf.setText(game.getGameTitle());
+	relaseDateDP.setValue(game.getReleaseDate());
+	NotesTa.setText(game.getGameAdditionalNotes());
+    }
 
-		sIdLabel.setText(String.valueOf(ccId));
+    // update game
+    public Game updateGame() {
+	Game game = loadGame();
 
-		// Game TextFields
-		gameTitleTf.setText(game.getGameTitle());
-		relaseDateDP.setValue(game.getReleaseDate());
-		NotesTa.setText(game.getGameAdditionalNotes());
-	}
+	game.setGameTitle(gameTitleTf.getText());
+	game.setReleaseDate(relaseDateDP.getValue());
+	game.setGameAdditionalNotes(NotesTa.getText());
 
+	return game;
+    }
 
-	// update game
-	public Game updateGame() {
-		Game game = loadGame();
-
-		game.setGameTitle(gameTitleTf.getText());
-		game.setReleaseDate(relaseDateDP.getValue());
-		game.setGameAdditionalNotes(NotesTa.getText());
-
-		return game;
-	}
-
-
-	// initialize methods when GamesDetailsDialog.fxml is opened
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		initializeTextFields();
-	}
+    // initialize methods when GamesDetailsDialog.fxml is opened
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+	initializeTextFields();
+    }
 }

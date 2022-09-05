@@ -47,20 +47,17 @@ public class FinancesAddNewExpenseDialogController extends Dialog<ButtonType> im
     @FXML
     ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-
-    // Create empty Expense 
+    // Create empty Expense
     public Expense loadExpense() {
 
-	Expense newExpense = new Expense("test", 	// title
-		"ttttt", 			// desc
-		00.00, 				// amount
-		LocalDate.now(), 		// date
-		"" 				// recipient
-		);
+	Expense newExpense = new Expense("test", // title
+		"ttttt", // desc
+		00.00, // amount
+		LocalDate.now(), // date
+		"" // recipient
+	);
 	return newExpense;
     }
-
-
 
     // initialize TextFields
     public void initializeTextFields() {

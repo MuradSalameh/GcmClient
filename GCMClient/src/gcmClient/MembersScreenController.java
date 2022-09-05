@@ -33,229 +33,226 @@ import serviceFunctions.SocialServiceFunctions;
 
 public class MembersScreenController implements Initializable {
 
-	@FXML
-	private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
-	@FXML
-	private AnchorPane membersAnchor;
-	@FXML
-	private TableView<MemberFX> membersTableView;
-	@FXML
-	private TableColumn<MemberFX, Integer> idColumn;
-	@FXML
-	private TableColumn<MemberFX, String> clanIdColumn;
-	@FXML
-	private TableColumn<MemberFX, String> clanNameColumn;
-	@FXML
-	private TableColumn<MemberFX, String> realNameColumn;
-	@FXML
-	private TableColumn<MemberFX, String> addressColumn;
-	@FXML
-	private TableColumn<MemberFX, String> addressPostcodeColumn;
-	@FXML
-	private TableColumn<MemberFX, String> addressCityColumn;
-	@FXML
-	private TableColumn<MemberFX, String> countryColumn;
-	@FXML
-	private TableColumn<MemberFX, String> emailColumn;
-	@FXML
-	private TableColumn<MemberFX, String> phoneNumberColumn;
-	@FXML
-	private TableColumn<MemberFX, LocalDate> birthdayColumn;
+    @FXML
+    private ObservableList<MemberFX> olMembers = FXCollections.observableArrayList();
+    @FXML
+    private AnchorPane membersAnchor;
+    @FXML
+    private TableView<MemberFX> membersTableView;
+    @FXML
+    private TableColumn<MemberFX, Integer> idColumn;
+    @FXML
+    private TableColumn<MemberFX, String> clanIdColumn;
+    @FXML
+    private TableColumn<MemberFX, String> clanNameColumn;
+    @FXML
+    private TableColumn<MemberFX, String> realNameColumn;
+    @FXML
+    private TableColumn<MemberFX, String> addressColumn;
+    @FXML
+    private TableColumn<MemberFX, String> addressPostcodeColumn;
+    @FXML
+    private TableColumn<MemberFX, String> addressCityColumn;
+    @FXML
+    private TableColumn<MemberFX, String> countryColumn;
+    @FXML
+    private TableColumn<MemberFX, String> emailColumn;
+    @FXML
+    private TableColumn<MemberFX, String> phoneNumberColumn;
+    @FXML
+    private TableColumn<MemberFX, LocalDate> birthdayColumn;
 
-	@FXML
-	public Button editDetailsBtn;
-	@FXML
-	public Button editDetailsBtn2;
-	@FXML
-	public Button addNewBtn;
+    @FXML
+    public Button editDetailsBtn;
+    @FXML
+    public Button editDetailsBtn2;
+    @FXML
+    public Button addNewBtn;
 
-	//edit member details button
-	@FXML
-	private void handleEditDetailsBtn(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailDialog.fxml"));
+    // edit member details button
+    @FXML
+    private void handleEditDetailsBtn(ActionEvent event) throws IOException {
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersDetailDialog.fxml"));
 
-		MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
+	MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
 
-		if (member == null) {
-			return;
-		}
-
-		int id = member.getId();
-		ControllerCommunicator cc = new ControllerCommunicator(id);
-
-		DialogPane dialogPane = loader.load();
-
-		Dialog dialog = new Dialog();
-		dialog.setDialogPane(dialogPane);
-		dialog.setResizable(true);
-
-		MembersDetailsEditController mddc = loader.getController();
-
-		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
-
-		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
-		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
-
-		Optional<ButtonType> result = dialog.showAndWait();
-
-		if (!result.isPresent()) {
-
-			// alert is exited, no button has been pressed.
-
-		} else if (result.get() == saveBtn) {
-
-			Member m = mddc.updateMemberDetails();
-			int idMember = m.getId();
-			MemberServiceFunctions.updateMember(idMember, m);
-
-			membersTableView.getItems().clear();
-			
-			readMembersList();
-			
-			updateTable();
-			membersTableView.refresh();
-
-			Social soc = mddc.updateSocial();
-			int idSocial = soc.getId();
-			SocialServiceFunctions.updateSocial(idSocial, soc);
-
-		} else if (result.get() == cancelBtn) {
-
-			System.out.println("Cancel Button Pressed");
-
-		}
+	if (member == null) {
+	    return;
 	}
 
-	//delete member button
-	@FXML
-	private void handleDeleteBtn() {
+	int id = member.getId();
+	ControllerCommunicator cc = new ControllerCommunicator(id);
 
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("WARNING - DELETING MEMBER");
-		alert.setHeaderText("THIS CAN NOT BE UNDONE");
-		alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
-		
-		
-		MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
-		
-		if (member == null) {
-			return;
-		}
+	DialogPane dialogPane = loader.load();
 
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
+	Dialog dialog = new Dialog();
+	dialog.setDialogPane(dialogPane);
+	dialog.setResizable(true);
 
-			// get ID from item in table view
-			
-			int id = member.getId();
+	MembersDetailsEditController mddc = loader.getController();
 
-			// first delete connections to other objects, then delete from database
-			//MemberServiceFunctions.deleteRolesFromMember(id);
-			MemberServiceFunctions.deleteMemberFromRoles(id);
-			MemberServiceFunctions.deleteMemberFromGames(id);
-			MemberServiceFunctions.deleteMemberFromEvents(id);
-			MemberServiceFunctions.deleteMemberFromTeams(id);
-			MemberServiceFunctions.deleteMemberFromSocials(id);
-			MemberServiceFunctions.deleteMember(id);
+	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-			// remove from Tableview
-			membersTableView.getItems().removeAll(membersTableView.getSelectionModel().getSelectedItem());
+	dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+	dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
 
-			membersTableView.refresh();
-		}
+	Optional<ButtonType> result = dialog.showAndWait();
+
+	if (!result.isPresent()) {
+
+	    // alert is exited, no button has been pressed.
+
+	} else if (result.get() == saveBtn) {
+
+	    Member m = mddc.updateMemberDetails();
+	    int idMember = m.getId();
+	    MemberServiceFunctions.updateMember(idMember, m);
+
+	    membersTableView.getItems().clear();
+
+	    readMembersList();
+
+	    updateTable();
+	    membersTableView.refresh();
+
+	    Social soc = mddc.updateSocial();
+	    int idSocial = soc.getId();
+	    SocialServiceFunctions.updateSocial(idSocial, soc);
+
+	} else if (result.get() == cancelBtn) {
+
+	    System.out.println("Cancel Button Pressed");
+
+	}
+    }
+
+    // delete member button
+    @FXML
+    private void handleDeleteBtn() {
+
+	Alert alert = new Alert(AlertType.CONFIRMATION);
+	alert.setTitle("WARNING - DELETING MEMBER");
+	alert.setHeaderText("THIS CAN NOT BE UNDONE");
+	alert.setContentText("DO YOU REALLY WANT TO DELETE THIS MEMBER?");
+
+	MemberFX member = membersTableView.getSelectionModel().getSelectedItem();
+
+	if (member == null) {
+	    return;
 	}
 
-	//add new member button
-	@FXML
-	public void handleAddNewBtn(ActionEvent t) throws IOException {
+	Optional<ButtonType> result = alert.showAndWait();
+	if (result.get() == ButtonType.OK) {
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersAddNewDialog.fxml"));
-		DialogPane dialogPane = loader.load();
+	    // get ID from item in table view
 
-		Dialog dialog = new Dialog();
-		dialog.setDialogPane(dialogPane);
-		dialog.setResizable(true);
+	    int id = member.getId();
 
-		MembersAddNewDialogController mandc = loader.getController();
+	    // first delete connections to other objects, then delete from database
+	    // MemberServiceFunctions.deleteRolesFromMember(id);
+	    MemberServiceFunctions.deleteMemberFromRoles(id);
+	    MemberServiceFunctions.deleteMemberFromGames(id);
+	    MemberServiceFunctions.deleteMemberFromEvents(id);
+	    MemberServiceFunctions.deleteMemberFromTeams(id);
+	    MemberServiceFunctions.deleteMemberFromSocials(id);
+	    MemberServiceFunctions.deleteMember(id);
 
-		ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-		ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+	    // remove from Tableview
+	    membersTableView.getItems().removeAll(membersTableView.getSelectionModel().getSelectedItem());
 
-		dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
-		dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
-
-		Optional<ButtonType> result = dialog.showAndWait();
-
-		if (!result.isPresent()) {
-
-			// alert is exited, no button has been pressed.
-
-		} else if (result.get() == saveBtn) {
-
-			Member m = mandc.updateMemberDetails();
-			int idMember = m.getId();
-			MemberServiceFunctions.addMember(m);
-
-			membersTableView.getItems().clear();
-			
-			readMembersList();
-			
-			updateTable();
-			membersTableView.refresh();
-			
-
-		} else if (result.get() == cancelBtn) {
-
-			System.out.println("Cancel Button Pressed");
-
-		}
+	    membersTableView.refresh();
 	}
+    }
 
-	// update membersTableView
-	public void updateTable() {
-		// load Data
-		if (membersTableView != null) {
-			membersTableView.getItems().addAll(olMembers);
-		}
+    // add new member button
+    @FXML
+    public void handleAddNewBtn(ActionEvent t) throws IOException {
+
+	FXMLLoader loader = new FXMLLoader(getClass().getResource("MembersAddNewDialog.fxml"));
+	DialogPane dialogPane = loader.load();
+
+	Dialog dialog = new Dialog();
+	dialog.setDialogPane(dialogPane);
+	dialog.setResizable(true);
+
+	MembersAddNewDialogController mandc = loader.getController();
+
+	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
+
+	dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
+	dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
+
+	Optional<ButtonType> result = dialog.showAndWait();
+
+	if (!result.isPresent()) {
+
+	    // alert is exited, no button has been pressed.
+
+	} else if (result.get() == saveBtn) {
+
+	    Member m = mandc.updateMemberDetails();
+	    int idMember = m.getId();
+	    MemberServiceFunctions.addMember(m);
+
+	    membersTableView.getItems().clear();
+
+	    readMembersList();
+
+	    updateTable();
+	    membersTableView.refresh();
+
+	} else if (result.get() == cancelBtn) {
+
+	    System.out.println("Cancel Button Pressed");
+
 	}
+    }
 
-	//read list of all members
-	public void readMembersList() {
-		olMembers.clear();
-
-		List<Member> xmlMembers = new ArrayList<Member>();
-		xmlMembers = MemberServiceFunctions.getMembers();
-
-		for (Member einM : xmlMembers) {
-			olMembers.add(new MemberFX(einM));
-		}
+    // update membersTableView
+    public void updateTable() {
+	// load Data
+	if (membersTableView != null) {
+	    membersTableView.getItems().addAll(olMembers);
 	}
+    }
 
-	// initialize membersTableView columns
-	public void initializeColumns() {
+    // read list of all members
+    public void readMembersList() {
+	olMembers.clear();
 
-		if (idColumn != null) {
-			idColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, Integer>("id"));
-			clanNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanName"));
-			clanIdColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanId"));
-			realNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("realName"));
-			addressColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("address"));
-			addressPostcodeColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("addressPostCode"));
-			addressCityColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("addressCity"));
-			countryColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("country"));
-			emailColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("email"));
-			phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("phoneNumber"));
-			birthdayColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, LocalDate>("birthday"));
-		}
+	List<Member> xmlMembers = new ArrayList<Member>();
+	xmlMembers = MemberServiceFunctions.getMembers();
+
+	for (Member einM : xmlMembers) {
+	    olMembers.add(new MemberFX(einM));
 	}
+    }
 
+    // initialize membersTableView columns
+    public void initializeColumns() {
+
+	if (idColumn != null) {
+	    idColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, Integer>("id"));
+	    clanNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanName"));
+	    clanIdColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("clanId"));
+	    realNameColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("realName"));
+	    addressColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("address"));
+	    addressPostcodeColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("addressPostCode"));
+	    addressCityColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("addressCity"));
+	    countryColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("country"));
+	    emailColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("email"));
+	    phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, String>("phoneNumber"));
+	    birthdayColumn.setCellValueFactory(new PropertyValueFactory<MemberFX, LocalDate>("birthday"));
+	}
+    }
 
 //initialize methds when MembersScreen.fxml is loaded
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		readMembersList();
-		initializeColumns();
-		updateTable();
-	}
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+	readMembersList();
+	initializeColumns();
+	updateTable();
+    }
 }

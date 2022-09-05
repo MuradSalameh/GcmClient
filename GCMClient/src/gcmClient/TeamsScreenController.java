@@ -75,8 +75,8 @@ public class TeamsScreenController {
 	    int idTeam = m.getId();
 	    TeamServiceFunctions.addTeam(m);
 
-	    teamsTableView.getItems().clear();			
-	    readTeamsList();			
+	    teamsTableView.getItems().clear();
+	    readTeamsList();
 	    updateTable();
 	    teamsTableView.refresh();
 
@@ -85,7 +85,6 @@ public class TeamsScreenController {
 	}
     }
 
-    
     // edit team details button
     @FXML
     private void handleEditDetailsBtn(ActionEvent event) throws IOException {
@@ -110,7 +109,7 @@ public class TeamsScreenController {
 	ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 	ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-	System.out.println("SHOW AND WAIT");	
+	System.out.println("SHOW AND WAIT");
 
 	dialog.getDialogPane().getButtonTypes().set(0, saveBtn);
 	dialog.getDialogPane().getButtonTypes().set(1, cancelBtn);
@@ -170,7 +169,7 @@ public class TeamsScreenController {
 	}
     }
 
-    //update teamsTableView
+    // update teamsTableView
     public void updateTable() {
 	// load Data
 	if (teamsTableView != null) {
@@ -184,14 +183,15 @@ public class TeamsScreenController {
 
 	List<Team> xmlTeams = new ArrayList<Team>();
 	xmlTeams = TeamServiceFunctions.getTeams();
-	if(xmlTeams != null) {
+	if (xmlTeams != null) {
 	    for (Team einM : xmlTeams) {
 		olTeams.add(new TeamFX(einM));
 
-	    }  
+	    }
 	}
 
     }
+
 //initialize teamsTableView coumns
     public void initializeColumns() {
 
@@ -202,7 +202,7 @@ public class TeamsScreenController {
 	}
     }
 
-    //initialize methods when TeamsScreen.fxml is loaded
+    // initialize methods when TeamsScreen.fxml is loaded
     public void initialize() {
 	readTeamsList();
 	initializeColumns();

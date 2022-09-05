@@ -75,22 +75,19 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
     @FXML
     ButtonType saveBtn = new ButtonType("Save", ButtonData.OK_DONE);
 
-
     private String startHour;
-	private String startMinute;
+    private String startMinute;
 
-	private String endHour;
-	private String endMinute;
+    private String endHour;
+    private String endMinute;
 
-	
-	//load selected tournament
+    // load selected tournament
     public Tournament loadTournament() {
 
 	Tournament tournament = TournamentServiceFunctions.getTournament(ccId);
 	return tournament;
     }
-    
-    
+
 //initialize text fields
     public void initializeTextFields() {
 	Tournament tournament = loadTournament();
@@ -115,7 +112,6 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	endHourTF.setText(endHour);
 	endMinuteTF.setText(endMinute);
 
-
 	tournamentTitleTF.setPromptText("Enter Tournament Title");
 	tournamentDescriptionTF.setPromptText("Enter Description");
 	tournamentResultTa.setPromptText("Enter Results If Available");
@@ -126,7 +122,7 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 
     }
 
-    //update tournament
+    // update tournament
     public Tournament updateTournament() {
 	Tournament tournament = loadTournament();
 
@@ -144,19 +140,18 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	Pattern mPattern = Pattern.compile(minutePattern);
 
 	Matcher hMatcher = hPattern.matcher(startHourTF.getText());
-	if(hMatcher.matches()){
+	if (hMatcher.matches()) {
 	    startHour = String.valueOf(startHourTF.getText());
 	} else {
 
 	}
 
 	Matcher mMatcher = mPattern.matcher(startMinuteTF.getText());
-	if(mMatcher.matches()){
+	if (mMatcher.matches()) {
 	    startMinute = String.valueOf(startMinuteTF.getText());
 	} else {
 
 	}
-
 
 	int startHourInt = Integer.parseInt(startHour);
 	int startMinuteInt = Integer.parseInt(startMinute);
@@ -166,12 +161,12 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 
 	// End Time
 	Matcher ehMatcher = hPattern.matcher(endHourTF.getText());
-	if(ehMatcher.matches()){
-	    endHour = String.valueOf(endHourTF.getText()); 
+	if (ehMatcher.matches()) {
+	    endHour = String.valueOf(endHourTF.getText());
 	}
 
 	Matcher emMatcher = mPattern.matcher(endMinuteTF.getText());
-	if(emMatcher.matches()){
+	if (emMatcher.matches()) {
 	    endMinute = String.valueOf(endMinuteTF.getText());
 	}
 
@@ -195,8 +190,7 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
     @FXML
     private TableColumn<GameFX, String> gameTitleColumn;
 
-    
-    //initialize gamesTableView columns
+    // initialize gamesTableView columns
     public void initializeGamesColumns() {
 
 	if (gamesIdColumn != null) {
@@ -205,7 +199,7 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	}
     }
 
-    //update gamesTableView
+    // update gamesTableView
     public void updateGamesTable() {
 	// load Data
 	if (gamesTableView != null) {
@@ -213,20 +207,20 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	}
     }
 
-    //read list of all games
+    // read list of all games
     public void readGamesList() {
 	olGames.clear();
 
 	List<Game> xmlGames = new ArrayList<Game>();
 	xmlGames = GameServiceFunctions.getGamesByTournamentId(ccId);
 
-	if(xmlGames!= null) {
+	if (xmlGames != null) {
 	    for (Game einT : xmlGames) {
-	    olGames.add(new GameFX(einT));
+		olGames.add(new GameFX(einT));
 
+	    }
 	}
-	}
-	
+
     }
 
     // add game button
@@ -298,7 +292,6 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	}
     }
 
-    
     // read list of all teams associated to tournament id
     public void readTeamsList() {
 	olTeams.clear();
@@ -306,15 +299,14 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	List<Team> xmlTeams = new ArrayList<Team>();
 	xmlTeams = TeamServiceFunctions.getTeamsByTournamentId(ccId);
 
-	if(xmlTeams != null) {
-	   for (Team einT : xmlTeams) {
-	    olTeams.add(new TeamFX(einT));
-	} 
-	}	
+	if (xmlTeams != null) {
+	    for (Team einT : xmlTeams) {
+		olTeams.add(new TeamFX(einT));
+	    }
+	}
     }
 
-    
-    //add teams button
+    // add teams button
     @FXML
     public void handleAddTeamsBtn(ActionEvent e) throws IOException {
 	FXMLLoader addTeamloader = new FXMLLoader(getClass().getResource("TournamentAddTeamsDialog.fxml"));
@@ -354,7 +346,7 @@ public class TournamentDetailDialogController extends Dialog<ButtonType> impleme
 	}
     }
 
-    //initialize methods when TournamentDetailDialog.fxml is loaded
+    // initialize methods when TournamentDetailDialog.fxml is loaded
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 	loadTournament();

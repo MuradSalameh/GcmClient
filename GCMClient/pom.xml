@@ -13,7 +13,7 @@
 	</properties>
 
 	<dependencies>
-
+	
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
@@ -43,7 +43,6 @@
 			<version>5.8.2</version>
 			<scope>test</scope>
 		</dependency>
-
 
 		<!-- ____________________________  JERSEY & JAXB ____________________________    -->
 		<!-- ____________________________  JERSEY & JAXB ____________________________    -->
